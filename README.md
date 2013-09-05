@@ -1,11 +1,13 @@
-
 #[Home Automation](http://autohomeufcg.no-ip.info)
 ==============
 
-home automation ufcg:
+Home Automation ufcg:
 
-* Alessandro Herculano, 
-* Anderson Gustafson, 
-* Bruno Paiwa, 
-* Fagner Gomes, 
-* coach : Kezia
+* Alessandro Herculano 
+* Anderson Gustafson
+* Bruno Paiva
+* Fagner Gomes
+* coach : Kézia
+
+==============
+
