@@ -1,7 +1,7 @@
 #[Home Automation](http://autohomeufcg.no-ip.info)
 ==============
 
-Home Automation ufcg:
+Home Automation UFCG:
 
 * Alessandro Herculano 
 * Anderson Gustafson
