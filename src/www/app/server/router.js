@@ -3,11 +3,13 @@ var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 
-module.exports = function(app) {
 
+module.exports = function(app) {
+	
 // main login page //
 
 	app.get('/', function(req, res){
+		
 	// check if the user's credentials are saved in a cookie //
 		if (req.cookies.user == undefined || req.cookies.pass == undefined){
 			res.render('login', { title: 'Hello - Please Login To Your Account' });
@@ -97,7 +99,7 @@ module.exports = function(app) {
 				alert("denied");
 				res.redirect('/');
 			} 
-			console.log(req.session.user.name);
+
 				res.render('signup', {
 				title : 'Signup',
 				countries : CT,
@@ -177,7 +179,13 @@ module.exports = function(app) {
 	
 // view & delete accounts //
 	
-	app.get('/print', function(req, res) {
+	app.get('/user', function(req, res) {
+		AM.getAllRecords( function(e, accounts){
+			res.render('print', { title : 'Account List', accts : accounts });
+		})
+	});
+	
+	app.get('/divice', function(req, res) {
 		AM.getAllRecords( function(e, accounts){
 			res.render('print', { title : 'Account List', accts : accounts });
 		})

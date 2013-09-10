@@ -1,0 +1,5 @@
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A PREROUTING -p tcp -i wlan0 --dport 3000 -j DNAT --to 10.0.0.2:3000
+iptables -A FORWARD -p tcp --dport 3000 -j ACCEPT

@@ -20,6 +20,7 @@ var db = new MongoDB(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}),
 });
 var accounts = db.collection('accounts');
 
+	
 /* login validation methods */
 
 exports.autoLogin = function(user, pass, callback)

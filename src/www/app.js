@@ -10,7 +10,7 @@ var http = require('http');
 var app = express();
 var object = []
 app.configure(function(){
-	app.set('port', 80);
+	app.set('port', 3000);
 	app.set('views', __dirname + '/app/server/views');
 	app.set('view engine', 'jade');
 	app.locals.pretty = true;
