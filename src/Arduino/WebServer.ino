@@ -9,7 +9,8 @@
  * Analog inputs attached to pins A0 through A5 (optional)
  
  created 18 Dec 2009
- by David A. Mellis
+ by David A. Mellis0
+ 
  modified 9 Apr 2012
  by Tom Igoe
  
@@ -25,6 +26,11 @@ byte mac[] = {
 IPAddress local_ip(10,0,0,2);
 int led1 = 11;
 int led2 = 12;
+int butonPin = 2;
+int power = 0;
+boolean authentic = 0;
+int control = 0;
+
 // Initialize the Ethernet server library
 // with the IP address and port you want to use 
 // (port 80 is default for HTTP):
@@ -35,6 +41,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
+  pinMode(butonPin, INPUT);
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
@@ -48,42 +55,70 @@ void setup() {
   Serial.println(Ethernet.localIP());
 }
 
+boolean powerStatus(){
+ return digitalRead(led1) == LOW; 
+}
+void switchPower(){
+  if (powerStatus()){
+    digitalWrite(led1, HIGH);          
+  }else {
+    digitalWrite(led1, LOW);
+  }
+  
+}
 
+
+
+void switchButton(){
+     if (!power == digitalRead(butonPin)){
+        power = !power;
+        switchPower();
+    } 
+  
+  
+  
+  
+}
 void loop() {
   // listen for incoming clients
   EthernetClient client = server.available();
   if (client) {
     Serial.println("new client");
+    
     // an http request ends with a blank line
+    String * atual  = &login;
     boolean currentLineIsBlank = true;
-    while (client.connected()) {
-      if (client.available()) {
+    while(client.connected()){
+       switchButton();
+
+
+       if (client.available()) {
         char c = client.read();
         Serial.write(c);
-        if (c == '0'){
-          if (digitalRead(led1) == HIGH){
-          digitalWrite(led1, LOW);
-              
-          }else{
-            digitalWrite(led1, HIGH);
-          }
+        atual += c;
+        atual++;
+        if (c == '\n'){
+          Serial.write("dei enter\n");
+          
         }
-        if (c == '1'){
-          if (digitalRead(led1) == HIGH){
-            client.write("ligado\n");
-              
-          }else{
-            client.write("desligado\n");
+        if (!authentic ) {
+          if (c == '0'){
+             switchPower();
+          }else if (c == '1'){
+            client.write("Ventilador_01 : "); 
+             powerStatus()? client.write("ligado\n") :client.write("desligado\n");
           }
-        }
-                
+        }         
       }
-    }
+    
+  }
     // give the web browser time to receive the data
     delay(1);
     // close the connection:
     client.stop();
     Serial.println("client disonnected");
+  }else {
+    switchButton();
   }
 }
 
