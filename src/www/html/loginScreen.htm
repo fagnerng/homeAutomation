@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Node.js Login</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+  <body>
+  <div id="login-container">
+    <form method="post" id="login-form" class="well span4">
+      <h1>Hello!</h1>
+      <p class="subheading">Please Login To Your Account</p>
+      <label>Username </label>
+      <input name="user" id="user-tf" class="span4 required" type="text">
+      <label>Password</label>
+      <input name="pass" id="pass-tf" class="span4 required" type="password">
+      <button type="submit" id="btn-login" class="btn btn-primary"><i class="icon-lock icon-white"></i>Sign in</button>
+      <label id="remember-me" class="checkbox">Remember Me
+        <input checked="checked" type="checkbox">
+      </label>
+      <div class="clear-fix"></div>
+      <hr>
+      <div class="btm-links"><a href="#" id="forgot-password">Forgot Your Password?</a>
+        <!--a(href='/signup')#create-account Create An Account-->
+      </div>
+    </form>
+  </div>
+  <div class="modal-alert modal hide fade">
+    <div class="modal-header">
+      <button data-dismiss="modal" class="close">x</button>
+      <h3></h3>
+    </div>
+    <div class="modal-body">
+      <p></p>
+    </div>
+    <div class="modal-footer">
+      <button data-dismiss="modal" id="ok" class="btn btn-warning">OK</button>
+    </div>
+  </div>
+  <div id="get-credentials" class="modal-single-input modal hide fade">
+    <div class="modal-header">
+      <button data-dismiss="modal" class="close">x</button>
+      <h3>Retrieve Password</h3>
+    </div>
+    <div class="modal-body">
+      <form method="post" id="get-credentials-form" class="well span5">
+        <p>Please enter the email address associated with your account</p>
+        <input name="email" id="email-tf" class="span5 required" type="text">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        <button data-dismiss="modal" id="cancel" class="btn">Cancel</button>
+        <div class="alert alert-error hide"></div>
+        <button data-dismiss="alert" class="close"></button>
+      </form>
+    </div>
+    <div class="modal-footer"></div>
+  </div>
+  <script src="js/jquery_002.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap-modal.js"></script>
+  <script src="js/bootstrap-transition.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loginController.js"></script>
+  <script src="js/loginValidator.js"></script>
+  <script src="js/emailValidator.js"></script>
+</body></html>
