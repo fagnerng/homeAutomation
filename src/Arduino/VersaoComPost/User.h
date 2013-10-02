@@ -1,9 +1,4 @@
-typedef struct User{
-	String username;
-	String password;
-};
-
-typedef struct Device{
+struct Device{
 	int id;
 	String name;
 	bool onTime;
