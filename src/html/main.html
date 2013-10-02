@@ -1,23 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
 <head>
   <title>Menu</title>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
+<div class="cont"></div>
+<img class="imagem" style="width: 190px;" src="res/home.png">
 
 <!-- Menu de navegacao do site -->
 <ul class="navbar">
-  <li><a href="index.html">Home Page</a>
-  <li><a href="dispositivos.html">Dispositivos</a>
-  <li><a href="Usuários.html">Usuários</a>
-  <li><a href="Contato.html">Contato</a>
+  <li class= "textoNav"><a href="index.html">Home Page</a>
+  <li class= "textoNav"><a href="dispositivos.html">Devices</a>
+  <li class= "textoNav"><a href="Usuários.html">Users</a>
+  <li class= "textoNav"><a href="Contato.html">Contact</a>
+  <li class="logout"><a href="login.html">Logout</a>
 </ul>
 
+
 <!-- Conteudo -->
-<h1>Home Automation</h1>
+<div class="principal">
+<h1><center>Home Automation</h1>
 
 <p>Bem vindos à central do sistema!
 
@@ -25,54 +30,21 @@
 
 <p>Mais bla bla bla
 
+
+</div>
+
+
+
+
+
+
+
 <!-- Date e assine sua página, isto é educado! -->
-<address>Construida em 26/09/2013<br>
-  por mim mesmo.</address>
 
 </body>
 
-  <style type="text/css">
-	  body {
-		  padding-left: 11em;
-		  font-family: Georgia, "Times New Roman", Times, serif;
-		  color: purple;
-		  background-color: #d8da3d 
-		  }
-		  
-      ul.navbar {
-		  list-style-type: none;
-		  padding: 0;
-		  margin: 0;
-		  
-		  position: absolute;
-		  top: 2em;
-		  left: 1em;
-		  width: 9em 
-		  }
-		  
-	  ul.navbar li {
-		  background: white;
-		  margin: 0.5em 0;
-		  padding: 0.3em;
-		  border-right: 1em solid black;
-		  }
-		  
-      ul.navbar a {
-		  text-decoration: none;
-		  }
-		  
-      a:link {
-          color: blue;
-          }
-          
-      a:visited {
-          color: purple;
-          }
-      address {
-		  margin-top: 1em;
-		  padding-top: 1em;
-		  border-top: thin dotted;
-	  }
-  </style>
+  
+
+
   
 </html>
