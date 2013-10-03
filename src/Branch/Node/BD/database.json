@@ -1,0 +1,55 @@
+{
+    "alldata": {
+        "users": [
+            {
+                "name": "Joao",
+                "admin": "true",
+                "devices": []
+            },
+            {
+                "name": "Maria",
+                "admin": "false",
+                "devices": [
+                    "3",
+                    "1"
+                ]
+            },
+            {
+                "name": "Junior",
+                "admin": "false",
+                "devices": [
+                    "1"
+                ]
+            },
+            {
+                "name": "bruno",
+                "admin": "false",
+                "devices": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            }
+        ],
+        "devices": [
+            {
+                "id": "1",
+                "name": "Lampada_Quarto",
+                "status": "on",
+                "timer": 60
+            },
+            {
+                "id": "2",
+                "name": "Lampada_Sala",
+                "status": "on",
+                "timer": 0
+            },
+            {
+                "id": "3",
+                "name": "Lampada_Cozinha",
+                "status": "off",
+                "timer": 0
+            }
+        ]
+    }
+}
