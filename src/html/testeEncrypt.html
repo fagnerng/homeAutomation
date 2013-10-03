@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>CSS3 Contact Form</title>
+</head>
+<body>
+<div id="contact">
+    <button type="button" onclick="show()">Insert</button>
+</div>
+</body>
+
+
+
+<script src="javascript/crypt.js"></script>
+<script>
+
+function show(){
+var texto = "Casa";
+var key = hexToByteArray(genkey());
+var mode = 'ECB'; // ECB or CBC
+var ciphertext = byteArrayToHex(rijndaelEncrypt(texto,key, mode));
+var decryptedtext = byteArrayToString(rijndaelDecrypt(hexToByteArray(ciphertext), key, mode));
+    alert(texto);
+    alert(ciphertext);
+    alert(decryptedtext);
+}
+
+</script>
+
+</html>

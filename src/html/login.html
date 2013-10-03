@@ -3,6 +3,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
 </head>
+<script>
+var xmlhttp = new XMLHttpRequest();
+var responseGet;
+var xmlhttp2 = new XMLHttpRequest();
+var responseGet2;
+
+xmlhttp.onreadystatechange=function() {
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		alert(xmlhttp.responseText);
+	}
+}
+
+xmlhttp2.onreadystatechange=function() {
+	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
+		alert(xmlhttp2.responseText);
+	}
+}
+
+
+function sendHttpGetUsers(){
+	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
+	xmlhttp2.send();
+	}
+
+
+function checaLogin(){
+	var nome = document.getElementById('login');
+	alert(nome.value);
+	xmlhttp.open("POST", "http://localhost:9000/checkLogin?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+	xmlhttp.send();
+	sendHttpGetUsers();
+}
+
+
+
+
+
+
+</script>
+
 <body>
 	<div align="center" class="margemImg"><img src="res/home.png" width="200" height="170"></div>
 	
@@ -13,7 +53,7 @@
 		<table>	
 			<tr>
 				<td align="right">Login:</td>
-				<td align="left"> <input type="text" name="login" size="60"/></td>
+				<td align="left"> <input id="login" type="text" name="login" size="60"/></td>
 			</tr>
 			
 			<tr>
@@ -26,7 +66,7 @@
 	</div>
 	
 	<div align="center" class="margem">
-		<button type="button">Login</button> 
+		<input  type="button" value="post data" onclick="javascript:checaLogin()">
 	</div>
 
 </body>
