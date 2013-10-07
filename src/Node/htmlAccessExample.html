@@ -15,13 +15,18 @@
 			xmlhttp.send();
 		}
 		
+		function sendHttpCheckLogin(){
+			xmlhttp.open("GET", "http://localhost:9000/checklogin/?login=brunoffp&pass=sbrunoffp", false);
+			xmlhttp.send();
+		}
+		
 		function sendHttpGetDevices(){
 			xmlhttp.open("GET", "http://localhost:9000/getdevices", false);
 			xmlhttp.send();
 		}
 		
 		function sendHttpPostUser(){
-			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&devices=1-2-3", true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass=brunoffp&devices=1-2-3&email=brunofpaiwa@gmail.com", true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 			xmlhttp.send();
 		}
 		
@@ -69,6 +74,7 @@
 		<h1 class="title">Pagina Exemplo de Acesso ao Servidor Node</h1>
 		<p class="paragrafo">Ola, voce acessou o nosso servidor</p>
 		<p class="nome">Autor: Bruno Fabio de Farias Paiva</p>
+		<div align="center"><input  type="button" value="checklogin" onclick="javascript:sendHttpCheckLogin()"></div>
 		<div align="center"><input  type="button" value="get users" onclick="javascript:sendHttpGetUsers()"></div>
 		<div align="center"><input  type="button" value="get devices" onclick="javascript:sendHttpGetDevices()"></div>
 		<div align="center"><input  type="button" value="post data" onclick="javascript:sendHttpPostUser()"></div>

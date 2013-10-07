@@ -1,67 +1,26 @@
 {
     "alldata": {
+        "users_length": 2,
         "users": [
             {
-                "id":0,
-				"name": "Joao",
-                "admin": "true",
-                "devices": []
-            },
-            {
-                "id":1,
-				"name": "Maria",
-                "admin": "false",
-                "devices": [
-                    "3",
-                    "1"
-                ]
-            },
-            {
-				"id":2,
-                "name": "Junior",
-                "admin": "false",
-                "devices": [
-                    "1"
-                ]
-            },
-            {
-				"id":3,
+                "id": 1,
                 "name": "bruno",
+                "login": "brunoffp",
+                "pass": "XL8yMGURE3c8849ec0ddb8eb23c8aa7ab2a1010a06",
                 "admin": "false",
-                "devices": [
-                    "1",
-                    "2",
-                    "3"
-                ]
-            },
-            {
-				"id":4,
-                "name": "bruno",
-                "admin": "false",
-                "devices": [
-                    "1",
-                    "2",
-                    "3"
-                ]
+                "devices": "1",
+                "email": "brunofpaiwa@gmail.com"
             }
         ],
         "devices": [
             {
-                "id": "1",
+                "id": "0",
                 "name": "Lampada_Quarto",
-                "status": "on",
-                "timer": 60
+                "timer": 60000
             },
             {
-                "id": "2",
+                "id": "1",
                 "name": "Lampada_Sala",
-                "status": "on",
-                "timer": 0
-            },
-            {
-                "id": "3",
-                "name": "Lampada_Cozinha",
-                "status": "off",
                 "timer": 0
             }
         ]
