@@ -2,12 +2,14 @@
     "alldata": {
         "users": [
             {
-                "name": "Joao",
+                "id":0,
+				"name": "Joao",
                 "admin": "true",
                 "devices": []
             },
             {
-                "name": "Maria",
+                "id":1,
+				"name": "Maria",
                 "admin": "false",
                 "devices": [
                     "3",
@@ -15,6 +17,7 @@
                 ]
             },
             {
+				"id":2,
                 "name": "Junior",
                 "admin": "false",
                 "devices": [
@@ -22,6 +25,17 @@
                 ]
             },
             {
+				"id":3,
+                "name": "bruno",
+                "admin": "false",
+                "devices": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            },
+            {
+				"id":4,
                 "name": "bruno",
                 "admin": "false",
                 "devices": [
