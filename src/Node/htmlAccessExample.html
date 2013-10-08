@@ -1,4 +1,5 @@
 <html>
+	<script src="crypt.js"></script>
 	<script>
 
 		var xmlhttp = new XMLHttpRequest();
@@ -26,7 +27,8 @@
 		}
 		
 		function sendHttpPostUser(){
-			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass=brunoffp&devices=1-2-3&email=brunofpaiwa@gmail.com", true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+			var cryptedPass = convertToMD5(document.getElementById("pass").value);
+			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass="+cryptedPass+"&devices=1-2-3&email=brunofpaiwa@gmail.com", true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 			xmlhttp.send();
 		}
 		
@@ -78,6 +80,7 @@
 		<div align="center"><input  type="button" value="get users" onclick="javascript:sendHttpGetUsers()"></div>
 		<div align="center"><input  type="button" value="get devices" onclick="javascript:sendHttpGetDevices()"></div>
 		<div align="center"><input  type="button" value="post data" onclick="javascript:sendHttpPostUser()"></div>
+		<input name="pass" id="pass" type="password">
 	</body>
   
 </html>
