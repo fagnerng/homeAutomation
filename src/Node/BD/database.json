@@ -3,11 +3,11 @@
         "users": [
             {
                 "name": "Joao",
-                "login": "joaoF",
+                "login": "JoaoM",
                 "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
                 "admin": "true",
                 "devices": [],
-                "email": "joaopaiwa@gmail.com"
+                "email": "joaomaravilha@gmail.com"
             },
             {
                 "name": "Maria",
@@ -19,14 +19,6 @@
                     "2"
                 ],
                 "email": "mariaha@gmail.com"
-            },
-            {
-                "name": "bruno",
-                "login": "brunoffp",
-                "pass": "caf7f763cd767edc74cc3188de93cece",
-                "admin": "false",
-                "devices": "1",
-                "email": "brunofpaiwa@gmail.com"
             }
         ],
         "devices": [
@@ -48,7 +40,6 @@
                 "status": "off",
                 "timer": 0
             }
-        ],
-        "users_length": null
+        ]
     }
 }
