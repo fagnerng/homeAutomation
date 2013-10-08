@@ -8,39 +8,6 @@ var devices = [];
 var autLogin = ""
 console.log("Server Initiated");
 
-//================================= Generate PassWord =================================
-var generateSalt = function()
-{
-	var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
-	var salt = '';
-	for (var i = 0; i < 10; i++) {
-		var p = Math.floor(Math.random() * set.length);
-		salt += set[p];
-	}
-	return salt;
-}
-
-var md5 = function(str) {
-	
-	return crypto.createHash('md5').update(str).digest('hex');
-}
-
-
-var generatePassword = function(pass, callback)
-{
-	var salt = generateSalt();
-	console.log(salt + md5(pass + salt));
-	callback(salt + md5(pass + salt));
-}
-
-var validatePassword = function(plainPass, hashedPass, callback)
-{
-	var salt = hashedPass.substr(0, 10);
-	var validHash = salt + md5(plainPass + salt);
-	callback(null, hashedPass === validHash);
-}
-//========================================================================================
-
 app.use(express.methodOverride());
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -78,9 +45,6 @@ function createNewUser(user, deviceIDS){
 	
 	var idValue = getNextUserID();
 	console.log(idValue);
-	generatePassword(user.pass, function(hash){
-		user.pass = hash;
-	});
 	
 	jsonData.alldata.users_length = idValue+1;
 	jsonData.alldata.users[jsonData.alldata.users.length] = {	"id": idValue, 
@@ -137,32 +101,6 @@ app.get('/getusers', function(req, res){
 	res.send(users.toString());
 });
 
-app.post('/checkLogin', function(req, res){
-	var jsonData = fillUsers();
-	var usersLen = jsonData.alldata.users.length
-
-	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
-		//~ users.push(req.param('name'));
-		userName=true;
-	}
-	var userLogin = req.param('name');
-	var autenticado = false;
-	for(var i=0; i<usersLen;i++){
-		console.log(users[i] + " " + userLogin );
-		if(users[i] == userLogin){
-			console.log("Condicao");
-			autenticado = true;
-		}
-	}
-	console.log("entrou no post")
-	console.log(autenticado)
-	if(autenticado){
-		autLogin = "Ok!";
-	}else{
-		autLogin = "No"
-	}
-});
-
 app.get('/devices', function(req, res){
 	var id = req.param('id');
 	var status = req.param('status');
@@ -180,12 +118,10 @@ app.get('/checkLogin', function(req, res){
 		validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
 			if (o) {
 				err= 'usuario logado';
-			
 			}else {
-			err='senha incorreta';
+				err='senha incorreta';
 			}
-			});
-		
+		});
 	}
 	res.send(err);
 });
@@ -243,7 +179,32 @@ app.post('/adduser', function(req, res){
 		user.email = req.param('email');
 		createNewUser(user, "1");
 	}
-									
+});
+
+app.post('/checkLogin', function(req, res){
+	var jsonData = fillUsers();
+	var usersLen = jsonData.alldata.users.length
+
+	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
+		//~ users.push(req.param('name'));
+		userName=true;
+	}
+	var userLogin = req.param('name');
+	var autenticado = false;
+	for(var i=0; i<usersLen;i++){
+		console.log(users[i] + " " + userLogin );
+		if(users[i] == userLogin){
+			console.log("Condicao");
+			autenticado = true;
+		}
+	}
+	console.log("entrou no post")
+	console.log(autenticado)
+	if(autenticado){
+		autLogin = "Ok!";
+	}else{
+		autLogin = "No"
+	}
 });
 
 function switchPower(id, status){

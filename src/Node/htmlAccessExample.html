@@ -28,7 +28,7 @@
 		
 		function sendHttpPostUser(){
 			var cryptedPass = convertToMD5(document.getElementById("pass").value);
-			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass="+cryptedPass+"&devices=1-2-3&email=brunofpaiwa@gmail.com", true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass="+cryptedPass+"&devices=1-2-3&email=brunofpaiwa@gmail.com", true);
 			xmlhttp.send();
 		}
 		
