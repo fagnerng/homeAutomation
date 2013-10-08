@@ -3,53 +3,52 @@
         "users": [
             {
                 "name": "Joao",
+                "login": "joaoF",
+                "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
                 "admin": "true",
-                "devices": []
+                "devices": [],
+                "email": "joaopaiwa@gmail.com"
             },
             {
                 "name": "Maria",
-                "admin": "false",
-                "devices": [
-                    "3",
-                    "1"
-                ]
-            },
-            {
-                "name": "Junior",
-                "admin": "false",
-                "devices": [
-                    "1"
-                ]
-            },
-            {
-                "name": "bruno",
+                "login": "mariah",
+                "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
                 "admin": "false",
                 "devices": [
                     "1",
-                    "2",
-                    "3"
-                ]
+                    "2"
+                ],
+                "email": "mariaha@gmail.com"
+            },
+            {
+                "name": "bruno",
+                "login": "brunoffp",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
+                "admin": "false",
+                "devices": "1",
+                "email": "brunofpaiwa@gmail.com"
             }
         ],
         "devices": [
             {
-                "id": "1",
+                "id": 0,
                 "name": "Lampada_Quarto",
                 "status": "on",
                 "timer": 60
             },
             {
-                "id": "2",
+                "id": 1,
                 "name": "Lampada_Sala",
                 "status": "on",
                 "timer": 0
             },
             {
-                "id": "3",
+                "id": 2,
                 "name": "Lampada_Cozinha",
                 "status": "off",
                 "timer": 0
             }
-        ]
+        ],
+        "users_length": null
     }
 }

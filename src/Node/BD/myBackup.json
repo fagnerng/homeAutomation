@@ -2,6 +2,7 @@
     "alldata": {
         "users": [
             {
+				"id": 0,
                 "name": "Joao",
                 "login": "brunoffp",
                 "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
@@ -10,32 +11,33 @@
                 "email": "brunofpaiwa@gmail.com"
             },
             {
+				"id": 1,
                 "name": "Maria",
                 "login": "mariah",
-		"senha": "CAF7F763CD767EDC74CC3188DE93CECE",
+				"senha": "CAF7F763CD767EDC74CC3188DE93CECE",
                 "admin": "false",
                 "devices": [
-                    "3",
-                    "1"
+                    "1",
+                    "2"
                 ],
-		"email": "mariaha@gmail.com"
+				"email": "mariaha@gmail.com"
             }
         ],
         "devices": [
             {
-                "id": 1,
+                "id": 0,
                 "name": "Lampada_Quarto",
                 "status": "on",
                 "timer": 60
             },
             {
-                "id": 2,
+                "id": 1,
                 "name": "Lampada_Sala",
                 "status": "on",
                 "timer": 0
             },
             {
-                "id": 3,
+                "id": 2,
                 "name": "Lampada_Cozinha",
                 "status": "off",
                 "timer": 0
