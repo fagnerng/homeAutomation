@@ -2,16 +2,14 @@
     "alldata": {
         "users": [
             {
-				"id": 0,
                 "name": "Joao",
-                "login": "brunoffp",
+                "login": "JoaoM",
                 "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
                 "admin": "true",
                 "devices": [],
-                "email": "brunofpaiwa@gmail.com"
+                "email": "joaomaravilha@gmail.com"
             },
             {
-				"id": 1,
                 "name": "Maria",
                 "login": "mariah",
 				"senha": "CAF7F763CD767EDC74CC3188DE93CECE",

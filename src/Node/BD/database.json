@@ -19,6 +19,17 @@
                     "2"
                 ],
                 "email": "mariaha@gmail.com"
+            },
+            {
+                "name": "bruno",
+                "login": "brunoffp",
+                "pass": "56292b4bfc428eb622b034dca7a40401",
+                "admin": "false",
+                "devices": [
+                    "1",
+                    "3"
+                ],
+                "email": "brunofpaiwa@gmail.com"
             }
         ],
         "devices": [
