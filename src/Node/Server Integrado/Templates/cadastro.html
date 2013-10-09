@@ -5,6 +5,7 @@
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Cadastro</title>
 
+<script src="crypt.js"></script>
 <script type="text/javascript">
 var xmlhttp = new XMLHttpRequest();
 var responseGet;
@@ -13,10 +14,7 @@ var responseGet2;
 
 
 xmlhttp.onreadystatechange=function() {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    alert("pode ir!");
-    window.location = "http://localhost:9000/deviceUpdating";
-  }
+		window.location = "http://localhost:9000/cadastro2";
 }
 
 // xmlhttp2.onreadystatechange=function() {
@@ -43,8 +41,8 @@ function cadastra(){
 	var nome = document.getElementById('name').value;
 	var login = document.getElementById('login').value;
 	var email = document.getElementById('email').value;
-	var pass = document.getElementById('pass').value;
-	var cpass = document.getElementById('cpass').value;
+	var pass = convertToMD5(document.getElementById('pass').value);
+	var cpass = convertToMD5(document.getElementById('cpass').value);
 	if (pass != cpass){
 		alert("senhas não conferem");
 	}else{

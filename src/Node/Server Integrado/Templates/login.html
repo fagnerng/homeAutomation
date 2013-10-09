@@ -1,54 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!-- TemplateBeginEditable name="doctitle" -->
+
 <title>Login</title>
 
 <script src="crypt.js"></script>
 <script type="text/javascript">
 var xmlhttp = new XMLHttpRequest();
-var responseGet;
 var xmlhttp2 = new XMLHttpRequest();
+var responseGet;
 var responseGet2;
 
 xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		alert(xmlhttp.responseText);
 	}
 }
 
 xmlhttp2.onreadystatechange=function() {
 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
 		var autenthication = xmlhttp2.responseText;
-		alert(autenthication);
-		if (autenthication == "Ok!"){
-			window.location = "http://localhost:9000/home";
+		if (autenthication == "true"){
+			window.location = "http://localhost:9000/inicio.html";
 		}else{
 			alert("Informações incorretas");
 		}
 	}
 }
 
-
 function sendHttpGetUsers(){
 	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
 	xmlhttp2.send();
-	}
-
+}
 
 function checaLogin(){
 	var nome = document.getElementById('login');
 	var pass = convertToMD5(document.getElementById('pass').value);
-	alert(pass);
-	alert(nome.value);
 	xmlhttp.open("POST", "http://localhost:9000/checkLogin?login=" + nome.value+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 	xmlhttp.send();
 	sendHttpGetUsers();
 }
 
-
-	
 </script>
 
 <!-- TemplateEndEditable -->

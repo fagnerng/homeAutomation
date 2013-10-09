@@ -153,7 +153,6 @@ function allDevicesStatus(){
 }
 
 function validatePassword(strReceived, strBD, callback){
-	console.log(strReceived, strBD, strReceived === strBD);
 	callback(null, strReceived === strBD);
 }
 
@@ -185,9 +184,6 @@ app.get('/', function(req, res){
 app.get('/getusers', function(req, res){
 	fillUsers();
 	res.type('text/plain');
-	
-	//updating the jsonText pra poder altera-lo adicionando novos dados
-	//~ res.send(jsonData);
 	res.send(users.toString());
 });
 
@@ -197,26 +193,6 @@ app.get('/devices', function(req, res){
 	switchPower(id,status);
 	res.send(null, 200);
 });
-
-
-app.get('/checkLogin', function(req, res){
-	var jsonData = fillUsers();
-	var index = findUserByLogin (req.param('login'));
-	var err = "";
-	if (index ==-1 ){
-		err= 'usuario inexistente';
-	}else{
-		validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
-			if (o) {
-				err= 'usuario logado';
-			}else {
-				err='senha incorreta';
-			}
-		});
-	}
-	res.send(err,200);
-});
-
 
 app.get('/getdevices', function(req, res){
 	res.type('text/plain');	
@@ -245,6 +221,26 @@ app.post('/deleteUser', function(req, res){
 	res.send(null, 200);
 });
 
+app.post('/checkLogin', function(req, res){
+	var jsonData = fillUsers();
+	
+	console.log(req.param('login'));
+	
+	var index = findUserByLogin(req.param('login'));
+	var err = "";
+	if (index ==-1 ){
+		err= 'usuario inexistente';
+	}else{
+		validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
+			if (o) {
+				err= 'usuario logado';
+			}else {
+				err='senha incorreta';
+			}
+		});
+	}
+	res.send(err,200);
+});
 
 app.post('/adduser', function(req, res){
 	var user={};
@@ -272,29 +268,6 @@ app.post('/adduser', function(req, res){
 		res.send(null, 200);
 	}
 	res.send(null, 300);
-});
-
-app.post('/checkLogin', function(req, res){
-	var jsonData = fillUsers();
-	var usersLen = jsonData.alldata.users.length
-
-	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
-		//~ users.push(req.param('name'));
-		userName=true;
-	}
-	var userLogin = req.param('name');
-	var autenticado = false;
-	for(var i=0; i<usersLen;i++){
-		if(users[i] == userLogin){
-			autenticado = true;
-		}
-	}
-	if(autenticado){
-		autLogin = "Ok!";
-	}else{
-		autLogin = "No"
-	}
-	res.send(autLogin, 200);
 });
 
 app.post('/updatedevices', function(req, res){

@@ -88,30 +88,27 @@ function checaLogin(){
 var devicesRequest = new XMLHttpRequest();
 
 devicesRequest.onreadystatechange=function() {
-  if (devicesRequest.readyState==4 && devicesRequest.status==200) {
-    var devicesContent = devicesRequest.responseText;
-    var devices = devicesContent.split(",");
-    for (var i = 0 ; i<devices.length; i++){
-            nome = devices[i];
-          
-            var divTag = document.createElement("div");
-            
-            divTag.id = "div1";
+	if (devicesRequest.readyState==4 && devicesRequest.status==200) {
+		var devicesContent = devicesRequest.responseText;
+		var devices = devicesContent.split(",");
+		for (var i = 0; i<devices.length; i++){
+			nome = devices[i];
+		  
+			var divTag = document.createElement("div");
+			
+			divTag.id = "div1";
 
-            Ndevices++;
+			Ndevices++;
 
-            divTag.style.margin = "0px";
-             
-            divTag.className ="dynamicDiv";
-             
-            divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+			divTag.style.margin = "0px";
+			 
+			divTag.className ="dynamicDiv";
+			 
+			divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
 
-            document.getElementById("divUsers").appendChild(divTag); 
-    }
-
-  
-  }
-
+			document.getElementById("divUsers").appendChild(divTag); 
+		}
+	}
 }
 
 function getUsers(){

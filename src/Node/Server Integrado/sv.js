@@ -2,27 +2,21 @@ var express = require('express');
 var crypto = require('crypto');
 var app = express();
 
-var users = [];
-var devices = [];
-var jsonDataBase;
-var rootUser = false;
-var userDevices = [];
-var userLoged = false;
-var selectedUser;
-var iDs = [];
-var userRegistred = "";
-var registerHapenning = false;
-
-
-app.use(express.static(__dirname + '/Paginas'));
+var users = [];			// Carrega todos os usuarios do sistema
+var devices = [];		// Carrega todos os devices do sistema
+var rootUser = false;	// Flag para indicar se o usuario logado e root
+var userDevices = [];	// IDs dos Devices do Usuario atual
+var userLoged = false;  // Flag para controle de acesso ao sistema (login/logout)
+var selectedUser;		// Usuario selecionado no select box na tela de Gerenciamento
+var userDevicesManage = [];	// IDs dos Devices da tela de Gerenciamento 
+var userRegistered = ""; // Usuario que esta sendo registrado naquele momento
+var registerHapenning = false; // Flag para controle de execucao de registro
 
 app.configure(function(){
-	app.use(express.static(__dirname + '/Templates'));
-	console.log(__dirname + '/Paginas/img/');
-	console.log(__dirname + '/Paginas');
+	app.use(express.static(__dirname + '/Templates/res'));
 });
 
-var autLogin = "";
+var autLogin = "false";
 console.log("Server Initiated");
 
 app.use(express.methodOverride());
@@ -37,6 +31,21 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
+function switchPower(id, status){
+	var http = require('http');
+	console.log("dispositivo "+ id + " status : "+status);
+	var myPath =  '/control.html?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status;
+	var postOptions = {
+		host: '192.168.2.28',
+		path: myPath,
+		port: '3000',
+		method: 'POST'
+	};
+
+	console.log("ligar disposito 00");
+	http.request(postOptions, console.log).end();
+};
+
 function saveData(jsonData){
 	fs = require('fs');
 	var outputFilename = './BD/database.json';
@@ -50,21 +59,30 @@ function saveData(jsonData){
 	}); 	
 }
 
-function getNextUserID(){
+function isRoot(login){
 	var jsonData = require('./BD/database.json');
-	var length = jsonData.alldata.users_length;
-	return length;
+	var length = jsonData.alldata.users.length;
+	console.log("isROOT", length);
+	for(i=0; i < length; i++){
+		console.log("Admin",jsonData.alldata.users[i].admin);
+		if (login == jsonData.alldata.users[i].login){
+			if ("true" == jsonData.alldata.users[i].admin){
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function changeStatus(id,status){
+	//switchPower(id,status)
 	var jsonData = require('./BD/database.json');
-	jsonDataBase = jsonData;
-	jsonDataBase.alldata.devices[id].status = status;
+	jsonData.alldata.devices[id].status = status;
 
 	fs = require('fs');
 	var outputFilename = './BD/database.json';
-	console.log("in!");
-	fs.writeFile(outputFilename, JSON.stringify(jsonDataBase, null, 4), function(err) {
+	console.log("in!");// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
+	fs.writeFile(outputFilename, JSON.stringify(jsonData, null, 4), function(err) {
 		if(err) {
 		  console.log(err);
 		} else {
@@ -74,27 +92,17 @@ function changeStatus(id,status){
 }
 
 function createNewUser(user, deviceIDS){
-	console.log("entrou na func");
 	var jsonData = fillUsers();
-	var devs = "1"//deviceIDS.split("-"); 
 	
-	var idValue = getNextUserID();
-	console.log(idValue);
-	
-	jsonData.alldata.users_length = idValue+1;
-	jsonData.alldata.users[jsonData.alldata.users.length] = {	"id": idValue, 
+	jsonData.alldata.users[jsonData.alldata.users.length] = { 
 												"name": user.name, 
 												"login": user.login, 
 												"pass": user.pass, 
 												"admin": "false", 
-												"devices": devs, 
+												"devices": [], 
 												"email": user.email };
 	
 	saveData(jsonData);
-}
-
-function allDevices(){
-
 }
 
 function fillUsers(){
@@ -102,41 +110,35 @@ function fillUsers(){
 	var usersLen = jsonData.alldata.users.length
 	
 	for (var i=0; i < usersLen; i++) {
-	    console.log(jsonData.alldata.users[i].name);
-	    users[i] = jsonData.alldata.users[i].name;
+	    users[i] = jsonData.alldata.users[i].login;
 	}
-	
-	jsonDataBase = jsonData;
 	return jsonData; 
 }
 
-//Essa função é nova!
 function getUserDevices(login){
 	var jsonData = require('./BD/database.json');
 	var indice = findUserByLogin(login);
-	console.log(indice);
+	console.log(indice); // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
 	var devicesUserLen = jsonData.alldata.users[indice].devices.length;
-	iDs = jsonData.alldata.users[indice].devices;
+	userDevicesManage = jsonData.alldata.users[indice].devices;
 	var devicesUser = [];
 	for(var i=0; i<devicesUserLen; i++){
-		devicesUser[i] =  jsonData.alldata.devices[jsonData.alldata.users[indice].devices[i]].name;
+		devicesUser[i] = jsonData.alldata.devices[jsonData.alldata.users[indice].devices[i]].name;
 	}
 	return devicesUser;
 }
 
-console.log(getUserDevices("Joao"));
-
-function findUserByLogin(login){
+function findUserByLogin(loginName){
 	var jsonData = require('./BD/database.json');
-	var usersLen = jsonData.alldata.users.length
+	var usersLen = jsonData.alldata.users.length;
+	
 	for (var i=0; i < usersLen; i++) {
-	    if ( login == jsonData.alldata.users[i].name){
+	    if (loginName == jsonData.alldata.users[i].login){
 			return i;
 		}
 	}
 	return -1;
 }
-
 
 function allDevicesStatus(){
 	var devicesStatus = []
@@ -162,24 +164,23 @@ function findUserByEmail(email){
 	return -1;
 }
 
-function fillDevices(){
-	
+function fillDevices(){	
 	var jsonData = require('./BD/database.json');
 	var devicesLen = jsonData.alldata.devices.length
 	
 	for (var i=0; i < devicesLen; i++) {
-	    console.log(jsonData.alldata.devices[i].name);
 	    devices[i] = jsonData.alldata.devices[i].name;
 	    userDevices[i] = i;
 	}
 }
 
+app.get('/', function(req, res){
+	res.redirect('/login');
+});
+
 app.get('/getusers', function(req, res){
 	fillUsers();
 	res.type('text/plain');
-	
-	//updating the jsonText pra poder altera-lo adicionando novos dados
-	//~ res.send(jsonData);
 	res.send(users.toString());
 });
 
@@ -189,34 +190,16 @@ app.get('/devices', function(req, res){
 	switchPower(id,status);
 });
 
-app.post('/updatedevices', function(req, res){
-	if(/*registerHapenning*/ true){
-		var index = findUserByLogin(userRegistred);	
-	}else{
-		var index = findUserByLogin(req.param('login'));
-	}
-	var jsonData = require('./BD/database.json');
-	var devs = req.param('devices').split(",");
-	console.log(req.param('devices'));
-	console.log("idnex", index);
-	
-	if (index != -1){
-		jsonData.alldata.users[index].devices = devs;
-		saveData(jsonData);
-	}
-	registerHapenning = false;
-	userRegistred = "";
-});
-
-//tratar
-app.post('/choicedUser', function(req, res){
-	login = req.param('login');
-	console.log(login+"aaaaaa");
-	choicedUser = getUserDevices(login);
-});
-
 app.get('/idDevicesUser', function(req, res){
-	res.send(iDs.toString());
+	res.send(userDevicesManage.toString());
+});
+
+app.get('/res/home.png', function(req, res){
+	res.sendfile(__dirname +"/Templates/res/home.png");
+});
+
+app.get('/crypt.js', function(req, res){
+	res.sendfile(__dirname +"/Templates/crypt.js");
 });
 
 app.get('/choicedUser', function(req, res){
@@ -224,78 +207,9 @@ app.get('/choicedUser', function(req, res){
 	console.log(choicedUser.toString());
 });
 
-
-// app.post('/checkLogin', function(req, res){
-// 	fillUsers();
-// 	var jsonData = fillUsers();
-// 	var index = findUserByLogin (req.param('login'));
-// 	console.log(req.param('pass'));
-// 	var err = "";
-// 	if (index ==-1 ){
-// 		err= "ue";
-// 	}else{
-// 		validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
-// 			if (o) {
-// 				err= 'usuario logado';
-// 				autLogin = "Ok!"
-// 			}else {
-// 				err='senha incorreta';
-// 				res.send("No!");
-// 			}
-// 		});
-// 	}
-// });
-
-
 app.get('/getdevices', function(req, res){
 	res.type('text/plain');
-	fillDevices();
 	res.send(devices.toString());
-});
-
-//New
-app.post('/deleteDevices', function(req, res){
-	var devices = "";
-	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
-	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
-});
-
-//New 
-app.post('/deleteUser', function(req, res){
-	console.log(req.param('user'));
-	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
-});
-
-
-app.post('/adduser', function(req, res){
-	console.log("foi no post!!");
-	var user={};
-	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
-		userName=true;
-	}
-	
-	var loginValid = findUserByLogin(req.param('login'));
-	if (loginValid != -1){
-		console.log("Login Existente!");
-	}
-	var emailValid = findUserByEmail(req.param('email'));
-	if (emailValid != -1){
-		console.log("Email Existente!");
-		
-	}
-		
-	if (loginValid + emailValid == -2){
-		//funcaoFind
-		registerHapenning = true;
-		userRegistred = req.param('name');
-		user.name = req.param('name');
-		user.login = req.param('login');
-		user.pass = req.param('pass');
-		devs = []
-		user.email = req.param('email');
-		createNewUser(user, "1");
-	}
-	console.log("Usuario registrado!");
 });
 
 app.get('/login', function(req, res){
@@ -303,7 +217,19 @@ app.get('/login', function(req, res){
 	res.sendfile(__dirname + '/Templates/login.html');
 });
 
-app.get('/root', function(req, res){
+app.get('/allDevices', function(req, res){
+	var jsonData = require('./BD/database.json');
+	var devicesLen = jsonData.alldata.devices.length
+	var allDevices = [];
+	
+	for (var i=0; i < devicesLen; i++) {
+	    console.log(jsonData.alldata.devices[i].name);
+	    allDevices[i] = jsonData.alldata.devices[i].name;
+	}
+	res.send(allDevices.toString());
+});
+
+app.get('/root', function(req, res){ // DELETAR DEPOIS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	res.send(rootUser);
 });
 
@@ -318,137 +244,68 @@ app.get('/home', function(req, res){
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
-		res.redirect('/menu');
+		res.redirect('/inicio.html');
 	}else{
 		res.sendfile(__dirname + '/Templates/inicio.html');
-	}
-	
+	}	
 });
 
-app.get('/menu', function(req, res){
+app.get('/inicio.html', function(req, res){
 	if(userLoged){
 		res.sendfile(__dirname + '/Templates/inicio.html');
 	}else{
 		res.redirect('/login');
-	}
-	
+	}	
 });
 
-app.get('/deviceUpdating', function(req, res){
+app.get('/cadastro2', function(req, res){
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
-		res.redirect('/menu');
+		res.redirect('/inicio.html');
 	}else{
 		res.sendfile(__dirname + '/Templates/cadastro2.html');
 	}
-	
 });
 
-app.get('/userRegister', function(req, res){
+app.get('/contato.html', function(req, res){
+	if(!(userLoged)){
+		res.redirect('/login');
+	}else{
+		res.sendfile(__dirname + '/Templates/contato.html');
+	}	
+});
+
+app.get('/cadastro.html', function(req, res){
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
-		res.redirect('/menu');
+		res.redirect('/inicio.html');
 	}else{
 		res.sendfile(__dirname + '/Templates/cadastro.html');
 	}
 	
 });
 
-app.get('/user', function(req, res){
+app.get('/usuarios.html', function(req, res){
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
-		res.redirect('/menu');
+		res.redirect('/inicio.html');
 	}else{
 		res.sendfile(__dirname + '/Templates/usuarios.html');
 	}
 	
 });
 
-app.get('/DeviceManagement', function(req, res){
-		if(!(userLoged)){
+app.get('/dispositivos.html', function(req, res){
+	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
-		res.redirect('/menu');
+		res.redirect('/inicio.html');
 	}else{
 		res.sendfile(__dirname + '/Templates/dispositivos.html');
 	}
-	
-});
-
-app.post('/checkLogin', function(req, res){
-	// var jsonData = require('./BD/database.json');
-	// var usersLen = jsonData.alldata.users.length
-
-
-	// if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
-	// 	//~ users.push(req.param('name'));
-	// 	userName=true;
-	// }
-	// var userLogin = req.param('name');
-	// var autenticado = false;
-	// var userID;
-	// for(var i=0; i<usersLen;i++){
-	// 	console.log(users[i] + " " + userLogin );
-	// 	if(users[i] == userLogin){
-	// 		console.log("Condicao");
-	// 		autenticado = true;
-	// 		userID = i;
-	// 	}
-	// }
-	fillUsers();
-	var userLogin = req.param('login');
-	autenticado = false;
-	var jsonData = fillUsers();
-	var index = findUserByLogin(req.param('login'));
-	console.log(req.param('login'));
-	console.log(req.param('pass'));
-	console.log(jsonData.alldata.users[index].senha);
-	var err = "";
-	if (index == -1 ){
-		console.log("user not found");
-		autenticado = false;
-	}else{
-		if(jsonData.alldata.users[index].senha == req.param('pass')){
-				console.log("ai sim papai");
-				err= 'usuario logado';
-				autLogin = "Ok!";
-				autenticado = true;
-			}else {
-				err='senha incorreta';
-				res.send("No!");
-				console.log("nopass");
-				autenticado = false;
-			}
-		}
-	console.log("entrou no post")
-	console.log(autenticado)
-	if(autenticado){
-		autLogin = "Ok!";
-		userLoged = true;
-		if(userLogin == users[0]){
-			rootUser = true;
-			fillDevices();
-
-		}else{
-			rootUser = false;
-			devices = [];
-			console.log(userID);
-			console.log(devices);
-			devicesSize = jsonData.alldata.users[userID].devices.length;
-			for(var i=0; i<devicesSize;i++){
-				var deviceID = jsonData.alldata.users[userID].devices[i];
-				devices[i] = jsonData.alldata.devices[deviceID].name;
-			}
-			userDevices =  jsonData.alldata.users[userID].devices;
-			console.log(devices);
-		}
-	}else{
-		autLogin = "No!"
-	}
-
 });
 
 app.get('/allstatus', function(req, res){
@@ -461,6 +318,120 @@ app.get('/checkLogin', function(req, res){
 	res.send(autLogin);
 });
 
+//New
+app.post('/deleteDevices', function(req, res){
+	var devices = "";
+	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
+});
+
+//New 
+app.post('/deleteUser', function(req, res){
+	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+});
+
+app.post('/updatedevices', function(req, res){
+	if(registerHapenning){
+		console.log(userRegistered);
+		var index = findUserByLogin(userRegistered);	
+	}else{
+		var index = findUserByLogin(req.param('login'));
+	}
+	var jsonData = require('./BD/database.json');
+	var devs = req.param('devices').split(",");
+	console.log(req.param('devices'));
+	
+	console.log("idnex", index);
+	
+	if (index != -1){
+		jsonData.alldata.users[index].devices = devs;
+		saveData(jsonData);
+	}
+	registerHapenning = false;
+	userRegistered = "";
+});
+
+app.post('/choicedUser', function(req, res){
+	//TRATAR se login é valido ou nao
+	login = req.param('login');
+	choicedUser = getUserDevices(login);
+});
+
+app.post('/adduser', function(req, res){
+	console.log("foi no post!!");
+	var user={};
+	if (req.param('name') != undefined && req.param('name') != ""){
+		userName=true;
+	}
+	
+	var loginValid = findUserByLogin(req.param('login'));
+	if (loginValid != -1){
+		console.log("Login Existente!");
+	}
+	var emailValid = findUserByEmail(req.param('email'));
+	if (emailValid != -1){
+		console.log("Email Existente!");
+		//Tratar se o email ja existe
+	}
+		
+	if (loginValid + emailValid == -2){
+		registerHapenning = true;
+		userRegistered = req.param('login');
+		user.name = req.param('name');
+		user.login = req.param('login');
+		user.pass = req.param('pass');
+		devs = [];
+		user.email = req.param('email');
+		createNewUser(user, "1");
+	}
+	console.log("Usuario registrado!");
+});
+
+app.post('/checkLogin', function(req, res){
+
+	fillUsers();
+	var userLogin = req.param('login');
+	autenticado = false;
+	var jsonData = fillUsers();
+	var index = findUserByLogin(req.param('login'));
+	var err = "";
+	if (index == -1 ){
+		autenticado = false;
+	}else{
+		if(jsonData.alldata.users[index].pass == req.param('pass')){
+			err= 'usuario logado';
+			autLogin = "true";
+			autenticado = true;
+		}else {
+			err='senha incorreta';
+			res.send("No!");
+			autenticado = false;
+		}
+	}
+	if(autenticado){
+		autLogin = "true";
+		userLoged = true;
+		if(isRoot(userLogin)){
+			rootUser = true;
+			fillDevices();
+		}else{
+			rootUser = false;
+			devices = [];
+			console.log(index);
+			console.log(devices);
+			devicesSize = jsonData.alldata.users[index].devices.length;
+			for(var i=0; i<devicesSize;i++){
+				var deviceID = jsonData.alldata.users[index].devices[i];
+				devices[i] = jsonData.alldata.devices[deviceID].name;
+			}
+			userDevices = jsonData.alldata.users[index].devices;
+			console.log(devices);
+		}
+	}else{
+		autLogin = "false";
+	}
+});
+
 app.post('/takeStatus',function(req,res){
 	console.log("entrou no post");
 	var id = req.param('id');
@@ -468,22 +439,6 @@ app.post('/takeStatus',function(req,res){
 	console.log(userDevices[parseInt(id)]);
 	changeStatus(userDevices[id],status);
 });
-
-
-function switchPower(id, status){
-  var http = require('http');
-  console.log("dispositivo "+ id + " status : "+status);
-  var myPath =  '/control.html?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status;
-  var postOptions = {
-  host: '192.168.2.28',
-  path: myPath,
-  port: '3000',
-  method: 'POST'
-	};
-
-	console.log("ligar disposito 00");
-	http.request(postOptions, console.log).end();
-};
 
 app.listen(9000);
 

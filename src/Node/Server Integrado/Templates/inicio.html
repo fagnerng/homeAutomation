@@ -4,6 +4,86 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Inicial</title>
+
+<script>
+var boxRequest = new XMLHttpRequest();
+
+
+
+boxRequest.onreadystatechange=function() {
+  	if (boxRequest.readyState==4 && boxRequest.status==200) {
+	    var response = boxRequest.responseText;
+	    var users = response.split(",");
+	    var select = document.getElementById('combobox');
+		for(var i=0; i < users.length; i++) {
+	    	var opt = document.createElement('option');
+	    	opt.innerHTML = users[i];
+	    	opt.value = users[i];
+	    	select.appendChild(opt);
+		}
+	}
+}
+
+function getDevices(){
+	boxRequest.open("GET", "http://localhost:9000/getDevices", false);
+	boxRequest.send();
+}
+
+var statusRequest = new XMLHttpRequest();
+
+statusRequest.onreadystatechange=function() {
+  	if (boxRequest.readyState==4 && boxRequest.status==200) {
+    	var response = boxRequest.responseText;
+    }
+}
+
+function checaBox(){
+	var e = document.getElementById("combobox");
+ 	var chbx = document.getElementById("chbx").checked;
+ 	var status;
+ 	alert(e.selectedIndex);
+ 	if(chbx){
+ 		status = "on";
+
+ 	}else{
+ 		status= "off"
+ 	}
+ 	statusRequest.open("POST", "http://localhost:9000/takeStatus?id=" + e.selectedIndex + "&status="+status , true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+    statusRequest.send();
+}
+
+var request = new XMLHttpRequest();
+
+var status = "a";
+request.onreadystatechange=function() {
+	if (request.readyState==4 && request.status==200) {
+	    var allstats = request.responseText;
+	    var stat = allstats.split(",");
+	    var e = document.getElementById("combobox");
+	    status = stat[e.selectedIndex];
+	    var chbx = document.getElementById("chbx");
+	    alert(status);
+    if(status == "off"){
+    	chbx.checked = false;
+	}else{
+		chbx.checked = true;
+		}
+	}
+}
+
+
+function populateList() {
+    request.open("GET", "http://localhost:9000/allstatus", false);
+  	request.send();
+    
+
+    alert(status);
+}
+
+
+window.onload = getDevices;
+</script>
+
 <!-- TemplateEndEditable -->
 <!-- TemplateBeginEditable name="head" -->
 <!-- TemplateEndEditable -->
@@ -77,6 +157,10 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	
 }
 
+.other{
+	padding: 10px;
+}
+
 /* ~~ This grouped selector gives the lists in the .content area space ~~ */
 .content ul, .content ol { 
 	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
@@ -136,6 +220,25 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
   <div class="content">
     <h1>Início</h1>
     <p> Aqui ficará os dispositivos do usuário com as opções de ligar e desligar, juntamente com seu status!</p>
+
+    <div class="other">
+		<select id="combobox"  class="other" onchange="populateList();"></select>
+	</div>
+
+	<div class="other">
+		<input id="chbx" type="checkbox" name="checkbox1" >Status<br>
+	</div>
+
+	<div class="other">
+		Desligar automaticamente em: 
+		<input type="number" min="0" value="0" name="tempo">
+		min
+	</div>
+
+	<div class="other">
+		<input class="other" type="button" name="btOk" value="OK" onclick="checaBox()">
+	</div>
+	
     <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

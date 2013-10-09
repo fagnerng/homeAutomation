@@ -16,7 +16,7 @@ var devicesFromUser = 0;
 
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    alert(xmlhttp.responseText);
+    
   }
 }
 
@@ -57,7 +57,7 @@ devicesRequest.onreadystatechange=function() {
 }
 
 function getDevices(){
-  devicesRequest.open("GET", "http://localhost:9000/getDevices", false);
+  devicesRequest.open("GET", "http://localhost:9000/allDevices", false);
   devicesRequest.send();
 }
 
@@ -89,7 +89,7 @@ devicesRequestGet.onreadystatechange=function() {
     var devicesContent = devicesRequestGet.responseText;
     var devices = devicesContent.split(",");
     for (var i = 0 ; i<devices.length; i++){
-            alert("Foi no get");
+            
             nome = devices[i];
           
             var divTag = document.createElement("div");
@@ -112,7 +112,7 @@ devicesRequestGet.onreadystatechange=function() {
 }
 
 function getDevicesFromUser(){
-   alert("chamou");
+   
   devicesRequestGet.open("GET", "http://localhost:9000/choicedUser", false);
   devicesRequestGet.send();
 }
@@ -158,14 +158,11 @@ function add1(){
   requestIds.send();
 
   for(var i=0; i<selectedDevices.length; i++){
-	alert("algum elecionado");
+	
 	if(!contains(idS,selectedDevices[i])){
-		//alert("entrou na condi");
 		idS[idS.length] = selectedDevices[i];
 	}
 }
-	alert(idS.toString());
-  	alert("enviou!");
   	for(var i = 0;i<idS.length;i++){
     	var chbx = document.getElementById("Chbx" + i.toString());
     	chbx.checked = false;
@@ -197,7 +194,6 @@ var refreshedDevices = new Array();
 
 function selectedDivSome(){
   	selectedDevicesRemove = new Array();
-  	//alert(devicesFromUser);
   	for(var i = 0;i<idS.length;i++){
     	var chbx = document.getElementById("UChbx" + i.toString());
      	if (chbx.checked == true){
@@ -210,17 +206,12 @@ function removeDevices(){
 	requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
   	requestIds.send();
   	selectedDivSome();
-  	//alert(selectedDevicesRemove.toString());
 
   	for(var i=0; i<selectedDevicesRemove.length;i++){
-  		alert("foi no for");
   		if(contains(idS,selectedDevicesRemove[i])){
-  			//alert("entrounaCond");
   			idS.splice(idS.indexOf(selectedDevicesRemove[i]), 1);
   		}
   	}
-  	alert(idS.toString());
-  	alert("enviou!");
   	idS = [];
   	for(var i = 0;i<idS.length;i++){
     	var chbx = document.getElementById("Chbx" + i.toString());
@@ -278,8 +269,6 @@ function initialize(){
 	var selectedUser = document.getElementById("slctbox").value;
 	postUser(selectedUser);
 	getDevicesFromUser();
-
-    alert(selectedUser);
 }
 
 window.onload = initialize;
