@@ -10,12 +10,14 @@ var userDevices = [];
 var userLoged = false;
 var selectedUser;
 var iDs = [];
+var userRegistred = "";
+var registerHapenning = false;
 
 
 app.use(express.static(__dirname + '/Paginas'));
 
 app.configure(function(){
-	app.use(express.static(__dirname + '/Paginas/img'));
+	app.use(express.static(__dirname + '/Templates'));
 	console.log(__dirname + '/Paginas/img/');
 	console.log(__dirname + '/Paginas');
 });
@@ -72,6 +74,7 @@ function changeStatus(id,status){
 }
 
 function createNewUser(user, deviceIDS){
+	console.log("entrou na func");
 	var jsonData = fillUsers();
 	var devs = "1"//deviceIDS.split("-"); 
 	
@@ -186,6 +189,25 @@ app.get('/devices', function(req, res){
 	switchPower(id,status);
 });
 
+app.post('/updatedevices', function(req, res){
+	if(/*registerHapenning*/ true){
+		var index = findUserByLogin(userRegistred);	
+	}else{
+		var index = findUserByLogin(req.param('login'));
+	}
+	var jsonData = require('./BD/database.json');
+	var devs = req.param('devices').split(",");
+	console.log(req.param('devices'));
+	console.log("idnex", index);
+	
+	if (index != -1){
+		jsonData.alldata.users[index].devices = devs;
+		saveData(jsonData);
+	}
+	registerHapenning = false;
+	userRegistred = "";
+});
+
 //tratar
 app.post('/choicedUser', function(req, res){
 	login = req.param('login');
@@ -203,25 +225,26 @@ app.get('/choicedUser', function(req, res){
 });
 
 
-app.get('/checkLogin', function(req, res){
-	fillUsers();
-	res.send(autLogin);
-	// var jsonData = fillUsers();
-	// var index = findUserByLogin (req.param('login'));
-	// var err = "";
-	// if (index ==-1 ){
-	// 	err= 'usuario inexistente';
-	// }else{
-	// 	validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
-	// 		if (o) {
-	// 			err= 'usuario logado';
-	// 		}else {
-	// 			err='senha incorreta';
-	// 		}
-	// 	});
-	// }
-	//res.send(err);
-});
+// app.post('/checkLogin', function(req, res){
+// 	fillUsers();
+// 	var jsonData = fillUsers();
+// 	var index = findUserByLogin (req.param('login'));
+// 	console.log(req.param('pass'));
+// 	var err = "";
+// 	if (index ==-1 ){
+// 		err= "ue";
+// 	}else{
+// 		validatePassword(req.param('pass'),jsonData.alldata.users[index].pass, function(e,o){
+// 			if (o) {
+// 				err= 'usuario logado';
+// 				autLogin = "Ok!"
+// 			}else {
+// 				err='senha incorreta';
+// 				res.send("No!");
+// 			}
+// 		});
+// 	}
+// });
 
 
 app.get('/getdevices', function(req, res){
@@ -245,6 +268,7 @@ app.post('/deleteUser', function(req, res){
 
 
 app.post('/adduser', function(req, res){
+	console.log("foi no post!!");
 	var user={};
 	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
 		userName=true;
@@ -261,20 +285,22 @@ app.post('/adduser', function(req, res){
 	}
 		
 	if (loginValid + emailValid == -2){
+		//funcaoFind
+		registerHapenning = true;
+		userRegistred = req.param('name');
 		user.name = req.param('name');
 		user.login = req.param('login');
 		user.pass = req.param('pass');
-		devs = req.param('devs');
+		devs = []
 		user.email = req.param('email');
 		createNewUser(user, "1");
 	}
+	console.log("Usuario registrado!");
 });
 
 app.get('/login', function(req, res){
 	
 	res.sendfile(__dirname + '/Templates/login.html');
-
-
 });
 
 app.get('/root', function(req, res){
@@ -299,14 +325,25 @@ app.get('/home', function(req, res){
 	
 });
 
-// app.get('/menu', function(req, res){
-// 	if(userLoged){
-// 		res.sendfile(__dirname + '/Templates/menu.html');
-// 	}else{
-// 		res.redirect('/login');
-// 	}
+app.get('/menu', function(req, res){
+	if(userLoged){
+		res.sendfile(__dirname + '/Templates/inicio.html');
+	}else{
+		res.redirect('/login');
+	}
 	
-// });
+});
+
+app.get('/deviceUpdating', function(req, res){
+	if(!(userLoged)){
+		res.redirect('/login');
+	}else if (!rootUser){
+		res.redirect('/menu');
+	}else{
+		res.sendfile(__dirname + '/Templates/cadastro2.html');
+	}
+	
+});
 
 app.get('/userRegister', function(req, res){
 	if(!(userLoged)){
@@ -314,7 +351,7 @@ app.get('/userRegister', function(req, res){
 	}else if (!rootUser){
 		res.redirect('/menu');
 	}else{
-		res.sendfile(__dirname + '/Templates/userRegister.html');
+		res.sendfile(__dirname + '/Templates/cadastro.html');
 	}
 	
 });
@@ -342,26 +379,50 @@ app.get('/DeviceManagement', function(req, res){
 });
 
 app.post('/checkLogin', function(req, res){
+	// var jsonData = require('./BD/database.json');
+	// var usersLen = jsonData.alldata.users.length
+
+
+	// if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
+	// 	//~ users.push(req.param('name'));
+	// 	userName=true;
+	// }
+	// var userLogin = req.param('name');
+	// var autenticado = false;
+	// var userID;
+	// for(var i=0; i<usersLen;i++){
+	// 	console.log(users[i] + " " + userLogin );
+	// 	if(users[i] == userLogin){
+	// 		console.log("Condicao");
+	// 		autenticado = true;
+	// 		userID = i;
+	// 	}
+	// }
 	fillUsers();
-	var jsonData = require('./BD/database.json');
-	var usersLen = jsonData.alldata.users.length
-
-
-	if (req.param('name') != undefined && req.param('name') != ""){ //testei enviando requisicao POST a "http://localhost:9000/adduser?" e a "http://localhost:9000/adduser?name="
-		//~ users.push(req.param('name'));
-		userName=true;
-	}
-	var userLogin = req.param('name');
-	var autenticado = false;
-	var userID;
-	for(var i=0; i<usersLen;i++){
-		console.log(users[i] + " " + userLogin );
-		if(users[i] == userLogin){
-			console.log("Condicao");
-			autenticado = true;
-			userID = i;
+	var userLogin = req.param('login');
+	autenticado = false;
+	var jsonData = fillUsers();
+	var index = findUserByLogin(req.param('login'));
+	console.log(req.param('login'));
+	console.log(req.param('pass'));
+	console.log(jsonData.alldata.users[index].senha);
+	var err = "";
+	if (index == -1 ){
+		console.log("user not found");
+		autenticado = false;
+	}else{
+		if(jsonData.alldata.users[index].senha == req.param('pass')){
+				console.log("ai sim papai");
+				err= 'usuario logado';
+				autLogin = "Ok!";
+				autenticado = true;
+			}else {
+				err='senha incorreta';
+				res.send("No!");
+				console.log("nopass");
+				autenticado = false;
+			}
 		}
-	}
 	console.log("entrou no post")
 	console.log(autenticado)
 	if(autenticado){
@@ -385,7 +446,7 @@ app.post('/checkLogin', function(req, res){
 			console.log(devices);
 		}
 	}else{
-		autLogin = "No"
+		autLogin = "No!"
 	}
 
 });
