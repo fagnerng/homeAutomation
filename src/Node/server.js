@@ -171,6 +171,7 @@ function switchPower(id, status){
 
 app.delete('/removeuser', function(req, res){
 	removeUserByLogin(req.param('login'));
+	res.send(null, 200);
 });
 
 app.get('/getusers', function(req, res){
@@ -186,6 +187,7 @@ app.get('/devices', function(req, res){
 	var id = req.param('id');
 	var status = req.param('status');
 	switchPower(id,status);
+	res.send(null, 200);
 });
 
 
@@ -204,7 +206,7 @@ app.get('/checkLogin', function(req, res){
 			}
 		});
 	}
-	res.send(err);
+	res.send(err,200);
 });
 
 
@@ -218,7 +220,7 @@ app.get('/getdevices', function(req, res){
 	for (var i=0; i < DevicesLen; i++) {
 	    JsonDevices[i] = jsonData.alldata.devices[i].name;
 	}
-	res.send(JsonDevices.toString());
+	res.send(JsonDevices.toString(),200);
 });
 
 //New
@@ -226,11 +228,13 @@ app.post('/deleteDevices', function(req, res){
 	var devices = "";
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
 	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
+	res.send(null, 200);
 });
 
 //New 
 app.post('/deleteUser', function(req, res){
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	res.send(null, 200);
 });
 
 
@@ -254,10 +258,12 @@ app.post('/adduser', function(req, res){
 		user.name = req.param('name');
 		user.login = req.param('login');
 		user.pass = req.param('pass');
-		user.devs = req.param('devices').split("-");
+		user.devs = req.param('devices').split(",");
 		user.email = req.param('email');
 		createNewUser(user);
+		res.send(null, 200);
 	}
+	res.send(null, 300);
 });
 
 app.post('/checkLogin', function(req, res){
@@ -280,33 +286,38 @@ app.post('/checkLogin', function(req, res){
 	}else{
 		autLogin = "No"
 	}
+	res.send(autLogin, 200);
 });
 
 app.post('/updatedevices', function(req, res){
 	var index = findUserByLogin(req.param('login'));
 	var jsonData = require('./BD/database.json');
-	var devs = req.param('devices').split("-");
+	var devs = req.param('devices').split(",");
 	if (index != -1){
 		jsonData.alldata.users[index].devices = devs;
 		saveData(jsonData);
 	}
+	res.send(null, 200);
 });
 
 app.post('/deleteDevices', function(req, res){
 	var devices = "";
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
 	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
+	res.send(null, 200);
 });
 
 
 app.post('/deleteUser', function(req, res){
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	res.send(null, 200);
 });
 
 
 app.post('/choicedUser', function(req, res){
 	login = req.param('login');
 	choicedUser = getUserDevices(login);
+	res.send(null, 200);
 });
 
 app.listen(9000);
