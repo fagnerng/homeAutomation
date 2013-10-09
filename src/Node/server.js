@@ -17,8 +17,6 @@ console.log("Server Initiated");
 app.use(express.methodOverride());
 app.configure(function(){
 	app.use(express.static(__dirname + '/Paginas/img'));
-	console.log(__dirname + '/Paginas/img/');
-	console.log(__dirname + '/Paginas');
 });
 
 var allowCrossDomain = function(req, res, next) {
@@ -48,17 +46,10 @@ function changeStatus(id,status){
 	var jsonData = require('./BD/database.json');
 	jsonDataBase = jsonData;
 	jsonDataBase.alldata.devices[id].status = status;
-
+	switchPower(id,status);
 	fs = require('fs');
 	var outputFilename = './BD/database.json';
-	console.log("in!");
-	fs.writeFile(outputFilename, JSON.stringify(jsonDataBase, null, 4), function(err) {
-		if(err) {
-		  console.log(err);
-		} else {
-		  console.log("JSON saved to ");
-		}
-	}); 
+	saveData(jsonDataBase);
 }
 
 function removeUserByLogin(login){ // Trata para não remover o root (admin=true)
@@ -107,7 +98,6 @@ function fillDevices(){
 	var devicesLen = jsonData.alldata.devices.length
 	
 	for (var i=0; i < devicesLen; i++) {
-	    console.log(jsonData.alldata.devices[i].name);
 	    devices[i] = jsonData.alldata.devices[i].name;
 	    userDevices[i] = i;
 	}
@@ -141,7 +131,6 @@ function findUserByEmail(email){
 function getUserDevices(login){
 	var jsonData = require('./BD/database.json');
 	var indice = findUserByLogin(login);
-	console.log(indice);
 	var devicesUserLen = jsonData.alldata.users[indice].devices.length;
 	iDs = jsonData.alldata.users[indice].devices;
 	var devicesUser = [];
@@ -157,7 +146,6 @@ function allDevicesStatus(){
 	var DevicesLen = jsonData.alldata.devices.length;
 
 	for (var i=0; i < userDevices.length; i++) {
-	    console.log(jsonData.alldata.devices[userDevices[i]].name);
 	    devicesStatus[i] = jsonData.alldata.devices[userDevices[i]].status;
 	}
 
@@ -183,6 +171,7 @@ function switchPower(id, status){
 
 app.delete('/removeuser', function(req, res){
 	removeUserByLogin(req.param('login'));
+	res.send(null, 200);
 });
 
 app.get('/getusers', function(req, res){
@@ -198,6 +187,7 @@ app.get('/devices', function(req, res){
 	var id = req.param('id');
 	var status = req.param('status');
 	switchPower(id,status);
+	res.send(null, 200);
 });
 
 
@@ -216,7 +206,7 @@ app.get('/checkLogin', function(req, res){
 			}
 		});
 	}
-	res.send(err);
+	res.send(err,200);
 });
 
 
@@ -228,10 +218,9 @@ app.get('/getdevices', function(req, res){
 
 
 	for (var i=0; i < DevicesLen; i++) {
-	    console.log(jsonData.alldata.devices[i].name);
 	    JsonDevices[i] = jsonData.alldata.devices[i].name;
 	}
-	res.send(JsonDevices.toString());
+	res.send(JsonDevices.toString(),200);
 });
 
 //New
@@ -239,12 +228,13 @@ app.post('/deleteDevices', function(req, res){
 	var devices = "";
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
 	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
+	res.send(null, 200);
 });
 
 //New 
 app.post('/deleteUser', function(req, res){
-	console.log(req.param('user'));
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	res.send(null, 200);
 });
 
 
@@ -268,10 +258,12 @@ app.post('/adduser', function(req, res){
 		user.name = req.param('name');
 		user.login = req.param('login');
 		user.pass = req.param('pass');
-		user.devs = req.param('devices').split("-");
+		user.devs = req.param('devices').split(",");
 		user.email = req.param('email');
 		createNewUser(user);
+		res.send(null, 200);
 	}
+	res.send(null, 300);
 });
 
 app.post('/checkLogin', function(req, res){
@@ -285,51 +277,47 @@ app.post('/checkLogin', function(req, res){
 	var userLogin = req.param('name');
 	var autenticado = false;
 	for(var i=0; i<usersLen;i++){
-		console.log(users[i] + " " + userLogin );
 		if(users[i] == userLogin){
-			console.log("Condicao");
 			autenticado = true;
 		}
 	}
-	console.log("entrou no post")
-	console.log(autenticado)
 	if(autenticado){
 		autLogin = "Ok!";
 	}else{
 		autLogin = "No"
 	}
+	res.send(autLogin, 200);
 });
 
 app.post('/updatedevices', function(req, res){
 	var index = findUserByLogin(req.param('login'));
 	var jsonData = require('./BD/database.json');
-	var devs = req.param('devices').split("-");
-	console.log(req.param('devices'));
-	console.log("idnex", index);
-	
+	var devs = req.param('devices').split(",");
 	if (index != -1){
 		jsonData.alldata.users[index].devices = devs;
 		saveData(jsonData);
 	}
+	res.send(null, 200);
 });
 
 app.post('/deleteDevices', function(req, res){
 	var devices = "";
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
 	var dispositivos = req.param('selected'); // O id dos dispositivos a serem deletados
+	res.send(null, 200);
 });
 
 
 app.post('/deleteUser', function(req, res){
-	console.log(req.param('user'));
 	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	res.send(null, 200);
 });
 
 
 app.post('/choicedUser', function(req, res){
 	login = req.param('login');
-	console.log(login+"aaaaaa");
 	choicedUser = getUserDevices(login);
+	res.send(null, 200);
 });
 
 app.listen(9000);

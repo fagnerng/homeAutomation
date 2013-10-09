@@ -3,52 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- TemplateBeginEditable name="doctitle" -->
-<title>Login</title>
+<title>Cadastro</title>
 
-<script src="crypt.js"></script>
 <script type="text/javascript">
-var xmlhttp = new XMLHttpRequest();
-var responseGet;
-var xmlhttp2 = new XMLHttpRequest();
-var responseGet2;
-
-xmlhttp.onreadystatechange=function() {
-	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-		alert(xmlhttp.responseText);
-	}
-}
-
-xmlhttp2.onreadystatechange=function() {
-	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
-		var autenthication = xmlhttp2.responseText;
-		alert(autenthication);
-		if (autenthication == "Ok!"){
-			window.location = "http://localhost:9000/home";
-		}else{
-			alert("Informações incorretas");
-		}
-	}
-}
-
-
-function sendHttpGetUsers(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
-	xmlhttp2.send();
+	function cadastrar(){
+		window.location="cadastro2.html"
 	}
 
-
-function checaLogin(){
-	var nome = document.getElementById('login');
-	var pass = convertToMD5(document.getElementById('pass').value);
-	alert(pass);
-	alert(nome.value);
-	xmlhttp.open("POST", "http://localhost:9000/checkLogin?login=" + nome.value+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
-	xmlhttp.send();
-	sendHttpGetUsers();
-}
-
-
-	
 </script>
 
 <!-- TemplateEndEditable -->
@@ -64,18 +25,40 @@ body {
 	color: #000;
 }
 
+.other{
+	padding: 10px;
+}
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
 }
 h1, h2, h3, h4, h5, h6, p {
 	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
 	padding-right: 15px;
 	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
 }
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
 
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #42413C;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
 
 /* ~~ this fixed width container surrounds all other divs ~~ */
 .container {
-	width: 960px;
-	background: #C6D580;
+	width: 960px;	
+	background: #FFF;
 	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
 	overflow: hidden; /* this declaration makes the .container understand where the floated columns within ends and contain them */
 }
@@ -91,30 +74,44 @@ h1, h2, h3, h4, h5, h6, p {
 4) If you prefer your nav on the right instead of the left, simply float these columns the opposite direction (all right instead of all left) and they'll render in reverse order. There's no need to move the divs around in the HTML source.
 
 */
-
-.margem{
-	margin-top: 50px;
+.sidebar1 {
+	float: left;
+	width: 180px;
 	background: #C6D580;
 }
+.content {
+
+	padding: 10px 0;
+	width: 780px;
+	float: left;
 	
-.margemImg{
-	margin-top:100px;
-	background: #C6D580;
 }
-
-.other{
-	padding: 10px;
-}
-
-
-
 
 /* ~~ This grouped selector gives the lists in the .content area space ~~ */
 .content ul, .content ol { 
 	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
 }
 
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+ul.nav {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
 
+}
+ul.nav li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	text-decoration: none;
+	background: #C6D580;
+}
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #ADB96E;
+	color: #FFF;
+}
 
 /* ~~ miscellaneous float/clear classes ~~ */
 .fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
@@ -137,32 +134,49 @@ h1, h2, h3, h4, h5, h6, p {
 <body>
 
 <div class="container">
-
-	<div align="center" class="margemImg"><img src="res/home.png" width="200" height="170"></div>
-	
-	<div align="center"><h1>Home Automation</h1> </div>
-	
-	<div align="center" class="margem">
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="inicio.html">Início</a></li>
+      <li><a href="cadastro.html">Usuários</a></li>
+      <li><a href="dispositivos.html">Dispositivos</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+   
+    <!-- end .sidebar1 --></div>
+  <div class="content">
+    <div align="center"><h1>Cadastrar Novo Usuário</h1> </div>
 		
-		<table>	
-			<tr>
-				<td align="right">Login:</td>
-				<td align="left"> <input id="login" type="text" name="login" size="60"/></td>
-			</tr>
-			
-			<tr>
-				<td align="right">Password:</td>
-				<td align="left"><input id="pass" type="password" name="pwd" size="60"/></td>
-			</tr>
-			
-			
-		</table>
-	</div>
-	
-	<div align="center" class="margem">
-		<input type="button" class="other" value="Login" onclick='checaLogin()'</input> 
-	</div>
-  
+		<div class="margem" align="center">
+			<form>
+			  <table>
+				<tr>
+				  <td align="right">Name:</td>
+				  <td align="left"><input type="text" name="name" size="60"/></td>
+				</tr>
+				<tr>
+				  <td align="right">Login:</td>
+				  <td align="left"><input type="text" name="login" size="60"/></td>
+				</tr>
+				<tr>
+				  <td align="right">Email:</td>
+				  <td align="left"><input type="text" name="email" size="60"/></td>
+				</tr>
+				<tr>
+				  <td align="right">Password:</td>
+				  <td align="left"><input type="password" name="pwd" size="60"/></td>
+				</tr>
+				<tr>
+				  <td align="right">Confirm<br>Password:</td>
+				  <td align="left"><input type="password" name="pwdc"size="60"/></td>
+				</tr>
+			  </table>
+			</form>
+		</div>
+		
+		<div align="right" class="other">
+			<input type="button" class="other" value="Avançar" onclick='cadastrar()'</input> 
+		</div>
+    <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
 </html>
