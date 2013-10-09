@@ -4,7 +4,7 @@
             {
                 "name": "Joao",
                 "login": "JoaoM",
-                "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
                 "admin": "true",
                 "devices": [],
                 "email": "joaomaravilha@gmail.com"
@@ -12,7 +12,7 @@
             {
                 "name": "Maria",
                 "login": "mariah",
-                "senha": "CAF7F763CD767EDC74CC3188DE93CECE",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
                 "admin": "false",
                 "devices": [
                     "0",
@@ -23,10 +23,11 @@
             {
                 "name": "bruno",
                 "login": "brunoffp",
-                "pass": "56292b4bfc428eb622b034dca7a40401",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
                 "admin": "false",
                 "devices": [
                     "0",
+                    "1",
                     "2"
                 ],
                 "email": "brunofpaiwa@gmail.com"

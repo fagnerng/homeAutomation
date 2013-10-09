@@ -152,6 +152,11 @@ function allDevicesStatus(){
 	return devicesStatus;
 }
 
+function validatePassword(strReceived, strBD, callback){
+	console.log(strReceived, strBD, strReceived === strBD);
+	callback(null, strReceived === strBD);
+}
+
 function switchPower(id, status){
   var http = require('http');
   console.log("dispositivo "+ id + " status : "+status);
@@ -167,11 +172,14 @@ function switchPower(id, status){
 	http.request(postOptions, console.log).end();
 };
 
-
-
 app.delete('/removeuser', function(req, res){
 	removeUserByLogin(req.param('login'));
 	res.send(null, 200);
+});
+
+app.get('/', function(req, res){
+	
+	res.sendfile(__dirname+"/login.html");
 });
 
 app.get('/getusers', function(req, res){
