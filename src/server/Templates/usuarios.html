@@ -49,12 +49,7 @@ function addElement() {
 function createDiv(){
 	nome = "Alessandroaa fsafdgsd";
 	var divTag = document.createElement("div");
-	divTag.id = "div1";
-	divTag.style.margin = "0px";
-	divTag.className ="dynamicDiv";
-	divTag.innerHTML = "<input class = \"inner\" id=\"ac\" type=" + "\"checkbox\""+ "name="+ "ac" + "</input>" + nome;
-	document.getElementById("divUsers").appendChild(divTag);
-          
+	divTag.id = "div1";///home/alessandroherculano/Projetos/Home%20Automation/homeAutomation/src/server/Templates/dispositivos.html
 }
 
 var boxRequest = new XMLHttpRequest();
@@ -67,15 +62,17 @@ xmlhttp.onreadystatechange=function() {
 
 function checaBox(){
   var selectedDevices = new Array();
-  for(var i = 0; i<Ndevices ; i++){
+  for(var i = 1; i<Ndevices ; i++){
     var chbx = document.getElementById("Chbx" + i.toString());
      if ( chbx.checked == true){
         selectedDevices[selectedDevices.length] = (i).toString();
      }  
   }
 
-  boxRequest.open("POST", "http://localhost:9000/deleteUser?user=" + selectedDevices.toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+  boxRequest.open("POST", "http://localhost:9000/deleteUser?users=" + selectedDevices.toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   boxRequest.send();
+	document.getElementById("divUsers").innerHTML = "";
+  getUsers();
 }
 
 function checaLogin(){
@@ -91,7 +88,8 @@ devicesRequest.onreadystatechange=function() {
 	if (devicesRequest.readyState==4 && devicesRequest.status==200) {
 		var devicesContent = devicesRequest.responseText;
 		var devices = devicesContent.split(",");
-		for (var i = 0; i<devices.length; i++){
+		Ndevices = 0;
+		for (var i = 1; i<devices.length; i++){
 			nome = devices[i];
 		  
 			var divTag = document.createElement("div");
@@ -268,7 +266,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
     	<!-- end .usersList --></div>
 
-    <input type="button" class="botoes" value="Excluir" onclick='excluiUsuario()'</input> 
+    <input type="button" class="botoes" value="Excluir" onclick='checaBox()'</input> 
     <input type="button" class="botoes" value="Novo" onclick='criaUsuario()'</input> 
     <!-- end .content --></div>
   <!-- end .container --></div>

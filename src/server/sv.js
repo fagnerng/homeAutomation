@@ -46,6 +46,21 @@ function switchPower(id, status){
 	http.request(postOptions, console.log).end();
 };
 
+function removeUserByLogin(login){ // Trata para não remover o root (admin=true)
+	var jsonData = require('./BD/database.json');	
+	var index = findUserByLogin(login);
+	var usersBAK = jsonData.alldata.users;
+	var idposition = 0;
+	jsonData.alldata.users = []
+	for ( i = 0;i<usersBAK.length;i++){
+		if( i!= index){
+			jsonData.alldata.users[idposition] = usersBAK[i];
+			idposition++;
+		}
+	}
+	saveData(jsonData);
+}
+
 function saveData(jsonData){
 	fs = require('fs');
 	var outputFilename = './BD/database.json';
@@ -72,6 +87,13 @@ function isRoot(login){
 		}
 	}
 	return false;
+}
+
+//TRATAR
+function getUserLoginbyID(id){
+	var jsonData = require('./BD/database.json');
+	var usersBAK = jsonData.alldata.users;
+	return usersBAK[id].login;
 }
 
 function changeStatus(id,status){
@@ -327,7 +349,10 @@ app.post('/deleteDevices', function(req, res){
 
 //New 
 app.post('/deleteUser', function(req, res){
-	var usuario = req.param('user'); // O usuario que tera os dispositivos selecionados
+	var usuarios = req.param('users').split();
+	for (var i=0;i<usuarios.length; i++){
+		removeUserByLogin(getUserLoginbyID(usuarios[i]));
+	}
 });
 
 app.post('/updatedevices', function(req, res){
