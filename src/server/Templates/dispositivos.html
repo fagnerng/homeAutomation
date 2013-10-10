@@ -35,6 +35,7 @@ devicesRequest.onreadystatechange=function() {
   if (devicesRequest.readyState==4 && devicesRequest.status==200) {
     var devicesContent = devicesRequest.responseText;
     var devices = devicesContent.split(",");
+    Ndevices = 0;
     for (var i = 0 ; i<devices.length; i++){
             nome = devices[i];
           
@@ -88,6 +89,7 @@ devicesRequestGet.onreadystatechange=function() {
   if (devicesRequestGet.readyState==4 && devicesRequestGet.status==200) {
     var devicesContent = devicesRequestGet.responseText;
     var devices = devicesContent.split(",");
+    devicesFromUser= 0;
     for (var i = 0 ; i<devices.length; i++){
             
             nome = devices[i];
@@ -129,18 +131,59 @@ function changeUserSelected(){
 
 //====================== Pega Dispositivos de um Usuário ===============
 
+function ordenaDevices(array){
+  var list = new Array();
+  for(var i=0; i<array.length; i++){
+    list[i] = parseInt(array[i])
+  }
+  var comparisons = 0,
+        swaps = 0;
+ 
+    for (var i = 0, swapping; i < list.length - 1; i++) {
+        comparisons++;
+        if (list[i] > list[i + 1]) {
+            // swap
+            swapping = list[i + 1];
+ 
+            list[i + 1] = list[i];
+            list[i] = swapping;
+            swaps++;
+        };
+    };
+
+    return list;
+}
+
+function sendResults(selectedUser,idS){
+  var postadd = new XMLHttpRequest();
+  postadd.onreadystatechange=function() {
+       if (postadd.readyState==4 && postadd.status==200) {
+       }
+    }
+  postadd.open("POST", "http://localhost:9000/updatedevices?login=" + selectedUser+"&devices="+ordenaDevices(idS).toString(), true);
+    postadd.send();
+    document.getElementById("divSome").innerHTML = "";
+    document.getElementById("divAll").innerHTML = "";
+    getDevices();
+    postUser(selectedUser);
+    getDevicesFromUser();
+    alert("FF");
+}
 
 
 //====================== Funções add ============================
 var selectedDevices = new Array();
 var idS = new Array();
 function add(){
+  var selectedDevices = new Array();
+  var idS = new Array();
   	for(var i = 0; i<Ndevices ; i++){
     	var chbx = document.getElementById("Chbx" + i.toString());
-     	if ( chbx.checked == true){
+      if ( chbx.checked == true){
         	selectedDevices[selectedDevices.length] = (i).toString();
      	}  
   	}
+  return selectedDevices;
 }
 
 var requestIds = new XMLHttpRequest();
@@ -156,10 +199,12 @@ function add1(){
   add();  
   requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
   requestIds.send();
+  selectedDevices = add();
+  alert(selectedDevices.length);
 
   for(var i=0; i<selectedDevices.length; i++){
 	
-	if(!contains(idS,selectedDevices[i])){
+	     if(!contains(idS,selectedDevices[i])){
 		idS[idS.length] = selectedDevices[i];
 	}
 }
@@ -168,6 +213,14 @@ function add1(){
     	chbx.checked = false;
     }
 
+    alert(idS.toString());
+
+    
+
+    
+
+    var selectedUser = document.getElementById("slctbox").value;
+    sendResults(selectedUser,idS);
   	idS = [];
   	selectedDevices = [];
   	  	for(var i = 0;i<idS.length;i++){
@@ -212,11 +265,18 @@ function removeDevices(){
   			idS.splice(idS.indexOf(selectedDevicesRemove[i]), 1);
   		}
   	}
+
+    alert(idS.toString());
+
+    var selectedUser = document.getElementById("slctbox").value;
+    sendResults(selectedUser,idS);
+
   	idS = [];
   	for(var i = 0;i<idS.length;i++){
     	var chbx = document.getElementById("Chbx" + i.toString());
     	chbx.checked = false;
     }
+
   	selectedDevices = [];
   	selectedDevicesRemove = [];
   	
