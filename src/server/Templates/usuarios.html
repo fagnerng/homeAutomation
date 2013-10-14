@@ -12,6 +12,29 @@ var responseGet;
 
 var Ndevices = new Array();
 
+function ordena(array){
+  var list = new Array();
+  for(var i=0; i<array.length; i++){
+    list[i] = parseInt(array[i])
+  }
+  var comparisons = 0,
+        swaps = 0;
+ 
+    for (var i = 0, swapping; i < list.length - 1; i++) {
+        comparisons++;
+        if (list[i] > list[i + 1]) {
+            // swap
+            swapping = list[i + 1];
+ 
+            list[i + 1] = list[i];
+            list[i] = swapping;
+            swaps++;
+        };
+    };
+
+    return list;
+}
+
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200) {
     alert(xmlhttp.responseText);
@@ -62,14 +85,15 @@ xmlhttp.onreadystatechange=function() {
 
 function checaBox(){
   var selectedDevices = new Array();
-  for(var i = 1; i<Ndevices ; i++){
+  alert(Ndevices);
+  for(var i = 1; i<=Ndevices ; i++){
     var chbx = document.getElementById("Chbx" + i.toString());
      if ( chbx.checked == true){
         selectedDevices[selectedDevices.length] = (i).toString();
      }  
   }
 
-  boxRequest.open("POST", "http://localhost:9000/deleteUser?users=" + selectedDevices.toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+  boxRequest.open("POST", "http://localhost:9000/deleteUser?users=" + ordena(selectedDevices).toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   boxRequest.send();
 	document.getElementById("divUsers").innerHTML = "";
   getUsers();

@@ -61,17 +61,27 @@ function removeUserByLogin(login){ // Trata para não remover o root (admin=true
 	saveData(jsonData);
 }
 
+function removeUserByID(id){ // Trata para não remover o root (admin==true)
+	var jsonData = require('./BD/database.json');	
+	var index = id;
+	var usersBAK = jsonData.alldata.users;
+	var idposition = 0;
+	jsonData.alldata.users = []
+	console.log(id);
+	for ( i = 0;i<usersBAK.length;i++){
+		console.log(i);
+		if( i!= index){
+			jsonData.alldata.users[idposition] = usersBAK[i];
+			idposition++;
+		}
+	}
+	saveData(jsonData);
+}
+
 function saveData(jsonData){
 	fs = require('fs');
 	var outputFilename = './BD/database.json';
-
-	fs.writeFile(outputFilename, JSON.stringify(jsonData, null, 4), function(err) {
-		if(err) {
-		  console.log(err);
-		} else {
-		  console.log("JSON saved to ");
-		}
-	}); 	
+	fs.writeFileSync(outputFilename, JSON.stringify(jsonData, null, 4));
 }
 
 function isRoot(login){
@@ -92,8 +102,7 @@ function isRoot(login){
 //TRATAR
 function getUserLoginbyID(id){
 	var jsonData = require('./BD/database.json');
-	var usersBAK = jsonData.alldata.users;
-	return usersBAK[id].login;
+	return jsonData.alldata.users[id].login;
 }
 
 function changeStatus(id,status){
@@ -128,9 +137,10 @@ function createNewUser(user, deviceIDS){
 }
 
 function fillUsers(){
+	users = [];
 	var jsonData = require('./BD/database.json');
 	var usersLen = jsonData.alldata.users.length
-	
+	console.log("UsrLen"+usersLen);	
 	for (var i=0; i < usersLen; i++) {
 	    users[i] = jsonData.alldata.users[i].login;
 	}
@@ -194,6 +204,29 @@ function fillDevices(){
 	    devices[i] = jsonData.alldata.devices[i].name;
 	    userDevices[i] = i;
 	}
+}
+
+function ordena(array){
+  var list = new Array();
+  for(var i=0; i<array.length; i++){
+    list[i] = parseInt(array[i])
+  }
+  var comparisons = 0,
+        swaps = 0;
+ 
+    for (var i = 0, swapping; i < list.length - 1; i++) {
+        comparisons++;
+        if (list[i] > list[i + 1]) {
+            // swap
+            swapping = list[i + 1];
+ 
+            list[i + 1] = list[i];
+            list[i] = swapping;
+            swaps++;
+        };
+    };
+
+    return list;
 }
 
 app.get('/', function(req, res){
@@ -349,9 +382,13 @@ app.post('/deleteDevices', function(req, res){
 
 //New 
 app.post('/deleteUser', function(req, res){
-	var usuarios = req.param('users').split();
-	for (var i=0;i<usuarios.length; i++){
-		removeUserByLogin(getUserLoginbyID(usuarios[i]));
+	var usuarios = req.param('users').split(",");
+	console.log(usuarios);
+	console.log(usuarios[i]);
+	for (var i=usuarios.length-1; i> -1; i--){
+		console.log("loop:" + i)
+		console.log("value: "+usuarios[i]);
+		removeUserByID(usuarios[i]);
 	}
 });
 
