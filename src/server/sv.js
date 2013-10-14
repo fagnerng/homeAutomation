@@ -400,8 +400,12 @@ app.post('/updatedevices', function(req, res){
 		var index = findUserByLogin(req.param('login'));
 	}
 	var jsonData = require('./BD/database.json');
-	var devs = req.param('devices').split(",");
-	console.log(req.param('devices'));
+	if (req.param('devices') == ""){
+		var devs = [];
+	}else{
+		var devs = req.param('devices').split(",");
+	}	
+	console.log("Devices: " + req.param('devices'));
 	
 	console.log("idnex", index);
 	
