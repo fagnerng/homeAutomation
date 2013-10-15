@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6, p {
     background: -ms-linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* IE10+ */
     background: linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    opacity:0.7;
+    opacity:0.9;
     -webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
@@ -105,13 +105,19 @@ h1, h2, h3, h4, h5, h6, p {
 */
 
 .margem{
-	margin-top: 50px;
+	margin-bottom: 10px;
+	margin-top: 35px;
+
 }
 	
 .margemImg{
 	margin-top:100px;
 }
 
+.botao{
+
+	padding:5px;
+}
 .inp:focus{
     outline:solid 10px green;
 }
@@ -168,7 +174,7 @@ h1, h2, h3, h4, h5, h6, p {
 	</div>
 	
 	<div align="center" class="margem">
-		<input type="button" value="Login" onclick='checaLogin()'</input> 
+		<input class="botao" type="button" value="Login" onclick='checaLogin()'</input>
 	</div>
   
   <!-- end .container --></div>

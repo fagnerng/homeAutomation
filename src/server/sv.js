@@ -251,6 +251,7 @@ app.get('/idDevicesUser', function(req, res){
 	res.send(userDevicesManage.toString());
 });
 
+
 app.get('/res/home.png', function(req, res){
 	registerHapenning = false;
 	userRegistered = "";
@@ -263,6 +264,10 @@ app.get('/room.jpg', function(req, res){
 
 app.get('/crypt.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/crypt.js");
+});
+
+app.get('/aut.js', function(req, res){
+	res.sendfile(__dirname +"/Templates/aut.js");
 });
 
 app.get('/choicedUser', function(req, res){

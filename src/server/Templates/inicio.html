@@ -5,8 +5,12 @@
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Inicial</title>
 
+
+<script src="aut.js"></script>
 <script>
 var boxRequest = new XMLHttpRequest();
+
+//=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
 
 
 
@@ -205,14 +209,14 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 -->
 </style></head>
 
-<body>
+<body onunload="">
 
 <div class="container">
   <div class="sidebar1">
     <ul class="nav">
       <li><a href="inicio.html">Início</a></li>
-      <li><a href="usuarios.html">Usuários</a></li>
-      <li><a href="dispositivos.html">Dispositivos</a></li>
+      <li><a href="usuarios.html"  onclick="checaRoot();">Usuários</a></li>
+      <li><a href="dispositivos.html"  onclick="checaRoot();">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="http://localhost:9000/logout">Sair</a></li>
     </ul>
@@ -232,7 +236,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
 	<div class="other">
 		Desligar automaticamente em: 
-		<input type="number" min="0" value="0" name="tempo">
+		<input style="width:40px" type="number" min="0" value="0" name="tempo">
 		min
 	</div>
 
