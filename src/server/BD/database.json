@@ -35,14 +35,16 @@
             {
                 "id": 0,
                 "name": "Lampada_Quarto",
-                "status": "off",
-                "timer": "false"
+                "status": "on",
+                "timer": true,
+                "timerID": 1800000
             },
             {
                 "id": 1,
                 "name": "Lampada_Sala",
-                "timer": 0,
-                "status": "false"
+                "status": "off",
+                "timer": false,
+                "timerID": 1
             }
         ]
     }

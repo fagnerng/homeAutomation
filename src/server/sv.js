@@ -16,13 +16,14 @@ var userDevicesManage = [];	// IDs dos Devices da tela de Gerenciamento
 var userRegistered = ""; // Usuario que esta sendo registrado naquele momento
 var registerHapenning = false; // Flag para controle de execucao de registro
 var callback;
+var deviceTimes = [];
+
 app.configure(function(){
 	app.use(express.static(__dirname + '/Templates/res'));
 });
 
 var autLogin = "false";
 console.log("Server Initiated");
-
 
 app.use(express.methodOverride());
 xmlhttp.onreadystatechange=function() {
@@ -193,32 +194,30 @@ function fillDevices(){
 	}
 }
 
-function ordena(array){
-  var list = new Array();
-  for(var i=0; i<array.length; i++){
-    list[i] = parseInt(array[i])
-  }
-  var comparisons = 0,
-        swaps = 0;
- 
-    for (var i = 0, swapping; i < list.length - 1; i++) {
-        comparisons++;
-        if (list[i] > list[i + 1]) {
-            // swap
-            swapping = list[i + 1];
- 
-            list[i + 1] = list[i];
-            list[i] = swapping;
-            swaps++;
-        };
-    };
-
-    return list;
-}
-
-function activateTimer(idDevice, seconds){
+function activateTimer(idDevices, seconds){
+	var jsonData = require('./BD/database.json');
 	
+	if (jsonData.alldata.devices[idDevices].timer){
+		clearTimeout(deviceTimes[idDevices]);
+	}
+	
+	if (seconds > 0){
+		jsonData.alldata.devices[idDevices].timer = true;
+		deviceTimes[idDevices] = setTimeout( function(aidDevices){
+					var jsonData = require('./BD/database.json');
+					console.log('idddd', aidDevices);
+					if (jsonData.alldata.devices[aidDevices].timer){
+						switchPower(aidDevices, "off");
+						jsonData.alldata.devices[aidDevices].timer = false;
+					}
+					}, seconds * 1000, idDevices);
+		saveData(jsonData);
+	}else{
+		jsonData.alldata.devices[idDevices].timer = false;
+	}
 }
+
+
 
 app.get('/', function(req, res){
 	res.redirect('/login');
@@ -501,8 +500,6 @@ app.post('/checkLogin', function(req, res){
 		}else{
 			rootUser = false;
 			devices = [];
-			console.log(index);
-			console.log(devices);
 			devicesSize = jsonData.alldata.users[index].devices.length;
 			for(var i=0; i<devicesSize;i++){
 				var deviceID = jsonData.alldata.users[index].devices[i];
@@ -519,7 +516,13 @@ app.post('/checkLogin', function(req, res){
 app.post('/takeStatus',function(req,res){
 	var id = req.param('id');
 	var status = req.param('status');
+	var secs = parseInt(req.param('timer'))/**60*/ ;
+	
 	changeStatus(userDevices[id],status);
+	
+	console.log("Chama activateTimer", id);
+	activateTimer(id, secs);
+	console.log("Chamou activateTimer");
 });
 
 app.listen(9000);

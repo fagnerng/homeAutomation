@@ -12,8 +12,6 @@ var boxRequest = new XMLHttpRequest();
 
 //=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
 
-
-
 boxRequest.onreadystatechange=function() {
   	if (boxRequest.readyState==4 && boxRequest.status==200) {
 	    var response = boxRequest.responseText;
@@ -46,7 +44,6 @@ function checaBox(){
  	var chbx = document.getElementById("chbx").checked;
  	var settedTime = document.getElementById("timerValue").value;
  	var status;
- 	alert(e.selectedIndex);
  	if(chbx){
  		status = "on";
 
