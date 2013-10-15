@@ -130,7 +130,7 @@ function createNewUser(user, deviceIDS){
 												"login": user.login, 
 												"pass": user.pass, 
 												"admin": "false", 
-												"devices": [], 
+												"devices": [0], 
 												"email": user.email };
 	
 	saveData(jsonData);
@@ -240,6 +240,8 @@ app.get('/getusers', function(req, res){
 });
 
 app.get('/devices', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	var id = req.param('id');
 	var status = req.param('status');
 	switchPower(id,status);
@@ -250,7 +252,13 @@ app.get('/idDevicesUser', function(req, res){
 });
 
 app.get('/res/home.png', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	res.sendfile(__dirname +"/Templates/res/home.png");
+});
+
+app.get('/room.jpg', function(req, res){
+	res.sendfile(__dirname +"/Templates/room.jpg");
 });
 
 app.get('/crypt.js', function(req, res){
@@ -268,8 +276,12 @@ app.get('/getdevices', function(req, res){
 });
 
 app.get('/login', function(req, res){
+	if(userLoged){
+		res.redirect('/inicio.html');
+	}else{
+		res.sendfile(__dirname + '/Templates/login.html');
+	}
 	
-	res.sendfile(__dirname + '/Templates/login.html');
 });
 
 app.get('/allDevices', function(req, res){
@@ -296,6 +308,8 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/home', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
@@ -306,6 +320,8 @@ app.get('/home', function(req, res){
 });
 
 app.get('/inicio.html', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	if(userLoged){
 		res.sendfile(__dirname + '/Templates/inicio.html');
 	}else{
@@ -343,6 +359,8 @@ app.get('/cadastro.html', function(req, res){
 });
 
 app.get('/usuarios.html', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
@@ -354,6 +372,8 @@ app.get('/usuarios.html', function(req, res){
 });
 
 app.get('/dispositivos.html', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
@@ -423,6 +443,9 @@ app.post('/choicedUser', function(req, res){
 	choicedUser = getUserDevices(login);
 });
 
+
+//Por padrão, se um regitro for feito sem especificar os dispositivos, o dispositivo 0 será atribuido
+//Aquele usuário.
 app.post('/adduser', function(req, res){
 	console.log("foi no post!!");
 	var user={};
