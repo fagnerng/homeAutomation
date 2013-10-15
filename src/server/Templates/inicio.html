@@ -44,6 +44,7 @@ statusRequest.onreadystatechange=function() {
 function checaBox(){
 	var e = document.getElementById("combobox");
  	var chbx = document.getElementById("chbx").checked;
+ 	var settedTime = document.getElementById("timerValue").value;
  	var status;
  	alert(e.selectedIndex);
  	if(chbx){
@@ -52,7 +53,7 @@ function checaBox(){
  	}else{
  		status= "off"
  	}
- 	statusRequest.open("POST", "http://localhost:9000/takeStatus?id=" + e.selectedIndex + "&status="+status , true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+ 	statusRequest.open("POST", "http://localhost:9000/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
     statusRequest.send();
 }
 
@@ -84,8 +85,13 @@ function populateList() {
     alert(status);
 }
 
+function start(){
+	getDevices();
+	populateList();
 
-window.onload = getDevices;
+}
+
+window.onload = start;
 </script>
 
 <!-- TemplateEndEditable -->
@@ -236,7 +242,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
 	<div class="other">
 		Desligar automaticamente em: 
-		<input style="width:40px" type="number" min="0" value="0" name="tempo">
+		<input id="timerValue" style="width:40px" type="number" min="0" value="0" name="tempo">
 		min
 	</div>
 
