@@ -31,20 +31,38 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-function switchPower(id, status){
-	var http = require('http');
-	console.log("dispositivo "+ id + " status : "+status);
-	var myPath =  '/control.html?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status;
-	var postOptions = {
-		host: '192.168.2.28',
-		path: myPath,
-		port: '3000',
-		method: 'POST'
-	};
-
-	console.log("ligar disposito 00");
-	http.request(postOptions, console.log).end();
+function switchPower(id, status, callback){
+	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	var xmlhttp = new XMLHttpRequest();
+	var response  = [];
+	xmlhttp.onreadystatechange=function() {
+		callback(xmlhttp.status);
+	
+	}
+	xmlhttp.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, false);
+	xmlhttp.send();
+	//~ switchPower('0','on', function (e){
+		//~ //variavel e representa o codigo de retono da funcao;
+		//~ });
 };
+};
+function getPowerStatus(id, callback){
+	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	var xmlhttp = new XMLHttpRequest();
+	var response  = [];
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.status==200){
+		response = JSON.parse(xmlhttp.responseText);
+		console.log(response);
+		callback(response.devices[parseInt(id)].status);
+	}
+	}
+	xmlhttp.open("GET", "http://arduino.com.br:3000/control", false);
+	xmlhttp.send();
+		//~ getPowerStatus('0',function (e){
+		//~ //variavel e representa o status do dipositivo selecionado retono da funcao;
+		//~ });
+	
 
 function removeUserByLogin(login){ // Trata para não remover o root (admin=true)
 	var jsonData = require('./BD/database.json');	
@@ -249,6 +267,14 @@ app.get('/devices', function(req, res){
 
 app.get('/idDevicesUser', function(req, res){
 	res.send(userDevicesManage.toString());
+});
+app.get('/statusdev', function(req, res){
+	getPowerStatus('0',function (e){
+		//variavel e representa o status do dipositivo selecionado retono da funcao;
+		});
+	switchPower('0','on', function (e){
+		//variavel e representa o codigo de retono da funcao;
+		});
 });
 
 
