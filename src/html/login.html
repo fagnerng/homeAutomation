@@ -1,9 +1,12 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <title>Login</title>
-</head>
-<script>
+
+<script src="crypt.js"></script>
+
+<script type="text/javascript">
 var xmlhttp = new XMLHttpRequest();
 var responseGet;
 var xmlhttp2 = new XMLHttpRequest();
@@ -17,33 +20,97 @@ xmlhttp.onreadystatechange=function() {
 
 xmlhttp2.onreadystatechange=function() {
 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
-		alert(xmlhttp2.responseText);
+		var autenthication = xmlhttp2.responseText;
+		alert(autenthication);
+		if (autenthication == "Ok!"){
+			window.location = "http://localhost:9000/home";
+		}else{
+			alert("Informações incorretas");
+		}
 	}
 }
 
-
-function sendHttpGetUsers(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
-	xmlhttp2.send();
-	}
-
+//function sendHttpGetUsers(){
+//	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
+//	xmlhttp2.send();
+//}
 
 function checaLogin(){
-	var nome = document.getElementById('login');
-	alert(nome.value);
-	xmlhttp.open("POST", "http://localhost:9000/checkLogin?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+	var nome = document.getElementById('login').value;
+	var pass = convertToMD5(document.getElementById('pass').value);
+	alert(nome);
+	xmlhttp.open("POST", "http://localhost:9000/checkLogin?login="+nome+"&pass="+pass, true);
 	xmlhttp.send();
-	sendHttpGetUsers();
+	//sendHttpGetUsers();
 }
-
-
-
-
-
 
 </script>
 
+<style type="text/css">
+
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.container {
+	width: 960px;
+	background: #C6D580;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.margem{
+	margin-top: 50px;
+	background: #C6D580;
+}
+	
+.margemImg{
+	margin-top:100px;
+	background: #C6D580;
+}
+
+.other{
+	padding: 10px;
+}
+
+.content ul, .content ol { 
+	padding: 0 15px 15px 40px;
+}
+
+.fltrt {
+	float: right;
+	margin-left: 8px;
+}
+
+.fltlft {
+	float: left;
+	margin-right: 8px;
+}
+
+.clearfloat {
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+</style>
+</head>
+
 <body>
+
+<div class="container">
+
 	<div align="center" class="margemImg"><img src="res/home.png" width="200" height="170"></div>
 	
 	<div align="center"><h1>Home Automation</h1> </div>
@@ -58,7 +125,7 @@ function checaLogin(){
 			
 			<tr>
 				<td align="right">Password:</td>
-				<td align="left"><input type="password" name="pwd" size="60"/></td>
+				<td align="left"><input id="pass" type="password" name="pwd" size="60"/></td>
 			</tr>
 			
 			
@@ -66,21 +133,9 @@ function checaLogin(){
 	</div>
 	
 	<div align="center" class="margem">
-		<input  type="button" value="post data" onclick="javascript:checaLogin()">
+		<input type="button" class="other" value="Login" onclick='javascript:checaLogin()'</input> 
 	</div>
-
+  
+</div>
 </body>
-
-<style>
-
-	.margem{
-		margin-top: 50px;
-	}
-	
-	.margemImg{
-		margin-top:100px;
-	}
-
-
-</style>
 </html>

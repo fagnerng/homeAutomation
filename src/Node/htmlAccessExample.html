@@ -16,11 +16,6 @@
 			xmlhttp.send();
 		}
 		
-		function sendHttpCheckLogin(){
-			xmlhttp.open("GET", "http://localhost:9000/checklogin/?login=brunoffp&pass=sbrunoffp", false);
-			xmlhttp.send();
-		}
-		
 		function sendHttpGetDevices(){
 			xmlhttp.open("GET", "http://localhost:9000/getdevices", false);
 			xmlhttp.send();
@@ -28,7 +23,23 @@
 		
 		function sendHttpPostUser(){
 			var cryptedPass = convertToMD5(document.getElementById("pass").value);
-			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass="+cryptedPass+"&devices=1-2-3&email=brunofpaiwa@gmail.com", true);
+			xmlhttp.open("POST", "http://localhost:9000/adduser?name=bruno&login=brunoffp&pass="+cryptedPass+"&devices=0,1,2&email=brunofpaiwa@gmail.com", true);
+			xmlhttp.send();
+		}
+		
+		function sendHttpCheckLogin(){
+			var cryptedPass = convertToMD5(document.getElementById("pass").value);
+			xmlhttp.open("GET", "http://localhost:9000/checklogin/?login=brunoffp&pass="+cryptedPass, false);
+			xmlhttp.send();
+		}
+		
+		function removeUser(){
+			xmlhttp.open("DELETE", "http://localhost:9000/removeuser?login=brunoffp", true);
+			xmlhttp.send();
+		}
+		
+		function updateUserDevices(){
+			xmlhttp.open("POST", "http://localhost:9000/updatedevices?login=brunoffp&devices=0,2", true);
 			xmlhttp.send();
 		}
 		
@@ -80,6 +91,8 @@
 		<div align="center"><input  type="button" value="get users" onclick="javascript:sendHttpGetUsers()"></div>
 		<div align="center"><input  type="button" value="get devices" onclick="javascript:sendHttpGetDevices()"></div>
 		<div align="center"><input  type="button" value="post data" onclick="javascript:sendHttpPostUser()"></div>
+		<div align="center"><input  type="button" value="remove user" onclick="javascript:removeUser()"></div>
+		<div align="center"><input  type="button" value="updateUserDevices" onclick="javascript:updateUserDevices()"></div>
 		<input name="pass" id="pass" type="password">
 	</body>
   
