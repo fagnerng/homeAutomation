@@ -102,6 +102,7 @@ devicesRequest.onreadystatechange=function() {
 function getDisp(){
   devicesRequest.open("GET", "http://localhost:9000/getDevices", false);
   devicesRequest.send();
+  document.getElementById("Chbx0").checked = true;
 }
 
 // function arrayDevices(){

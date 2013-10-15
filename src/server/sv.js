@@ -1,5 +1,9 @@
 var express = require('express');
 var crypto = require('crypto');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var xmlhttp = new XMLHttpRequest();
+var xmlhttp2 = new XMLHttpRequest();
+var response = [];
 var app = express();
 
 var users = [];			// Carrega todos os usuarios do sistema
@@ -11,7 +15,7 @@ var selectedUser;		// Usuario selecionado no select box na tela de Gerenciamento
 var userDevicesManage = [];	// IDs dos Devices da tela de Gerenciamento 
 var userRegistered = ""; // Usuario que esta sendo registrado naquele momento
 var registerHapenning = false; // Flag para controle de execucao de registro
-
+var callback;
 app.configure(function(){
 	app.use(express.static(__dirname + '/Templates/res'));
 });
@@ -19,7 +23,21 @@ app.configure(function(){
 var autLogin = "false";
 console.log("Server Initiated");
 
+
 app.use(express.methodOverride());
+xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.status==200 && xmlhttp.readyState == 4){
+			response = xmlhttp.responseText.split(',');
+			var jsonData = require('./BD/database.json');
+			var devicesLen = jsonData.alldata.devices.length
+			for (var i=0; i < devicesLen; i++) {
+				jsonData.alldata.devices[i].status = response[i];
+				
+			}
+			saveData(jsonData);
+			
+		}
+	}
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -31,69 +49,35 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-function switchPower(id, status, callback){
-	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-	var xmlhttp = new XMLHttpRequest();
-	var response  = [];
-	xmlhttp.onreadystatechange=function() {
-		callback(xmlhttp.status);
-	
-	}
-	xmlhttp.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, false);
-	xmlhttp.send();
-	//~ switchPower('0','on', function (e){
-		//~ //variavel e representa o codigo de retono da funcao;
-		//~ });
+function switchPower(id, status){
+	xmlhttp2.open("POST", 'http://192.168.2.28:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+	xmlhttp2.send();
 };
-};
-function getPowerStatus(id, callback){
-	var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-	var xmlhttp = new XMLHttpRequest();
-	var response  = [];
-	xmlhttp.onreadystatechange=function() {
-		if (xmlhttp.status==200){
-		response = JSON.parse(xmlhttp.responseText);
-		console.log(response);
-		callback(response.devices[parseInt(id)].status);
-	}
-	}
-	xmlhttp.open("GET", "http://arduino.com.br:3000/control", false);
+setInterval(getPowerStatus, 1000);
+//~ getPowerStatus('0',function (e){
+//~ //variavel e representa o status do dipositivo selecionado retono da funcao;
+//~ });
+function getPowerStatus(){
+	xmlhttp.open("GET", "http://192.168.2.28:3000/control", true);
 	xmlhttp.send();
-		//~ getPowerStatus('0',function (e){
-		//~ //variavel e representa o status do dipositivo selecionado retono da funcao;
-		//~ });
-	
 
-function removeUserByLogin(login){ // Trata para não remover o root (admin=true)
-	var jsonData = require('./BD/database.json');	
-	var index = findUserByLogin(login);
-	var usersBAK = jsonData.alldata.users;
-	var idposition = 0;
-	jsonData.alldata.users = []
-	for ( i = 0;i<usersBAK.length;i++){
-		if( i!= index){
-			jsonData.alldata.users[idposition] = usersBAK[i];
-			idposition++;
-		}
-	}
-	saveData(jsonData);
+	return response;
 }
 
 function removeUserByID(id){ // Trata para não remover o root (admin==true)
 	var jsonData = require('./BD/database.json');	
-	var index = id;
 	var usersBAK = jsonData.alldata.users;
 	var idposition = 0;
 	jsonData.alldata.users = []
-	console.log(id);
-	for ( i = 0;i<usersBAK.length;i++){
-		console.log(i);
-		if( i!= index){
-			jsonData.alldata.users[idposition] = usersBAK[i];
-			idposition++;
+	if(usersBAK[id].admin != "true"){
+		for ( i = 0;i<usersBAK.length;i++){
+			if( i!= id ){
+				jsonData.alldata.users[idposition] = usersBAK[i];
+				idposition++;
+			}
 		}
+		saveData(jsonData);
 	}
-	saveData(jsonData);
 }
 
 function saveData(jsonData){
@@ -105,9 +89,7 @@ function saveData(jsonData){
 function isRoot(login){
 	var jsonData = require('./BD/database.json');
 	var length = jsonData.alldata.users.length;
-	console.log("isROOT", length);
 	for(i=0; i < length; i++){
-		console.log("Admin",jsonData.alldata.users[i].admin);
 		if (login == jsonData.alldata.users[i].login){
 			if ("true" == jsonData.alldata.users[i].admin){
 				return true;
@@ -124,20 +106,10 @@ function getUserLoginbyID(id){
 }
 
 function changeStatus(id,status){
-	//switchPower(id,status)
+	switchPower(id,status)
 	var jsonData = require('./BD/database.json');
 	jsonData.alldata.devices[id].status = status;
-
-	fs = require('fs');
-	var outputFilename = './BD/database.json';
-	console.log("in!");// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
-	fs.writeFile(outputFilename, JSON.stringify(jsonData, null, 4), function(err) {
-		if(err) {
-		  console.log(err);
-		} else {
-		  console.log("JSON saved to ");
-		}
-	}); 
+	saveData(jsonData);
 }
 
 function createNewUser(user, deviceIDS){
@@ -158,7 +130,6 @@ function fillUsers(){
 	users = [];
 	var jsonData = require('./BD/database.json');
 	var usersLen = jsonData.alldata.users.length
-	console.log("UsrLen"+usersLen);	
 	for (var i=0; i < usersLen; i++) {
 	    users[i] = jsonData.alldata.users[i].login;
 	}
@@ -168,7 +139,6 @@ function fillUsers(){
 function getUserDevices(login){
 	var jsonData = require('./BD/database.json');
 	var indice = findUserByLogin(login);
-	console.log(indice); // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
 	var devicesUserLen = jsonData.alldata.users[indice].devices.length;
 	userDevicesManage = jsonData.alldata.users[indice].devices;
 	var devicesUser = [];
@@ -190,14 +160,13 @@ function findUserByLogin(loginName){
 	return -1;
 }
 
+
 function allDevicesStatus(){
 	var devicesStatus = []
 	var jsonData = require('./BD/database.json');
-	var DevicesLen = jsonData.alldata.devices.length;
-
+	console.log(getPowerStatus(0));
 	for (var i=0; i < userDevices.length; i++) {
-	    console.log(jsonData.alldata.devices[userDevices[i]].name);
-	    devicesStatus[i] = jsonData.alldata.devices[userDevices[i]].status;
+	   devicesStatus[i] = jsonData.alldata.devices[userDevices[i]].status;
 	}
 
 	return devicesStatus;
@@ -247,6 +216,10 @@ function ordena(array){
     return list;
 }
 
+function activateTimer(idDevice, seconds){
+	
+}
+
 app.get('/', function(req, res){
 	res.redirect('/login');
 });
@@ -270,7 +243,7 @@ app.get('/idDevicesUser', function(req, res){
 });
 app.get('/statusdev', function(req, res){
 	getPowerStatus('0',function (e){
-		//variavel e representa o status do dipositivo selecionado retono da funcao;
+		res.send(e);
 		});
 	switchPower('0','on', function (e){
 		//variavel e representa o codigo de retono da funcao;
@@ -298,7 +271,6 @@ app.get('/aut.js', function(req, res){
 
 app.get('/choicedUser', function(req, res){
 	res.send(choicedUser.toString());
-	console.log(choicedUser.toString());
 });
 
 app.get('/getdevices', function(req, res){
@@ -321,7 +293,6 @@ app.get('/allDevices', function(req, res){
 	var allDevices = [];
 	
 	for (var i=0; i < devicesLen; i++) {
-	    console.log(jsonData.alldata.devices[i].name);
 	    allDevices[i] = jsonData.alldata.devices[i].name;
 	}
 	res.send(allDevices.toString());
@@ -416,6 +387,8 @@ app.get('/dispositivos.html', function(req, res){
 
 app.get('/allstatus', function(req, res){
 	var status = allDevicesStatus();
+	//getPowerStatus();
+	
 	res.send(status.toString());
 });
 
@@ -434,18 +407,13 @@ app.post('/deleteDevices', function(req, res){
 //New 
 app.post('/deleteUser', function(req, res){
 	var usuarios = req.param('users').split(",");
-	console.log(usuarios);
-	console.log(usuarios[i]);
 	for (var i=usuarios.length-1; i> -1; i--){
-		console.log("loop:" + i)
-		console.log("value: "+usuarios[i]);
 		removeUserByID(usuarios[i]);
 	}
 });
 
 app.post('/updatedevices', function(req, res){
 	if(registerHapenning){
-		console.log(userRegistered);
 		var index = findUserByLogin(userRegistered);	
 	}else{
 		var index = findUserByLogin(req.param('login'));
@@ -456,9 +424,6 @@ app.post('/updatedevices', function(req, res){
 	}else{
 		var devs = req.param('devices').split(",");
 	}	
-	console.log("Devices: " + req.param('devices'));
-	
-	console.log("idnex", index);
 	
 	if (index != -1){
 		jsonData.alldata.users[index].devices = devs;
@@ -478,7 +443,6 @@ app.post('/choicedUser', function(req, res){
 //Por padrão, se um regitro for feito sem especificar os dispositivos, o dispositivo 0 será atribuido
 //Aquele usuário.
 app.post('/adduser', function(req, res){
-	console.log("foi no post!!");
 	var user={};
 	if (req.param('name') != undefined && req.param('name') != ""){
 		userName=true;
@@ -486,11 +450,11 @@ app.post('/adduser', function(req, res){
 	
 	var loginValid = findUserByLogin(req.param('login'));
 	if (loginValid != -1){
-		console.log("Login Existente!");
+		console.log("Login Existente!"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	}
 	var emailValid = findUserByEmail(req.param('email'));
 	if (emailValid != -1){
-		console.log("Email Existente!");
+		console.log("Email Existente!"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 		//Tratar se o email ja existe
 	}
 		
@@ -553,10 +517,8 @@ app.post('/checkLogin', function(req, res){
 });
 
 app.post('/takeStatus',function(req,res){
-	console.log("entrou no post");
 	var id = req.param('id');
 	var status = req.param('status');
-	console.log(userDevices[parseInt(id)]);
 	changeStatus(userDevices[id],status);
 });
 
