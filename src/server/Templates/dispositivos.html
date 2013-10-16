@@ -48,8 +48,14 @@ devicesRequest.onreadystatechange=function() {
             divTag.style.margin = "0px";
              
             divTag.className ="dynamicDiv";
+            if(i == 0){
+              divTag.innerHTML = "<b>Dispositivos do Sistema</b><br>";
+              divTag.innerHTML += "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+            }else{
+              divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+            }
              
-            divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+            
 
             document.getElementById("divAll").appendChild(divTag); 
     	}
@@ -103,9 +109,14 @@ devicesRequestGet.onreadystatechange=function() {
             divTag.style.margin = "0px";
              
             divTag.className ="dynamicDiv";
-             
-            divTag.innerHTML = "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
 
+            if(i == 0){
+              divTag.innerHTML = "<b>Dispositivos do Usuário</b><br>";
+              divTag.innerHTML += "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+            }else{
+              divTag.innerHTML = "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+            }      
+            
             document.getElementById("divSome").appendChild(divTag); 
     }
 
@@ -414,12 +425,13 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 }
 
 .divs{
-	width: 700px;
+	width: 650px;
   margin-top: 15px;
   margin-left: 15px;
-}
 
-.divAllDevices{
+
+}.divAllDevices{
+  float: left;
   padding-top:13px;
   padding-left:10px; 
 	width: 250px;
@@ -430,31 +442,34 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
  	border-color: black;
 }
 
+.nome1{
+  float: left;
+}
+
+
 .divSomeDevices{
+  float: right;
+  width: 250px;
+  height: 400px;
   padding-top:13px;
   padding-left:10px; 
-	position: absolute;
   border-radius:20px;
-	margin-left: 400px;
-	top: 166px;
-	width: 250px;
-	height: 400px;
 	border-width: 2px;
   border-style: outset; 
  	border-color: black;
 }
 
 .button1{
-	position: absolute;
-	top: 30%;
-	left: 51%;
+	float: left;
+  margin-top: 10%;
+  margin-left: 6%;
   padding: 5px;
 }
 
 .button2{
-	position: absolute;
-	top: 50%;
-	left: 51%;
+  float: left;
+  margin-top: 30%;
+  margin-left: 6%;
   padding: 5px;
 }
 
@@ -509,6 +524,8 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
 <body>
 
+
+
 <div class="container">
   <div class="sidebar1">
     <ul class="nav">
@@ -522,14 +539,15 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
     <!-- end .sidebar1 --></div>
   <div class="content">
     <h1>Gerenciamento de Dispositivos</h1>
-    <p> Aqui o root poderá alterar as permissões dos usuários para os dispositivos!</p>
+    <p> Selecione o usuário desejado e altere sua permissão sobre os dispositivos</p>
     
     <select id="slctbox"  class="selectbox" onchange="changeUserSelected();"></select>
-    <div class="divs">
+    
+    <div class="divs">      
 	    <div class="divAllDevices" id="divAll"></div>
 	    <div class="divSomeDevices" id="divSome"></div>
-	    <input type="button" class="button1" value="=>" onclick="add1()"></input>
-	    <input type="button" class="button2" value="<=" onclick="removeDevices()"></input>
+	    <img src="res/seta2.jpg" class="button1" alt="add" width="32" height="32" onclick="add1()">
+      <img src="res/seta.jpg" class="button2" width="32" height="32" onclick="removeDevices()">
     </div>
 
     <!-- end .content --></div>
