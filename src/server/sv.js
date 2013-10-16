@@ -210,6 +210,7 @@ function activateTimer(idDevices, seconds){
 		jsonData.alldata.devices[idDevices].timer = true;
 		deviceTimes[idDevices] = setTimeout( function(aidDevices){
 					var jsonData = require('./BD/database.json');
+					deviceFormattedTimes[idDevices] = "0:00";
 					console.log('idddd', aidDevices);
 					if (jsonData.alldata.devices[aidDevices].timer){
 						switchPower(aidDevices, "off");
@@ -223,11 +224,11 @@ function activateTimer(idDevices, seconds){
 }
 
 function endTimer(milisecToAdd, id){
-	var sec = miliseconds / 1000;
+	var sec = milisecToAdd / 1000;
 	var mins = sec * 60;
 	var d = new Date();
 	
-	d.setMinutes(now.getMinutes() + mins);
+	d.setMinutes(d.getMinutes() + mins);
 	deviceFormattedTimes[id] = d.getHours() + ":" + d.getMinutes();
 }
 
@@ -274,7 +275,13 @@ app.get('/res/home.png', function(req, res){
 });
 
 app.get('/room.jpg', function(req, res){
-	res.sendfile(__dirname +"/Templates/room.jpg");
+	res.sendfile(__dirname +"/Templates/res/room.jpg");
+});
+app.get('/res/seta.jpg', function(req, res){
+	res.sendfile(__dirname +"/Templates/res/seta.jpg");
+});
+app.get('/res/seta2.jpg', function(req, res){
+	res.sendfile(__dirname +"/Templates/res/seta2.jpg");
 });
 
 app.get('/crypt.js', function(req, res){
@@ -291,6 +298,14 @@ app.get('/loginaut.js', function(req, res){
 
 app.get('/choicedUser', function(req, res){
 	res.send(choicedUser.toString());
+});
+
+app.get('/logedUserDevices', function(req, res){
+	res.send(userDevices.toString());
+});
+
+app.get('/times', function(req, res){
+	res.send(deviceFormattedTimes.toString());
 });
 
 app.get('/getdevices', function(req, res){
@@ -543,7 +558,7 @@ app.post('/takeStatus',function(req,res){
 	
 	console.log("Chama activateTimer", id);
 	activateTimer(id, secs);
-	endTimer(secs, id);
+	endTimer(secs, userDevices[id]);
 	//~ console.log("TEMPOOOOO: "+deviceTimes[id]._idleTimeout);
 	console.log("Chamou activateTimer");
 });

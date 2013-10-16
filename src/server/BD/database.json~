@@ -3,8 +3,8 @@
         "users": [
             {
                 "name": "Joao",
-                "login": "JoaoM",
-                "senha": "caf7f763cd767edc74cc3188de93cece",
+                "login": "joao",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
                 "admin": "true",
                 "devices": [],
                 "email": "joaomaravilha@gmail.com"
@@ -12,13 +12,54 @@
             {
                 "name": "Maria",
                 "login": "mariah",
-                "senha": "caf7f763cd767edc74cc3188de93cece",
+                "pass": "caf7f763cd767edc74cc3188de93cece",
                 "admin": "false",
                 "devices": [
-                    "1",
-                    "2"
+                    "1"
                 ],
                 "email": "mariaha@gmail.com"
+            },
+            {
+                "name": "Alex",
+                "login": "alexnum",
+                "pass": "202cb962ac59075b964b07152d234b70",
+                "admin": "false",
+                "devices": [
+                    "1"
+                ],
+                "email": "alexnum@gmail.com"
+            },
+            {
+                "name": "sdfsdf",
+                "login": "sfdgdsgf",
+                "pass": "202cb962ac59075b964b07152d234b70",
+                "admin": "false",
+                "devices": [
+                    "0"
+                ],
+                "email": "sdfgsdfg"
+            },
+            {
+                "name": "cfghfdhgd",
+                "login": "fhgdfhg",
+                "pass": "202cb962ac59075b964b07152d234b70",
+                "admin": "false",
+                "devices": [
+                    "0",
+                    "1"
+                ],
+                "email": "dfghdfg"
+            },
+            {
+                "name": "AlexNum",
+                "login": "Alexnum2",
+                "pass": "202cb962ac59075b964b07152d234b70",
+                "admin": "false",
+                "devices": [
+                    "0",
+                    "1"
+                ],
+                "email": "alexnuma"
             }
         ],
         "devices": [
@@ -33,14 +74,7 @@
                 "name": "Lampada_Sala",
                 "status": "on",
                 "timer": 0
-            },
-            {
-                "id": 2,
-                "name": "Lampada_Cozinha",
-                "status": "off",
-                "timer": 0
             }
-        ],
-        "users_length": 6
+        ]
     }
 }

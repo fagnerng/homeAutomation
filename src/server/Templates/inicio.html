@@ -9,6 +9,7 @@
 <script src="aut.js"></script>
 <script src="loginaut.js"></script>
 <script>
+var userDevices = new Array();
 var boxRequest = new XMLHttpRequest();
 
 //=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
@@ -76,6 +77,7 @@ request.onreadystatechange=function() {
 
 
 function populateList() {
+	getTime();
     request.open("GET", "http://localhost:9000/allstatus", false);
   	request.send();
     
@@ -84,11 +86,82 @@ function populateList() {
 }
 
 
+
+var userDevicesRequest = new XMLHttpRequest();
+
+//=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
+
+userDevicesRequest.onreadystatechange=function() {
+  	if (userDevicesRequest.readyState==4 && userDevicesRequest.status==200) {
+	    var response = userDevicesRequest.responseText;
+	    userDevices = response.split(",");	    
+	}
+}
+
+function devUsers(){
+	userDevicesRequest.open("GET", "http://localhost:9000/logedUserDevices", false);
+	userDevicesRequest.send();
+}
+
+
+
+
+
+var timeRequest = new XMLHttpRequest();
+
+//=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
+
+timeRequest.onreadystatechange=function() {
+  	if (timeRequest.readyState==4 && timeRequest.status==200) {
+	    var response = timeRequest.responseText;
+	    resp = response.split(",");
+	    alert(userDevices);
+	    var e = document.getElementById("combobox");
+	    alert(e.selectedIndex);
+	    if (resp[userDevices[e.selectedIndex]] != "0:00"){
+	    	time = document.getElementById("time");
+	    	alert(resp[userDevices[e.selectedIndex]]);
+	    	time.innerHTML = resp[userDevices[e.selectedIndex]];
+	    }else{
+	    	time.innerHTML = "";
+	    }
+	}
+}
+
+function getTime(){
+	devUsers();
+	timeRequest.open("GET", "http://localhost:9000/times", false);
+	timeRequest.send();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function start(){
 	checklog();
 	getDevices();
 	populateList();
-	
 }
 
 window.onload = start;
@@ -244,6 +317,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 		Desligar automaticamente em: 
 		<input id="timerValue" style="width:40px" type="number" min="0" value="0" name="tempo">
 		min
+		<b id="time"> Tempo aqui! </b>
 	</div>
 
 	<div class="other">
