@@ -209,6 +209,8 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 
 .botao{
 	padding: 5px;
+	float: right;
+	margin-top: 10px;
 	margin-right: 15px;
 }
 
@@ -271,16 +273,15 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
     <!-- end .sidebar1 --></div>
   <div class="content">
     <div align="center"><h1>Cadastrar Novo Usuário</h1> </div>
-    <p> Aqui ficará a listagem dos dispositivos permitindo que o root escolha quais dispositivos o novo usuario terá acesso!</p>
 
     <div class="dispositivos" id="divDisp">
-    	<h4> Selecione os dispositivos que o usuário terá permissão para controlar</h4>
+    	Selecione os dispositivos que o usuário terá permissão para controlar
 
     	<!-- end .dispositivos --></div>
 
-    <div align="right" class="botao">
-		<input type="button" value="Finalizar" onclick='checaBox()'</input> 
-	</div>
+
+	<input class="botao" type="button" value="Finalizar" onclick='checaBox()'</input> 
+
     <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

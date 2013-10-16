@@ -135,6 +135,12 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	margin-right: 15px;
 }
 
+.botao{
+	padding: 5px;
+	float: right;
+	margin-right: 19%;
+}
+
 /* ~~ This grouped selector gives the lists in the .content area space ~~ */
 .content ul, .content ol { 
 	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
@@ -200,31 +206,31 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 			  <table>
 				<tr>
 				  <td align="right">Name:</td>
-				  <td align="left"><input id="name" type="text" name="name" size="60"/></td>
+				  <td align="left"><input id="name" type="text" name="name" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Login:</td>
-				  <td align="left"><input id="login" type="text" name="login" size="60"/></td>
+				  <td align="left"><input id="login" type="text" name="login" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Email:</td>
-				  <td align="left"><input id="email" type="text" name="email" size="60"/></td>
+				  <td align="left"><input id="email" type="text" name="email" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Password:</td>
-				  <td align="left"><input id="pass" type="password" name="pwd" size="60"/></td>
+				  <td align="left"><input id="pass" type="password" name="pwd" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Confirm<br>Password:</td>
-				  <td align="left"><input id="cpass" type="password" name="pwdc"size="60"/></td>
+				  <td align="left"><input id="cpass" type="password" name="pwdc"size="50"/></td>
 				</tr>
 			  </table>
 			</form>
 		</div>
 		
-		<div align="right" class="margem">
-			<input type="button" value="Avançar" onclick='cadastra()'</input> 
-		</div>
+
+		<input class="botao" type="button" value="Avançar" onclick='cadastra()'</input> 
+
     <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
