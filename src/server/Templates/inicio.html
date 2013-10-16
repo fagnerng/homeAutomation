@@ -7,6 +7,7 @@
 
 
 <script src="aut.js"></script>
+<script src="loginaut.js"></script>
 <script>
 var boxRequest = new XMLHttpRequest();
 
@@ -82,10 +83,12 @@ function populateList() {
     alert(status);
 }
 
+
 function start(){
+	checklog();
 	getDevices();
 	populateList();
-
+	
 }
 
 window.onload = start;

@@ -5,6 +5,8 @@
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Cadastro</title>
 
+<script src="loginaut.js"></script>
+
 
 <script>
 
@@ -121,8 +123,13 @@ function getDisp(){
 	
 // 	window.location="inicio.html"
 // }
+function start(){
+	checklog();
+	getDisp();
 
-window.onload = getDisp;
+}
+
+window.onload = start;
 </script>
 
 
@@ -258,7 +265,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 -->
 </style></head>
 
-<body>
+<body onunload="">
 
 <div class="container">
   <div class="sidebar1">

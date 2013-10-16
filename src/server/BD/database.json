@@ -29,20 +29,30 @@
                     "0"
                 ],
                 "email": "and"
+            },
+            {
+                "name": "asfd",
+                "login": "asdfsd",
+                "pass": "202cb962ac59075b964b07152d234b70",
+                "admin": "false",
+                "devices": [
+                    0
+                ],
+                "email": "alexnum@gmail.com"
             }
         ],
         "devices": [
             {
                 "id": 0,
                 "name": "Lampada_Quarto",
-                "status": "off",
+                "status": "on",
                 "timer": true,
                 "timerID": 1800000
             },
             {
                 "id": 1,
                 "name": "Lampada_Sala",
-                "status": "off",
+                "status": "on",
                 "timer": false,
                 "timerID": 1
             }

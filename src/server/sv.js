@@ -252,6 +252,12 @@ app.get('/devices', function(req, res){
 app.get('/idDevicesUser', function(req, res){
 	res.send(userDevicesManage.toString());
 });
+
+app.get('/loginStatus', function(req, res){
+	res.send(userLoged);
+});
+
+
 app.get('/statusdev', function(req, res){
 	getPowerStatus('0',function (e){
 		res.send(e);
@@ -277,6 +283,10 @@ app.get('/crypt.js', function(req, res){
 
 app.get('/aut.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/aut.js");
+});
+
+app.get('/loginaut.js', function(req, res){
+	res.sendfile(__dirname +"/Templates/loginaut.js");
 });
 
 app.get('/choicedUser', function(req, res){
