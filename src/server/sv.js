@@ -16,7 +16,8 @@ var userDevicesManage = [];	// IDs dos Devices da tela de Gerenciamento
 var userRegistered = ""; // Usuario que esta sendo registrado naquele momento
 var registerHapenning = false; // Flag para controle de execucao de registro
 var callback;
-var deviceTimes = [];
+var deviceTimes = []; // Lista que guarda o setInterval de cada timer
+var deviceFormattedTimes = []; // Lista que guarda o tempo formatado
 
 app.configure(function(){
 	app.use(express.static(__dirname + '/Templates/res'));
@@ -54,7 +55,8 @@ function switchPower(id, status){
 	xmlhttp2.open("POST", 'http://192.168.2.28:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
 	xmlhttp2.send();
 };
-setInterval(getPowerStatus, 1000);
+
+//~ setInterval(getPowerStatus, 1000);
 //~ getPowerStatus('0',function (e){
 //~ //variavel e representa o status do dipositivo selecionado retono da funcao;
 //~ });
@@ -191,6 +193,9 @@ function fillDevices(){
 	for (var i=0; i < devicesLen; i++) {
 	    devices[i] = jsonData.alldata.devices[i].name;
 	    userDevices[i] = i;
+	    
+	    if (deviceFormattedTimes[i] == undefined)
+			deviceFormattedTimes[i] = "0:00";
 	}
 }
 
@@ -217,7 +222,14 @@ function activateTimer(idDevices, seconds){
 	}
 }
 
-
+function endTimer(milisecToAdd, id){
+	var sec = miliseconds / 1000;
+	var mins = sec * 60;
+	var d = new Date();
+	
+	d.setMinutes(now.getMinutes() + mins);
+	deviceFormattedTimes[id] = d.getHours() + ":" + d.getMinutes();
+}
 
 app.get('/', function(req, res){
 	res.redirect('/login');
@@ -248,7 +260,6 @@ app.get('/statusdev', function(req, res){
 		//variavel e representa o codigo de retono da funcao;
 		});
 });
-
 
 app.get('/res/home.png', function(req, res){
 	registerHapenning = false;
@@ -522,6 +533,8 @@ app.post('/takeStatus',function(req,res){
 	
 	console.log("Chama activateTimer", id);
 	activateTimer(id, secs);
+	endTimer(secs, id);
+	//~ console.log("TEMPOOOOO: "+deviceTimes[id]._idleTimeout);
 	console.log("Chamou activateTimer");
 });
 

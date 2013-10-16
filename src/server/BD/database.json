@@ -35,7 +35,7 @@
             {
                 "id": 0,
                 "name": "Lampada_Quarto",
-                "status": "on",
+                "status": "off",
                 "timer": true,
                 "timerID": 1800000
             },
