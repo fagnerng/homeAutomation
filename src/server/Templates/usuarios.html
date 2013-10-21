@@ -39,7 +39,6 @@ function ordena(array){
 
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    alert(xmlhttp.responseText);
   }
 }
 
@@ -87,7 +86,6 @@ xmlhttp.onreadystatechange=function() {
 
 function checaBox(){
   var selectedDevices = new Array();
-  alert(Ndevices);
   for(var i = 1; i<=Ndevices ; i++){
     var chbx = document.getElementById("Chbx" + i.toString());
      if ( chbx.checked == true){
@@ -103,7 +101,6 @@ function checaBox(){
 
 function checaLogin(){
   var nome = document.getElementById('login');
-  alert(nome.value);
   xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   xmlhttp.send();
 }

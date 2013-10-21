@@ -180,7 +180,6 @@ function sendResults(selectedUser,idS){
     getDevices();
     postUser(selectedUser);
     getDevicesFromUser();
-    alert("FF");
 }
 
 
@@ -213,7 +212,6 @@ function add1(){
   requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
   requestIds.send();
   selectedDevices = add();
-  alert(selectedDevices.length);
 
   for(var i=0; i<selectedDevices.length; i++){
 	
@@ -226,7 +224,6 @@ function add1(){
     	chbx.checked = false;
     }
 
-    alert(idS.toString());
 
     
 
@@ -281,8 +278,6 @@ function removeDevices(){
   			idS.splice(idS.indexOf(selectedDevicesRemove[i]), 1);
   		}
   	}
-
-    alert(idS.toString());
 
     var selectedUser = document.getElementById("slctbox").value;
     sendResults(selectedUser,idS);

@@ -19,23 +19,6 @@ xmlhttp.onreadystatechange=function() {
 		window.location = "http://localhost:9000/cadastro2";
 }
 
-// xmlhttp2.onreadystatechange=function() {
-// 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
-// 		var autenthication = xmlhttp2.responseText;
-// 		alert(autenthication);
-// 		if (autenthication == "Ok!"){
-// 			window.location = "http://localhost:9000/menu";
-// 		}else{
-// 			alert("Informações incorretas");
-// 		}
-// 	}
-// }
-
-
-// function sendHttpGetUsers(){
-// 	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
-// 	xmlhttp2.send();
-// 	}
 
 function trim(str) {
 	return str.replace(/^\s+|\s+$/g,"");
@@ -74,7 +57,6 @@ function cadastra(){
 	}else if(!(checaEmail(email))){
 		alert("E-mail Inválido")	
 	}else{
-		alert("fazendopost!");
 		xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		//window.location = "http://localhost:9000/deviceUpdating"

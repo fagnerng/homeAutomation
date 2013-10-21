@@ -54,6 +54,7 @@ function checaBox(){
  	}
  	statusRequest.open("POST", "http://localhost:9000/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
     statusRequest.send();
+    populateList();
 }
 
 var request = new XMLHttpRequest();
@@ -66,7 +67,6 @@ request.onreadystatechange=function() {
 	    var e = document.getElementById("combobox");
 	    status = stat[e.selectedIndex];
 	    var chbx = document.getElementById("chbx");
-	    alert(status);
     if(status == "off"){
     	chbx.checked = false;
 	}else{
@@ -80,9 +80,6 @@ function populateList() {
 	getTime();
     request.open("GET", "http://localhost:9000/allstatus", false);
   	request.send();
-    
-
-    alert(status);
 }
 
 
@@ -115,12 +112,9 @@ timeRequest.onreadystatechange=function() {
   	if (timeRequest.readyState==4 && timeRequest.status==200) {
 	    var response = timeRequest.responseText;
 	    resp = response.split(",");
-	    alert(userDevices);
 	    var e = document.getElementById("combobox");
-	    alert(e.selectedIndex);
 	    if (resp[userDevices[e.selectedIndex]] != "0:00"){
 	    	time = document.getElementById("time");
-	    	alert(resp[userDevices[e.selectedIndex]]);
 	    	time.innerHTML = resp[userDevices[e.selectedIndex]];
 	    }else{
 	    	time.innerHTML = "";
@@ -317,7 +311,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 		Desligar automaticamente em: 
 		<input id="timerValue" style="width:40px" type="number" min="0" value="0" name="tempo">
 		min
-		<b id="time"> Tempo aqui! </b>
+		<b id="time"></b>
 	</div>
 
 	<div class="other">
