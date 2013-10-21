@@ -442,9 +442,12 @@ app.post('/deleteDevices', function(req, res){
 //New 
 app.post('/deleteUser', function(req, res){
 	var usuarios = req.param('users').split(",");
-	for (var i=usuarios.length-1; i> -1; i--){
+	if (user[0] != ""){
+		for (var i=usuarios.length-1; i> -1; i--){
 		removeUserByID(usuarios[i]);
-	}
+		}
+	}	
+	
 });
 
 app.post('/updatedevices', function(req, res){
