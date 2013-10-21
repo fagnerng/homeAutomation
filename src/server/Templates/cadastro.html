@@ -48,11 +48,13 @@ function cadastra(){
 	var nome = document.getElementById('name').value;
 	var login = document.getElementById('login').value;
 	var email = document.getElementById('email').value;
+	var purePass = document.getElementById('pass').value;
+	var pureCpass = document.getElementById('cpass').value;
 	var pass = convertToMD5(document.getElementById('pass').value);
 	var cpass = convertToMD5(document.getElementById('cpass').value);
-	if (pass != cpass){
+	if (pass != cpass && validaCampos(purePass) && validaCampos(pureCpass)){
 		alert("Senhas não conferem");
-	}else if (!(validaCampos(nome) && login && validaCampos(login) && validaCampos(email))){
+	}else if (!(validaCampos(nome) && validaCampos(login) && validaCampos(email) && validaCampos(purePass) && validaCampos(pureCpass))){
 		alert("Por favor preencha todos os campos")
 	}else if(!(checaEmail(email))){
 		alert("E-mail Inválido")	

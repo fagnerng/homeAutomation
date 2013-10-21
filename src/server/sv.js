@@ -109,7 +109,7 @@ function getUserLoginbyID(id){
 }
 
 function changeStatus(id,status){
-	switchPower(id,status)
+	//switchPower(id,status)
 	var jsonData = require('./BD/database.json');
 	jsonData.alldata.devices[id].status = status;
 	saveData(jsonData);
@@ -165,9 +165,9 @@ function findUserByLogin(loginName){
 
 
 function allDevicesStatus(){
-	var devicesStatus = []
+	var devicesStatus = [];
 	var jsonData = require('./BD/database.json');
-	console.log(getPowerStatus(0));
+	//console.log(getPowerStatus(0));
 	for (var i=0; i < userDevices.length; i++) {
 	   devicesStatus[i] = jsonData.alldata.devices[userDevices[i]].status;
 	}
@@ -305,7 +305,8 @@ app.get('/logedUserDevices', function(req, res){
 });
 
 app.get('/times', function(req, res){
-	res.send(deviceFormattedTimes.toString());
+	//res.send(deviceFormattedTimes.toString());
+	res.send("88");
 });
 
 app.get('/getdevices', function(req, res){
@@ -423,8 +424,8 @@ app.get('/dispositivos.html', function(req, res){
 app.get('/allstatus', function(req, res){
 	var status = allDevicesStatus();
 	//getPowerStatus();
-	
 	res.send(status.toString());
+	res.end;
 });
 
 app.get('/checkLogin', function(req, res){
@@ -442,7 +443,8 @@ app.post('/deleteDevices', function(req, res){
 //New 
 app.post('/deleteUser', function(req, res){
 	var usuarios = req.param('users').split(",");
-	if (user[0] != ""){
+	console.log
+	if (usuarios[0] != ""){
 		for (var i=usuarios.length-1; i> -1; i--){
 		removeUserByID(usuarios[i]);
 		}
@@ -560,8 +562,8 @@ app.post('/takeStatus',function(req,res){
 	changeStatus(userDevices[id],status);
 	
 	console.log("Chama activateTimer", id);
-	activateTimer(id, secs);
-	endTimer(secs, userDevices[id]);
+	//activateTimer(id, secs);
+	//endTimer(secs, userDevices[id]);
 	//~ console.log("TEMPOOOOO: "+deviceTimes[id]._idleTimeout);
 	console.log("Chamou activateTimer");
 });

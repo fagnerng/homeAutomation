@@ -23,6 +23,7 @@ boxRequest.onreadystatechange=function() {
 	    	var opt = document.createElement('option');
 	    	opt.innerHTML = users[i];
 	    	opt.value = users[i];
+	    	opt.id = "Option: "+ i;
 	    	select.appendChild(opt);
 		}
 	}

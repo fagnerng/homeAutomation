@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:9000/" />
+<title>UserManagementTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">UserManagementTest</td></tr>
+</thead><tbody>
+<!--Adicionar todos os dispositivos em mariah-->
+<tr>
+	<td>select</td>
+	<td>id=slctbox</td>
+	<td>label=mariah</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button1</td>
+	<td></td>
+</tr>
+<!--Checar se os dois foram adicionados(Caso algum não seja adicionado o teste apontará um erro de Locator not found)-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<!--Remover O primeiro dispositivo de mariah-->
+<tr>
+	<td>check</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<!--Checar se o dispositivo foi removido-->
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<!--Confirmar alerta ao tentar remover o ultimo dispositivo de mariah-->
+<tr>
+	<td>check</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Um usuario precisa ter ao menos um dispositivo.</td>
+	<td></td>
+</tr>
+<!--Mudança de usuario para "fhgdfhg" e confirmação da pudança de dispositivos-->
+<tr>
+	<td>select</td>
+	<td>id=slctbox</td>
+	<td>label=fhgdfhg</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<!--Confirmar alerta ao tentar remover todos os dispositivos-->
+<tr>
+	<td>check</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForAlert</td>
+	<td>Um usuario precisa ter ao menos um dispositivo.</td>
+	<td></td>
+</tr>
+<!--Remoção do segundo dispositivo-->
+<tr>
+	<td>uncheck</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<!--Checar se o dispositivo foi removido-->
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<!--Testar caso tente se selecionar um elemento da coluna da direita e se clique na no botão de adicionar (Nada deve acontecer)-->
+<tr>
+	<td>check</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button1</td>
+	<td></td>
+</tr>
+<!--Verificar se alguma mudança ocorreu-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<!--Testar caso tente se selecionar um elemento da coluna da esquerda e se clique na no botão de remover (Nada deve acontecer)-->
+<tr>
+	<td>check</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<!--Verificar se alguma mudança ocorreu-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<!--Testar caso tente se selecionar todos os elementos da coluna da esquerda e se clique na no botão de remover (Nada deve acontecer)-->
+<tr>
+	<td>check</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=img.button2</td>
+	<td></td>
+</tr>
+<!--Verificar se alguma mudança ocorreu-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

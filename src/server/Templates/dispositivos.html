@@ -269,7 +269,7 @@ function removeDevices(){
   requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
   	requestIds.send();
   	selectedDivSome();
-    if (devicesFromUser <= 1 || selectedDevicesRemove.length == devicesFromUser){
+    if ((devicesFromUser <= 1 || selectedDevicesRemove.length == devicesFromUser )&& selectedDevicesRemove.length != 0){
       alert("Um usuario precisa ter ao menos um dispositivo.");
       return -1;
     }
