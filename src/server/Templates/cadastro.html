@@ -37,6 +37,28 @@ xmlhttp.onreadystatechange=function() {
 // 	xmlhttp2.send();
 // 	}
 
+function trim(str) {
+	return str.replace(/^\s+|\s+$/g,"");
+}	
+
+function checaEmail(texto){
+	NumeroArrobas = 0;
+	for(var i=0; i<texto.length; i++){
+		if(texto.charAt(i) == "@"){
+			NumeroArrobas++;
+		}
+	}
+	return NumeroArrobas == 1;
+}
+
+function validaCampos(texto){
+	text = trim(texto);
+	return text != "";
+}
+
+function validaEmail(texto){
+	return (trim(texto) != "" && texto.indexOf("@") != -1);
+}
 
 function cadastra(){
 	//tratar campos vazios
@@ -46,15 +68,19 @@ function cadastra(){
 	var pass = convertToMD5(document.getElementById('pass').value);
 	var cpass = convertToMD5(document.getElementById('cpass').value);
 	if (pass != cpass){
-		alert("senhas não conferem");
+		alert("Senhas não conferem");
+	}else if (!(validaCampos(nome) && login && validaCampos(login) && validaCampos(email))){
+		alert("Por favor preencha todos os campos")
+	}else if(!(checaEmail(email))){
+		alert("E-mail Inválido")	
 	}else{
 		alert("fazendopost!");
 		xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		//window.location = "http://localhost:9000/deviceUpdating"
 	
-	}
 	
+	}
 }
 
 window.onload = checklog;
