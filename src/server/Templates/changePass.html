@@ -49,11 +49,11 @@ function enviaDados(){
 	var oldPass = convertToMD5(document.getElementById('pass').value);
 	var newPass = convertToMD5(document.getElementById('nPass').value);
 	var confirmedNewpass = convertToMD5(document.getElementById('cNpass').value);
-	if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value)){	
+	if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) && (newPass == confirmedNewpass)){	
 		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		authenticate();	
-	}else if (!(validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) )){
+	}else if (!(validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) && validaCampos(document.getElementById('pass').value))){
 		alert("Por favor, preencha todos os campos");
 	}else if (newPass != confirmedNewpass){
 		alert("As novas senhas não conferem");
