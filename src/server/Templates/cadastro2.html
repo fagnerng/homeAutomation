@@ -17,7 +17,6 @@ var Ndevices = new Array();
 
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    alert(xmlhttp.responseText);
   }
 }
 
@@ -57,17 +56,20 @@ function checaBox(){
         selectedDevices[selectedDevices.length] = (i).toString();
      }  
   }
-
-  boxRequest.open("POST", "http://localhost:9000/updatedevices?devices=" + selectedDevices.toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
-  boxRequest.send();
-  alert("Dispositivos adicionados com sucesso!");
-  window.location="http://localhost:9000/home"
+  if(selectedDevices.length == 0){
+  	alert("Selecione ao menos um dispositivo")
+  }else{
+  	boxRequest.open("POST", "http://localhost:9000/updatedevices?devices=" + selectedDevices.toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+  	boxRequest.send();
+  	alert("Dispositivos adicionados com sucesso!");
+  	window.location="http://localhost:9000/home"
+  }
+  
 
 }
 
 function checaLogin(){
   var nome = document.getElementById('login');
-  alert(nome.value);
   xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   xmlhttp.send();
 }
