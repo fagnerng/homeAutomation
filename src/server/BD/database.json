@@ -66,13 +66,14 @@
             {
                 "id": 0,
                 "name": "Lampada_Quarto",
-                "status": "",
+                "status": "on",
                 "timer": true
             },
             {
                 "id": 1,
                 "name": "Lampada_Sala",
-                "timer": 0
+                "timer": 0,
+                "status": "off"
             }
         ]
     }

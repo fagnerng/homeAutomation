@@ -28,12 +28,14 @@ console.log("Server Initiated");
 
 app.use(express.methodOverride());
 xmlhttp.onreadystatechange=function() {
+
 		if (xmlhttp.status==200 && xmlhttp.readyState == 4){
-			response = xmlhttp.responseText.split(',');
+			response = JSON.parse( xmlhttp.responseText);
+			console.log(response);
 			var jsonData = require('./BD/database.json');
-			var devicesLen = jsonData.alldata.devices.length
+			var devicesLen = jsonData.alldata.devices.length;
 			for (var i=0; i < devicesLen; i++) {
-				jsonData.alldata.devices[i].status = response[i];
+				jsonData.alldata.devices[i].status = response.devices[i].status;
 				
 			}
 			saveData(jsonData);
@@ -52,19 +54,27 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 function switchPower(id, status){
-	xmlhttp2.open("POST", 'http://192.168.2.28:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
-	xmlhttp2.send();
+	try{
+		//~ xmlhttp2.open("POST", 'http://192.168.2.28:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		xmlhttp2.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		xmlhttp2.send();
+	}catch(e){
+		console.log(e);
+		/////////////////////////////////////////////////////o arduino nao foi encontrado
+	}
 };
 
-//~ setInterval(getPowerStatus, 1000);
-//~ getPowerStatus('0',function (e){
-//~ //variavel e representa o status do dipositivo selecionado retono da funcao;
-//~ });
-function getPowerStatus(){
-	xmlhttp.open("GET", "http://192.168.2.28:3000/control", true);
-	xmlhttp.send();
+setInterval(getPowerStatus, 1000);
 
-	return response;
+function getPowerStatus(){
+	try{
+		//~ xmlhttp.open("GET", "http://192.168.2.28:3000/control", true);
+		xmlhttp.open("GET", "http://arduino.com.br:3000/control", true);
+		xmlhttp.send();
+	}catch(e){
+		console.log(e);
+		/////////////////////////////////////////////////////o arduino nao foi encontrado
+	}
 }
 
 function removeUserByID(id){ // Trata para não remover o root (admin==true)
