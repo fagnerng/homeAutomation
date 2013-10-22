@@ -36,19 +36,30 @@ function authenticate(){
 	xmlhttp2.send();
 }
 
+function validaCampos(texto){
+	text = trim(texto);
+	return text != "";
+}
+
+function trim(str) {
+	return str.replace(/^\s+|\s+$/g,"");
+}
+
 function enviaDados(){
 	var oldPass = convertToMD5(document.getElementById('pass').value);
 	var newPass = convertToMD5(document.getElementById('nPass').value);
 	var confirmedNewpass = convertToMD5(document.getElementById('cNpass').value);
-	if (newPass != confirmedNewpass ){
-		alert("As novas senhas não conferem");
-	}else{
+	if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value)){	
 		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
-		sendHttpGetUsers();
-	}
-	
+		authenticate();	
+	}else if (!(validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) )){
+		alert("Por favor, preencha todos os campos");
+	}else if (newPass != confirmedNewpass){
+		alert("As novas senhas não conferem");
+	}	
 }
+
 
 window.onload = checklog;
 
@@ -207,15 +218,15 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 			  <table>
 				<tr>
 				  <td align="right">Senha atual</td>
-				  <td align="left"><input id="pass" type="text" name="name" size="20"/></td>
+				  <td align="left"><input id="pass" type="password" name="name" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Nova Senha</td>
-				  <td align="left"><input id="nPass" type="text" name="login" size="20"/></td>
+				  <td align="left"><input id="nPass" type="password" name="login" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Repita a nova senha</td>
-				  <td align="left"><input id="cNpass" type="text" name="email" size="20"/></td>
+				  <td align="left"><input id="cNpass" type="password" name="email" size="20"/></td>
 				</tr>
 			  </table>
 		</form>
