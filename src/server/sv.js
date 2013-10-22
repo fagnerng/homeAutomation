@@ -5,6 +5,9 @@ var xmlhttp = new XMLHttpRequest();
 var xmlhttp2 = new XMLHttpRequest();
 var response = [];
 var app = express();
+var host = "192.168.1.28";
+//~ var host = "arduino.com.br";
+var port = "3000";
 
 var users = [];			// Carrega todos os usuarios do sistema
 var devices = [];		// Carrega todos os devices do sistema
@@ -27,6 +30,7 @@ var autLogin = "false";
 console.log("Server Initiated");
 
 app.use(express.methodOverride());
+
 xmlhttp.onreadystatechange=function() {
 
 		if (xmlhttp.status==200 && xmlhttp.readyState == 4){
@@ -53,28 +57,36 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
+function getLinkDefault(){
+	return "http://"+host+":"+port+"/control";
+}
+
 function switchPower(id, status){
+	console.log(id,status);
 	try{
-		//~ xmlhttp2.open("POST", 'http://192.168.2.28:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
-		xmlhttp2.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		xmlhttp2.open("POST", getLinkDefault()+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		//~ xmlhttp2.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
 		xmlhttp2.send();
-	}catch(e){
+		}catch(e){
 		console.log(e);
 		/////////////////////////////////////////////////////o arduino nao foi encontrado
 	}
 };
 
-setInterval(getPowerStatus, 1000);
+setTimeout(getPowerStatus, 1000);
 
 function getPowerStatus(){
 	try{
-		//~ xmlhttp.open("GET", "http://192.168.2.28:3000/control", true);
-		xmlhttp.open("GET", "http://arduino.com.br:3000/control", true);
+		xmlhttp.open("GET", getLinkDefault(), true);
+		//~ xmlhttp.open("GET", "http://arduino.com.br:3000/control", true);
+
 		xmlhttp.send();
 	}catch(e){
 		console.log(e);
 		/////////////////////////////////////////////////////o arduino nao foi encontrado
 	}
+	if(userLoged){setTimeout(getPowerStatus, 1000);}
+	else{setTimeout(getPowerStatus, 30000);}
 }
 
 function removeUserByID(id){ // Trata para não remover o root (admin==true)
@@ -119,7 +131,7 @@ function getUserLoginbyID(id){
 }
 
 function changeStatus(id,status){
-	//switchPower(id,status)
+	switchPower(id,status)
 	var jsonData = require('./BD/database.json');
 	jsonData.alldata.devices[id].status = status;
 	saveData(jsonData);
@@ -536,6 +548,7 @@ app.post('/checkLogin', function(req, res){
 			err= 'usuario logado';
 			autLogin = "true";
 			autenticado = true;
+			
 		}else {
 			err='senha incorreta';
 			res.send("No!");
@@ -545,6 +558,7 @@ app.post('/checkLogin', function(req, res){
 	if(autenticado){
 		autLogin = "true";
 		userLoged = true;
+		getPowerStatus();
 		if(isRoot(userLogin)){
 			rootUser = true;
 			fillDevices();
@@ -571,11 +585,9 @@ app.post('/takeStatus',function(req,res){
 	
 	changeStatus(userDevices[id],status);
 	
-	console.log("Chama activateTimer", id);
-	//activateTimer(id, secs);
-	//endTimer(secs, userDevices[id]);
-	//~ console.log("TEMPOOOOO: "+deviceTimes[id]._idleTimeout);
-	console.log("Chamou activateTimer");
+	activateTimer(id, secs);
+	endTimer(secs, userDevices[id]);
+	
 });
 
 app.listen(9000);
