@@ -22,6 +22,8 @@ var callback;
 var deviceTimes = []; // Lista que guarda o setInterval de cada timer
 var deviceFormattedTimes = []; // Lista que guarda o tempo formatado
 var UserAlreadyExists = false; //Flag que indica se o usuario a ser cadastrado já existe
+var IdLoggedUser; //Id do usuario que esta logado atualmente
+var PasswordChangeStatus = false // Flag que indica se a troca de senha poderá ser realizada com sucesso
 
 app.configure(function(){
 	app.use(express.static(__dirname + '/Templates/res'));
@@ -57,6 +59,23 @@ var allowCrossDomain = function(req, res, next) {
       next();
 };
 app.use(allowCrossDomain);
+
+function ChangeUserPassword(id,oldPass,newPass){
+	var jsonData = require('./BD/database.json');	
+	var usersBAK = jsonData.alldata.users;
+	console.log(oldPass);
+	console.log(jsonData.alldata.users[IdLoggedUser].pass);
+	if(jsonData.alldata.users[IdLoggedUser].pass == oldPass){
+		jsonData.alldata.users[IdLoggedUser].pass = newPass;
+		console.log("TRUEEEEE");
+		PasswordChangeStatus = true;
+		saveData(jsonData);
+	}else{
+		console.log("falseeeeeeee");
+		PasswordChangeStatus = false;
+	}
+
+}
 
 function getLinkDefault(){
 	return "http://"+host+":"+port+"/control";
@@ -390,6 +409,17 @@ app.get('/inicio.html', function(req, res){
 	}	
 });
 
+
+app.get('/changePass.html', function(req, res){
+	registerHapenning = false;
+	userRegistered = "";
+	if(userLoged){
+		res.sendfile(__dirname + '/Templates/changePass.html');
+	}else{
+		res.redirect('/login');
+	}	
+});
+
 app.get('/cadastro2', function(req, res){
 	UserAlreadyExists = false;
 	if(!(userLoged)){
@@ -455,6 +485,12 @@ app.get('/allstatus', function(req, res){
 app.get('/checkUser', function(req, res){
 	res.send(UserAlreadyExists.toString());
 });
+
+app.get('/checkPassword', function(req, res){
+	res.send(PasswordChangeStatus.toString());
+	//PasswordChangeStatus = false;
+});
+
 app.get('/checkLogin', function(req, res){
 	fillUsers();
 	res.send(autLogin);
@@ -506,6 +542,13 @@ app.post('/choicedUser', function(req, res){
 	choicedUser = getUserDevices(login);
 });
 
+app.post('/changePassword', function(req, res){
+	//TRATAR se login é valido ou nao
+	oldPass = req.param('oldPass');
+	newPass = req.param('newPass');
+	ChangeUserPassword(IdLoggedUser,oldPass,newPass);
+});
+
 
 //Por padrão, se um regitro for feito sem especificar os dispositivos, o dispositivo 0 será atribuido
 //Aquele usuário.
@@ -547,6 +590,7 @@ app.post('/checkLogin', function(req, res){
 	autenticado = false;
 	var jsonData = fillUsers();
 	var index = findUserByLogin(req.param('login'));
+	IdLoggedUser = index;
 	var err = "";
 	if (index == -1 ){
 		autenticado = false;
