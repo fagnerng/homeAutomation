@@ -16,6 +16,8 @@ var responseGet;
 var responseGet2;
 var autenthication;
 
+alert("pagina ok")
+
 xmlhttp.onreadystatechange=function() {
 	if(autenthication == "false"){
 			alert("A senha atual está incorreta");
@@ -35,16 +37,30 @@ function authenticate(){
 	xmlhttp2.send();
 }
 
+function validaCampos(texto){
+	text = trim(texto);
+	return text != "";
+}
+
+function trim(str) {
+	return str.replace(/^\s+|\s+$/g,"");
+}
+
 function enviaDados(){
+	alert(validaCampos(document.getElementById('pass').value));
+	alert("aaaaaa");
 	var oldPass = convertToMD5(document.getElementById('pass').value);
 	var newPass = convertToMD5(document.getElementById('nPass').value);
 	var confirmedNewpass = convertToMD5(document.getElementById('cNpass').value);
+
 	if (newPass != confirmedNewpass ){
 		alert("As novas senhas não conferem");
-	}else{
+	}else if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value)){	
 		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, false); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		authenticate();	
+	}else{
+		alert("Por favor, preencha todos os campos");
 	}
 	
 }
@@ -191,7 +207,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="usuarios.html">Usuários</a></li>
       <li><a href="dispositivos.html">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
-      <li><a href="changePass.html">Mudar Senha</a></li>
+      <li><a href="changePass.html">Mudar Senhasda</a></li>
       <li><a href="http://localhost:9000/logout">Sair</a></li>
     </ul>
    
@@ -206,15 +222,15 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 			  <table>
 				<tr>
 				  <td align="right">Senha atual</td>
-				  <td align="left"><input id="pass" type="text" name="name" size="20"/></td>
+				  <td align="left"><input id="pass" type="password" name="name" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Nova Senha</td>
-				  <td align="left"><input id="nPass" type="text" name="login" size="20"/></td>
+				  <td align="left"><input id="nPass" type="password" name="login" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Repita a nova senha</td>
-				  <td align="left"><input id="cNpass" type="text" name="email" size="20"/></td>
+				  <td align="left"><input id="cNpass" type="password" name="email" size="20"/></td>
 				</tr>
 			  </table>
 		</form>

@@ -27,14 +27,12 @@ xmlhttp.onreadystatechange=function() {
 
 xmlhttp2.onreadystatechange=function() {
 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
-		autenthication = xmlhttp2.responseText;
-
-		
+		autenthication = xmlhttp2.responseText;	
 	}
 }
 
 function authenticate(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkPassword", false);
+	xmlhttp2.open("GET", "http://localhost:9000/checkPassword", true);
 	xmlhttp2.send();
 }
 
