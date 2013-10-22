@@ -1,361 +1,202 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!-- TemplateBeginEditable name="doctitle" -->
 <title>Dispositivos</title>
-
 <script src="loginaut.js"></script>
-
 <script type="text/javascript">
-
-//====================== Pega Todos os dispositivos ===============
-var xmlhttp = new XMLHttpRequest();
-var responseGet;
-
-var Ndevices = 0;
-var devicesFromUser = 0;
-
-xmlhttp.onreadystatechange=function() {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-    
-  }
-}
-
-
-
-xmlhttp.onreadystatechange=function() {
-  if (boxRequest.readyState==4 && boxRequest.status==200) {
-    var response = boxRequest.responseText;
-  }
-}
-
-
-var devicesRequest = new XMLHttpRequest();
-
-devicesRequest.onreadystatechange=function() {
-  if (devicesRequest.readyState==4 && devicesRequest.status==200) {
-    var devicesContent = devicesRequest.responseText;
-    var devices = devicesContent.split(",");
-    Ndevices = 0;
-    for (var i = 0 ; i<devices.length; i++){
-            nome = devices[i];
-          
-            var divTag = document.createElement("div");
-            
-            divTag.id = "div1";
-
-            Ndevices++;
-
-            divTag.style.margin = "0px";
-             
-            divTag.className ="dynamicDiv";
-            if(i == 0){
-              divTag.innerHTML = "<b>Dispositivos do Sistema</b><br>";
-              divTag.innerHTML += "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
-            }else{
-              divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
-            }
-             
-            
-
-            document.getElementById("divAll").appendChild(divTag); 
-    	}
-	}
-
-}
-
-function getDevices(){
-  devicesRequest.open("GET", "http://localhost:9000/allDevices", false);
-  devicesRequest.send();
-}
-
-//Função para o botão novo, o qual direciona para a página de criar um novo usuário
-function criaUsuario(){
-	window.location="cadastro.html"
-}
-
-
-//====================== Pega Dispositivos de um Usuário ===============
-
-var userRequest = new XMLHttpRequest();
-
-userRequest.onreadystatechange=function() {
-	if (userRequest.readyState==4 && userRequest.status==200) {
-		}
-	}
-
-
-function postUser(selectedUser){
-  userRequest.open("POST", "http://localhost:9000/choicedUser?login="+ selectedUser, true);
-  userRequest.send();
-}
-
-var devicesRequestGet = new XMLHttpRequest();
-
-devicesRequestGet.onreadystatechange=function() {
-  if (devicesRequestGet.readyState==4 && devicesRequestGet.status==200) {
-    var devicesContent = devicesRequestGet.responseText;
-    var devices = devicesContent.split(",");
-    devicesFromUser = 0;
-    for (var i = 0 ; i<devices.length; i++){
-            
-            nome = devices[i];
-          
-            var divTag = document.createElement("div");
-            
-            divTag.id = "div1";
-
-            devicesFromUser++;
-
-            divTag.style.margin = "0px";
-             
-            divTag.className ="dynamicDiv";
-
-            if(i == 0){
-              divTag.innerHTML = "<b>Dispositivos do Usuário</b><br>";
-              divTag.innerHTML += "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
-            }else{
-              divTag.innerHTML = "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
-            }      
-            
-            document.getElementById("divSome").appendChild(divTag); 
-    }
-
-  
-  }
-}
-
-function getDevicesFromUser(){
-   
-  devicesRequestGet.open("GET", "http://localhost:9000/choicedUser", false);
-  devicesRequestGet.send();
-}
-
-function changeUserSelected(){
-	var selectedUser = document.getElementById("slctbox").value;
-	document.getElementById("divSome").innerHTML = "";
-	postUser(selectedUser);
-	getDevicesFromUser();
-}
-
-
-
-
-//====================== Pega Dispositivos de um Usuário ===============
-
-function ordenaDevices(array){
-  var list = new Array();
-  for(var i=0; i<array.length; i++){
-    list[i] = parseInt(array[i])
-  }
-  var comparisons = 0,
-        swaps = 0;
- 
-    for (var i = 0, swapping; i < list.length - 1; i++) {
-        comparisons++;
-        if (list[i] > list[i + 1]) {
-            // swap
-            swapping = list[i + 1];
- 
-            list[i + 1] = list[i];
-            list[i] = swapping;
-            swaps++;
-        };
-    };
-
-    return list;
-}
-
-function sendResults(selectedUser,idS){
-  var postadd = new XMLHttpRequest();
-  postadd.onreadystatechange=function() {
-       if (postadd.readyState==4 && postadd.status==200) {
-       }
-    }
-  postadd.open("POST", "http://localhost:9000/updatedevices?login=" + selectedUser+"&devices="+ordenaDevices(idS).toString(), true);
-    postadd.send();
-    document.getElementById("divSome").innerHTML = "";
-    document.getElementById("divAll").innerHTML = "";
-    getDevices();
-    postUser(selectedUser);
-    getDevicesFromUser();
-}
-
-
-//====================== Funções add ============================
-var selectedDevices = new Array();
-var idS = new Array();
-function add(){
-  var selectedDevices = new Array();
-  var idS = new Array();
-  	for(var i = 0; i<Ndevices ; i++){
-    	var chbx = document.getElementById("Chbx" + i.toString());
-      if ( chbx.checked == true){
-        	selectedDevices[selectedDevices.length] = (i).toString();
-     	}  
-  	}
-  return selectedDevices;
-}
-
-var requestIds = new XMLHttpRequest();
-
-requestIds.onreadystatechange=function() {
-	if (requestIds.readyState==4 && requestIds.status==200) {
-	    var response = requestIds.responseText;
-	    idS = response.split(",");
-		}
-	}
-
-function add1(){
-  add();  
-  requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
-  requestIds.send();
-  selectedDevices = add();
-
-  for(var i=0; i<selectedDevices.length; i++){
-	
-	     if(!contains(idS,selectedDevices[i])){
-		idS[idS.length] = selectedDevices[i];
-	}
-}
-  	for(var i = 0;i<idS.length;i++){
-    	var chbx = document.getElementById("Chbx" + i.toString());
-    	chbx.checked = false;
-    }
-
-
-    
-
-    
-
-    var selectedUser = document.getElementById("slctbox").value;
-    sendResults(selectedUser,idS);
-  	idS = [];
-  	selectedDevices = [];
-  	  	for(var i = 0;i<idS.length;i++){
-    	var chbx = document.getElementById("Chbx" + i.toString());
-    	chbx.checked = false;
-    }
-}
+var allUser = [];
+var allDevices = [];
 
 function contains(a, obj) {
     for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
+        if (a[i].toString() === obj)
             return true;
-        }
     }
     return false;
 }
 
-//====================== Funções add ============================
-
-//====================== Funções remove ============================
-
-var selectedDevicesRemove = new Array();
-var refreshedDevices = new Array();
-
-function selectedDivSome(){
-    selectedDevicesRemove = new Array();
-  	for(var i = 0;i<idS.length;i++){
-    	var chbx = document.getElementById("UChbx" + i.toString());
-     	if (chbx.checked == true){
-        	selectedDevicesRemove[selectedDevicesRemove.length] = idS[i].toString();
-      }  
-  	}
-}
-
-function removeDevices(){
-  requestIds.open("GET", "http://localhost:9000/idDevicesUser", false);
-  	requestIds.send();
-  	selectedDivSome();
-    if ((devicesFromUser <= 1 || selectedDevicesRemove.length == devicesFromUser )&& selectedDevicesRemove.length != 0){
-      alert("Um usuario precisa ter ao menos um dispositivo.");
-      return -1;
-    }
-  	for(var i=0; i<selectedDevicesRemove.length;i++){
-  		if(contains(idS,selectedDevicesRemove[i])){
-  			idS.splice(idS.indexOf(selectedDevicesRemove[i]), 1);
-  		}
-  	}
-
-    var selectedUser = document.getElementById("slctbox").value;
-    alert("sendou")
-    sendResults(selectedUser,idS);
-
-  	idS = [];
-  	for(var i = 0;i<idS.length;i++){
-    	var chbx = document.getElementById("Chbx" + i.toString());
-    	chbx.checked = false;
-    }
-
-  	selectedDevices = [];
-  	selectedDevicesRemove = [];
-  	
-
-}
-
-
-//====================== Funções remove ============================
-
-
-
-
-
-
-
-
-
-//====================== Funções dos botões ============================
-
-
-
-
-//====================== Pega Usuários ===============
-
-var boxRequest = new XMLHttpRequest();
-
-boxRequest.onreadystatechange=function() {
-	if (boxRequest.readyState==4 && boxRequest.status==200) {
-	    var response = boxRequest.responseText;
-	    var users = response.split(",");
-	    var select = document.getElementById('slctbox');
-		// For começa do indice 1, pois o root nao necessita aparecer.
-		for(var i=1; i < users.length; i++) {
-	    	var opt = document.createElement('option');
-	    	opt.innerHTML = users[i];
-	    	opt.value = users[i];
-	    	select.appendChild(opt);
+function getUsers(){
+	var boxRequest = new XMLHttpRequest();
+	
+	boxRequest.onreadystatechange=function() {
+		if (boxRequest.readyState==4 && boxRequest.status==200) {
+			allUser = JSON.parse(boxRequest.responseText);
+			var select = document.getElementById('slctbox');
+			for(var i=0; i < allUser.length; i++) {
+				var opt = document.createElement('option');
+				opt.innerHTML = allUser[i].name;
+				opt.value = i;
+				select.appendChild(opt);
+			}
 		}
+	}
+
+	boxRequest.open("GET", "/muser", false);
+	boxRequest.send();
+}
+
+function getDevices(){
+	if (document.getElementById("divAll").innerHTML == ""){
+		var devicesRequest = new XMLHttpRequest();
+
+		devicesRequest.onreadystatechange=function() {
+			if (devicesRequest.readyState==4 && devicesRequest.status==200) {
+				var devicesContent = devicesRequest.responseText;
+				var devices = devicesContent.split(",");
+				allDevices = devices;
+				for (var i = 0 ; i<devices.length; i++){
+					var nome = devices[i];
+
+					var divTag = document.createElement("div");
+					
+					divTag.id = "div1";
+
+					divTag.style.margin = "0px";
+					 
+					divTag.className ="dynamicDiv";
+					if(i == 0){
+						divTag.innerHTML = "<b>Dispositivos do Sistema</b><br>";
+						divTag.innerHTML += "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+					}else{
+						divTag.innerHTML = "<input class = \"inner\" id=\"Chbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+					}
+					document.getElementById("divAll").appendChild(divTag); 
+				}	
+			}
+
+		}
+		devicesRequest.open("GET", "/allDevices", false);
+		devicesRequest.send();
+		
 	}
 }
 
-function getUsers(){
-  boxRequest.open("GET", "http://localhost:9000/getusers", false);
-  boxRequest.send();
+function getDevicesFromUser(){
+	document.getElementById("divSome").innerHTML = "";
+	var devices = getUserSelected().devices;
+	
+	for (var i = 0 ; i<devices.length; i++){
+		nome = allDevices[parseInt(devices[i])];
+
+		var divTag = document.createElement("div");
+
+		divTag.id = "div1";
+
+		divTag.style.margin = "0px";
+		 
+		divTag.className ="dynamicDiv";
+
+		if(i == 0){
+		  divTag.innerHTML = "<b>Dispositivos do Usuário</b><br>";
+		  divTag.innerHTML += "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+		}else{
+		  divTag.innerHTML = "<input class = \"inner\" id=\"UChbx" + i.toString() + "\" type=" + "\"checkbox\""+ "name="+ "ac" +"</input>" + nome;
+		}      
+		document.getElementById("divSome").appendChild(divTag); 
+    }
+}
+
+function getUserSelected(){
+	var selectedUser = document.getElementById("slctbox").value;
+	var user = allUser[selectedUser];
+	
+	return user;
+}
+
+function getUserDevicesSelected(){
+	var user = getUserSelected();
+	var devs = user.devices;
+	user.devices =[];
+	for (i = 0; i < devs.length; i++){
+		var chbx = document.getElementById("UChbx" + i.toString());
+		
+     	if (chbx.checked == false){
+        	user.devices[user.devices.length] = i.toString();
+		}else{
+			chbx.checked = false;
+		}
+	}
+	if (user.devices.length == 0 ) {
+		user.devices = devs;
+		alert("O usuário deve ter ao menos um dispositivo");
+	}else if (user.devices.length != devs.length){
+		var selectedUser = document.getElementById("slctbox").value;
+		user.devices = ordenaDevices(user.devices);
+		allUser[selectedUser] = user;
+		sendResults();
+	}
+}
+
+function addDevice(){
+	var user = getUserSelected();
+	var devs = user.devices;
+	var flagMaster = false;
+	for (i = 0; i < allDevices.length; i++){
+		var chbx = document.getElementById("Chbx" + i.toString());
+		
+     	if (chbx.checked == true){
+			chbx.checked = false;
+        	if (contains(devs, i.toString())==false){
+				flagMaster = true;
+				alert("Alow " + i.toString());
+				user.devices[user.devices.length] = i.toString();
+			}
+		}  		
+	}
+	if (flagMaster){
+		var selectedUser = document.getElementById("slctbox").value;
+		user.devices = ordenaDevices(user.devices);
+		allUser[selectedUser] = user;
+		sendResults();
+	}
+}
+
+function ordenaDevices(array){
+	var list = new Array();
+	for(var i=0; i<array.length; i++){
+		list[i] = parseInt(array[i])
+    }
+ 
+    for (var i = 0, swapping; i < list.length - 1; i++) {
+        if (list[i] > list[i + 1]) {
+            swapping = list[i + 1];
+            list[i + 1] = list[i] + "";
+            list[i] = swapping + "";
+        }
+    }
+
+    return list;
+}
+
+function sendResults(){
+	var user = getUserSelected();
+	alert ("name "+user.name);
+	alert ("device "+ user.devices);
+	var postadd = new XMLHttpRequest();
+	postadd.onreadystatechange=function() {
+		getDevicesFromUser();
+    }
+	postadd.open("POST", "/updatedevices?login=" +user.login+"&devices="+user.devices.toString(), true);
+    postadd.send();
+}
+
+function delDevice(){
+	var user = getUserSelected();
+	getUserDevicesSelected()
 }
 
 function initialize(){
 	getUsers();
 	getDevices();
-	var selectedUser = document.getElementById("slctbox").value;
-	postUser(selectedUser);
 	getDevicesFromUser();
-  checklog();
-
+	checklog();
 }
 
 window.onload = initialize;
-//====================== Pega Usuários ===============
 </script>
 
-
-
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
 <style type="text/css">
-<!--
+
 body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	background: #42413C;
@@ -364,52 +205,39 @@ body {
 	color: #000;
 }
 
-/* ~~ Element/tag selectors ~~ */
-ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+
+ul, ol, dl {
 	padding: 0;
 	margin: 0;
 }
 h1, h2, h3, h4, h5, h6, p {
-	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	margin-top: 0;
 	padding-right: 15px;
-	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+	padding-left: 15px;
 }
-a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+a img {
 	border: none;
 }
 
-/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
 a:link {
 	color: #42413C;
-	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+	text-decoration: underline;
 }
 a:visited {
 	color: #6E6C64;
 	text-decoration: underline;
 }
-a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+a:hover, a:active, a:focus {
 	text-decoration: none;
 }
 
-/* ~~ this fixed width container surrounds all other divs ~~ */
 .container {
 	width: 960px;
 	background: #FFF;
-	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
-	overflow: hidden; /* this declaration makes the .container understand where the floated columns within ends and contain them */
+	margin: 0 auto;
+	overflow: hidden;
 }
 
-/* ~~ These are the columns for the layout. ~~ 
-
-1) Padding is only placed on the top and/or bottom of the divs. The elements within these divs have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
-
-2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a div set to float right). Many times, padding can be used instead. For divs where this rule must be broken, you should add a "display:inline" declaration to the div's rule to tame a bug where some versions of Internet Explorer double the margin.
-
-3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar divs could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
-
-4) If you prefer your nav on the right instead of the left, simply float these columns the opposite direction (all right instead of all left) and they'll render in reverse order. There's no need to move the divs around in the HTML source.
-
-*/
 .sidebar1 {
 	float: left;
 	width: 180px;
@@ -454,9 +282,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   padding-top:13px;
   padding-left:10px; 
   border-radius:20px;
-	border-width: 2px;
+  border-width: 2px;
   border-style: outset; 
- 	border-color: black;
+  border-color: black;
 }
 
 .button1{
@@ -478,54 +306,48 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   margin-left: 15px;
 }
 
-/* ~~ This grouped selector gives the lists in the .content area space ~~ */
 .content ul, .content ol { 
-	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+	padding: 0 15px 15px 40px;
 }
 
-/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
 ul.nav {
-	list-style: none; /* this removes the list marker */
-	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	list-style: none;
+	border-top: 1px solid #666;
 	
 }
 ul.nav li {
-	border-bottom: 1px solid #666; /* this creates the button separation */
+	border-bottom: 1px solid #666;
 }
-ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+ul.nav a, ul.nav a:visited {
 	padding: 5px 5px 5px 15px;
-	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
-	width: 160px;  /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+	display: block;
+	width: 160px;
 	text-decoration: none;
 	background: #C6D580;
 }
-ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus {
 	background: #ADB96E;
 	color: #FFF;
 }
 
-/* ~~ miscellaneous float/clear classes ~~ */
-.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+.fltrt {
 	float: right;
 	margin-left: 8px;
 }
-.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+.fltlft {
 	float: left;
 	margin-right: 8px;
 }
-.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the overflow:hidden on the .container is removed */
+.clearfloat {
 	clear:both;
 	height:0;
 	font-size: 1px;
 	line-height: 0px;
 }
--->
+
 </style></head>
 
 <body onunload="">
-
-
-
 <div class="container">
   <div class="sidebar1">
     <ul class="nav">
@@ -535,20 +357,20 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
       <li><a href="http://localhost:9000/logout">Sair</a></li>
-    </ul>
-   
-    <!-- end .sidebar1 --></div>
+    </ul> 
+  </div>
+  
   <div class="content">
     <h1>Gerenciamento de Dispositivos</h1>
     <p> Selecione o usuário desejado e altere sua permissão sobre os dispositivos</p>
     
-    <select id="slctbox"  class="selectbox" onchange="changeUserSelected();"></select>
+    <select id="slctbox"  class="selectbox" onchange="getDevicesFromUser();"></select>
     
     <div class="divs">      
 	    <div class="divAllDevices" id="divAll"></div>
 	    <div class="divSomeDevices" id="divSome"></div>
-	    <img src="res/seta2.jpg" class="button1" alt="add" width="32" height="32" onclick="add1()">
-      <img src="res/seta.jpg" class="button2" width="32" height="32" onclick="removeDevices()">
+	    <img src="res/seta2.jpg" class="button1" alt="add" width="32" height="32" onclick="addDevice()">
+      <img src="res/seta.jpg" class="button2" width="32" height="32" onclick="delDevice()">
     </div>
 
     <!-- end .content --></div>

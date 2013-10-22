@@ -5,8 +5,7 @@ var xmlhttp = new XMLHttpRequest();
 var xmlhttp2 = new XMLHttpRequest();
 var response = [];
 var app = express();
-var host = "192.168.1.28";
-//~ var host = "arduino.com.br";
+var host = "192.168.2.28";
 var port = "3000";
 
 var users = [];			// Carrega todos os usuarios do sistema
@@ -36,9 +35,9 @@ app.use(express.methodOverride());
 
 xmlhttp.onreadystatechange=function() {
 
-		if (xmlhttp.status==200 && xmlhttp.readyState == 4){
-			response = JSON.parse( xmlhttp.responseText);
-			console.log(response);
+	if (xmlhttp.status==200 && xmlhttp.readyState == 4){
+		try{
+			response = JSON.parse(xmlhttp.responseText);
 			var jsonData = require('./BD/database.json');
 			var devicesLen = jsonData.alldata.devices.length;
 			for (var i=0; i < devicesLen; i++) {
@@ -46,9 +45,12 @@ xmlhttp.onreadystatechange=function() {
 				
 			}
 			saveData(jsonData);
-			
+		}catch(e){
+			console.log(e);
 		}
 	}
+}
+
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -82,14 +84,11 @@ function getLinkDefault(){
 }
 
 function switchPower(id, status){
-	console.log(id,status);
 	try{
 		xmlhttp2.open("POST", getLinkDefault()+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
-		//~ xmlhttp2.open("POST", 'http://arduino.com.br:3000/control?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
 		xmlhttp2.send();
-		}catch(e){
+	}catch(e){
 		console.log(e);
-		/////////////////////////////////////////////////////o arduino nao foi encontrado
 	}
 };
 
@@ -209,7 +208,6 @@ function findUserByLogin(loginName){
 function allDevicesStatus(){
 	var devicesStatus = [];
 	var jsonData = require('./BD/database.json');
-	//console.log(getPowerStatus(0));
 	for (var i=0; i < userDevices.length; i++) {
 	   devicesStatus[i] = jsonData.alldata.devices[userDevices[i]].status;
 	}
@@ -253,25 +251,31 @@ function activateTimer(idDevices, seconds){
 		deviceTimes[idDevices] = setTimeout( function(aidDevices){
 					var jsonData = require('./BD/database.json');
 					deviceFormattedTimes[idDevices] = "0:00";
-					console.log('idddd', aidDevices);
 					if (jsonData.alldata.devices[aidDevices].timer){
 						switchPower(aidDevices, "off");
 						jsonData.alldata.devices[aidDevices].timer = false;
 					}
-					}, seconds * 1000, idDevices);
+					}, seconds * 60000, idDevices);
 		saveData(jsonData);
 	}else{
 		jsonData.alldata.devices[idDevices].timer = false;
 	}
 }
 
-function endTimer(milisecToAdd, id){
-	var sec = milisecToAdd / 1000;
-	var mins = sec * 60;
-	var d = new Date();
+function endTimer(sec, id){
 	
-	d.setMinutes(d.getMinutes() + mins);
-	deviceFormattedTimes[id] = d.getHours() + ":" + d.getMinutes();
+	var d = new Date();
+	var mins = d.getMinutes();
+	var hora = d.getHours();
+	mins = (mins + sec)
+	if (mins > 59){
+		hora = parseInt(hora + mins/60);
+		mins = mins%60;
+	}if (mins <10){
+		deviceFormattedTimes[id] = hora + ":0" + mins;
+	}else{
+		deviceFormattedTimes[id] = hora + ":" + mins;
+	}
 }
 
 app.get('/', function(req, res){
@@ -304,10 +308,9 @@ app.get('/loginStatus', function(req, res){
 app.get('/statusdev', function(req, res){
 	getPowerStatus('0',function (e){
 		res.send(e);
-		});
+	});
 	switchPower('0','on', function (e){
-		//variavel e representa o codigo de retono da funcao;
-		});
+	});
 });
 
 app.get('/res/home.png', function(req, res){
@@ -347,8 +350,7 @@ app.get('/logedUserDevices', function(req, res){
 });
 
 app.get('/times', function(req, res){
-	//res.send(deviceFormattedTimes.toString());
-	res.send("88");
+	res.send(deviceFormattedTimes.toString());
 });
 
 app.get('/getdevices', function(req, res){
@@ -399,6 +401,24 @@ app.get('/home', function(req, res){
 	}	
 });
 
+app.get('/muser', function(req, res){
+	var jsonData = require('./BD/database.json');
+	var musers = jsonData.alldata.users;
+	var response = [];
+	for (i = 0; i < musers.length;i++){
+		if (musers[i].admin == "false") {
+			var tempUser  = {}
+			tempUser.name = musers[i].name;
+			tempUser.login = musers[i].login;
+			tempUser.devices = musers[i].devices;
+			response[response.length] = tempUser;
+		}
+	}
+
+	res.send(response);
+		
+});
+
 app.get('/inicio.html', function(req, res){
 	registerHapenning = false;
 	userRegistered = "";
@@ -437,6 +457,10 @@ app.get('/contato.html', function(req, res){
 	}else{
 		res.sendfile(__dirname + '/Templates/contato.html');
 	}	
+});
+
+app.get('/reg', function(req, res){
+	res.send(registerHapenning);
 });
 
 app.get('/cadastro.html', function(req, res){
@@ -506,13 +530,11 @@ app.post('/deleteDevices', function(req, res){
 //New 
 app.post('/deleteUser', function(req, res){
 	var usuarios = req.param('users').split(",");
-	console.log
 	if (usuarios[0] != ""){
 		for (var i=usuarios.length-1; i> -1; i--){
 		removeUserByID(usuarios[i]);
 		}
 	}	
-	
 });
 
 app.post('/updatedevices', function(req, res){
@@ -522,6 +544,7 @@ app.post('/updatedevices', function(req, res){
 		var index = findUserByLogin(req.param('login'));
 	}
 	var jsonData = require('./BD/database.json');
+	console.log(req.param('devices'));
 	if (req.param('devices') == ""){
 		var devs = [];
 	}else{
@@ -535,6 +558,24 @@ app.post('/updatedevices', function(req, res){
 	registerHapenning = false;
 	userRegistered = "";
 });
+
+//~ app.post('/updatedevices', function(req, res){
+	//~ var index = findUserByLogin(req.param('login'));
+	//~ var jsonData = require('./BD/database.json');
+	//~ console.log(req.param('devices'));
+	//~ if (req.param('devices') == ""){
+		//~ var devs = [];
+	//~ }else{
+		//~ var devs = req.param('devices').split(",");
+	//~ }	
+	//~ 
+	//~ if (index != -1){
+		//~ jsonData.alldata.users[index].devices = devs;
+		//~ saveData(jsonData);
+	//~ }
+	//~ registerHapenning = false;
+	//~ userRegistered = "";
+//~ });
 
 app.post('/choicedUser', function(req, res){
 	//TRATAR se login é valido ou nao
@@ -622,7 +663,7 @@ app.post('/checkLogin', function(req, res){
 				devices[i] = jsonData.alldata.devices[deviceID].name;
 			}
 			userDevices = jsonData.alldata.users[index].devices;
-			console.log(devices);
+
 		}
 	}else{
 		autLogin = "false";

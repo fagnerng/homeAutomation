@@ -1,8 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!-- TemplateBeginEditable name="doctitle" -->
 <title>Cadastro</title>
 
 <script src="loginaut.js"></script>
@@ -22,56 +20,47 @@ xmlhttp.onreadystatechange=function() {
 		}else{
 			alert("Login Existente");
 		}
-		
 }
 
-
-function trim(str) {
-	return str.replace(/^\s+|\s+$/g,"");
-}	
-
-function checaEmail(texto){
-	NumeroArrobas = 0;
-	for(var i=0; i<texto.length; i++){
-		if(texto.charAt(i) == "@"){
-			NumeroArrobas++;
+ xmlhttp2.onreadystatechange=function() {var nome = document.getElementById('name').value;
+ 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
+ 		var res = xmlhttp2.responseText;
+ 		if (res == "true"){
+			window.location = "http://localhost:9000/cadastro2";
 		}
-	}
-	return NumeroArrobas == 1;
+
+ 	}
 }
 
-function validaCampos(texto){
-	text = trim(texto);
-	return text != "";
-}
 
-function validaEmail(texto){
-	return (trim(texto) != "" && texto.indexOf("@") != -1);
-}
+function sendHttpGetUsers(){
+ 	xmlhttp2.open("GET", "http://localhost:9000/reg", false);
+ 	xmlhttp2.send();
+ 	}
+
 
 function cadastra(){
 	//tratar campos vazios
 	var nome = document.getElementById('name').value;
 	var login = document.getElementById('login').value;
 	var email = document.getElementById('email').value;
-	var purePass = document.getElementById('pass').value;
-	var pureCpass = document.getElementById('cpass').value;
 	var pass = convertToMD5(document.getElementById('pass').value);
 	var cpass = convertToMD5(document.getElementById('cpass').value);
-	if (pass != cpass && validaCampos(purePass) && validaCampos(pureCpass)){
+	if (pass != cpass){
 		alert("Senhas não conferem");
-	}else if (!(validaCampos(nome) && validaCampos(login) && validaCampos(email) && validaCampos(purePass) && validaCampos(pureCpass))){
-		alert("Por favor preencha todos os campos")
-	}else if(!(checaEmail(email))){
-		alert("E-mail Inválido")	
 	}else{
 		CheckUserExists();
 		xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		
+		//xmlhttp.open("POST", "http://localhost:9000/checkLogin?login=" + nome +"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
+		sendHttpGetUsers();
+		
+		//name=" + nome +"&login="+login+"&email="+email+"&pass="+pass
 		//window.location = "http://localhost:9000/deviceUpdating"
 	
-	
 	}
+	
 }
 
 var checkUser = new XMLHttpRequest();
