@@ -13,10 +13,16 @@ var xmlhttp = new XMLHttpRequest();
 var responseGet;
 var xmlhttp2 = new XMLHttpRequest();
 var responseGet2;
+var flag = "false";
 
 
 xmlhttp.onreadystatechange=function() {
-		window.location = "http://localhost:9000/cadastro2";
+		if (flag == "true"){
+			window.location = "http://localhost:9000/cadastro2";
+		}else{
+			alert("Login Existente");
+		}
+		
 }
 
 
@@ -59,12 +65,25 @@ function cadastra(){
 	}else if(!(checaEmail(email))){
 		alert("E-mail Inválido")	
 	}else{
+		CheckUserExists();
 		xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		//window.location = "http://localhost:9000/deviceUpdating"
 	
 	
 	}
+}
+
+var checkUser = new XMLHttpRequest();
+
+checkUser.onreadystatechange=function() {
+	if (checkUser.readyState==4 && checkUser.status==200) {
+		flag = checkUser.responseText;
+	}
+}
+function CheckUserExists(){
+	checkUser.open("GET", "http://localhost:9000/checkUser", false);
+	checkUser.send();
 }
 
 window.onload = checklog;

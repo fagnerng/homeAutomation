@@ -21,6 +21,7 @@ var registerHapenning = false; // Flag para controle de execucao de registro
 var callback;
 var deviceTimes = []; // Lista que guarda o setInterval de cada timer
 var deviceFormattedTimes = []; // Lista que guarda o tempo formatado
+var UserAlreadyExists = false; //Flag que indica se o usuario a ser cadastrado já existe
 
 app.configure(function(){
 	app.use(express.static(__dirname + '/Templates/res'));
@@ -390,6 +391,7 @@ app.get('/inicio.html', function(req, res){
 });
 
 app.get('/cadastro2', function(req, res){
+	UserAlreadyExists = false;
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
@@ -450,6 +452,9 @@ app.get('/allstatus', function(req, res){
 	res.end;
 });
 
+app.get('/checkUser', function(req, res){
+	res.send(UserAlreadyExists.toString());
+});
 app.get('/checkLogin', function(req, res){
 	fillUsers();
 	res.send(autLogin);
@@ -512,7 +517,9 @@ app.post('/adduser', function(req, res){
 	
 	var loginValid = findUserByLogin(req.param('login'));
 	if (loginValid != -1){
-		console.log("Login Existente!"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		UserAlreadyExists = true; // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	}else{
+		UserAlreadyExists = false;
 	}
 	var emailValid = findUserByEmail(req.param('email'));
 	if (emailValid != -1){
