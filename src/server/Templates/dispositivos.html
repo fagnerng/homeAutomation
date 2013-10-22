@@ -106,11 +106,14 @@ function getUserSelected(){
 function getUserDevicesSelected(){
 	var user = getUserSelected();
 	var devs = user.devices;
+	var flagCount = 0;
 	user.devices =[];
+	
 	for (i = 0; i < devs.length; i++){
 		var chbx = document.getElementById("UChbx" + i.toString());
 		
      	if (chbx.checked == false){
+			flagCount++;
         	user.devices[user.devices.length] = i.toString();
 		}else{
 			chbx.checked = false;
@@ -119,7 +122,7 @@ function getUserDevicesSelected(){
 	if (user.devices.length == 0 ) {
 		user.devices = devs;
 		alert("O usuário deve ter ao menos um dispositivo");
-	}else if (user.devices.length != devs.length){
+	}else if (user.devices.length != devs.length && flagCount == user.devices.length){
 		var selectedUser = document.getElementById("slctbox").value;
 		user.devices = ordenaDevices(user.devices);
 		allUser[selectedUser] = user;
@@ -131,19 +134,21 @@ function addDevice(){
 	var user = getUserSelected();
 	var devs = user.devices;
 	var flagMaster = false;
+	var flagCount = 0;
+	
 	for (i = 0; i < allDevices.length; i++){
 		var chbx = document.getElementById("Chbx" + i.toString());
 		
      	if (chbx.checked == true){
+			flagCount++;
 			chbx.checked = false;
         	if (contains(devs, i.toString())==false){
 				flagMaster = true;
-				alert("Alow " + i.toString());
 				user.devices[user.devices.length] = i.toString();
 			}
 		}  		
 	}
-	if (flagMaster){
+	if (flagMaster && flagCount > 0){
 		var selectedUser = document.getElementById("slctbox").value;
 		user.devices = ordenaDevices(user.devices);
 		allUser[selectedUser] = user;
@@ -170,8 +175,6 @@ function ordenaDevices(array){
 
 function sendResults(){
 	var user = getUserSelected();
-	alert ("name "+user.name);
-	alert ("device "+ user.devices);
 	var postadd = new XMLHttpRequest();
 	postadd.onreadystatechange=function() {
 		getDevicesFromUser();
