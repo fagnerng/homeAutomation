@@ -114,7 +114,7 @@ timeRequest.onreadystatechange=function() {
 	    var response = timeRequest.responseText;
 	    resp = response.split(",");
 	    var e = document.getElementById("combobox");
-	    if (resp[userDevices[e.selectedIndex]] != "0:00"){
+	    if (resp[userDevices[e.selectedIndex]] != "0:00" && resp[userDevices[e.selectedIndex]] != "undefined"){
 	    	time = document.getElementById("time");
 	    	time.innerHTML = resp[userDevices[e.selectedIndex]];
 	    }else{

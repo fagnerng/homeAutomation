@@ -94,6 +94,8 @@ function switchPower(id, status){
 
 setTimeout(getPowerStatus, 1000);
 
+
+
 function getPowerStatus(){
 	try{
 		xmlhttp.open("GET", getLinkDefault(), true);
@@ -225,6 +227,20 @@ function findUserByEmail(email){
 	}
 	return -1;
 }
+
+function refillTime(){	
+	var jsonData = require('./BD/database.json');
+	var devicesLen = jsonData.alldata.devices.length
+	
+	for (var i=0; i < devicesLen; i++) {
+	    jsonData.alldata.devices[i].timer = false;
+	}
+
+	saveData(jsonData);
+}
+
+refillTime();
+
 
 function fillDevices(){	
 	var jsonData = require('./BD/database.json');
@@ -383,6 +399,7 @@ app.get('/root', function(req, res){ // DELETAR DEPOIS AAAAAAAAAAAAAAAAAAAAAAAAA
 });
 
 app.get('/logout', function(req, res){
+	userDevices = [];
 	userLoged = false;
 	rootUser = false;
 	devices = [];
@@ -412,6 +429,7 @@ app.get('/muser', function(req, res){
 			tempUser.login = musers[i].login;
 			tempUser.devices = musers[i].devices;
 			response[response.length] = tempUser;
+			console.log(tempUser);
 		}
 	}
 
@@ -648,6 +666,7 @@ app.post('/checkLogin', function(req, res){
 		}
 	}
 	if(autenticado){
+		userDevices = [];
 		autLogin = "true";
 		userLoged = true;
 		getPowerStatus();
