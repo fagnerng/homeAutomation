@@ -17,24 +17,24 @@ xmlhttp.onreadystatechange=function() {
 }
 
 function cadastra(){
-	//tratar campos vazios
 	var nome = document.getElementById('name').value;
 	var login = document.getElementById('login').value;
 	var email = document.getElementById('email').value;
 	var pass = convertToMD5(document.getElementById('pass').value);
 	var cpass = convertToMD5(document.getElementById('cpass').value);
-	if (pass != cpass){
+	
+	if (nome == "" || nome.replace(" ", "").length == 0){ // nome
+		alert("Nome não Preenchido");
+	}else if (login.replace(" ", "").length == 0){
+		alert("Login não Preenchido");
+	}else if (email.replace(" ", "").length == 0){
+		alert("Email não Preenchido");
+	}else if (pass != cpass){
 		alert("Senhas não conferem");
 	}else{
-		xmlhttp.open("POST", "/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
-		
-		//xmlhttp.open("POST", "/checkLogin?login=" + nome +"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		xmlhttp.open("POST", "/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true);
 		xmlhttp.send();
-		CheckUserExists();
-
-		//name=" + nome +"&login="+login+"&email="+email+"&pass="+pass
-		//window.location = "/deviceUpdating"
-	
+		CheckUserExists();	
 	}
 	
 }
