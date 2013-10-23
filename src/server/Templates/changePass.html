@@ -32,7 +32,7 @@ xmlhttp2.onreadystatechange=function() {
 }
 
 function authenticate(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkPassword", true);
+	xmlhttp2.open("GET", "/checkPassword", true);
 	xmlhttp2.send();
 }
 
@@ -50,7 +50,7 @@ function enviaDados(){
 	var newPass = convertToMD5(document.getElementById('nPass').value);
 	var confirmedNewpass = convertToMD5(document.getElementById('cNpass').value);
 	if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) && (newPass == confirmedNewpass)){	
-		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		xmlhttp.open("POST", "/changePassword?oldPass=" + oldPass+"&newPass="+newPass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		authenticate();	
 	}else if (!(validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value) && validaCampos(document.getElementById('pass').value))){
@@ -204,7 +204,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="dispositivos.html">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
-      <li><a href="http://localhost:9000/logout">Sair</a></li>
+      <li><a href="/logout">Sair</a></li>
     </ul>
    
     <!-- end .sidebar1 --></div>

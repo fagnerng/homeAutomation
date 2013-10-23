@@ -93,7 +93,7 @@ function checaBox(){
      }  
   }
 
-  boxRequest.open("POST", "http://localhost:9000/deleteUser?users=" + ordena(selectedDevices).toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+  boxRequest.open("POST", "/deleteUser?users=" + ordena(selectedDevices).toString(), true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   boxRequest.send();
 	document.getElementById("divUsers").innerHTML = "";
   getUsers();
@@ -101,7 +101,7 @@ function checaBox(){
 
 function checaLogin(){
   var nome = document.getElementById('login');
-  xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+  xmlhttp.open("POST", "/adduser?name=" + nome.value, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
   xmlhttp.send();
 }
 
@@ -133,7 +133,7 @@ devicesRequest.onreadystatechange=function() {
 }
 
 function getUsers(){
-  devicesRequest.open("GET", "http://localhost:9000/getUsers", false);
+  devicesRequest.open("GET", "/getUsers", false);
   devicesRequest.send();
 }
 
@@ -291,7 +291,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="dispositivos.html">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
-      <li><a href="http://localhost:9000/logout">Sair</a></li>
+      <li><a href="/logout">Sair</a></li>
     </ul>
    
     <!-- end .sidebar1 --></div>

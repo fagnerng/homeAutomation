@@ -30,7 +30,7 @@ boxRequest.onreadystatechange=function() {
 }
 
 function getDevices(){
-	boxRequest.open("GET", "http://localhost:9000/getDevices", false);
+	boxRequest.open("GET", "/getDevices", false);
 	boxRequest.send();
 }
 
@@ -53,7 +53,7 @@ function checaBox(){
  	}else{
  		status= "off"
  	}
- 	statusRequest.open("POST", "http://localhost:9000/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+ 	statusRequest.open("POST", "/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
     statusRequest.send();
     populateList();
 }
@@ -79,7 +79,7 @@ request.onreadystatechange=function() {
 
 function populateList() {
 	getTime();
-    request.open("GET", "http://localhost:9000/allstatus", false);
+    request.open("GET", "/allstatus", false);
   	request.send();
 }
 
@@ -97,7 +97,7 @@ userDevicesRequest.onreadystatechange=function() {
 }
 
 function devUsers(){
-	userDevicesRequest.open("GET", "http://localhost:9000/logedUserDevices", false);
+	userDevicesRequest.open("GET", "/logedUserDevices", false);
 	userDevicesRequest.send();
 }
 
@@ -125,7 +125,7 @@ timeRequest.onreadystatechange=function() {
 
 function getTime(){
 	devUsers();
-	timeRequest.open("GET", "http://localhost:9000/times", false);
+	timeRequest.open("GET", "/times", false);
 	timeRequest.send();
 }
 
@@ -293,7 +293,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="dispositivos.html"  onclick="checaRoot();">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
-      <li><a href="http://localhost:9000/logout">Sair</a></li>
+      <li><a href="/logout">Sair</a></li>
     </ul>
    
     <!-- end .sidebar1 --></div>

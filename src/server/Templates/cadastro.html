@@ -9,35 +9,12 @@
 <script type="text/javascript">
 var xmlhttp = new XMLHttpRequest();
 var responseGet;
-var xmlhttp2 = new XMLHttpRequest();
-var responseGet2;
 var flag = "false";
 
 
-xmlhttp.onreadystatechange=function() {
-		if (flag == "true"){
-			window.location = "http://localhost:9000/cadastro2";
-		}else{
-			alert("Login Existente");
-		}
+xmlhttp.onreadystatechange=function() {	
+		CheckUserExists();
 }
-
- xmlhttp2.onreadystatechange=function() {var nome = document.getElementById('name').value;
- 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
- 		var res = xmlhttp2.responseText;
- 		if (res == "true"){
-			window.location = "http://localhost:9000/cadastro2";
-		}
-
- 	}
-}
-
-
-function sendHttpGetUsers(){
- 	xmlhttp2.open("GET", "http://localhost:9000/reg", false);
- 	xmlhttp2.send();
- 	}
-
 
 function cadastra(){
 	//tratar campos vazios
@@ -49,15 +26,14 @@ function cadastra(){
 	if (pass != cpass){
 		alert("Senhas não conferem");
 	}else{
-		CheckUserExists();
-		xmlhttp.open("POST", "http://localhost:9000/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		xmlhttp.open("POST", "/adduser?name=" + nome +"&login="+login+"&email="+email+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		
-		//xmlhttp.open("POST", "http://localhost:9000/checkLogin?login=" + nome +"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		//xmlhttp.open("POST", "/checkLogin?login=" + nome +"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
-		sendHttpGetUsers();
-		
+		CheckUserExists();
+
 		//name=" + nome +"&login="+login+"&email="+email+"&pass="+pass
-		//window.location = "http://localhost:9000/deviceUpdating"
+		//window.location = "/deviceUpdating"
 	
 	}
 	
@@ -68,10 +44,16 @@ var checkUser = new XMLHttpRequest();
 checkUser.onreadystatechange=function() {
 	if (checkUser.readyState==4 && checkUser.status==200) {
 		flag = checkUser.responseText;
+		if (flag == "false"){
+			window.location = "/cadastro2";
+		}else{
+			alert("Login Existente");
+		}
 	}
 }
+
 function CheckUserExists(){
-	checkUser.open("GET", "http://localhost:9000/checkUser", false);
+	checkUser.open("GET", "/checkUser", true);
 	checkUser.send();
 }
 
@@ -215,7 +197,7 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
       <li><a href="dispositivos.html">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
-      <li><a href="http://localhost:9000/logout">Sair</a></li>
+      <li><a href="/logout">Sair</a></li>
     </ul>
    
     <!-- end .sidebar1 --></div>

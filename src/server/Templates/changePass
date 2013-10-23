@@ -33,7 +33,7 @@ xmlhttp2.onreadystatechange=function() {
 }
 
 function authenticate(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkPassword", false);
+	xmlhttp2.open("GET", "http://localhost:9000/checkPassword", true);
 	xmlhttp2.send();
 }
 
@@ -56,7 +56,7 @@ function enviaDados(){
 	if (newPass != confirmedNewpass ){
 		alert("As novas senhas não conferem");
 	}else if(validaCampos(document.getElementById('pass').value) &&  validaCampos(document.getElementById('nPass').value) && validaCampos(document.getElementById('cNpass').value)){	
-		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, false); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+		xmlhttp.open("POST", "http://localhost:9000/changePassword?oldPass=" + oldPass+"&newPass="+newPass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 		xmlhttp.send();
 		authenticate();	
 	}else{

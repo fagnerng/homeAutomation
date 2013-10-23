@@ -459,7 +459,7 @@ app.get('/changePass.html', function(req, res){
 });
 
 app.get('/cadastro2', function(req, res){
-	UserAlreadyExists = false;
+	//UserAlreadyExists = false;
 	if(!(userLoged)){
 		res.redirect('/login');
 	}else if (!rootUser){
@@ -526,6 +526,7 @@ app.get('/allstatus', function(req, res){
 
 app.get('/checkUser', function(req, res){
 	res.send(UserAlreadyExists.toString());
+	//UserAlreadyExists = false;
 });
 
 app.get('/checkPassword', function(req, res){
@@ -618,9 +619,12 @@ app.post('/adduser', function(req, res){
 	}
 	
 	var loginValid = findUserByLogin(req.param('login'));
+	console.log(loginValid != -1);
 	if (loginValid != -1){
+		console.log("Já existe!");
 		UserAlreadyExists = true; // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	}else{
+		console.log("N existe!");
 		UserAlreadyExists = false;
 	}
 	var emailValid = findUserByEmail(req.param('email'));

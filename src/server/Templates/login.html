@@ -21,7 +21,7 @@ xmlhttp2.onreadystatechange=function() {
 	if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
 		var autenthication = xmlhttp2.responseText;
 		if (autenthication == "true"){
-			window.location = "http://localhost:9000/inicio.html";
+			window.location = "/inicio.html";
 		}else{
 			alert("Informações incorretas");
 		}
@@ -29,14 +29,14 @@ xmlhttp2.onreadystatechange=function() {
 }
 
 function sendHttpGetUsers(){
-	xmlhttp2.open("GET", "http://localhost:9000/checkLogin", false);
+	xmlhttp2.open("GET", "/checkLogin", false);
 	xmlhttp2.send();
 }
 
 function checaLogin(){
 	var nome = document.getElementById('login');
 	var pass = convertToMD5(document.getElementById('pass').value);
-	xmlhttp.open("POST", "http://localhost:9000/checkLogin?login=" + nome.value+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+	xmlhttp.open("POST", "/checkLogin?login=" + nome.value+"&pass="+pass, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
 	xmlhttp.send();
 	sendHttpGetUsers();
 }
