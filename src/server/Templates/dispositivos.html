@@ -109,7 +109,7 @@ function getUserSelected(){
 }
 
 function getUserDevicesSelected(){
-	if(!(temCheckado())){
+	if(!(temCheckado2())){
 		return -1;
 	}
 	var user = getUserSelected();
@@ -127,7 +127,6 @@ function getUserDevicesSelected(){
 			chbx.checked = false;
 		}
 	}
-	alert(user.devices.length);
 	if (user.devices.length == 0 ) {
 		user.devices = devs;
 		alert("O usuário deve ter ao menos um dispositivo");
@@ -140,7 +139,7 @@ function getUserDevicesSelected(){
 }
 
 function addDevice(){
-	if(!(temCheckado())){
+	if(!(temCheckado1())){
 		return -1;
 	}
 	var user = getUserSelected();
@@ -167,20 +166,24 @@ function addDevice(){
 		sendResults();
 	}
 }
-function temCheckado(){
+
+function temCheckado1(){
 	for (i = 0; i < allDevices.length; i++){
 		var chbx = document.getElementById("Chbx" + i.toString());
 		if (chbx.checked == true){
 			return true;
 		}
 	}
+}
 
-	for (i = 0; i < ucb; i++){
-		var chbx = document.getElementById("UChbx" + i.toString());
-		if (chbx.checked == true){
-			return true;
-		}
-	}
+
+function temCheckado2(){
+  for (i = 0; i < ucb; i++){
+    var chbx = document.getElementById("UChbx" + i.toString());
+    if (chbx.checked == true){
+      return true;
+    }
+  }
 }
 
 function ordenaDevices(array){
