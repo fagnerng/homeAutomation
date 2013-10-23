@@ -4,9 +4,9 @@ local response = nil
 local code = nil
 local http = require("socket.http")
 local ltn12 = require("ltn12")
-post.morpheus = "http://localhost"
-post.port = 5000
-post.endpoint = "/control.html"
+post.morpheus = "http://arduino.com.br"
+post.port = 3000
+post.endpoint = "/control"
 
 
 local sink = {}
@@ -41,7 +41,6 @@ post.POST = function (reqbody, fLoading)
 end 
 
 post.GET = function (url)
-
  loading = fLoading
 	response = {}
 	local a

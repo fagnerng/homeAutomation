@@ -43,59 +43,41 @@ local function runTeste()
 local on,off = "on", "off"
 -- seta desligados todos os dispositivos
 switchPower(0)
-switchPower(1)
 -- pega a instacia atual dos dispositivos
 local ventilador,codev = getDevice(0)
-local lampada,codel = getDevice(1)
+
 --colecao de testes a serem realizados
 local colecaoTestes = {}
 	-- testa  estado inicial desligado
-	colecaoTestes[1] = assert(off, lampada.status,failName)
-	colecaoTestes[2] = assert(off, ventilador.status,failName)
 	--liga os dispositivos e atualiza as instancias do mesmo
 	switchPower(0,"on")
-	switchPower(1,"on")
 	ventilador, codev = getDevice(0)
-	lampada, codel = getDevice(1)
-	colecaoTestes[3] = assert(on, lampada.status,failPower)
-	colecaoTestes[4] = assert(on, ventilador.status,failPower)
+	colecaoTestes[1] = assert(on, ventilador.status,failPower)
 	local luser = username
 	username = "odername"
 	local a
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[5] = assert(codev, "402",failCode)
-	colecaoTestes[6] = assert(codel, "402",failCode)
+	colecaoTestes[2] = assert(codev, "402",failCode)
 	username = luser
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[7] = assert(codev, "200",failCode)
-	colecaoTestes[8] = assert(codel, "200",failCode)
+	colecaoTestes[3] = assert(codev, "200",failCode)
 	
 	local mqreqbody = getReqBody
 	getReqBody = function() return "" end
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[9] = assert(codel, "403",failParans)
-	colecaoTestes[10] = assert(codev, "403",failParans)
+	colecaoTestes[4] = assert(codev, "403",failParans)
 	getReqBody = mqreqbody
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[11] = assert(codel, "200",failParans)
-	colecaoTestes[12] = assert(codev, "200",failParans)
+	colecaoTestes[5] = assert(codev, "200",failParans)
 	
 	getReqBody = function(id, power) 
 	return "?username="..username.."&password="..password.."&status=nada&id="..id
 	end
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[13] = assert(codel, "405",failParans)
-	colecaoTestes[14] = assert(codev, "405",failParans)
+	colecaoTestes[6] = assert(codev, "405",failParans)
 	getReqBody = mqreqbody
 	a, codev = switchPower(0)
-	a, codel = switchPower(1)
-	colecaoTestes[15] = assert(codel, "200",failParans)
-	colecaoTestes[16] = assert(codev, "200",failParans)
+	colecaoTestes[7] = assert(codev, "200",failParans)
 	for i,v in pairs (colecaoTestes) do
 	print (i.." - ".. v)
 
