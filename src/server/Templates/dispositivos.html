@@ -6,6 +6,7 @@
 <script type="text/javascript">
 var allUser = [];
 var allDevices = [];
+var ucb = 0;
 
 function contains(a, obj) {
     for (var i = 0; i < a.length; i++) {
@@ -44,8 +45,11 @@ function getDevices(){
 				var devicesContent = devicesRequest.responseText;
 				var devices = devicesContent.split(",");
 				allDevices = devices;
+				ucb = 0;
 				for (var i = 0 ; i<devices.length; i++){
 					var nome = devices[i];
+
+					ucb ++;
 
 					var divTag = document.createElement("div");
 					
@@ -74,6 +78,7 @@ function getDevices(){
 function getDevicesFromUser(){
 	document.getElementById("divSome").innerHTML = "";
 	var devices = getUserSelected().devices;
+
 	
 	for (var i = 0 ; i<devices.length; i++){
 		nome = allDevices[parseInt(devices[i])];
@@ -104,6 +109,9 @@ function getUserSelected(){
 }
 
 function getUserDevicesSelected(){
+	if(!(temCheckado())){
+		return -1;
+	}
 	var user = getUserSelected();
 	var devs = user.devices;
 	var flagCount = 0;
@@ -119,6 +127,7 @@ function getUserDevicesSelected(){
 			chbx.checked = false;
 		}
 	}
+	alert(user.devices.length);
 	if (user.devices.length == 0 ) {
 		user.devices = devs;
 		alert("O usuário deve ter ao menos um dispositivo");
@@ -131,11 +140,14 @@ function getUserDevicesSelected(){
 }
 
 function addDevice(){
+	if(!(temCheckado())){
+		return -1;
+	}
 	var user = getUserSelected();
 	var devs = user.devices;
 	var flagMaster = false;
 	var flagCount = 0;
-	
+
 	for (i = 0; i < allDevices.length; i++){
 		var chbx = document.getElementById("Chbx" + i.toString());
 		
@@ -153,6 +165,21 @@ function addDevice(){
 		user.devices = ordenaDevices(user.devices);
 		allUser[selectedUser] = user;
 		sendResults();
+	}
+}
+function temCheckado(){
+	for (i = 0; i < allDevices.length; i++){
+		var chbx = document.getElementById("Chbx" + i.toString());
+		if (chbx.checked == true){
+			return true;
+		}
+	}
+
+	for (i = 0; i < ucb; i++){
+		var chbx = document.getElementById("UChbx" + i.toString());
+		if (chbx.checked == true){
+			return true;
+		}
 	}
 }
 
