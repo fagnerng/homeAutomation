@@ -17,12 +17,15 @@ var responseGet2;
 var autenthication;
 
 xmlhttp.onreadystatechange=function() {
-	authenticate();
-	if(autenthication == "false"){
-		alert("A senha atual está incorreta");
-	}else{
-		alert("Senha modificada com sucesso!");
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		alert(xmlhttp.responseText);
 	}
+	//authenticate();
+	//if(autenthication == "false"){
+	//	alert("A senha atual está incorreta");
+	//}else{
+	//	alert("Senha modificada com sucesso!");
+	//}
 }
 
 xmlhttp2.onreadystatechange=function() {
@@ -214,24 +217,25 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 
     <div class="usersList" id="divUsers">
 
-    	<form>
+    	<form action="javascript:enviaDados()">
 			  <table>
 				<tr>
 				  <td align="right">Senha atual</td>
-				  <td align="left"><input id="pass" type="password" name="name" size="20"/></td>
+				  <td align="left"><input id="pass" type="password" required name="name" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Nova Senha</td>
-				  <td align="left"><input id="nPass" type="password" name="login" size="20"/></td>
+				  <td align="left"><input id="nPass" type="password" required name="login" size="20"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Repita a nova senha</td>
-				  <td align="left"><input id="cNpass" type="password" name="email" size="20"/></td>
+				  <td align="left"><input id="cNpass" type="password" required name="email" size="20"/></td>
 				</tr>
 			  </table>
+			  
+			  <input id ="excluir" type="submit" class="botoes" value="Mudar Senha"</input>
 		</form>
 
-    <input id ="excluir" type="button" class="botoes" value="Mudar Senha" onclick='enviaDados()'</input> 
     <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

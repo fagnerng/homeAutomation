@@ -204,35 +204,36 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
   <div class="content">
     <div align="center"><h1>Cadastrar Novo Usuário</h1> </div>
 		
-		<div class="margem" align="center">
-			<form>
-			  <table>
+	<div class="margem" align="center">
+
+		<form action="javascript:cadastra()">
+		  <table>
 				<tr>
 				  <td align="right">Name:</td>
-				  <td align="left"><input id="name" type="text" name="name" size="50"/></td>
+				  <td align="left"><input id="name" type="text" required name="name" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Login:</td>
-				  <td align="left"><input id="login" type="text" name="login" size="50"/></td>
+				  <td align="left"><input id="login" type="text" required name="login" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Email:</td>
-				  <td align="left"><input id="email" type="text" name="email" size="50"/></td>
+				  <td align="left"><input id="email" type="email" required name="email" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Password:</td>
-				  <td align="left"><input id="pass" type="password" name="pwd" size="50"/></td>
+				  <td align="left"><input id="pass" type="password" required pattern="\{2}\" name="pwd" size="50"/></td>
 				</tr>
 				<tr>
 				  <td align="right">Confirm<br>Password:</td>
-				  <td align="left"><input id="cpass" type="password" name="pwdc"size="50"/></td>
+				  <td align="left"><input id="cpass" type="password" required pattern="\{2}\" name="pwdc"size="50"/></td>
 				</tr>
-			  </table>
-			</form>
-		</div>
-		
+		  </table>
+		 
+		  <input class="botao" type="submit" value="Avançar"</input>
+		</form>
 
-		<input class="botao" type="button" value="Avançar" onclick='cadastra()'</input> 
+	</div>
 
     <!-- end .content --></div>
   <!-- end .container --></div>

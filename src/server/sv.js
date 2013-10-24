@@ -72,9 +72,11 @@ function ChangeUserPassword(id,oldPass,newPass){
 		console.log("TRUEEEEE");
 		PasswordChangeStatus = true;
 		saveData(jsonData);
+		return true
 	}else{
 		console.log("falseeeeeeee");
 		PasswordChangeStatus = false;
+		return false;
 	}
 
 }
@@ -88,7 +90,7 @@ function switchPower(id, status){
 		xmlhttp2.open("POST", getLinkDefault()+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
 		xmlhttp2.send();
 	}catch(e){
-		console.log(e);
+		//~ console.log(e);
 	}
 };
 
@@ -103,7 +105,7 @@ function getPowerStatus(){
 
 		xmlhttp.send();
 	}catch(e){
-		console.log(e);
+		//~ console.log(e);
 		/////////////////////////////////////////////////////o arduino nao foi encontrado
 	}
 	if(userLoged){setTimeout(getPowerStatus, 1000);}
@@ -529,11 +531,6 @@ app.get('/checkUser', function(req, res){
 	//UserAlreadyExists = false;
 });
 
-app.get('/checkPassword', function(req, res){
-	res.send(PasswordChangeStatus.toString());
-	//PasswordChangeStatus = false;
-});
-
 app.get('/checkLogin', function(req, res){
 	fillUsers();
 	res.send(autLogin);
@@ -606,7 +603,11 @@ app.post('/changePassword', function(req, res){
 	//TRATAR se login é valido ou nao
 	oldPass = req.param('oldPass');
 	newPass = req.param('newPass');
-	ChangeUserPassword(IdLoggedUser,oldPass,newPass);
+	if (ChangeUserPassword(IdLoggedUser,oldPass,newPass)){
+		res.send("Senha modificada com sucesso!");
+	}else{
+		res.send("A senha atual está incorreta");
+	}
 });
 
 
