@@ -110,7 +110,12 @@
 	<td>Alexnum2</td>
 	<td></td>
 </tr>
-
+<!--Verifica Caso o botao seja pressionado sem nada estar selecionado (Nada deve aparecer)-->
+<tr>
+	<td>click</td>
+	<td>id=excluir</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

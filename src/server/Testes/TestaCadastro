@@ -412,7 +412,133 @@
 	<td>http://localhost:9000/cadastro2</td>
 	<td></td>
 </tr>
-
+<!--Verificação da segunda etapa do cadastro-->
+<tr>
+	<td>uncheck</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.botao</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Selecione ao menos um dispositivo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.botao</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Dispositivos adicionados com sucesso!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Dispositivos</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=slctbox</td>
+	<td>label=xbala</td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<!--Novo cadastro com todos os dispositivos disponíveis-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Usuários</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=cadastrar</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>Hun Batz</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=login</td>
+	<td>Hun</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>HunBatz@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=pass</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cpass</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.botao</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=Chbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.botao</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>Dispositivos adicionados com sucesso!</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Dispositivos</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=slctbox</td>
+	<td>label=Hun</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>id=UChbx0</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
