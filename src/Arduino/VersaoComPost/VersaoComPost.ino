@@ -22,16 +22,10 @@ static uint8_t mac[] = {
 static uint8_t ip[] = { 
   10, 0, 0, 2 };
 
-// ROM-based messages used by the application
-// These are needed to avoid having the strings use up our limited
-//    amount of RAM.
-//
 P(Json_begin) = "{ \"devices\" : [";
 P(Json_end) = "]}";
-/* This creates an instance of the webserver.  By specifying a prefix
- * of "", all pages will be at the root of the server. */
 #define PREFIX ""
-WebServer webserver(PREFIX, 5000);
+WebServer webserver(PREFIX, 3000);
 void authentic(){
 
   if (uUserName ==  user){
@@ -60,7 +54,7 @@ int switch_power_auth(){
       digitalWrite(allDevices[id].switch_pin, HIGH);
     else return 2;
   }
-  
+
 
   return auth;
 
@@ -76,12 +70,12 @@ void switch_power(int device){
 
 }
 String toStringDevice(Device dev){
-  String toReturn = "{\"id\" : ";
+
+String toReturn = "{\"id\" : ";
   toReturn += (String) dev.id;
-  toReturn += ", \"name\" : \"";
-  toReturn += dev.name;
-  toReturn += "\" , \"status\" : ";
+  toReturn += " , \"status\" : ";
   toReturn += !digitalRead(dev.switch_pin)? "\"on\"" : "\"off\"" ;
+  //String toReturn = !digitalRead(dev.switch_pin)? "on" : "off" ;  
   toReturn += "}";
   return toReturn;
 }
@@ -95,19 +89,9 @@ void parsedCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail
   int  name_len;
   char value[VALUELEN];
   int value_len;
-
-
-  //Serial.println(toStringDevice(allDevices[0]));
-  // Serial.println(toStringDevice(allDevices[1]));
-  /* this line sends the standard "we're all OK" headers back to the
-   browser */
-
-  /* if we're handling a GET or POST, we can output our data here.
-   For a HEAD request, we just stop after outputting headers. */
   if (type == WebServer::HEAD)
     return;
 
-  //server.printP(Page_start);
   switch (type)
   {
     case WebServer::GET:
@@ -157,20 +141,20 @@ void parsedCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail
 
 
           }
-          //*/
+
 
         }
       }
 
-      ///* 
-      
+
+
       int coder = switch_power_auth();
       Serial.println(coder);
       if (coder==1){
         server.httpSuccess();
       }
       else if (coder==2) {
-       server.httpStatusError();
+        server.httpStatusError();
       }
       else{
         server.httpAuthError();
@@ -204,15 +188,11 @@ void my_failCmd(WebServer &server, WebServer::ConnectionType type, char *url_tai
 
 void setup()
 {
-  /* initialize the Ethernet adapter */
   Ethernet.begin(mac, ip);
   Serial.begin(9600);
   Device Ventilador;
   {
     Ventilador.id = 0;
-    Ventilador.name = "Ventilador_Suite";
-    Ventilador.onTime= false;
-    Ventilador.time = 0;
     Ventilador.switch_pin = 8;
     Ventilador.button_pin = 2;
   }
@@ -220,9 +200,6 @@ void setup()
   Device Lampada;
   {
     Lampada.id = 1;
-    Lampada.name = "Lampada_Suite";
-    Lampada.onTime= false;
-    Lampada.time = 0;
     Lampada.switch_pin = 9;
     Lampada.button_pin = 3;
   }
@@ -241,9 +218,8 @@ void setup()
 
   }
   allDevices[0].last_status = digitalRead(allDevices[0].button_pin);
-  webserver.addCommand("control.html", &parsedCmd);
+  webserver.addCommand("control", &parsedCmd);
 
-  /* start the webserver */
   webserver.begin();
 
 }
@@ -262,9 +238,10 @@ void loop()
 
 
 
-  /* process incoming connections one at a time forever */
   webserver.processConnection(buff, &len);
 }
+
+
 
 
 
