@@ -351,6 +351,11 @@ app.get('/crypt.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/crypt.js");
 });
 
+app.get('/Manual.pdf', function(req, res){
+	res.sendfile(__dirname +"/Templates/Manual.pdf");
+});
+
+
 app.get('/aut.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/aut.js");
 });
@@ -477,6 +482,10 @@ app.get('/contato.html', function(req, res){
 	}else{
 		res.sendfile(__dirname + '/Templates/contato.html');
 	}	
+});
+
+app.get('/ajuda', function(req, res){
+	res.sendfile(__dirname + '/Templates/Manual.pdf');
 });
 
 app.get('/reg', function(req, res){
