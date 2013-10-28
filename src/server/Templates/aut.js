@@ -13,6 +13,6 @@ bloqRequest.onreadystatechange=function() {
 }
     
 function checaRoot(){
-	bloqRequest.open("GET", "http://localhost:9000/root", false);	
+	bloqRequest.open("GET", "/root", false);	
   	bloqRequest.send();
 }  
