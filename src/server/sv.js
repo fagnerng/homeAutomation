@@ -400,7 +400,7 @@ app.get('/allDevices', function(req, res){
 	res.send(allDevices.toString());
 });
 
-app.get('/root', function(req, res){ // DELETAR DEPOIS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+app.get('/root', function(req, res){
 	res.send(rootUser);
 });
 
@@ -628,21 +628,13 @@ app.post('/adduser', function(req, res){
 	}
 	
 	var loginValid = findUserByLogin(req.param('login'));
-	console.log(loginValid != -1);
 	if (loginValid != -1){
-		console.log("Já existe!");
-		UserAlreadyExists = true; // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		UserAlreadyExists = true;
 	}else{
-		console.log("N existe!");
 		UserAlreadyExists = false;
 	}
-	var emailValid = findUserByEmail(req.param('email'));
-	if (emailValid != -1){
-		console.log("Email Existente!"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-		//Tratar se o email ja existe
-	}
-		
-	if (loginValid + emailValid == -2){
+
+	if (loginValid == -1){
 		registerHapenning = true;
 		userRegistered = req.param('login');
 		user.name = req.param('name');
@@ -652,7 +644,6 @@ app.post('/adduser', function(req, res){
 		user.email = req.param('email');
 		createNewUser(user, "1");
 	}
-	console.log("Usuario registrado!");
 });
 
 app.post('/checkLogin', function(req, res){

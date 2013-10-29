@@ -51,7 +51,7 @@ function checaBox(){
  	}else{
  		status= "off"
  	}
- 	statusRequest.open("POST", "/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true); //Valor "Bruno" sera pegado do campo onde foi digitado o nome do user
+ 	statusRequest.open("POST", "/takeStatus?id=" + e.selectedIndex + "&status="+status + "&timer="+settedTime, true);
     statusRequest.send();
     populateList();
 }
