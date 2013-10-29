@@ -355,7 +355,6 @@ app.get('/Manual.pdf', function(req, res){
 	res.sendfile(__dirname +"/Templates/Manual.pdf");
 });
 
-
 app.get('/aut.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/aut.js");
 });
@@ -710,8 +709,10 @@ app.post('/takeStatus',function(req,res){
 	
 	changeStatus(userDevices[id],status);
 	
-	activateTimer(id, secs);
-	endTimer(secs, userDevices[id]);
+	if (secs > 0 && status == "on"){
+		activateTimer(id, secs);
+		endTimer(secs, userDevices[id]);
+	}
 	
 });
 
