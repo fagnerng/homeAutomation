@@ -273,7 +273,8 @@ function activateTimer(idDevices, seconds){
 						switchPower(aidDevices, "off");
 						jsonData.alldata.devices[aidDevices].timer = false;
 					}
-					}, seconds * 60000, idDevices);
+					//~ }, seconds * 60000, idDevices); // Minutes
+					}, seconds * 1000, idDevices); // Seconds
 		saveData(jsonData);
 	}else{
 		jsonData.alldata.devices[idDevices].timer = false;
@@ -582,24 +583,6 @@ app.post('/updatedevices', function(req, res){
 	registerHapenning = false;
 	userRegistered = "";
 });
-
-//~ app.post('/updatedevices', function(req, res){
-	//~ var index = findUserByLogin(req.param('login'));
-	//~ var jsonData = require('./BD/database.json');
-	//~ console.log(req.param('devices'));
-	//~ if (req.param('devices') == ""){
-		//~ var devs = [];
-	//~ }else{
-		//~ var devs = req.param('devices').split(",");
-	//~ }	
-	//~ 
-	//~ if (index != -1){
-		//~ jsonData.alldata.users[index].devices = devs;
-		//~ saveData(jsonData);
-	//~ }
-	//~ registerHapenning = false;
-	//~ userRegistered = "";
-//~ });
 
 app.post('/choicedUser', function(req, res){
 	//TRATAR se login é valido ou nao
