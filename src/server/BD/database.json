@@ -22,7 +22,7 @@
             {
                 "name": "Bruno Paiva",
                 "login": "brunoffp",
-                "pass": "900150983cd24fb0d6963f7d28e17f72",
+                "pass": "202cb962ac59075b964b07152d234b70",
                 "admin": "false",
                 "devices": [
                     "0"
@@ -64,13 +64,13 @@
         "devices": [
             {
                 "id": 0,
-                "name": "Lampada_Quarto",
-                "status": "off",
+                "name": "Lampada_Quadro",
+                "status": "on",
                 "timer": false
             },
             {
                 "id": 1,
-                "name": "Lampada_Sala",
+                "name": "Lampada_Janela",
                 "timer": false,
                 "status": "on"
             }
