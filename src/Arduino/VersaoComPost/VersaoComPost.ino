@@ -71,7 +71,7 @@ void switch_power(int device){
 }
 String toStringDevice(Device dev){
 
-String toReturn = "{\"id\" : ";
+  String toReturn = "{\"id\" : ";
   toReturn += (String) dev.id;
   toReturn += " , \"status\" : ";
   toReturn += !digitalRead(dev.switch_pin)? "\"on\"" : "\"off\"" ;
@@ -219,7 +219,8 @@ void setup()
   }
   allDevices[0].last_status = digitalRead(allDevices[0].button_pin);
   webserver.addCommand("control", &parsedCmd);
-
+  digitalWrite(2,1);
+  digitalWrite(3,1); 
   webserver.begin();
 
 }
@@ -229,17 +230,18 @@ void loop()
   char buff[256];
   int len = 256;
   int i ;
-
-  if (allDevices[0].last_status != digitalRead(allDevices[0].button_pin)){
-    allDevices[0].last_status = !allDevices[0].last_status;  
-    switch_power(0);
+  for (i = 0; i < 2; i++){
+    if (allDevices[i].last_status != digitalRead(allDevices[i].button_pin)){
+      allDevices[i].last_status = !allDevices[i].last_status;  
+      switch_power(i);
+    }
   }
-
 
 
 
   webserver.processConnection(buff, &len);
 }
+
 
 
 
