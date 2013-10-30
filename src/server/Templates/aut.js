@@ -1,6 +1,5 @@
-var boxRequest = new XMLHttpRequest();
-
 //=====================Notificação de bloqueio de acesso para usuario sem permissão=================>
+
 var bloqRequest = new XMLHttpRequest();
 
 bloqRequest.onreadystatechange=function() {

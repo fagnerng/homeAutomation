@@ -273,7 +273,8 @@ function activateTimer(idDevices, seconds){
 						switchPower(aidDevices, "off");
 						jsonData.alldata.devices[aidDevices].timer = false;
 					}
-					}, seconds * 60000, idDevices);
+					//~ }, seconds * 60000, idDevices); // Minutes
+					}, seconds * 1000, idDevices); // Seconds
 		saveData(jsonData);
 	}else{
 		jsonData.alldata.devices[idDevices].timer = false;
@@ -355,7 +356,6 @@ app.get('/Manual.pdf', function(req, res){
 	res.sendfile(__dirname +"/Templates/Manual.pdf");
 });
 
-
 app.get('/aut.js', function(req, res){
 	res.sendfile(__dirname +"/Templates/aut.js");
 });
@@ -401,7 +401,7 @@ app.get('/allDevices', function(req, res){
 	res.send(allDevices.toString());
 });
 
-app.get('/root', function(req, res){ // DELETAR DEPOIS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+app.get('/root', function(req, res){
 	res.send(rootUser);
 });
 
@@ -584,24 +584,6 @@ app.post('/updatedevices', function(req, res){
 	userRegistered = "";
 });
 
-//~ app.post('/updatedevices', function(req, res){
-	//~ var index = findUserByLogin(req.param('login'));
-	//~ var jsonData = require('./BD/database.json');
-	//~ console.log(req.param('devices'));
-	//~ if (req.param('devices') == ""){
-		//~ var devs = [];
-	//~ }else{
-		//~ var devs = req.param('devices').split(",");
-	//~ }	
-	//~ 
-	//~ if (index != -1){
-		//~ jsonData.alldata.users[index].devices = devs;
-		//~ saveData(jsonData);
-	//~ }
-	//~ registerHapenning = false;
-	//~ userRegistered = "";
-//~ });
-
 app.post('/choicedUser', function(req, res){
 	//TRATAR se login é valido ou nao
 	login = req.param('login');
@@ -629,21 +611,13 @@ app.post('/adduser', function(req, res){
 	}
 	
 	var loginValid = findUserByLogin(req.param('login'));
-	console.log(loginValid != -1);
 	if (loginValid != -1){
-		console.log("Já existe!");
-		UserAlreadyExists = true; // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		UserAlreadyExists = true;
 	}else{
-		console.log("N existe!");
 		UserAlreadyExists = false;
 	}
-	var emailValid = findUserByEmail(req.param('email'));
-	if (emailValid != -1){
-		console.log("Email Existente!"); // TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-		//Tratar se o email ja existe
-	}
-		
-	if (loginValid + emailValid == -2){
+
+	if (loginValid == -1){
 		registerHapenning = true;
 		userRegistered = req.param('login');
 		user.name = req.param('name');
@@ -653,7 +627,6 @@ app.post('/adduser', function(req, res){
 		user.email = req.param('email');
 		createNewUser(user, "1");
 	}
-	console.log("Usuario registrado!");
 });
 
 app.post('/checkLogin', function(req, res){
@@ -710,8 +683,10 @@ app.post('/takeStatus',function(req,res){
 	
 	changeStatus(userDevices[id],status);
 	
-	activateTimer(id, secs);
-	endTimer(secs, userDevices[id]);
+	if (secs > 0 && status == "on"){
+		activateTimer(id, secs);
+		endTimer(secs, userDevices[id]);
+	}
 	
 });
 

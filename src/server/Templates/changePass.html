@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <title>Usuários</title>
+<script src="aut.js"></script>
 <script src="loginaut.js"></script>
 <script src="crypt.js"></script>
-
 
 <script> 
 
@@ -19,12 +19,6 @@ xmlhttp.onreadystatechange=function() {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 		alert(xmlhttp.responseText);
 	}
-	//authenticate();
-	//if(autenthication == "false"){
-	//	alert("A senha atual está incorreta");
-	//}else{
-	//	alert("Senha modificada com sucesso!");
-	//}
 }
 
 xmlhttp2.onreadystatechange=function() {
@@ -191,9 +185,9 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus {
 <div class="container">
   <div class="sidebar1">
     <ul class="nav">
-      <li><a href="inicio.html">Início</a></li>
-      <li><a href="usuarios.html">Usuários</a></li>
-      <li><a href="dispositivos.html">Dispositivos</a></li>
+      <li><a href="inicio.html">Início</a></li>      
+      <li><a href="usuarios.html" onclick="checaRoot();">Usuários</a></li>
+      <li><a href="dispositivos.html" onclick="checaRoot();">Dispositivos</a></li>
       <li><a href="contato.html">Contato</a></li>
       <li><a href="changePass.html">Mudar Senha</a></li>
       <li><a href="/ajuda">Ajuda</a></li>
