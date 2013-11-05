@@ -1,29 +1,26 @@
 var express = require('express');
 var app = express();
-var tokens = [];
+var hostPort = 9000;
 var dbPath = "./jsonDB/";
-var htmlPath = "/html/";
-var logins = require(dbPath+'/loginDB.json');
-
+var htmlPath = __dirname +"/public";
+var cookies = {};
 app.configure(function(){
-	app.use(express.static(__dirname + '/Templates/res'));
-});
+	app.use(express.bodyParser());
+	app.use(express.cookieParser());
+	app.use(express.session({ secret: 'super-duper-secret-secret' }));
+	app.use(express.methodOverride());
+	app.use(express.static(htmlPath));
 
+});
+app.configure('development', function(){
+	app.use(express.errorHandler());
+});
 console.log("Server Initiated");
 
 app.use(express.methodOverride());
 
 
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');	
-    if ('OPTIONS' == req.method) 
-      res.send(200);
-    else 
-      next();
-};
-app.use(allowCrossDomain);
+
 
 /////////////////////////////////UTIL///////////////////////////////////
 //funcao atualiza o banco de dados do sistema
@@ -54,52 +51,90 @@ function logout(user){
 	if ( tokens[user]!= undefined )
 		tokens[user]= undefined ;
 }
-//funcao inicia sessao do usuario
-function login(user, pass){
-	var loginDB = require(dbPath+"loginDB.json");
-	if ( loginDB[user]!= undefined ){
-		var userDB = require(dbPath+"usersDB.json");
-		if (userDB[user].password == pass){
-			 tokens[user] = 'sadihagsddsa';
-			 return tokens[user], 200;
-		}
-		
-		return 'senha invalida inexistente',101;
+// verifica password do usuario
+function validatePassword(user, pass, callback){
+	var usersDB = require(dbPath + 'usersDB.json');
+	if (usersDB[user].pass == pass){
+		callback(null,usersDB[user]);
+	}else{
+		callback("invalid-password");
 	}
-		
-	return 'usuario inexistente' , 100;
+	
+}
+//funcao inicia sessao do usuario
+function manualLogin(user, pass, callback){
+	var loginDB = require(dbPath + 'loginDB.json');
+	if (loginDB[user]== undefined) {
+			callback('user-not-found');
+	}	else{
+		validatePassword(user, pass, callback );
+			
+	}
+	
+}
+// funcao que encessa a sessao do usuario
+function delCookies(cookie){
+	var tempCookies ={}
+	var index = 0;
+	for (i= 0; i< cookies.lenght;i++){
+		if (cookies[i] != cookie){
+			tempCookies[index] = cookies[i]
+			index++;
+		}
+	}
+
 }
 
 
+
+
 /////////////////////////////////UTIL///////////////////////////////////
+
+
 app.get('/', function(req, res){
 	
-	res.redirect('/login');
+	if (cookies[req.cookies['connect.sid']]== undefined){
+			res.sendfile(htmlPath+'/login.html');
+		}	else{
+	// attempt automatic login //
+		manualLogin(req.cookies.user, req.cookies.pass, function(o){
+			if (o != null){
+			    req.session.user = o;
+				res.send("<a href = \"/logout\">logout</a>");
+		}	else{
+				
+				}
+			});
+		}
+});
+
+
+app.post('/', function(req, res){
+	
+	manualLogin(req.param('user'), req.param('pass'), function(e, o){
+			if (!o){
+				res.send(e, 400);
+			}	else{
+				cookies[req.cookies['connect.sid']]= o;
+			    req.session.user = o;
+				if (req.param('remember-me') == 'true'){
+					res.cookie('user', o.user, { maxAge: 900000 });
+					res.cookie('pass', o.pass, { maxAge: 900000 });
+				}
+				res.send("<a href = \"/logout\">logout</a>");
+			}
+		});
 	
 });
 
-app.get('/login', function(req, res){
-	var login = req.param("login");
-	var token = req.param("token");
-	if (login != undefined &&  token != undefined )
-		res.send("ja esta logado");
-	else
-		res.sendfile(__dirname + htmlPath+'/index.html');
+app.get('/logout',function (req,res){
+	delCookies(cookies[req.cookies['connect.sid']]);
+	console.log(cookies);
+	res.redirect('/');
 });
 
-
-app.post('/login', function(req, res){
-	console.log("login");
-	var ulogin = req.param("login");
-	var upass = req.param("pass");
-	var token, code = login(ulogin, upass)
-	console.log(login(ulogin, upass))
-	if(code == 200 ){
-		res.send("logado com sucesso");
-	}else{
-		res.send(token);
-	}
-	
+app.get('/*',function (req,res){
+	res.send("not found", 404);
 });
-app.listen(80);
+app.listen(hostPort);
 

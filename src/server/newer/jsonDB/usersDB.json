@@ -1,22 +1,26 @@
 {
     "fagnerng": {
-		"name":"",
-        "email": "",
-        "password": "fagnerng"
+        "name": "fagnerng",
+        "email": "fagnerng@mail.com",
+        "user": "fagnerng",
+        "pass": "fagnerng"
     },
     "brunoffp": {
-		"name":"",
-        "email": "",
-        "password": "brunoffp"
+        "name": "brunoffp",
+        "email": "brunoffp@mail.com",
+        "user": "brunoffp",
+        "pass": "brunoffp"
     },
     "andersongsf": {
-		"name":"",
-        "email": "",
-        "password": "andersongsf"
+        "name": "andersongsf",
+        "email": "andersongsf@mail.com",
+        "user": "andersongsf",
+        "pass": "andersongsf"
     },
     "alexnum": {
-		"name":"",
-        "email": "",
-        "password": "alexnum"
+        "name": "alexnum",
+        "email": "alexnum@mail.com",
+        "user": "alexnum",
+        "pass": "alexnum"
     }
 }
