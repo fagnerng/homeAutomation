@@ -3,7 +3,7 @@ var app = express();
 var hostPort = 9000;
 var dbPath = "./jsonDB/";
 var htmlPath = __dirname +"/public";
-var cookies = {};
+
 app.configure(function(){
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
@@ -46,11 +46,7 @@ function getUserAgent(headers){
 	}
 }
 
-//funcao encerra sessao do usuario
-function logout(user){
-	if ( tokens[user]!= undefined )
-		tokens[user]= undefined ;
-}
+
 // verifica password do usuario
 function validatePassword(user, pass, callback){
 	var usersDB = require(dbPath + 'usersDB.json');
@@ -72,37 +68,24 @@ function manualLogin(user, pass, callback){
 	}
 	
 }
-// funcao que encessa a sessao do usuario
-function delCookies(cookie){
-	var tempCookies ={}
-	var index = 0;
-	for (i= 0; i< cookies.lenght;i++){
-		if (cookies[i] != cookie){
-			tempCookies[index] = cookies[i]
-			index++;
-		}
-	}
-
-}
-
-
 
 
 /////////////////////////////////UTIL///////////////////////////////////
 
 
 app.get('/', function(req, res){
-	
-	if (cookies[req.cookies['connect.sid']]== undefined){
+	console.log(req.cookies['user']);
+	console.log(req.cookies['pass']);
+	if (req.cookies['user'] == undefined || req.cookies['pass'] == undefined){
 			res.sendfile(htmlPath+'/login.html');
-		}	else{
+	}else{
 	// attempt automatic login //
-		manualLogin(req.cookies.user, req.cookies.pass, function(o){
+		manualLogin(req.cookies['user'], req.cookies['pass'], function(e, o){
 			if (o != null){
 			    req.session.user = o;
-				res.send("<a href = \"/logout\">logout</a>");
-		}	else{
-				
+				res.redirect('/home');
+			}else{
+				console.log("erro");
 				}
 			});
 		}
@@ -110,27 +93,35 @@ app.get('/', function(req, res){
 
 
 app.post('/', function(req, res){
-	
 	manualLogin(req.param('user'), req.param('pass'), function(e, o){
 			if (!o){
 				res.send(e, 400);
 			}	else{
-				cookies[req.cookies['connect.sid']]= o;
-			    req.session.user = o;
-				if (req.param('remember-me') == 'true'){
+				req.session.user = o;
+				if (req.param('remember-me') == 'on'){
 					res.cookie('user', o.user, { maxAge: 900000 });
 					res.cookie('pass', o.pass, { maxAge: 900000 });
+					
 				}
-				res.send("<a href = \"/logout\">logout</a>");
+				res.redirect('/home');
+				
 			}
 		});
 	
 });
 
+app.get('/home',function (req,res){
+	if (req.session.user == null){
+		res.redirect('/');
+	}else 
+		res.send("<a href = \"/logout\">logout</a>");
+});
+
 app.get('/logout',function (req,res){
-	delCookies(cookies[req.cookies['connect.sid']]);
-	console.log(cookies);
-	res.redirect('/');
+	res.clearCookie('user');
+	res.clearCookie('pass');
+	req.session.destroy(function(e){ res.redirect('/'); });
+	
 });
 
 app.get('/*',function (req,res){
