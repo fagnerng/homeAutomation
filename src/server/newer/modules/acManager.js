@@ -1,5 +1,5 @@
 var crypto 		= require('crypto');
-var dbPath = "./jsonDB/";
+var dbPath = "../jsonDB/";
 
 //login by user and pass from cookies
 exports.autoLogin = function(user, pass, callback)
@@ -15,7 +15,7 @@ exports.autoLogin = function(user, pass, callback)
 //login by user and pass inputed manualy
 exports.manualLogin = function(user, pass, callback)
 {
-	accounts.findOne({user:user}, function(e, o) {
+	getOneUserByLogin(user, function(e, o) {
 		if (o == null){
 			callback('user-not-found');
 		}	else{
@@ -37,19 +37,19 @@ exports.manualLogin = function(user, pass, callback)
 //create new user
 exports.addNewAccount = function(newData, callback)
 {
-	accounts.findOne({user:newData.user}, function(e, o) {
-		if (o){
+	findByTable(newData.user,'login', function(o) {
+		if (o != undefined){
 			callback('username-taken');
-		}	else{
-			accounts.findOne({email:newData.email}, function(e, o) {
-				if (o){
+		}else{
+			findByTable(newData.email,'email', function(o) {
+			if (o != undefined){
 					callback('email-taken');
-				}	else{
+			}	else{
 					saltAndHash(newData.pass, function(hash){
-						newData.pass = hash;
-					// append date stamp when record was created //
-						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						accounts.insert(newData, {safe: true}, callback);
+					newData.pass = hash;
+					//newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
+					insertUser(newData);
+					callback(null,'ok')
 					});
 				}
 			});
@@ -58,40 +58,70 @@ exports.addNewAccount = function(newData, callback)
 }
 
 //update password
-exports.updatePassword = function(email, newPass, callback)
-{
-	accounts.findOne({email:email}, function(e, o){
-		if (e){
-			callback(e, null);
-		}	else{
-			saltAndHash(newPass, function(hash){
-		        o.pass = hash;
-		        accounts.save(o, {safe: true}, callback);
-			});
-		}
-	});
+//~ exports.updatePassword = function(email, newPass, callback)
+//~ {
+	//~ accounts.findOne({email:email}, function(e, o){
+		//~ if (e){
+			//~ callback(e, null);
+		//~ }	else{
+			//~ saltAndHash(newPass, function(hash){
+		        //~ o.pass = hash;
+		        //~ accounts.save(o, {safe: true}, callback);
+			//~ });
+		//~ }
+	//~ });
+//~ }
+
+//take object by table
+findByTable = function(data, table, callback){
+	var tableDB = require( dbPath + table + 'DB.json');
+	callback(tableDB[data]);
 }
 
 
 // find user by login
-findOneByLogin = function(user, callback){
+getOneUserByLogin = function(user, callback){
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
-		{
-				user 		: o[],
-				name 		: o[],
-				email 		: o[],
-				pass		: o[],
-				ip			: o[],
-				house		: o[],
-			}
+		var h = require(dbPath+'houseDB.json')[o['house']]
+		callback(null,{
+				user 		: o['user'],
+				name 		: o['name'],
+				email 		: o['email'],
+				pass		: o['pass'],
+				ip			: o[h['ip']],
+				house		: o['house'],
+				admin		: h['admin'] == o['user']
+			});
 	}
 
 	
 }
 //private methods
 /* private encryption & validation methods */
+function saveData(jsonData, filePath){
+	try {
+		fs = require('fs');
+		var outputFilename = './jsonDB/'+filePath+'DB.json';
+		fs.writeFileSync(outputFilename, JSON.stringify(jsonData, null, 4));
+	}catch(e){
+		console.log('err',e);
+	}
+}
+var insertUser = function(newData){
+	var logins = require(dbPath+'login'+'DB.json');
+	logins[newData['user']] = newData['house'];
+	saveData(logins, 'login');
+	
+	var emails = require(dbPath+'email'+'DB.json');
+	emails[newData['email']] = newData['user'];
+	saveData(emails, 'email');
+	
+	var users  = require(dbPath+'users'+'DB.json');
+	users[newData['user']] = newData;
+	saveData(users, 'users');
+}
 
 var generateSalt = function()
 {
