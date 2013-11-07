@@ -1,14 +1,14 @@
 {
     "house_000": {
-        "ip": "ip",
+        "ip": "ip0",
         "admin": "fagnerng"
     },
     "house_001": {
-        "ip": "ip",
+        "ip": "ip1",
         "admin": "brunoffp"
     },
     "house_002": {
-        "ip": "ip",
+        "ip": "ip2",
         "admin": "andersongfs"
     }
 }

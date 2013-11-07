@@ -1,22 +1,30 @@
 {
     "fagnerng": {
-		"name":"",
-        "email": "",
-        "password": "fagnerng"
-    },
-    "brunoffp": {
-		"name":"",
-        "email": "",
-        "password": "brunoffp"
-    },
-    "andersongsf": {
-		"name":"",
-        "email": "",
-        "password": "andersongsf"
+        "name": "fagnerng",
+        "email": "fagnerng@mail.com",
+        "user": "fagnerng",
+        "pass": "jTvAUkBUnNcabb2d5861073b4b8d74e2dd847772f9",
+        "house": "house_000"
     },
     "alexnum": {
-		"name":"",
-        "email": "",
-        "password": "alexnum"
+        "name": "alexnum",
+        "email": "alexnum@mail.com",
+        "user": "alexnum",
+        "pass": "OK1T54KS4qf221abf014fb2dd8c8f1706c012809db",
+        "house": "house_002"
+    },
+    "andersongsf": {
+        "name": "andersongsf",
+        "email": "andersongsf@mail.com",
+        "user": "andersongsf",
+        "pass": "f9QZXyKuUZc69dcae9ea7e760a53759572ee54b478",
+        "house": "house_000"
+    },
+    "brunoffp": {
+        "name": "brunoffp",
+        "email": "brunoffp@mail.com",
+        "user": "brunoffp",
+        "pass": "xN4GFOpAMqde869eabd28b09491d94ca1fc6e85f87",
+        "house": "house_001"
     }
 }

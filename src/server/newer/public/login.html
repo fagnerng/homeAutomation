@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Login</title>
+<style type="text/css">
+
+html { 
+  background: url(res/room.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.container {
+	width: 960px;
+	position: absolute;
+	top:20%;
+	left:25%;
+	background: rgb(201,222,150); /* Old browsers */
+    background: -moz-linear-gradient(45deg, rgba(201,222,150,1) 0%, rgba(138,182,107,1) 44%, rgba(57,130,53,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(201,222,150,1)), color-stop(44%,rgba(138,182,107,1)), color-stop(100%,rgba(57,130,    53,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* IE10+ */
+    background: linear-gradient(45deg, rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    opacity:0.9;
+    -webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.container:hover{
+    opacity:1.0;    
+}
+
+.margem{
+	margin-bottom: 10px;
+	margin-top: 35px;
+}
+	
+.margemImg{
+	margin-top:100px;
+}
+
+.botao{
+	padding:5px;
+}
+
+.inp:focus{
+    outline:solid 10px green;
+}
+
+.content ul, .content ol { 
+	padding: 0 15px 15px 40px;
+}
+
+.fltrt {
+	float: right;
+	margin-left: 8px;
+}
+
+.fltlft {
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat {
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+</style></head>
+
+<body>
+
+<div class="container">
+
+	<div align="center" class="margemImg"><img src="res/home.png" width="200" height="170"></div>
+	
+	<div align="center"><h1>Home Automation</h1> </div>
+	<form method = "post">
+	<div align="center" class="margem">
+		
+		<table>	
+			<tr>
+				<td align="right">Login:</td>
+				<td align="left"> <input id="login" type="text" name="user" size="30"/></td>
+			</tr>
+			
+			<tr>
+				<td align="right">Password:</td>
+				<td align="left"><input id="pass" type="password" name="pass" size="30"/></td>
+			</tr>
+			
+			
+		</table>
+	</div>
+	
+	<div align="center" class="margem">
+		<button type="submit" value="Login" name= "remember-me">Login</button>
+		<label id="rememberme" class="checkbox">Remember Me
+        <input type="checkbox" checked="checked" name="remember-me">
+      </label>
+	</div>
+  </form>
+  </div>
+</body>
+  <script src="/vendor/jquery.min.js"></script>
+  <script src="/vendor/jquery.form.js"></script>
+</html>
