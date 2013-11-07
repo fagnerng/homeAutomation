@@ -26,17 +26,21 @@ app.use(express.methodOverride());
 
 //funcao retorna o user agente de onde a requisicao foi solicitada
 function getUserAgent(headers){
+	
 	var userAgent = headers["user-agent"];
+	console.log(userAgent);
 	if(userAgent.indexOf("Android")!= -1){
 		return "Android";
+	}else if(userAgent.indexOf("Linux")!= -1){
+		return "Desktop";
 	}else if(userAgent.indexOf("Windows")!= -1){
-		return "Windows";
+		return "Desktop";
 	}else if(userAgent.indexOf("iPhone")!= -1){
-		return "iPhone";
+		return "Desktop";
 	}else if(userAgent.indexOf("iPad")!= -1){
-		return "iPad";
+		return "Desktop";
 	}else{
-		return "unknow";
+		return "Desktop";
 	}
 }
 
@@ -68,21 +72,30 @@ function manualLogin(user, pass, callback){
 
 
 app.get('/', function(req, res){
-	console.log(req.cookies);
+	
+	if (getUserAgent(req.headers)=="Desktop"){
 	if (req.cookies['user'] == undefined || req.cookies['pass'] == undefined){
-			res.sendfile(htmlPath+'/login.html');
+			var fs = require('fs');
+			fs.readFile('./public/login.html',{encoding:'utf8'}, function (err, data) {
+			if (err) throw err;
+				res.send(data);
+			});
 	}else{
 		
 	// attempt automatic login //
 		AM.autoLogin(req.cookies['user'], req.cookies['pass'], function(e, o){
 			if (o != null){
-			    req.session.user = o;
+				req.session.user = o;
 				res.redirect('/home');
 			}else{
 				console.log("erro");
 				}
 			});
 		}
+	}else{
+		res.redirect('/android');
+	}
+
 });
 
 
@@ -132,11 +145,11 @@ app.get('/logout',function (req,res){
 
 app.get('/signup',function (req,res){
 	var data = {
-        name: "brunoffp",
-        email: "brunoffp@mail.com",
-        user: "brunoffp",
-        pass: "brunoffp",
-        house: "house_001"
+        name: "fagnerng",
+        email: "fagnerng@mail.com",
+        user: "fagnerng",
+        pass: "fagnerng",
+        house: "house_000"
     };
 	AM.addNewAccount(data, function(e, o){
 		if(o == null){
@@ -149,14 +162,18 @@ app.get('/signup',function (req,res){
 	
 });
 
-app.get('/getUser',function (req,res){
-	AM.getOneUserByLogin('andersongsf',function(e, o){
+app.get('/android',function (req,res){
+	if (getUserAgent(req.headers)=="Desktop"){
+		res.redirect("/");
+	}else{
+	AM.AndroidLogin(req.param('user'),req.param('pass'),function(e, o){
 		if(o == null){
 			res.send(e, 200);	
 		}else{
 			res.send(o, 200);	
 		}
 	});
+	}
 });
 
 app.get('/*',function (req,res){

@@ -1,21 +1,21 @@
 {
     "house_000": [
         {
-            "id": 0,
+            "id": "0",
             "name": "mesmo",
             "status": false
         }
     ],
     "house_001": [
         {
-            "id": 0,
+            "id": "0",
             "name": "mesmo",
             "status": false
         }
     ],
     "house_002": [
         {
-            "id": 0,
+            "id": "0",
             "name": "mesmo",
             "status": false
         }

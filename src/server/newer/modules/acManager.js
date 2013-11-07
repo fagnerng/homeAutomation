@@ -4,9 +4,9 @@ var dbPath = "../jsonDB/";
 //login by user and pass from cookies
 exports.autoLogin = function(user, pass, callback)
 {
-	accounts.findOne({user:user}, function(e, o) {
-		if (o){
-			o.pass == pass ? callback(o) : callback(null);
+	findByTable(user,'users', function(o) {
+		if (o != undefined){
+			o.pass == pass ? getOneUserByLogin(o['user'],callback) : callback(null);
 		}	else{
 			callback(null);
 		}
@@ -21,7 +21,7 @@ exports.manualLogin = function(user, pass, callback)
 		}	else{
 			validatePassword(pass, o.pass, function(err, res) {
 				if (res){
-					callback(null, o);
+					getOneUserByLogin(o['user'],callback);
 				}	else{
 					callback('invalid-password');
 				}
@@ -58,19 +58,21 @@ exports.addNewAccount = function(newData, callback)
 }
 
 //update password
-//~ exports.updatePassword = function(email, newPass, callback)
-//~ {
-	//~ accounts.findOne({email:email}, function(e, o){
-		//~ if (e){
-			//~ callback(e, null);
-		//~ }	else{
-			//~ saltAndHash(newPass, function(hash){
-		        //~ o.pass = hash;
-		        //~ accounts.save(o, {safe: true}, callback);
-			//~ });
-		//~ }
-	//~ });
-//~ }
+exports.updatePassword = function(user, newPass, callback)
+{
+	findByTable(user,'user', function(o){
+		if (o == undefined){
+			callback('user-not-found', null);
+		}	else{
+			saltAndHash(newPass, function(hash){
+		       
+		        var users = require(dbPath+'usersDB.json')
+		        users[user].pass = hash;
+		        saveData(users, 'users');
+			});
+		}
+	});
+}
 
 //take object by table
 findByTable = function(data, table, callback){
@@ -80,20 +82,45 @@ findByTable = function(data, table, callback){
 
 
 // find user by login
+exports.AndroidLogin = function(user, pass, callback){
+	getOneUserByLogin(user, function(e, o) {
+		if (o == null){
+			callback('user-not-found');
+		}	else{
+			validatePassword(pass, o.pass, function(err, res) {
+				if (res){
+					getOneUserByLogin(o['user'],callback);
+				}	else{
+					callback('invalid-password');
+				}
+			});
+		}
+	});	
+}
 getOneUserByLogin = function(user, callback){
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
 		var h = require(dbPath+'houseDB.json')[o['house']]
+		var admin = h['admin'] == o['user'];
+		var devices = o['devices'];
+		if (admin){
+			devices = require(dbPath+'deviceDB.json')[o['house']];
+		}
+		console.log(admin, devices)
 		callback(null,{
-				user 		: o['user'],
-				name 		: o['name'],
-				email 		: o['email'],
-				pass		: o['pass'],
-				ip			: o[h['ip']],
-				house		: o['house'],
-				admin		: h['admin'] == o['user']
+				user 		: 	o['user'],
+				name 		: 	o['name'],
+				email 		: 	o['email'],
+				pass		: 	o['pass'],
+				ip			: 	o[h['ip']],
+				house		: 	o['house'],
+				admin		: 	admin,
+				devices		: 	devices
 			});
+	}
+	else {
+		callback('user-not-found');
 	}
 
 	
@@ -123,11 +150,20 @@ var insertUser = function(newData){
 	saveData(users, 'users');
 }
 
-var generateSalt = function()
+var delUser = function(oldData){
+	
+	
+	
+	
+}
+
+var generateSalt = function(len)
 {
+	var leng = 10;
+	if (len){leng = len;}
 	var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
 	var salt = '';
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < leng; i++) {
 		var p = Math.floor(Math.random() * set.length);
 		salt += set[p];
 	}

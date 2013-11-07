@@ -1,11 +1,4 @@
 {
-    "fagnerng": {
-        "name": "fagnerng",
-        "email": "fagnerng@mail.com",
-        "user": "fagnerng",
-        "pass": "jTvAUkBUnNcabb2d5861073b4b8d74e2dd847772f9",
-        "house": "house_000"
-    },
     "alexnum": {
         "name": "alexnum",
         "email": "alexnum@mail.com",
@@ -18,7 +11,10 @@
         "email": "andersongsf@mail.com",
         "user": "andersongsf",
         "pass": "f9QZXyKuUZc69dcae9ea7e760a53759572ee54b478",
-        "house": "house_000"
+        "house": "house_000",
+        "devices": [
+            "0"
+        ]
     },
     "brunoffp": {
         "name": "brunoffp",
@@ -26,5 +22,12 @@
         "user": "brunoffp",
         "pass": "xN4GFOpAMqde869eabd28b09491d94ca1fc6e85f87",
         "house": "house_001"
+    },
+    "fagnerng": {
+        "name": "fagnerng",
+        "email": "fagnerng@mail.com",
+        "user": "fagnerng",
+        "pass": "6nJU37FDwa8c99b7196b1b12ec9a08aeee76b97954",
+        "house": "house_000"
     }
 }
