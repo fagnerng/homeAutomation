@@ -28,7 +28,6 @@ app.use(express.methodOverride());
 function getUserAgent(headers){
 	
 	var userAgent = headers["user-agent"];
-	console.log(userAgent);
 	if(userAgent.indexOf("Android")!= -1){
 		return "Android";
 	}else if(userAgent.indexOf("Linux")!= -1){
@@ -193,6 +192,21 @@ app.get('/agetuser',function (req,res){
 	
 	}
 });
+app.get('/agetchild',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
+		if(o == null){
+			res.send(e, 200);	
+		}else{
+			res.send(o, 200);	
+		}
+	});
+	
+	}
+});
 
 
 
@@ -200,7 +214,7 @@ app.get('/alogout',function (req,res){
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{
-		res.send("done", 200);	
+		res.send("not-implemented-yet", 200);	
 		
 	}
 });
@@ -210,7 +224,7 @@ app.get('/aupuser',function (req,res){
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{
-		res.send("done", 200);	
+		res.send("not-implemented-yet", 200);	
 		
 	}
 });
@@ -218,13 +232,13 @@ app.get('/aupdev',function (req,res){
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{
-		res.send("done", 200);	
+		res.send("not-implemented-yet", 200);	
 		
 	}
 });
 
 app.get('/*',function (req,res){
-	res.send(req.host, 404);
+	res.send('not-found', 404);
 });
 
 

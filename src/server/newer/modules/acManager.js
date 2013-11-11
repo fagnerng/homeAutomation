@@ -18,13 +18,13 @@ exports.manualLogin = function(user, pass, callback)
 {
 	getOneUserByLogin(user, function(e, o) {
 		if (o == null){
-			callback('user-not-found');
+			callback({err:'user-not-found'});
 		}	else{
 			validatePassword(pass, o.pass, function(err, res) {
 				if (res){
 					getOneUserByLogin(o['user'],callback);
 				}	else{
-					callback('invalid-password');
+					callback({err:'invalid-password'});
 				}
 			});
 		}
@@ -34,11 +34,43 @@ exports.manualLogin = function(user, pass, callback)
 exports.getUser = function(user, token, callback)
 {
 	if(user == undefined || token == undefined){
-		callback('missing-parameters');
+		callback({err:'missing-parameters'});
 	}else{
 		validateToken(user, token, function(err, res) {
 				if (res){
 					getOneUserByLogin(user,callback);
+				}	else{
+					callback(err);
+				}
+		});
+	}
+}
+
+exports.getMyChild = function(user, token, child, callback)
+{
+	if(user == undefined || token == undefined || child == undefined){
+		callback({err:'missing-parameters'});
+	}else{
+		validateToken(user, token, function(err, res) {
+				if (res){
+					getOneUserByLogin(child,function(e, o){
+						if (o!= undefined){
+							if (o.house == tokens[user].house){
+								var mChild = {user:o.user};
+								mChild.devices=[];
+								for (var i = 0;i<o.devices.length;i++){
+									mChild.devices[i] = parseInt(o.devices[i].id);
+								}
+								callback(null,mChild);
+							}else{
+								callback({err:'not-a-child'});
+								
+							}
+						}else{
+							callback({err:'child-not-found'});
+						}
+						
+					});
 				}	else{
 					callback(err);
 				}
@@ -54,11 +86,11 @@ exports.addNewAccount = function(newData, callback)
 {
 	findByTable(newData.user,'login', function(o) {
 		if (o != undefined){
-			callback('username-taken');
+			callback({err:'username-taken'});
 		}else{
 			findByTable(newData.email,'email', function(o) {
 			if (o != undefined){
-					callback('email-taken');
+					callback({err:'email-taken'});
 			}	else{
 					saltAndHash(newData.pass, function(hash){
 					newData.pass = hash;
@@ -77,7 +109,7 @@ exports.updatePassword = function(user, newPass, callback)
 {
 	findByTable(user,'user', function(o){
 		if (o == undefined){
-			callback('user-not-found', null);
+			callback({err:'user-not-found'});
 		}	else{
 			saltAndHash(newPass, function(hash){
 		       
@@ -94,7 +126,7 @@ exports.updatePassword = function(user, newPass, callback)
 exports.AndroidLogin = function(user, pass, callback){
 	getOneUserByLogin(user, function(e, o) {
 		if (o == null){
-			callback('user-not-found');
+			callback({err:'user-not-found'});
 		}	else{
 			validatePassword(pass, o.pass, function(err, res) {
 				if (res){
@@ -106,7 +138,7 @@ exports.AndroidLogin = function(user, pass, callback){
 						}
 						tokens[u.user] = {};
 						tokens[u.user].token= generateSalt(64);
-						
+						tokens[u.user].house = u.house;
 						callback(null, {user:u.user, token:tokens[u.user].token});
 								tokens[u.user].timeout =  setTimeout(function(){
 										
@@ -117,7 +149,7 @@ exports.AndroidLogin = function(user, pass, callback){
 						
 						});
 				}	else{
-					callback('invalid-password');
+					callback({err:'invalid-password'});
 				}
 			});
 		}
@@ -154,7 +186,7 @@ getOneUserByLogin = function(user, callback){
 			});
 	}
 	else {
-		callback('user-not-found');
+		callback({err:'user-not-found'});
 	}
 
 	
@@ -231,12 +263,12 @@ var validateToken = function(user, token, callback)
 {
 	if (tokens[user]!=undefined){
 		if (tokens[user].token == '&xpired'){
-			callback('expired-token')
+			callback({err:'expired-token'})
 		}else{
-			callback('invalid-token', tokens[user].token ==token);
+			callback({err:'invalid-token'}, tokens[user].token ==token);
 		}
 	}else{
-		callback('nonexistent-session');
+		callback({err:'nonexistent-session'});
 	}
 	
 }
