@@ -1,5 +1,6 @@
 var crypto 		= require('crypto');
 var dbPath = "../jsonDB/";
+var tokens = {};
 
 //login by user and pass from cookies
 exports.autoLogin = function(user, pass, callback)
@@ -30,6 +31,20 @@ exports.manualLogin = function(user, pass, callback)
 	});
 }
 
+exports.getUser = function(user, token, callback)
+{
+	if(user == undefined || token == undefined){
+		callback('missing-parameters');
+	}else{
+		validateToken(user, token, function(err, res) {
+				if (res){
+					getOneUserByLogin(user,callback);
+				}	else{
+					callback(err);
+				}
+		});
+	}
+}
 
 
 
@@ -74,14 +89,8 @@ exports.updatePassword = function(user, newPass, callback)
 	});
 }
 
-//take object by table
-findByTable = function(data, table, callback){
-	var tableDB = require( dbPath + table + 'DB.json');
-	callback(tableDB[data]);
-}
 
-
-// find user by login
+//generate token for user
 exports.AndroidLogin = function(user, pass, callback){
 	getOneUserByLogin(user, function(e, o) {
 		if (o == null){
@@ -89,7 +98,24 @@ exports.AndroidLogin = function(user, pass, callback){
 		}	else{
 			validatePassword(pass, o.pass, function(err, res) {
 				if (res){
-					getOneUserByLogin(o['user'],callback);
+					getOneUserByLogin(o.user,function(er, u){
+						if (tokens[u.user]){
+							if (tokens[u.user].timeout){
+								clearTimeout(tokens[u.user].timeout);
+							}
+						}
+						tokens[u.user] = {};
+						tokens[u.user].token= generateSalt(64);
+						
+						callback(null, {user:u.user, token:tokens[u.user].token});
+								tokens[u.user].timeout =  setTimeout(function(){
+										
+										tokens[u.user].timeout = undefined;
+										tokens[u.user].token = '&xpired';
+										},60000);
+						
+						
+						});
 				}	else{
 					callback('invalid-password');
 				}
@@ -97,23 +123,31 @@ exports.AndroidLogin = function(user, pass, callback){
 		}
 	});	
 }
+
+
+// find user by login
 getOneUserByLogin = function(user, callback){
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
 		var h = require(dbPath+'houseDB.json')[o['house']]
 		var admin = h['admin'] == o['user'];
-		var devices = o['devices'];
+		var devices = [];		
+		var allDevs = require(dbPath+'deviceDB.json')[o['house']];
+		
 		if (admin){
-			devices = require(dbPath+'deviceDB.json')[o['house']];
+			devices = allDevs;
+		}else{	
+			var tempDevs = o['devices'];
+			for (var i = 0; i<tempDevs.length;i++){
+				devices[i]=allDevs[parseInt(tempDevs[i])]
+			}
 		}
-		console.log(admin, devices)
 		callback(null,{
 				user 		: 	o['user'],
 				name 		: 	o['name'],
 				email 		: 	o['email'],
 				pass		: 	o['pass'],
-				ip			: 	o[h['ip']],
 				house		: 	o['house'],
 				admin		: 	admin,
 				devices		: 	devices
@@ -127,6 +161,12 @@ getOneUserByLogin = function(user, callback){
 }
 //private methods
 /* private encryption & validation methods */
+//take object by table
+findByTable = function(data, table, callback){
+	var tableDB = require( dbPath + table + 'DB.json');
+	callback(tableDB[data]);
+}
+
 function saveData(jsonData, filePath){
 	try {
 		fs = require('fs');
@@ -185,6 +225,20 @@ var validatePassword = function(plainPass, hashedPass, callback)
 	var salt = hashedPass.substr(0, 10);
 	var validHash = salt + md5(plainPass + salt);
 	callback(null, hashedPass === validHash);
+}
+
+var validateToken = function(user, token, callback)
+{
+	if (tokens[user]!=undefined){
+		if (tokens[user].token == '&xpired'){
+			callback('expired-token')
+		}else{
+			callback('invalid-token', tokens[user].token ==token);
+		}
+	}else{
+		callback('nonexistent-session');
+	}
+	
 }
 
 /* auxiliary methods */

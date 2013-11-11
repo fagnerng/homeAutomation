@@ -37,6 +37,8 @@ function getUserAgent(headers){
 		return "Desktop";
 	}else if(userAgent.indexOf("iPhone")!= -1){
 		return "Desktop";
+	}else if(userAgent.indexOf("Apache")!= -1){
+		return "Apache";
 	}else if(userAgent.indexOf("iPad")!= -1){
 		return "Desktop";
 	}else{
@@ -162,11 +164,12 @@ app.get('/signup',function (req,res){
 	
 });
 
-app.get('/android',function (req,res){
-	if (getUserAgent(req.headers)=="Desktop"){
-		res.redirect("/");
-	}else{
-	AM.AndroidLogin(req.param('user'),req.param('pass'),function(e, o){
+app.get('/alogin',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		AM.AndroidLogin(req.param('user'),req.param('pass'),function(e, o){
 		if(o == null){
 			res.send(e, 200);	
 		}else{
@@ -175,9 +178,53 @@ app.get('/android',function (req,res){
 	});
 	}
 });
+app.get('/agetuser',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		AM.getUser(req.param('user'),req.param('token'),function(e, o){
+		if(o == null){
+			res.send(e, 200);	
+		}else{
+			res.send(o, 200);	
+		}
+	});
+	
+	}
+});
+
+
+
+app.get('/alogout',function (req,res){
+	if (getUserAgent(req.headers)=="Desktop"){
+		res.redirect("/");
+	}else{
+		res.send("done", 200);	
+		
+	}
+});
+
+
+app.get('/aupuser',function (req,res){
+	if (getUserAgent(req.headers)=="Desktop"){
+		res.redirect("/");
+	}else{
+		res.send("done", 200);	
+		
+	}
+});
+app.get('/aupdev',function (req,res){
+	if (getUserAgent(req.headers)=="Desktop"){
+		res.redirect("/");
+	}else{
+		res.send("done", 200);	
+		
+	}
+});
 
 app.get('/*',function (req,res){
-	res.send("not found", 404);
+	res.send(req.host, 404);
 });
 
 
