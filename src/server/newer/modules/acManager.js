@@ -176,11 +176,13 @@ getOneUserByLogin = function(user, callback){
 			}
 		}
 		callback(null,{
-				user 		: 	o['user'],
-				name 		: 	o['name'],
-				email 		: 	o['email'],
-				pass		: 	o['pass'],
-				house		: 	o['house'],
+				user 		: 	o.user,
+				name 		: 	o.name,
+				email 		: 	o.email,
+				pass		: 	o.pass,
+				house		: 	o.house,
+				long		:	h.longitude,
+				lati		:	h.latitude ,
 				admin		: 	admin,
 				devices		: 	devices
 			});
