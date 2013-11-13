@@ -168,7 +168,7 @@ app.get('/alogin',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 	{
-		AM.AndroidLogin(req.param('user'),req.param('pass'),function(e, o){
+		AM.AndroidLogin(req.body('user'),req.body('pass'),function(e, o){
 		if(o == null){
 			res.send(e, 200);	
 		}else{
@@ -177,21 +177,44 @@ app.get('/alogin',function (req,res){
 	});
 	}
 });
-app.get('/agetuser',function (req,res){
+
+
+app.get('/auser',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
 	{
 		AM.getUser(req.param('user'),req.param('token'),function(e, o){
 		if(o == null){
-			res.send(e, 200);	
+			res.send(e, 300);	
 		}else{
+			o.pass = undefined;
 			res.send(o, 200);	
 		}
 	});
 	
 	}
 });
+app.post('/auser',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		var body = req.body;
+		AM.upUser(body,function(e, o){
+		if(e == null){
+			res.send("o", 200);	
+		}else
+		{
+			res.send(e, 300);	
+		}
+	});
+	
+	}
+});
+
+
+
 app.get('/agetchild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
@@ -220,7 +243,7 @@ app.get('/alogout',function (req,res){
 });
 
 
-app.get('/aupuser',function (req,res){
+app.post('/aupuser',function (req,res){
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{

@@ -31,6 +31,43 @@ exports.manualLogin = function(user, pass, callback)
 	});
 }
 
+exports.upUser = function(body, callback)
+{
+	if(body.user == undefined || body.token == undefined){
+		callback({err:'missing-parameters'});
+	}else{
+		getOneUserByLogin(body.user,function(e,o){
+			if (o != null){
+				validateToken(body.user, body.token, function(err, res) {
+					if (res){
+						body.user = undefined;
+						body.token = undefined;
+						body.devices = undefined;
+						body.house = undefined;
+						for (i in body){
+							if (i!= 'pass' && o[i] != undefined && body[i] != undefined){
+									o[i] = body[i];
+							}
+									
+						}
+						console.log(o);
+						callback(null,'ok');
+						
+					}else{
+						callback(err);
+					}
+				});
+		
+		
+		
+			}else{
+				callback(e);
+			}	
+		
+		});
+	}
+}
+
 exports.getUser = function(user, token, callback)
 {
 	if(user == undefined || token == undefined){
@@ -137,14 +174,14 @@ exports.AndroidLogin = function(user, pass, callback){
 							}
 						}
 						tokens[u.user] = {};
-						tokens[u.user].token= generateSalt(64);
+						tokens[u.user].token= "abc"//generateSalt(64);
 						tokens[u.user].house = u.house;
 						callback(null, {user:u.user, token:tokens[u.user].token});
 								tokens[u.user].timeout =  setTimeout(function(){
 										
 										tokens[u.user].timeout = undefined;
 										tokens[u.user].token = '&xpired';
-										},60000);
+										},600000);
 						
 						
 						});
