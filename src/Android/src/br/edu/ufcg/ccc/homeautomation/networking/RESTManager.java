@@ -9,6 +9,7 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 public class RESTManager {
 	
     private static RESTManager instance = new RESTManager();
+//    private static String token;
     
     private RESTManager() {
     }
@@ -17,20 +18,20 @@ public class RESTManager {
         return instance;
     }
     
-    public static final String URL_GET_USER = "http://192.168.2.18:9000/getUser";
-	public static final String URL_GET_ALL_USERS = "http://192.168.2.18:9000/getAllUsers";
-	public static final String URL_GET_ALL_DEVICES = "http://192.168.2.18:9000/getAllDevices";
+//    public static final String URL_GET_USER = "http://192.168.2.28:9000/alogin?"; //user=brunoffp&pass=brunoffp";
+//    public static final String URL_GET_TOKEN = "http://localhost:9000/agetuser?user=fagnerng&token=PdxsNL1gVTeV" 
+    
+    public static final String URL_GET_USER = "http://localhost:9000/agetuser";
+    public static final String URL_GET_TOKEN = "http://localhost:9000/alogin";
 	
 	/**
-	 * This method uses the NetWorkManager to request an URL and the result is passed to the 
-	 * JsonParser to execute the parseApplications and get an ArrayList containing the Applications
-	 */	
-	public void requestApplications(RequestsCallback appCb, int from, int quantity) {
-		new AsyncRequests(appCb, from, quantity).execute();	
-	}
-	
-	public void requestUser(){
-		
+	 * This method is responsible for request user data from the server nodeJS
+	 * 
+	 * @param appCb - Type: RequestsCallback
+	 * @param user - Type: String
+	 */
+	public void requestUser(RequestsCallback appCb, String user, String pass){
+		new AsyncRequestUser(appCb, user, pass).execute();
 	}
 	
 }

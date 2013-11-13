@@ -13,8 +13,9 @@ import org.json.JSONObject;
 public class Device {
 	
 	private String name;
-	private String id;
-
+	private int id;
+	private boolean status;
+	
 
 	/**
 	 * @param json
@@ -24,11 +25,15 @@ public class Device {
 	 * 
 	 */
 	public Device(JSONObject json){
-		try {
-			this.name = json.getString("name");
-			this.id = json.getString("email");
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (json != null){
+			
+			try {
+				this.name = json.getString("name");
+				this.id = json.getInt("id");
+				this.status = json.getBoolean("status");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -41,20 +46,24 @@ public class Device {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	
 }

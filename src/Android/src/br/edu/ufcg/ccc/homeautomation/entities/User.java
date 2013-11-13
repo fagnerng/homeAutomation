@@ -2,6 +2,7 @@ package br.edu.ufcg.ccc.homeautomation.entities;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,11 +15,14 @@ import org.json.JSONObject;
  */
 public class User {
 	
+	private static final String TAG_DEVICES = "devices";
+	
 	private String name;
 	private String email;
 	private String user;
 	private String pass;
 	private String house;
+	private String currentToken;
 	private boolean admin;
 	
 	private ArrayList<Device> devices;
@@ -30,8 +34,12 @@ public class User {
 	 * A Entidade Usuário sera criada a partir de um JSONObject recebido através de uma requisição ao servidor nodeJS
 	 * 
 	 */
-	public User(JSONObject json){
+	public User(JSONObject json, String token){
+		this.currentToken = token;
+		
 		if (json != null){
+			
+			JSONArray devs = null;
 		
 			try {
 				this.name = json.getString("name");
@@ -40,10 +48,17 @@ public class User {
 				this.pass = json.getString("pass");
 				this.house = json.getString("house");
 				this.admin = json.getBoolean("admin");
+				
+				devs =  json.getJSONArray(TAG_DEVICES);
+				for (int i = 0; i < devs.length(); i++){
+					devices.add(new Device(devs.getJSONObject(i)));
+				}
+				
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		}
+		}		
+		
 	}
 	
 	/**
@@ -51,6 +66,10 @@ public class User {
 	 * Getters and Setters
 	 * 
 	 */
+	public boolean isAdmin() {
+		return admin;
+	}
+	
 	public String getName() {
 		return name;
 	}

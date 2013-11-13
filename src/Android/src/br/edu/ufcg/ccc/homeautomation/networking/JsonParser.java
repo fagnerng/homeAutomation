@@ -50,7 +50,7 @@ public class JsonParser {
  
     	    	JSONObject c = json.getJSONObject(i);
     	    	
-    	        User user = new User(c);
+    	        User user = new User(c, "");
     	        
     	        ArrayList<Device> devices = new ArrayList<Device>();
     	        JSONArray tagDevices =  c.getJSONArray(TAG_DEVICES);
@@ -66,19 +66,5 @@ public class JsonParser {
     	}
 		
 		return users;
-	}
-	
-	public static User parseUser(String json){
-		JSONObject jsonUser = null;
-		
-		try {
-			jsonUser = new JSONObject(json);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		User user = new User(jsonUser);
-		return user;		
-		
 	}
 }

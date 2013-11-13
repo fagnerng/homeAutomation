@@ -17,6 +17,8 @@ public interface RequestsCallback {
 	 * @param result
 	 */
 	public void onFinish(ArrayList<User> result);
+	
+	public void onFinishRequestUser(User result);
 
 // =======================================================================================================================
 /*	
