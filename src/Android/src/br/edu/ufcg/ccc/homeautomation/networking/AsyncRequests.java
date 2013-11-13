@@ -23,7 +23,7 @@ public class AsyncRequests extends AsyncTask<String, Void, ArrayList<User>>{
 	}
 
 	protected ArrayList<User> doInBackground(String... params) {
-		String url = RESTManager.URL_GET_ALL_USERS;
+		String url = RESTManager.URL_GET_USER;
 			
 		String jsonText = null;
 		
