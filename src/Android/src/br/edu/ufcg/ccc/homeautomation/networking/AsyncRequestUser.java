@@ -21,10 +21,6 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	protected User doInBackground(String... params) {
 		String jsonText = null;
 
-//		jsonText = NetworkManager.requestGET(RESTManager.URL_GET_TOKEN +
-//				"user="+this.user +
-//				"&pass="+this.pass);
-		
 		JSONObject jsonToSend = new JSONObject();
 		try {
 			jsonToSend.put("user", this.user);
@@ -44,20 +40,18 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			json = new JSONObject(jsonText);
 			String token = json.getString("token");
 			
-//			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER +
-//					"user="+this.user + 
-//					"&token="+token);
-			
 			JSONObject jsonToSend2 = new JSONObject();
 			
 			jsonToSend2.put("user", this.user);
 			jsonToSend2.put("token", token);
 			
+			System.out.println("ENVIANDO: " + jsonToSend2.toString());
 			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, jsonToSend2.toString());
 			
 			System.out.println("RECEIVED JSON BODY WITH USER DATA: "+ jsonText);
 			
 			json = new JSONObject(jsonText);
+			
 			return new User(json, token);
 		} catch (JSONException e) {
 			e.printStackTrace();
