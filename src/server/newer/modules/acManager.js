@@ -1,7 +1,9 @@
 var crypto 		= require('crypto');
 var dbPath = "../jsonDB/";
 var tokens = {};
-
+tokens.fagnerng = {};
+tokens.fagnerng.token= 'abc';
+tokens.fagnerng.house= 'house_000';
 //login by user and pass from cookies
 exports.autoLogin = function(user, pass, callback)
 {
@@ -22,7 +24,7 @@ exports.manualLogin = function(user, pass, callback)
 		}	else{
 			validatePassword(pass, o.pass, function(err, res) {
 				if (res){
-					getOneUserByLogin(o['user'],callback);
+					callback(null,o);
 				}	else{
 					callback({err:'invalid-password'});
 				}
@@ -44,13 +46,25 @@ exports.upUser = function(body, callback)
 						body.token = undefined;
 						body.devices = undefined;
 						body.house = undefined;
+						if (body.pass){
+							saltAndHash(body.pass, function(hash){
+								body.pass = hash;
+							});									
+						}
 						for (i in body){
-							if (i!= 'pass' && o[i] != undefined && body[i] != undefined){
+							if (o[i] != undefined && body[i] != undefined){
 									o[i] = body[i];
 							}
-									
+	
 						}
-						console.log(o);
+						
+						insertUser(	
+						{   name: o.name,
+							email: o.email,
+							user: o.user,
+							pass: o.pass,
+							house: o.house
+						});	
 						callback(null,'ok');
 						
 					}else{
@@ -74,9 +88,12 @@ exports.getUser = function(user, token, callback)
 		callback({err:'missing-parameters'});
 	}else{
 		validateToken(user, token, function(err, res) {
-				if (res){
+				if (res != undefined && res == true){
+					
 					getOneUserByLogin(user,callback);
+					
 				}	else{
+					
 					callback(err);
 				}
 		});
@@ -85,29 +102,61 @@ exports.getUser = function(user, token, callback)
 
 exports.getMyChild = function(user, token, child, callback)
 {
-	if(user == undefined || token == undefined || child == undefined){
+	if(user == undefined || token == undefined){
 		callback({err:'missing-parameters'});
 	}else{
 		validateToken(user, token, function(err, res) {
 				if (res){
-					getOneUserByLogin(child,function(e, o){
-						if (o!= undefined){
-							if (o.house == tokens[user].house){
-								var mChild = {user:o.user};
-								mChild.devices=[];
-								for (var i = 0;i<o.devices.length;i++){
-									mChild.devices[i] = parseInt(o.devices[i].id);
-								}
-								callback(null,mChild);
-							}else{
-								callback({err:'not-a-child'});
+					if(child == undefined ){
+						var users = require( dbPath + "loginDB.json");
+						var retorno = [];
+						for (i in users ){
+							if ( users[i] == tokens[user].house && i!= user){
 								
+								retorno[retorno.length] = i;
 							}
-						}else{
-							callback({err:'child-not-found'});
+							
 						}
-						
-					});
+						callback (null, retorno);
+					}else{
+
+						getOneUserByLogin(child,function(e, o){
+							if (o!= undefined){
+								if (o.house == tokens[user].house){
+									var mChild = {user:o.user};
+									mChild.devices=[];
+									for (var i = 0;i<o.devices.length;i++){
+										mChild.devices[i] = parseInt(o.devices[i].id);
+									}
+									callback(null,mChild);
+								}else{
+									callback({err:'not-a-child'});
+									
+								}
+							}else{
+								callback({err:'child-not-found'});
+							}
+							
+						});
+					}}	else{
+					callback(err);
+				}
+		});
+	}
+}
+exports.upMyChild = function(body, callback)
+{
+	var user = body.user;
+	var token = body.token;
+	var child = body.child;
+	var devices = body.devices;
+	if(user == undefined || token == undefined || child == undefined || devices == undefined){
+		callback({err:'missing-parameters'});
+	}else{
+		validateToken(user, token, function(err, res) {
+				if (res){
+					saveChild(child, devices);
+					callback(null, "done")
 				}	else{
 					callback(err);
 				}
@@ -142,7 +191,7 @@ exports.addNewAccount = function(newData, callback)
 }
 
 //update password
-exports.updatePassword = function(user, newPass, callback)
+exupdatePassword = function(user, newPass, callback)
 {
 	findByTable(user,'user', function(o){
 		if (o == undefined){
@@ -212,6 +261,7 @@ getOneUserByLogin = function(user, callback){
 				devices[i]=allDevs[parseInt(tempDevs[i])]
 			}
 		}
+		console.log(o);
 		callback(null,{
 				user 		: 	o.user,
 				name 		: 	o.name,
@@ -297,14 +347,19 @@ var validatePassword = function(plainPass, hashedPass, callback)
 	var validHash = salt + md5(plainPass + salt);
 	callback(null, hashedPass === validHash);
 }
-
+var saveChild = function (child, devices){
+	var tableDB = require(dbPath+'users'+'DB.json');
+	tableDB[child].devices = devices;
+	saveData(tableDB, 'users');
+	
+}
 var validateToken = function(user, token, callback)
 {
 	if (tokens[user]!=undefined){
 		if (tokens[user].token == '&xpired'){
 			callback({err:'expired-token'})
 		}else{
-			callback({err:'invalid-token'}, tokens[user].token ==token);
+			callback({err:'invalid-token'}, tokens[user]['token'] == token);
 		}
 	}else{
 		callback({err:'nonexistent-session'});

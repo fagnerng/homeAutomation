@@ -106,7 +106,6 @@ app.post('/', function(req, res){
 				res.send(e, 400);
 			}	else{
 				req.session.user = o;
-				console.log(req.param('remember-me'));
 				if (req.param('remember-me') == 'on'){
 					res.cookie('user', o.user, { maxAge: 900000 });
 					res.cookie('pass', o.pass, { maxAge: 900000 });
@@ -163,12 +162,12 @@ app.get('/signup',function (req,res){
 	
 });
 
-app.get('/alogin',function (req,res){
+app.post('/alogin',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
 	{
-		AM.AndroidLogin(req.body('user'),req.body('pass'),function(e, o){
+		AM.AndroidLogin(req.body['user'],req.body['pass'],function(e, o){
 		if(o == null){
 			res.send(e, 200);	
 		}else{
@@ -184,26 +183,31 @@ app.get('/auser',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 	{
+		console.log("get");
 		AM.getUser(req.param('user'),req.param('token'),function(e, o){
-		if(o == null){
-			res.send(e, 300);	
-		}else{
+
+		if(o != null){
+			
 			o.pass = undefined;
 			res.send(o, 200);	
+		}else{
+			
+			res.send(err, 300);	
 		}
 	});
 	
 	}
 });
 app.post('/auser',function (req,res){
+		console.log("post");
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
 	{
 		var body = req.body;
 		AM.upUser(body,function(e, o){
-		if(e == null){
-			res.send("o", 200);	
+		if(o != null){
+			res.send("", 200);	
 		}else
 		{
 			res.send(e, 300);	
@@ -215,12 +219,27 @@ app.post('/auser',function (req,res){
 
 
 
-app.get('/agetchild',function (req,res){
+app.get('/achild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
+		if(o == null){
+			res.send(e, 200);	
+		}else{
+			res.send(o, 200);	
+		}
+	});
+	
+	}
+});
+app.post('/achild',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		AM.upMyChild(req.body,function(e, o){
 		if(o == null){
 			res.send(e, 200);	
 		}else{
