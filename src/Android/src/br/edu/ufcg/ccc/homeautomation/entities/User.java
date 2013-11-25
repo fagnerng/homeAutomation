@@ -35,6 +35,7 @@ public class User {
 	 * 
 	 */
 	public User(JSONObject json, String token){
+		
 		this.currentToken = token;
 		
 		if (json != null){
@@ -50,9 +51,9 @@ public class User {
 				this.admin = json.getBoolean("admin");
 				
 				devs =  json.getJSONArray(TAG_DEVICES);
-				for (int i = 0; i < devs.length(); i++){
-					devices.add(new Device(devs.getJSONObject(i)));
-				}
+//				for (int i = 0; i < devs.length(); i++){
+//					devices.add(new Device(devs.getJSONObject(i)));
+//				}
 				
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -116,6 +117,14 @@ public class User {
 	
 	public void setDevices(ArrayList<Device> devices) {
 		this.devices = devices;
+	}
+
+	public String getCurrentToken() {
+		return currentToken;
+	}
+
+	public void setCurrentToken(String currentToken) {
+		this.currentToken = currentToken;
 	}
 
 }

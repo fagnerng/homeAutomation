@@ -65,7 +65,7 @@ exports.upUser = function(body, callback)
 							pass: o.pass,
 							house: o.house
 						});	
-						callback(null,'ok');
+						callback(null,o);
 						
 					}else{
 						callback(err);

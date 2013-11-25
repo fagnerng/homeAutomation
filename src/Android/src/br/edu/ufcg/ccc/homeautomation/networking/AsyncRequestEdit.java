@@ -6,15 +6,19 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
-public class AsyncRequestUser extends AsyncTask<String, Void, User>{
+public class AsyncRequestEdit  extends AsyncTask<String, Void, User>{
 
 	private RequestsCallback cb;
 	private String user;
+	private String name;
+	private String email;
 	private String pass;
+	private double lat;
+	private double lon;
 	
-	public AsyncRequestUser(RequestsCallback cb, String user, String pass) {
+	public AsyncRequestEdit(RequestsCallback cb/*, String name, String email, String pass, double lon, double lat */) {
 		this.cb = cb;
-		this.user = user;
+		this.name = name;
 		this.pass = pass;
 	}
 

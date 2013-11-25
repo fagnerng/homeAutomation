@@ -207,7 +207,7 @@ app.post('/auser',function (req,res){
 		var body = req.body;
 		AM.upUser(body,function(e, o){
 		if(o != null){
-			res.send("", 200);	
+			res.send(o, 200);	
 		}else
 		{
 			res.send(e, 300);	

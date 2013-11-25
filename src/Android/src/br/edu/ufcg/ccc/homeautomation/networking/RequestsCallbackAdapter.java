@@ -15,28 +15,7 @@ public abstract class RequestsCallbackAdapter implements
 		RequestsCallback {
 
 	@Override
-	public void onFinish(ArrayList<User> result) {
+	public void  onFinishRequestChilds(ArrayList<User> result){
 	}
 	
-/*
-	@Override
-	public void onFinish(Drawable result, int id) {
-	}
-
-	@Override
-	public void onFinish(Application result) {
-	}
-
-	@Override
-	public void onFinishUpdated(ArrayList<Application> result) {
-	}
-
-	@Override
-	public void onFinishUpdate(ArrayList<String> result) {
-	}
-	
-	@Override
-	public void onFinish(Boolean result){
-	}
-*/
 }

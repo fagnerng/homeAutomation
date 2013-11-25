@@ -1,9 +1,14 @@
 package br.edu.ufcg.ccc.homeautomation;
 
+import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.networking.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,9 +19,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import br.edu.ufcg.ccc.homeautomation.entities.User;
-import br.edu.ufcg.ccc.homeautomation.networking.RESTManager;
-import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -114,6 +116,17 @@ public class LoginActivity extends Activity {
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
+		
+		
+
+		validate(mEmail, mPassword);
+		
+		
+		
+		//Realizar a validação AQUI
+			//Enviar dados para o servidor
+			//Recuperar autenticação
+		
 		boolean cancel = false;
 		View focusView = null;
 
@@ -127,19 +140,13 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		}
-		
+
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mEmail)) {
 			mEmailView.setError(getString(R.string.error_field_required));
 			focusView = mEmailView;
 			cancel = true;
-		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
-			cancel = true;
 		}
-		
-		
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
@@ -148,12 +155,42 @@ public class LoginActivity extends Activity {
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
+
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
+
+			
+			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+			startActivity(intent);
+			
 		}
 	}
+	
+	private boolean validate(String login, String pass){
+		RESTManager.getInstance().requestUser(
+        		new RequestsCallbackAdapter() {
+    				
+        			@Override
+        			public void onFinishRequestUser(User userResult) {
+        				// Usage Example ---
+        				
+        				/*
+        				TextView tvHello = (TextView) findViewById(R.id.hellomsg);
+        				tvHello.setText("Olá, " + userResult.getName() + ", aguarde um momento");
+        				
+        				remove the hellomsg if you not use it
+        				*/
+        				
+        			}
+        			
+        		}
+        		, login, pass);
+				return true;
+	}
+	
 
 	/**
 	 * Shows the progress UI and hides the login form.
@@ -207,29 +244,7 @@ public class LoginActivity extends Activity {
 
 			try {
 				// Simulate network access.
-				RESTManager.getInstance().requestUser(
-		        		new RequestsCallbackAdapter() {
-		    				
-		        			@Override
-		        			public void onFinishRequestUser(User userResult) {
-		        				// Exemplo de como receber o usuario do servidor
-		        				
-		        				TextView tvName = (TextView) findViewById(R.id.name);
-		        				tvName.setText(userResult.getName());
-		        				
-		        				TextView tvEmail = (TextView) findViewById(R.id.email);
-		        				tvEmail.setText(userResult.getEmail());
-		        				
-		        				TextView tvUser = (TextView) findViewById(R.id.user);
-		        				tvUser.setText(userResult.getUser());	
-		        				
-		        				TextView tvHouse = (TextView) findViewById(R.id.house);
-		        				tvHouse.setText(userResult.getHouse());
-		        			}
-		    			}
-		        		, mEmail, mPassword);
-		    
-				Thread.sleep(2000);
+				Thread.sleep(8000);
 			} catch (InterruptedException e) {
 				return false;
 			}
