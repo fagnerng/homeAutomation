@@ -3,36 +3,42 @@
         {
             "id": 0,
             "name": "mesmo0",
-            "status": false
+            "status": false,
+            "class":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
-            "status": false
+            "status": false,
+            "class":"light"
         }
     ],
     "house_001": [
         {
             "id": 0,
             "name": "mesmo0",
-            "status": false
+            "status": false,
+            "class":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
-            "status": false
+            "status": false,
+            "class":"light"
         }
     ],
     "house_002": [
         {
             "id": 0,
             "name": "mesmo0",
-            "status": false
+            "status": false,
+            "class":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
-            "status": false
+            "status": false,
+            "class":"light"
         }
     ]
 }

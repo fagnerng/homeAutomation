@@ -250,6 +250,22 @@ app.post('/achild',function (req,res){
 	}
 });
 
+app.put('/achild',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	//~ {
+		//~ AM.upMyChild(req.body,function(e, o){
+		//~ if(o == null){
+			//~ res.send(e, 200);	
+		//~ }else{
+			res.send("", 200);	
+		//~ }
+	//~ }
+	//~ );
+	
+	//~ }
+});
 
 
 app.get('/alogout',function (req,res){
