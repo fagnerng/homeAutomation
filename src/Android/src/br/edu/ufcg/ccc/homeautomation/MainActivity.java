@@ -1,5 +1,7 @@
 package br.edu.ufcg.ccc.homeautomation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -9,14 +11,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
@@ -128,7 +133,7 @@ public class MainActivity extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 2;
 		}
 
 		@Override
@@ -155,20 +160,91 @@ public class MainActivity extends FragmentActivity implements
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
+		
+		int deviceSelecionado = 0;
+		public static final String ARG_SECTION_NUMBER = "section_number";		
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			
+			
+			
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+			
+			switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+			case 1:
+				 rootView = inflater.inflate(R.layout.inicio,
+						container, false);
+				 Spinner devices = (Spinner) rootView.findViewById(R.id.spinnerDevices);
+				 
+				 List<String> nomes = new ArrayList<String>();
+				 
+				 nomes.add("Ba!");
+				 nomes.add("Be!");
+				 nomes.add("Bi!");
+				 
+				 ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_dropdown_item_1line,nomes);
+				 
+					final Switch sw = (Switch) rootView.findViewById(R.id.switch1);
+					final TextView dummyTextView = (TextView) rootView
+							.findViewById(R.id.section_label);
+					sw.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+							
+							
+							
+							if(isChecked){
+								dummyTextView.setText("On!" +deviceSelecionado);
+							}else{
+								dummyTextView.setText("Off!" + deviceSelecionado);
+							}
+							
+							// TODO Auto-generated method stub
+							
+						}
+					});
+				
+				 
+				 devices.setAdapter(adapter);
+				 
+					devices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+						 
+						@Override
+						public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
+							//pega nome pela posição
+							String nome = parent.getItemAtPosition(posicao).toString();
+							deviceSelecionado = posicao;
+							
+							if(posicao == 2){
+								sw.setChecked(true);
+							}else{
+								sw.setChecked(false);
+							}
+							//imprime um Toast na tela com o nome que foi selecionado
+
+						}
+			 
+						@Override
+						public void onNothingSelected(AdapterView<?> parent) {
+			 
+						}
+					});
+					
+
+				 
+				 
+				 break;
+
+			default:
+				break;
+			}
+			
+		
+		
 			return rootView;
 		}
 	}
