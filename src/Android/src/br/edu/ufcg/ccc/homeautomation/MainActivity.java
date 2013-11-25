@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,9 +24,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -238,7 +245,53 @@ public class MainActivity extends FragmentActivity implements
 				 
 				 
 				 break;
+			case 2:
+				rootView = inflater.inflate(R.layout.users,
+						container, false);
+				ListView list = (ListView) rootView.findViewById(R.id.listUser);
+				
+				String js = "{\"name\": \"Joao\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
+				List<User> lista = new ArrayList<User>();
+				
+				for (int i = 0; i < 20; i++) {
+					
+					js  = "{\"name\": \"Joao"+ i +"\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
+					
+					JSONObject listaj;
 
+						try {
+							listaj = new JSONObject(js);
+						} catch (JSONException e) {
+							listaj = new JSONObject();
+							e.printStackTrace();
+						}
+
+					User us = new User(listaj, String.valueOf(i));
+					lista.add(us);
+					
+					//lista.add(new User()
+				}
+				 
+				UserAdapter ad = new UserAdapter(rootView.getContext(), lista);
+				
+				final AlertDialog alert;
+				AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
+				 builder.setTitle("Titulo");
+				 builder.setMessage("Pegou muleque doido");
+//				 builder.setPositiveButton("Positivo", new DialogInterface.OnClickListener() {
+//			            public void onClick(DialogInterface arg0, int arg1) {
+//			                Toast.makeText(rootView.getContext(), "positivo=" + arg1, Toast.LENGTH_SHORT).show();
+//			            }}
+
+
+		
+
+				 alert = builder.create();
+				
+				 
+				 
+				
+				list.setAdapter(ad);
 			default:
 				break;
 			}
