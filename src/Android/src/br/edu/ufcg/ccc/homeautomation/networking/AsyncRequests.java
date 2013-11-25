@@ -43,6 +43,6 @@ public class AsyncRequests extends AsyncTask<String, Void, ArrayList<User>>{
 	protected void onPostExecute(ArrayList<User> result) {
 		super.onPostExecute(result);
 		if (result != null)
-			cb.onFinish(result);
+			cb.onFinishRequestChilds(result);
 	}
 }

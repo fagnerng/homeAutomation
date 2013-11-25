@@ -175,9 +175,14 @@ public class LoginActivity extends Activity {
     				
         			@Override
         			public void onFinishRequestUser(User userResult) {
-        				// Exemplo de como receber o usuario do servidor
+        				// Usage Example ---
         				
+        				/*
+        				TextView tvHello = (TextView) findViewById(R.id.hellomsg);
+        				tvHello.setText("Olá, " + userResult.getName() + ", aguarde um momento");
         				
+        				remove the hellomsg if you not use it
+        				*/
         				
         			}
         			
