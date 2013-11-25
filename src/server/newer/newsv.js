@@ -143,35 +143,17 @@ app.get('/logout',function (req,res){
 
 ////metodos apenas para teste
 
-app.get('/signup',function (req,res){
-	var data = {
-        name: "fagnerng",
-        email: "fagnerng@mail.com",
-        user: "fagnerng",
-        pass: "fagnerng",
-        house: "house_000"
-    };
-	AM.addNewAccount(data, function(e, o){
-		if(o == null){
-			res.send(e, 200);	
-		}else{
-			res.send("create", 200);	
-		}
-	});
-	
-	
-});
-
 app.post('/alogin',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
 	{
 		AM.AndroidLogin(req.body['user'],req.body['pass'],function(e, o){
-		if(o == null){
-			res.send(e, 200);	
-		}else{
+		if(o != null){
 			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
 		}
 	});
 	}
@@ -225,10 +207,11 @@ app.get('/achild',function (req,res){
 	//~ }else
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
-		if(o == null){
-			res.send(e, 200);	
-		}else{
+		if(o != null){
 			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
 		}
 	});
 	
@@ -240,10 +223,11 @@ app.post('/achild',function (req,res){
 	//~ }else
 	{
 		AM.upMyChild(req.body,function(e, o){
-		if(o == null){
-			res.send(e, 200);	
-		}else{
+		if(o != null){
 			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
 		}
 	});
 	
@@ -254,17 +238,18 @@ app.put('/achild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
-	//~ {
-		//~ AM.upMyChild(req.body,function(e, o){
-		//~ if(o == null){
-			//~ res.send(e, 200);	
-		//~ }else{
-			res.send("", 200);	
-		//~ }
-	//~ }
-	//~ );
+	{
+		AM.addNewAccount(req.body,function(e, o){
+		if(o != null){
+			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
+		}
+	}
+	);
 	
-	//~ }
+	}
 });
 
 
@@ -278,22 +263,6 @@ app.get('/alogout',function (req,res){
 });
 
 
-app.post('/aupuser',function (req,res){
-	if (getUserAgent(req.headers)=="Desktop"){
-		res.redirect("/");
-	}else{
-		res.send("not-implemented-yet", 200);	
-		
-	}
-});
-app.get('/aupdev',function (req,res){
-	if (getUserAgent(req.headers)=="Desktop"){
-		res.redirect("/");
-	}else{
-		res.send("not-implemented-yet", 200);	
-		
-	}
-});
 
 app.get('/*',function (req,res){
 	res.send('not-found', 404);

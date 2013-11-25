@@ -4,13 +4,13 @@
             "id": 0,
             "name": "mesmo0",
             "status": false,
-            "class":"light"
+            "type":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
             "status": false,
-            "class":"light"
+            "type":"light"
         }
     ],
     "house_001": [
@@ -18,13 +18,13 @@
             "id": 0,
             "name": "mesmo0",
             "status": false,
-            "class":"light"
+            "type":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
             "status": false,
-            "class":"light"
+            "type":"light"
         }
     ],
     "house_002": [
@@ -32,13 +32,13 @@
             "id": 0,
             "name": "mesmo0",
             "status": false,
-            "class":"light"
+            "type":"light"
         },
         {
             "id": 1,
             "name": "mesmo1",
             "status": false,
-            "class":"light"
+            "type":"light"
         }
     ]
 }

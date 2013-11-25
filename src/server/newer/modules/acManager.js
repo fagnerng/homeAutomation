@@ -170,24 +170,46 @@ exports.upMyChild = function(body, callback)
 //create new user
 exports.addNewAccount = function(newData, callback)
 {
-	findByTable(newData.user,'login', function(o) {
-		if (o != undefined){
-			callback({err:'username-taken'});
-		}else{
-			findByTable(newData.email,'email', function(o) {
-			if (o != undefined){
-					callback({err:'email-taken'});
-			}	else{
-					saltAndHash(newData.pass, function(hash){
-					newData.pass = hash;
-					//newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-					insertUser(newData);
-					callback(null,'ok')
+	validateToken(user, token, function(err, res) {
+		if (res){
+				
+			findByTable(newData.user,'login', function(o) {
+				if (o != undefined){
+					callback({err:'username-taken'});
+				}else{
+					findByTable(newData.email,'email', function(o) {
+					if (o != undefined){
+							callback({err:'email-taken'});
+					}	else{
+						var userModel = { 
+							user: "",
+							token:"",
+							child: "",
+							name: "",
+							emai: "",
+							pass: "",
+							house: "",
+							devices: ""
+					  }
+						for (var i in userModel){
+							if (newData[i] == undefined)
+							callback({err:'missing-parameters: '+ i});
+						}
+							saltAndHash(newData.pass, function(hash){
+							newData.pass = hash;
+							//newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
+							insertUser(newData);
+							callback(null,'ok')
+							});
+						}
 					});
 				}
 			});
-		}
-	});
+		}	else{
+				callback(err);
+			}
+		
+		});
 }
 
 //update password
