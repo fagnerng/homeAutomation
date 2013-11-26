@@ -4,6 +4,7 @@ var tokens = {};
 tokens.fagnerng = {};
 tokens.fagnerng.token= 'abc';
 tokens.fagnerng.house= 'house_000';
+tokens.fagnerng.admin= true;
 //login by user and pass from cookies
 exports.autoLogin = function(user, pass, callback)
 {
@@ -84,19 +85,18 @@ exports.upUser = function(body, callback)
 
 exports.getUser = function(user, token, callback)
 {
-	if(user == undefined || token == undefined){
-		callback({err:'missing-parameters'});
-	}else{
-		validateToken(user, token, function(err, res) {
-				if (res != undefined && res == true){
-					
-					getOneUserByLogin(user,callback);
-					
-				}	else{
-					
-					callback(err);
-				}
-		});
+	if(user != undefined ){
+		if (token != undefined){
+			validateToken(user, token, function(err, res) {
+					if (res != undefined && res == true){
+							getOneUserByLogin(user,callback);
+					}else{
+						callback(err);
+					}
+			});
+		}
+	}else {
+			callback({err:'missing-parameters'});
 	}
 }
 
@@ -147,22 +147,20 @@ exports.getMyChild = function(user, token, child, callback)
 }
 exports.upMyChild = function(body, callback)
 {
-	var user = body.user;
-	var token = body.token;
-	var child = body.child;
-	var devices = body.devices;
-	if(user == undefined || token == undefined || child == undefined || devices == undefined){
-		callback({err:'missing-parameters'});
-	}else{
-		validateToken(user, token, function(err, res) {
+	var userModel = {user:"",token:"",child:"", devices:""};
+	for (var i in userModel){
+		if(body[i] == undefined){
+			callback({err:'missing-parameters: '+ i});
+		}
+	}
+	validateToken(body.user, body.token, function(err, res) {
 				if (res){
-					saveChild(child, devices);
-					callback(null, "done")
+					saveChild(body.child, body.devices);
+					callback(null, "ok")
 				}	else{
 					callback(err);
 				}
-		});
-	}
+	});
 }
 
 
@@ -171,10 +169,25 @@ exports.upMyChild = function(body, callback)
 //create new user
 exports.addNewAccount = function(newData, callback)
 {
-	validateToken(user, token, function(err, res) {
+	var userModel = { 
+							user: "",
+							token:"",
+							child: "",
+							name: "",
+							email: "",
+							pass: "",
+							devices: ""
+					  }
+	for (var i in userModel){
+		if (newData[i] == undefined)
+		callback({err:'missing-parameters: '+ i});
+	}
+	newData.house = tokens[newData.user].house;
+	if (tokens[newData.user].admin){
+	validateToken(newData.user, newData.token, function(err, res) {
 		if (res){
-				
-			findByTable(newData.user,'login', function(o) {
+			
+			findByTable(newData.child,'login', function(o) {
 				if (o != undefined){
 					callback({err:'username-taken'});
 				}else{
@@ -182,20 +195,6 @@ exports.addNewAccount = function(newData, callback)
 					if (o != undefined){
 							callback({err:'email-taken'});
 					}	else{
-						var userModel = { 
-							user: "",
-							token:"",
-							child: "",
-							name: "",
-							emai: "",
-							pass: "",
-							house: "",
-							devices: ""
-					  }
-						for (var i in userModel){
-							if (newData[i] == undefined)
-							callback({err:'missing-parameters: '+ i});
-						}
 							saltAndHash(newData.pass, function(hash){
 							newData.pass = hash;
 							//newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -211,23 +210,54 @@ exports.addNewAccount = function(newData, callback)
 			}
 		
 		});
+	}else {
+	callback({err:'not-a-admin'})
+	}
 }
 
-//update password
-exupdatePassword = function(user, newPass, callback)
-{
-	findByTable(user,'user', function(o){
-		if (o == undefined){
-			callback({err:'user-not-found'});
-		}	else{
-			saltAndHash(newPass, function(hash){
-		       
-		        var users = require(dbPath+'usersDB.json')
-		        users[user].pass = hash;
-		        saveData(users, 'users');
-			});
+exports.delChild = function (newData, callback){
+	var userModel = { 
+							user: "",
+							token:"",
+							child: "",
+					 }
+	for (var i in userModel){
+		if (newData[i] == undefined){
+			callback({err:'missing-parameters: '+ i});
 		}
-	});
+	}
+	console.log(newData.user == newData.child, newData.user, newData.child)
+	if (newData.user == newData.child){
+		callback({err:'canot-remove-yourself'});
+	}else if (tokens[newData.user].admin){
+	validateToken(newData.user, newData.token, function(err, res) {
+		if (res){
+			findByTable(newData.child,'users', function(o) {
+				if (o != undefined){
+					if (o.house == tokens[newData.user].house){
+						//delUser(o.user);
+						callback(null,"ok");
+					}else{
+						callback({err:'not-a-child'});
+						return;
+					}
+				}else{
+					callback({err:'child-not-found'});
+					return;
+				}
+			});
+		}	else{
+				callback(err);
+				return;
+			}
+		
+		});
+	}else {
+	callback({err:'not-a-admin'});
+	return;
+	}
+	
+	
 }
 
 
@@ -245,9 +275,13 @@ exports.AndroidLogin = function(user, pass, callback){
 								clearTimeout(tokens[u.user].timeout);
 							}
 						}
+						var admin = require(dbPath +"houseDB.json")[u.house].admin == u.user;
 						tokens[u.user] = {};
 						tokens[u.user].token= "abc"//generateSalt(64);
 						tokens[u.user].house = u.house;
+						tokens[u.user].admin = admin
+						
+						
 						callback(null, {user:u.user, token:tokens[u.user].token});
 								tokens[u.user].timeout =  setTimeout(function(){
 										
@@ -265,6 +299,8 @@ exports.AndroidLogin = function(user, pass, callback){
 	});	
 }
 
+//private methods
+/* private encryption & validation methods */
 
 // find user by login
 getOneUserByLogin = function(user, callback){
@@ -303,8 +339,7 @@ getOneUserByLogin = function(user, callback){
 
 	
 }
-//private methods
-/* private encryption & validation methods */
+
 //take object by table
 findByTable = function(data, table, callback){
 	var tableDB = require( dbPath + table + 'DB.json');
@@ -321,24 +356,39 @@ function saveData(jsonData, filePath){
 	}
 }
 var insertUser = function(newData){
+	
 	var logins = require(dbPath+'login'+'DB.json');
-	logins[newData['user']] = newData['house'];
+	logins[newData['child']] = newData['house'];
 	saveData(logins, 'login');
 	
 	var emails = require(dbPath+'email'+'DB.json');
-	emails[newData['email']] = newData['user'];
+	emails[newData['email']] = newData['child'];
 	saveData(emails, 'email');
 	
 	var users  = require(dbPath+'users'+'DB.json');
-	users[newData['user']] = newData;
+	users[newData['child']] = {
+        name: newData['name'],
+        email: newData['email'],
+        user: newData['child'],
+        pass: newData['pass'],
+        house: newData['house'],
+        devices:newData['devices']
+        
+    };
 	saveData(users, 'users');
 }
 
-var delUser = function(oldData){
-	
-	
-	
-	
+var delUser = function(user){
+	var logins = require(dbPath+'login'+'DB.json');
+	var emails = require(dbPath+'email'+'DB.json');
+	var users  = require(dbPath+'users'+'DB.json');
+	var email = users[user].email
+	emails[email] = undefined
+	logins[user] = undefined
+	users[user] = undefined
+	saveData(logins, 'login');
+	saveData(emails, 'email');
+	saveData(users, 'users');
 }
 
 var generateSalt = function(len)
