@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -169,7 +174,8 @@ public class MainActivity extends FragmentActivity implements
 		 */
 		
 		int deviceSelecionado = 0;
-		public static final String ARG_SECTION_NUMBER = "section_number";		
+		public static final String ARG_SECTION_NUMBER = "section_number";	
+		int posicaAexcluir = 0;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -231,7 +237,7 @@ public class MainActivity extends FragmentActivity implements
 							}else{
 								sw.setChecked(false);
 							}
-							//imprime um Toast na tela com o nome que foi selecionado
+							//Colocar aqui requisição de enviar ligado/desligado para o servidor
 
 						}
 			 
@@ -272,7 +278,38 @@ public class MainActivity extends FragmentActivity implements
 					//lista.add(new User()
 				}
 				 
+				PopupWindow option = new PopupWindow(rootView.getContext());
 				UserAdapter ad = new UserAdapter(rootView.getContext(), lista);
+				final Dialog excluir = new Dialog(rootView.getContext());
+				excluir.setContentView(R.layout.popup_layout);
+				excluir.setTitle(getResources().getString(R.string.delete));
+				
+				/*
+				 * Botoes do painel de excluir
+				 */
+				
+				Button excluirSim = (Button) excluir.findViewById(R.id.excluirSim);
+				Button excluirNao = (Button) excluir.findViewById(R.id.excluirNao);
+				
+				excluirSim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						//Implementar exclusão do usuario
+						//posicaoAexcluir representa o o indice a ser deletado;
+						excluir.dismiss();
+					}
+				});
+				
+				excluirNao.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						excluir.dismiss();
+						// TODO Auto-generated method stub
+						
+					}
+				});
 				
 				final AlertDialog alert;
 				AlertDialog.Builder builder = new AlertDialog.Builder(rootView.getContext());
@@ -287,9 +324,23 @@ public class MainActivity extends FragmentActivity implements
 		
 
 				 alert = builder.create();
-				
+				 //ccd
 				 
 				 
+				 list.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int position, long arg3) {
+						posicaAexcluir = position;
+						excluir.setTitle(getResources().getString(R.string.delete) + position);
+						excluir.show();
+						
+					}
+					 
+					 
+				 
+				 });
 				
 				list.setAdapter(ad);
 			default:

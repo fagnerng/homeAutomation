@@ -38,17 +38,18 @@ public final class R {
         public static final int user=0x7f020006;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f090018;
-        public static final int action_settings=0x7f090019;
-        public static final int button1=0x7f090016;
-        public static final int button2=0x7f090015;
+        public static final int action_forgot_password=0x7f090019;
+        public static final int action_settings=0x7f09001a;
+        public static final int button2=0x7f090017;
         public static final int checkBox1=0x7f090011;
         public static final int editText1=0x7f09000f;
         public static final int email=0x7f090004;
+        public static final int excluirNao=0x7f090015;
+        public static final int excluirSim=0x7f090014;
         public static final int hellomsg=0x7f090008;
         public static final int house=0x7f09000a;
         public static final int imageLogo=0x7f090003;
-        public static final int listUser=0x7f090014;
+        public static final int listUser=0x7f090016;
         public static final int login=0x7f090006;
         public static final int login_form=0x7f090002;
         public static final int login_status=0x7f090000;
@@ -63,7 +64,7 @@ public final class R {
         public static final int switch1=0x7f090012;
         public static final int textView1=0x7f090010;
         public static final int user=0x7f09000b;
-        public static final int userName=0x7f090017;
+        public static final int userName=0x7f090018;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -73,8 +74,9 @@ public final class R {
         public static final int fragment_main_dummy=0x7f030004;
         public static final int inicio=0x7f030005;
         public static final int main_activity=0x7f030006;
-        public static final int users=0x7f030007;
-        public static final int usuarios_adapter=0x7f030008;
+        public static final int popup_layout=0x7f030007;
+        public static final int users=0x7f030008;
+        public static final int usuarios_adapter=0x7f030009;
     }
     public static final class menu {
         public static final int login=0x7f080000;
@@ -87,13 +89,16 @@ public final class R {
         public static final int action_sign_in_register=0x7f060005;
         public static final int action_sign_in_short=0x7f060006;
         public static final int app_name=0x7f060000;
+        public static final int delete=0x7f060011;
         public static final int error_field_required=0x7f06000c;
         public static final int error_incorrect_password=0x7f06000b;
         public static final int error_invalid_email=0x7f060009;
         public static final int error_invalid_password=0x7f06000a;
         public static final int hello_world=0x7f060002;
         public static final int login_progress_signing_in=0x7f060008;
+        public static final int nao=0x7f060013;
         public static final int password=0x7f060003;
+        public static final int sim=0x7f060012;
         public static final int title_activity_main=0x7f06000d;
         public static final int title_section1=0x7f06000e;
         public static final int title_section2=0x7f06000f;
