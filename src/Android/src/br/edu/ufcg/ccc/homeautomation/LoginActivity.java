@@ -107,7 +107,9 @@ public class LoginActivity extends Activity {
 		if (mAuthTask != null) {
 			return;
 		}
-
+		findViewById(R.id.login_form).setAlpha((float) 0.7);
+//		findViewById(R.id.).setVisibility(View.VISIBLE);
+		
 		// Reset errors.
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
