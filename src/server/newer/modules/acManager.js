@@ -108,12 +108,13 @@ exports.getMyChild = function(user, token, child, callback)
 		validateToken(user, token, function(err, res) {
 				if (res){
 					if(child == undefined ){
-						var users = require( dbPath + "loginDB.json");
+						var usersHouse = require( dbPath + "loginDB.json");
+						var users = require(dbPath + "usersDB.json")
 						var retorno = [];
-						for (i in users ){
-							if ( users[i] == tokens[user].house && i!= user){
+						for (i in usersHouse ){
+							if ( usersHouse[i] == tokens[user].house && i!= user){
 								
-								retorno[retorno.length] = i;
+								retorno[retorno.length] = {user:i, devices:users[i].devices};
 							}
 							
 						}
