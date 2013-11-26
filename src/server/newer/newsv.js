@@ -165,21 +165,32 @@ app.get('/auser',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 	{
-		console.log("get");
-		AM.getUser(req.param('user'),req.param('token'),function(e, o){
-
-		if(o != null){
-			
-			o.pass = undefined;
-			res.send(o, 200);	
-		}else{
-			
-			res.send(err, 300);	
+		var token = req.param('token');
+		var user = req.param('user');
+		var pass = req.param('pass');
+		if (token == undefined){
+			AM.AndroidLogin(user,pass,function(e, o){
+			if(o != null){
+				token = o.token;
+			}else{
+				res.send(e, 300);	
+			}
+		});
 		}
-	});
-	
+		AM.getUser(user,token,function(e, o){
+
+			if(o != null){
+				o.pass = undefined;
+				o.token = token;
+				res.send(o, 200);	
+			}else{
+				res.send(e, 300);	
+			}
+		});
+				
 	}
 });
+
 app.post('/auser',function (req,res){
 		console.log("post");
 	//~ if (getUserAgent(req.headers)=="Desktop"){
@@ -240,6 +251,25 @@ app.put('/achild',function (req,res){
 	//~ }else
 	{
 		AM.addNewAccount(req.body,function(e, o){
+		if(o != null){
+			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
+		}
+	}
+	);
+	
+	}
+});
+
+app.delete('/achild',function (req,res){
+	//~ if (getUserAgent(req.headers)=="Desktop"){
+		//~ res.redirect("/");
+	//~ }else
+	{
+		AM.delChild(req.body, function(e,o){
+
 		if(o != null){
 			res.send(o, 200);	
 		}else
