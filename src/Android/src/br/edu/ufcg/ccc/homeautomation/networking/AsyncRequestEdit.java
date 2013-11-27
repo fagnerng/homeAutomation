@@ -9,44 +9,26 @@ import br.edu.ufcg.ccc.homeautomation.entities.User;
 public class AsyncRequestEdit  extends AsyncTask<String, Void, User>{
 
 	private RequestsCallback cb;
-	private String user;
 	private String name;
 	private String email;
 	private String pass;
 	private double lat;
 	private double lon;
 	
-	public AsyncRequestEdit(RequestsCallback cb/*, String name, String email, String pass, double lon, double lat */) {
+	public AsyncRequestEdit(RequestsCallback cb, String name, String email, String pass, double lat, double lon) {
 		this.cb = cb;
 		this.name = name;
+		this.email = email;
 		this.pass = pass;
+		this.lat = lat;
+		this.lon = lon;
 	}
 
 	protected User doInBackground(String... params) {
 		String jsonText = null;
 
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateLoginBody());
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody(name, email, pass, lat, lon));
 		System.out.println("RECEIVED JSON BODY WITH TOKEN: "+ jsonText);
-		
-		JSONObject json = null;
-		try {
-			
-			json = new JSONObject(jsonText); // Create a new JSONOBject to guard the received token from the server
-			String token = json.getString("token");
-			
-			System.out.println("ENVIANDO: " + generateUserBody(token).toString());
-			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateUserBody(token));
-			
-			System.out.println("RECEIVED JSON BODY WITH USER DATA: "+ jsonText);
-			if (jsonText.contains("err"))
-				return null;
-			
-			json = new JSONObject(jsonText);
-			return new User(json, token);
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
 		
 		return null;		
 	}
@@ -62,11 +44,11 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, User>{
 	 * This method generates a JSONObject to be seended as the login request body
 	 * @return String with the user name and the his token
 	 */
-	private String generateLoginBody(){
+	private String generateBody( String name, String email, String pass, double lat, double lon){
 		
 		JSONObject jsonToSend = new JSONObject();
 		try {
-			jsonToSend.put("user", this.user);
+			
 			jsonToSend.put("pass", this.pass);
 		} catch (JSONException e1) {
 			e1.printStackTrace();
@@ -75,19 +57,4 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, User>{
 		return jsonToSend.toString();
 	}
 	
-	/**
-	 * @param token - Uses the Received token from login
-	 * @return
-	 */
-	private String generateUserBody(String token){
-		
-		JSONObject jsonToGetUser = new JSONObject();
-		try{
-			jsonToGetUser.put("user", this.user);
-			jsonToGetUser.put("token", token);
-		}catch (JSONException e){
-			e.printStackTrace();
-		}
-		return jsonToGetUser.toString();
-	}
 }

@@ -127,21 +127,17 @@ public class NetworkManager {
 	 * @throws IOException
 	 */
 	public static String requestGET(String requestUrl) {
-		System.out.println("LINKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK " + requestUrl);
 		String result = null;
 		InputStream content = null;
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpResponse response;
 		try {
-			System.out.println("PAAAAAAAAAAAAAAAAU1");
 			response = httpclient.execute(new HttpGet(requestUrl));
-			System.out.println("PAAAAAAAAAAAAAAAAU2");
 			if (!isValidHttpCode(response.getStatusLine().getStatusCode()) && noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
 			
 			content = response.getEntity().getContent();
 			result = convertStreamToString(content);
-			System.out.println("LINKKKKKKKKKasdasdasdKKKKKKKKKKKKKKKKKKKKKKKKK " + result);
 		} catch (HttpHostConnectException e) {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
