@@ -21,5 +21,9 @@
     <string name="delete">Excluir Usuario?</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+    <string name="novo">Novo</string>
+    <string name="inicio">Inicio</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="dispositivos">Dispositivos</string>
 
 </resources>

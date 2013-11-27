@@ -33,11 +33,18 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+import br.edu.ufcg.ccc.homeautomation.entities.Device;
+import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
 
 public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+	
+	
+
+
+	ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -119,6 +126,8 @@ public class MainActivity extends FragmentActivity implements
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
+	
+	
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -145,7 +154,7 @@ public class MainActivity extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -153,11 +162,11 @@ public class MainActivity extends FragmentActivity implements
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return getString(R.string.inicio).toUpperCase(l);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
+				return getString(R.string.usuarios).toUpperCase(l);
 			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+				return getString(R.string.dispositivos).toUpperCase(l);
 			}
 			return null;
 		}
@@ -254,10 +263,17 @@ public class MainActivity extends FragmentActivity implements
 			case 2:
 				rootView = inflater.inflate(R.layout.users,
 						container, false);
-				ListView list = (ListView) rootView.findViewById(R.id.listUser);
+				final ListView list = (ListView) rootView.findViewById(R.id.listUser);
+				
+				
 				
 				String js = "{\"name\": \"Joao\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
-				List<User> lista = new ArrayList<User>();
+				final List<User> lista = new ArrayList<User>();
+				
+				/*
+				 *  Este for não será mais necessario apos a implementação das requisições
+				 *  Esta ai apenas para mostrar que o updateList Funcionalidade
+				 */
 				
 				for (int i = 0; i < 20; i++) {
 					
@@ -279,7 +295,7 @@ public class MainActivity extends FragmentActivity implements
 				}
 				 
 				PopupWindow option = new PopupWindow(rootView.getContext());
-				UserAdapter ad = new UserAdapter(rootView.getContext(), lista);
+				final UserAdapter ad = new UserAdapter(rootView.getContext(), lista);
 				final Dialog excluir = new Dialog(rootView.getContext());
 				excluir.setContentView(R.layout.popup_layout);
 				excluir.setTitle(getResources().getString(R.string.delete));
@@ -295,9 +311,20 @@ public class MainActivity extends FragmentActivity implements
 					
 					@Override
 					public void onClick(View v) {
+						UserAdapter adp = ad;
+						
 						//Implementar exclusão do usuario
 						//posicaoAexcluir representa o o indice a ser deletado;
+						
+						// Enviar requisição para deletar o usuario do servidor aqui!
+						
+						// Metodo para atualizar o list view com os dados do servidor!
+						adp = updateUser(v, lista);
+						list.setAdapter(adp);
+						System.out.println("foooooooooooooi");
 						excluir.dismiss();
+						
+						
 					}
 				});
 				
@@ -343,6 +370,38 @@ public class MainActivity extends FragmentActivity implements
 				 });
 				
 				list.setAdapter(ad);
+				break;
+			case 3:
+				rootView = inflater.inflate(R.layout.layout_devices,
+						container, false);
+				ListView listaDevices = (ListView) rootView.findViewById(R.id.listaDevices);
+				final List<Device> listaDev = new ArrayList<Device>();
+				for (int i = 0; i < 20; i++) {
+					
+					js  = "{\"name\": \"Dispositivo"+ i +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
+					
+					
+					JSONObject listaj;
+
+						try {
+							listaj = new JSONObject(js);
+						} catch (JSONException e) {
+							listaj = new JSONObject();
+							e.printStackTrace();
+						}
+
+					Device us = new Device(listaj);
+					listaDev.add(us);
+					
+					//lista.add(new User()
+				}
+				
+				DeviceAdapter dAd = new DeviceAdapter(rootView.getContext(), listaDev);
+				listaDevices.setAdapter(dAd);
+				
+				
+				
+				
 			default:
 				break;
 			}
@@ -353,4 +412,68 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
+	
+	/*
+	 * Neste metodo, A listView será atualizada.
+	 * Ela sera atualizada ao invex do For, será realizada a requisição para o servidor!
+	 */
+	private static UserAdapter updateUser(View v,List lista){
+		String js;
+		List<User> usList = new ArrayList<User>();
+		for (int i = 0; i < 20; i++) {
+			
+			js  = "{\"name\": \"JoaoNovo"+ i +"\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
+			
+			
+			JSONObject listaj;
+
+				try {
+					listaj = new JSONObject(js);
+				} catch (JSONException e) {
+					listaj = new JSONObject();
+					e.printStackTrace();
+				}
+
+			User us = new User(listaj, String.valueOf(i));
+			usList.add(us);
+			
+			//lista.add(new User()
+		}	
+		
+		
+		lista = usList;
+		UserAdapter ad = new UserAdapter(v.getContext(), lista);
+		usList = null;
+		return ad;
+	}
+	
+	private static UserAdapter updateDevice(View v,List lista){
+		String js;
+		List<Device> usList = new ArrayList<Device>();
+		for (int i = 0; i < 20; i++) {
+			
+			js  = "{\"name\": \"JoaoNovo"+ i +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
+			
+			
+			JSONObject listaj;
+
+				try {
+					listaj = new JSONObject(js);
+				} catch (JSONException e) {
+					listaj = new JSONObject();
+					e.printStackTrace();
+				}
+
+			Device us = new Device(listaj);
+			usList.add(us);
+			
+			//lista.add(new User()
+		}	
+		
+		
+		lista = usList;
+		UserAdapter ad = new UserAdapter(v.getContext(), lista);
+		usList = null;
+		return ad;
+	}
 }

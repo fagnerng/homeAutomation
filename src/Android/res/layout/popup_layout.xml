@@ -17,10 +17,10 @@
         android:id="@+id/excluirNao"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/excluirNao"
-        android:layout_alignBottom="@+id/excluirNao"
-        android:layout_marginLeft="59dp"
-        android:layout_toRightOf="@+id/excluirNao"
+        android:layout_alignBaseline="@+id/excluirSim"
+        android:layout_alignBottom="@+id/excluirSim"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/excluirSim"
         android:text="@string/nao" />
 
 </RelativeLayout>
