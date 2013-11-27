@@ -26,25 +26,23 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
-import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
 
-public class MainActivity extends FragmentActivity implements
-	
-	
-
-
-	ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,30 +52,36 @@ public class MainActivity extends FragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	static SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	static ViewPager mViewPager;
+	
+	
+	
+	private static List<Device> mSystemDevices = new ArrayList<Device>();
+	private static List<User> mSystemUsers = new ArrayList<User>();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
+ mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
+
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		
 
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -89,7 +93,7 @@ public class MainActivity extends FragmentActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
-
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -100,7 +104,9 @@ public class MainActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		mViewPager.setCurrentItem(1);
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,7 +133,7 @@ public class MainActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 	
-	
+
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -138,6 +144,7 @@ public class MainActivity extends FragmentActivity implements
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
+		
 
 		@Override
 		public Fragment getItem(int position) {
@@ -182,20 +189,31 @@ public class MainActivity extends FragmentActivity implements
 		 * fragment.
 		 */
 		
+		
+		
 		int deviceSelecionado = 0;
 		public static final String ARG_SECTION_NUMBER = "section_number";	
 		int posicaAexcluir = 0;
 
+		
+		
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			
 			
 			
+			
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
 			
-			switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+
+
+
+				int tela = getArguments().getInt(ARG_SECTION_NUMBER);
+
+			switch (tela) {
 			case 1:
 				 rootView = inflater.inflate(R.layout.inicio,
 						container, false);
@@ -203,9 +221,9 @@ public class MainActivity extends FragmentActivity implements
 				 
 				 List<String> nomes = new ArrayList<String>();
 				 
-				 nomes.add("Ba!");
-				 nomes.add("Be!");
-				 nomes.add("Bi!");
+				 nomes.add("Device0");
+				 nomes.add("Device1");
+				 nomes.add("Device2");
 				 
 				 ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_dropdown_item_1line,nomes);
 				 
@@ -319,6 +337,8 @@ public class MainActivity extends FragmentActivity implements
 						// Enviar requisição para deletar o usuario do servidor aqui!
 						
 						// Metodo para atualizar o list view com os dados do servidor!
+						
+						// Atualizar lista global (System Users)
 						adp = updateUser(v, lista);
 						list.setAdapter(adp);
 						System.out.println("foooooooooooooi");
@@ -374,11 +394,13 @@ public class MainActivity extends FragmentActivity implements
 			case 3:
 				rootView = inflater.inflate(R.layout.layout_devices,
 						container, false);
-				ListView listaDevices = (ListView) rootView.findViewById(R.id.listaDevices);
-				final List<Device> listaDev = new ArrayList<Device>();
+				final ListView listaUsers = (ListView) rootView.findViewById(R.id.listaDevices);
+				final List<User> listaDev = new ArrayList<User>();
+				
+				
 				for (int i = 0; i < 20; i++) {
 					
-					js  = "{\"name\": \"Dispositivo"+ i +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
+					js  = "{\"name\": \"JoaoNovo"+ "" +"\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
 					
 					
 					JSONObject listaj;
@@ -390,19 +412,146 @@ public class MainActivity extends FragmentActivity implements
 							e.printStackTrace();
 						}
 
-					Device us = new Device(listaj);
+					User us = new User(listaj, String.valueOf(i));
+
 					listaDev.add(us);
 					
 					//lista.add(new User()
 				}
 				
-				DeviceAdapter dAd = new DeviceAdapter(rootView.getContext(), listaDev);
-				listaDevices.setAdapter(dAd);
+				UserAdapter uAd = new UserAdapter(rootView.getContext(), listaDev);
+				
+				final Dialog devicesDialog = new Dialog(rootView.getContext());
+				devicesDialog.setContentView(R.layout.dialog_devices);
+				final LinearLayout layout = (LinearLayout) devicesDialog.findViewById(R.id.dialogDevicesLayout);
+				TableRow row = null;
+				final List<CheckBox> cbList = new ArrayList<CheckBox>();
+				/*
+				 * For vai percorrer todos os dispositivos do servidor
+				 * vai verificar se o dispositivo pertence ao usuario. Se pertencer, marque ele.
+				 * Após clicar em confimar. A lista atualizada sera enviada ao servidor
+				 * 
+				 */
+				List<Device> listaDevice = new ArrayList<Device>();
+				String jsD;
+				for (int i = 0; i < 20; i++) {
+					
+					jsD  = "{\"name\": \"Dispositivo"+ "" +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
+					
+					
+					JSONObject listaj;
+
+						try {
+							listaj = new JSONObject(jsD);
+						} catch (JSONException e) {
+							listaj = new JSONObject();
+							e.printStackTrace();
+						}
+						
+						
+
+					Device us = new Device(listaj);
+					if(i==1){
+						ArrayList<Device> dev = new ArrayList<Device>();
+						dev.add(us);
+						listaDev.get(1).setDevices(dev);
+					}
+					listaDevice.add(us);
+					
+					//lista.add(new User()
+				}	
+				
+				/*
+				 * Preenchendo checkboxes!
+				 */
+				//dEVE PEGAR A LISTA DE DISPOSITIVOS GLOBAL (SYSTEMdEVICES)
+				for (int i = 0; i < 20; i++) {
+					row =new TableRow(devicesDialog.getContext());
+					row.setId(i);
+					row.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
+				    CheckBox checkBox = new CheckBox(devicesDialog.getContext());
+				    checkBox.setId(i);
+				    checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+				    checkBox.setText(listaDevice.get(i).getName());
+				    cbList.add(checkBox);
+				    row.addView(checkBox);
+				    layout.addView(row);
+				    
+				}
+				
+				cbList.get(3).setChecked(true);
+				
+
+				User selectedUser;
+				listaUsers.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int position, long arg3) {
+						String login = (String)((TextView) arg1.findViewById(R.id.userName)).getText();
+						User selectedUser = finUserByLogin(login);
+						if(selectedUser == null){
+							Toast.makeText(arg1.getContext(), "Usuario nao encontrado", Toast.LENGTH_SHORT).show();
+
+						}
+						int i = 0;
+						
+						// Garantir que os checkboxes estao na mesma sequencia de devices da lista
+						for (Device device : mSystemDevices) {
+							if(selectedUser.getDevices().contains(device)){
+								cbList.get(i).setChecked(true);
+							}else{
+								cbList.get(i).setChecked(false);
+							}
+							i++;
+						}
+							
+						posicaAexcluir = position;
+						devicesDialog.setTitle(getResources().getString(R.string.delete) + position);
+						devicesDialog.show();
+						
+					}
+					 
+					 
+				 
+				 });
+				
+				Button confirm = (Button) devicesDialog.findViewById(R.id.confirm);
+				
+				confirm.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						List<Integer> iDs = new ArrayList<Integer>();
+						String login = (String)((TextView) v.findViewById(R.id.userName)).getText();
+						int i = 0;
+						for (CheckBox check : cbList) {
+							if(check.isChecked()){
+								iDs.add(i);
+							}
+							i++;
+						}
+						User selectedUser = finUserByLogin(login);
+						zeraDevices(selectedUser,iDs);
+						updateUser();
+					}
+				});
+				
+				listaUsers.setAdapter(uAd);
+				
 				
 				
 				
 				
 			default:
+
 				break;
 			}
 			
@@ -452,7 +601,7 @@ public class MainActivity extends FragmentActivity implements
 		List<Device> usList = new ArrayList<Device>();
 		for (int i = 0; i < 20; i++) {
 			
-			js  = "{\"name\": \"JoaoNovo"+ i +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
+			js  = "{\"name\": \"Dev"+ i +"\",\"id\": \"4\",\"status\": \"true\",\"type\": \"okay\"}";
 			
 			
 			JSONObject listaj;
@@ -476,4 +625,49 @@ public class MainActivity extends FragmentActivity implements
 		usList = null;
 		return ad;
 	}
+	
+	//Deixar na sequencia dos ids
+	private static void loadAllDevices(){
+		/*
+		 * MONTAR LISTA DOS DISPOSITIVOS REQUISITADAS AO SERVIDOR
+		 */	
+	}
+	
+	private static void loadAllUsers(){
+		/*
+		 * MONTAR LISTA DOS USUARIOS REQUISITADAS AO SERVIDOR
+		 */	
+	}
+	
+	private static void initialize(){
+		loadAllDevices();
+		loadAllUsers();
+	}
+	
+	
+	private static void updateUser(){
+		/*
+		 * Deve sincronizar esta as listas de usuarios com o servidor
+		 * Enviar as modificações;
+		 */
+	}
+	
+	private static void zeraDevices(User user, List<Integer> devices){
+		 user.getDevices().clear();
+		 for (int i : devices) {
+			user.getDevices().add(mSystemDevices.get(i));
+		}
+	}
+	
+	
+	private static User finUserByLogin(String login){
+		for (User user : mSystemUsers) {
+			if(user.getName().equals(login)){
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	
 }

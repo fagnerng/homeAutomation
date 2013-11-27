@@ -25,5 +25,7 @@
     <string name="inicio">Inicio</string>
     <string name="usuarios">Usuarios</string>
     <string name="dispositivos">Dispositivos</string>
+    <string name="confirmar">Confirmar</string>
+    
 
 </resources>
