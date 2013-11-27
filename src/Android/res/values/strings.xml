@@ -24,6 +24,9 @@
     <string name="novo">Novo</string>
     <string name="inicio">Inicio</string>
     <string name="usuarios">Usuarios</string>
+    <string name="action_aguarde">Aguarde</string>
+    <string name="action_login_in_progress">Efetuando Login</string>
     <string name="dispositivos">Dispositivos</string>
 
+    
 </resources>

@@ -18,8 +18,8 @@ public class RESTManager {
     }
     
     // Remember to change the IP ADDRESS to the server IP
-    public static final String URL_GET_USER = "http://192.168.2.30:9000/auser";
-    public static final String URL_GET_TOKEN = "http://192.168.2.30:9000/alogin";
+    public static final String URL_GET_USER = "http://192.168.2.28:9000/auser";
+    public static final String URL_GET_TOKEN = "http://192.168.2.28:9000/alogin";
 	
 	/**
 	 * This method is responsible for request user data from the server nodeJS

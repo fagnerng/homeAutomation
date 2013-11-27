@@ -9,17 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        
-		android:background="@color/background" 
         android:visibility="gone" >
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/login_status_message"
@@ -37,8 +30,7 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"  >
-
+        android:background="@color/background" >
     </ScrollView>
 
     <LinearLayout
@@ -51,8 +43,7 @@
         <ImageView
             android:id="@+id/imageLogo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="wrap_content" />
 
         <!-- Username Label -->
         <!-- android:hint="@string/prompt_email" -->
@@ -60,22 +51,22 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
             android:text="@string/username"
             android:textColor="@color/white"
-            android:textSize="22sp"  />
+            android:textSize="22sp" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-			android:layout_marginLeft="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.01"
             android:background="@drawable/text_fields"
-            android:ems="10"            
+            android:ems="10"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true" />
@@ -85,8 +76,8 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
             android:text="@string/password"
             android:textColor="@color/white"
             android:textSize="22sp" />
@@ -95,12 +86,12 @@
             android:id="@+id/password"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.01"
             android:background="@drawable/text_fields"
-            android:ems="10"             
+            android:ems="10"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
@@ -116,9 +107,9 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="136dp"
-            android:layout_marginTop="30dp"
-			android:layout_marginLeft="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/comportamento_botao"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
@@ -128,7 +119,6 @@
             android:id="@+id/hellomsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </merge>

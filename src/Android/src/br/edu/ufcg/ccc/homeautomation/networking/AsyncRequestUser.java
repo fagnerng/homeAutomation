@@ -41,7 +41,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			return new User(json, token);
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		return null;		

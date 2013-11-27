@@ -59,7 +59,7 @@ public class User {
 				}
 				
 			} catch (JSONException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}		
 		

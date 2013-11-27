@@ -1,14 +1,10 @@
 package br.edu.ufcg.ccc.homeautomation;
 
-import br.edu.ufcg.ccc.homeautomation.entities.User;
-import br.edu.ufcg.ccc.homeautomation.networking.RESTManager;
-import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources.Theme;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +15,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncLogin;
+import br.edu.ufcg.ccc.homeautomation.networking.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -71,7 +71,7 @@ public class LoginActivity extends Activity {
 					public boolean onEditorAction(TextView textView, int id,
 							KeyEvent keyEvent) {
 						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
+							//attemptLogin();
 							return true;
 						}
 						return false;
@@ -86,7 +86,7 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						attemptLogin();
+						attemptLogin(view);
 					}
 				});
 	}
@@ -103,11 +103,11 @@ public class LoginActivity extends Activity {
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
-	public void attemptLogin() {
+	public void attemptLogin(View v) {
 		if (mAuthTask != null) {
 			return;
 		}
-		findViewById(R.id.login_form).setAlpha((float) 0.7);
+		//findViewById(R.id.login_form).setAlpha((float) 0.7);
 //		findViewById(R.id.).setVisibility(View.VISIBLE);
 		
 		// Reset errors.
@@ -120,12 +120,13 @@ public class LoginActivity extends Activity {
 
 		
 		
-
-		validate(mEmail, mPassword);
+		AsyncLogin loginTask = new AsyncLogin(v.getContext());
+		loginTask.execute((Void)null);
+		//validate(mEmail, mPassword);
 		
 		
 		
-		//Realizar a validação AQUI
+/*		//Realizar a validação AQUI
 			//Enviar dados para o servidor
 			//Recuperar autenticação
 		
@@ -168,7 +169,7 @@ public class LoginActivity extends Activity {
 
 			startActivity(intent);
 			
-		}
+		}*/
 	}
 	
 	private boolean validate(String login, String pass){

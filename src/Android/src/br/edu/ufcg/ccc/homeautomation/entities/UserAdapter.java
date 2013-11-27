@@ -2,14 +2,13 @@ package br.edu.ufcg.ccc.homeautomation.entities;
 
 import java.util.List;
 
-import br.edu.ufcg.ccc.homeautomation.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import br.edu.ufcg.ccc.homeautomation.R;
 
 public class UserAdapter extends BaseAdapter{
 	
