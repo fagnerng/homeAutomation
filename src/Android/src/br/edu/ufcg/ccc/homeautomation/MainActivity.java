@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -104,7 +105,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		mViewPager.setCurrentItem(1);
+		Intent intent = getIntent();
+		int tabToOpen = intent.getIntExtra("tab", -1);
+		mViewPager.setCurrentItem(tabToOpen);
+		
 	}
 
 

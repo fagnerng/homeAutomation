@@ -27,5 +27,27 @@
     <string name="dispositivos">Dispositivos</string>
     <string name="confirmar">Confirmar</string>
     
+     <!-- Strings for register_first.xml -->
+    <string name="require_name">Name</string>
+    <string name="require_email">Email</string>
+    <string name="require_pass">Password</string>
+    <string name="require_confirm_pass">Confirm Password</string>
+    <string name="next">Next</string>
+
+    <!-- Strings for register_second.xml -->
+    <string name="select_dev">Select the devices to user</string>
+
+    <!-- Strings for first_menu.xml -->
+    <string name="my_devs">My Devices</string>
+    <string name="txt_my_devs">Turn on/off and set timer for your devices.</string>
+    <string name="mng_dev">Manage Devices</string>
+    <string name="txt_mng_dev">Manage permissions of devices to users.</string>
+    <string name="mng_users">Manage Users</string>
+    <string name="txt_mng_users">Create a new user or delete an existing user</string>
+    <string name="edit_account">Edit account</string>
+    <string name="txt_edit_account">Edit your account information.</string>
+    <string name="exit">Exit</string>
+    <string name="txt_exit">Logout from system</string>
+    <string name="title_activity_first_menu">FirstMenu</string>
 
 </resources>

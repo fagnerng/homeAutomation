@@ -164,7 +164,7 @@ public class LoginActivity extends Activity {
 			mAuthTask.execute((Void) null);
 
 			
-			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+			Intent intent = new Intent(LoginActivity.this, FirstMenu.class);
 
 			startActivity(intent);
 			

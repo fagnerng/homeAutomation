@@ -27,6 +27,10 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+          <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.FirstMenu"
+            android:label="@string/title_activity_first_menu" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

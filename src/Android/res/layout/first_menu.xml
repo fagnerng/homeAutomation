@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:columnCount="2"
+    android:rowCount="3">
+
+    <Button
+        android:id="@+id/bt1_menu"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/my_devs" />
+
+    <TextView
+        android:id="@+id/tv1_menu"
+        android:layout_width="120dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txt_my_devs" />
+    
+    <Button
+        android:id="@+id/bt2_menu"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/mng_users" />
+
+    <TextView
+        android:id="@+id/tv2_menu"
+        android:layout_width="120dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txt_mng_users" />
+	
+	<Button
+        android:id="@+id/bt3_menu"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/mng_dev" />
+
+    <TextView
+        android:id="@+id/tv3_menu"
+        android:layout_width="120dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txt_mng_dev" />
+    
+    
+	<Button
+        android:id="@+id/bt4_menu"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/edit_account" />
+
+    <TextView
+        android:id="@+id/tv4_menu"
+        android:layout_width="120dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txt_edit_account" />
+	
+	<Button
+        android:id="@+id/bt5_menu"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/exit" />
+
+    <TextView
+        android:id="@+id/tv5_menu"
+        android:layout_width="120dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txt_exit" />
+
+</GridLayout>

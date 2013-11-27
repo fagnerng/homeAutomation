@@ -38,21 +38,30 @@ public final class R {
         public static final int user=0x7f020006;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f09001c;
-        public static final int action_settings=0x7f09001d;
-        public static final int button2=0x7f09001a;
-        public static final int checkBox1=0x7f090013;
+        public static final int action_forgot_password=0x7f090030;
+        public static final int action_settings=0x7f09002f;
+        public static final int bt1_menu=0x7f09000f;
+        public static final int bt2_menu=0x7f090011;
+        public static final int bt3_menu=0x7f090013;
+        public static final int bt4_menu=0x7f090015;
+        public static final int bt5_menu=0x7f090017;
+        public static final int btnNext=0x7f09002a;
+        public static final int button2=0x7f09002d;
+        public static final int checkBox1=0x7f09001d;
         public static final int confirm=0x7f09000e;
         public static final int dialogDevicesLayout=0x7f09000d;
-        public static final int editText1=0x7f090011;
+        public static final int editText1=0x7f09001b;
+        public static final int editText2=0x7f090025;
+        public static final int editText3=0x7f090027;
+        public static final int editText4=0x7f090029;
         public static final int email=0x7f090004;
-        public static final int excluirNao=0x7f090018;
-        public static final int excluirSim=0x7f090017;
+        public static final int excluirNao=0x7f090022;
+        public static final int excluirSim=0x7f090021;
         public static final int hellomsg=0x7f090008;
         public static final int house=0x7f09000a;
         public static final int imageLogo=0x7f090003;
-        public static final int listUser=0x7f090019;
-        public static final int listaDevices=0x7f090016;
+        public static final int listUser=0x7f09002c;
+        public static final int listaDevices=0x7f090020;
         public static final int login=0x7f090006;
         public static final int login_form=0x7f090002;
         public static final int login_status=0x7f090000;
@@ -60,33 +69,47 @@ public final class R {
         public static final int name=0x7f090009;
         public static final int pager=0x7f09000c;
         public static final int password=0x7f090005;
-        public static final int scrollView1=0x7f090010;
-        public static final int section_label=0x7f09000f;
+        public static final int scrollView1=0x7f09001a;
+        public static final int section_label=0x7f090019;
         public static final int sign_in_button=0x7f090007;
-        public static final int spinnerDevices=0x7f090015;
-        public static final int switch1=0x7f090014;
-        public static final int textView1=0x7f090012;
+        public static final int spinnerDevices=0x7f09001f;
+        public static final int switch1=0x7f09001e;
+        public static final int textView1=0x7f09001c;
+        public static final int tv1_menu=0x7f090010;
+        public static final int tv2_menu=0x7f090012;
+        public static final int tv3_menu=0x7f090014;
+        public static final int tv4_menu=0x7f090016;
+        public static final int tv5_menu=0x7f090018;
+        public static final int tvConfirmPassword=0x7f090028;
+        public static final int tvDev=0x7f09002b;
+        public static final int tvEmail=0x7f090024;
+        public static final int tvName=0x7f090023;
+        public static final int tvPassword=0x7f090026;
         public static final int user=0x7f09000b;
-        public static final int userName=0x7f09001b;
+        public static final int userName=0x7f09002e;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_main2=0x7f030002;
         public static final int dialog_devices=0x7f030003;
-        public static final int fragment_main2_dummy=0x7f030004;
-        public static final int fragment_main_dummy=0x7f030005;
-        public static final int inicio=0x7f030006;
-        public static final int layout_devices=0x7f030007;
-        public static final int main_activity=0x7f030008;
-        public static final int popup_layout=0x7f030009;
-        public static final int users=0x7f03000a;
-        public static final int usuarios_adapter=0x7f03000b;
+        public static final int first_menu=0x7f030004;
+        public static final int fragment_main2_dummy=0x7f030005;
+        public static final int fragment_main_dummy=0x7f030006;
+        public static final int inicio=0x7f030007;
+        public static final int layout_devices=0x7f030008;
+        public static final int main_activity=0x7f030009;
+        public static final int popup_layout=0x7f03000a;
+        public static final int register_first=0x7f03000b;
+        public static final int register_second=0x7f03000c;
+        public static final int users=0x7f03000d;
+        public static final int usuarios_adapter=0x7f03000e;
     }
     public static final class menu {
-        public static final int login=0x7f080000;
-        public static final int main=0x7f080001;
-        public static final int main2=0x7f080002;
+        public static final int first_menu=0x7f080000;
+        public static final int login=0x7f080001;
+        public static final int main=0x7f080002;
+        public static final int main2=0x7f080003;
     }
     public static final class string {
         public static final int action_forgot_password=0x7f060007;
@@ -97,21 +120,44 @@ public final class R {
         public static final int confirmar=0x7f060018;
         public static final int delete=0x7f060011;
         public static final int dispositivos=0x7f060017;
+        public static final int edit_account=0x7f060025;
         public static final int error_field_required=0x7f06000c;
         public static final int error_incorrect_password=0x7f06000b;
         public static final int error_invalid_email=0x7f060009;
         public static final int error_invalid_password=0x7f06000a;
+        public static final int exit=0x7f060027;
         public static final int hello_world=0x7f060002;
         public static final int inicio=0x7f060015;
         public static final int login_progress_signing_in=0x7f060008;
+        public static final int mng_dev=0x7f060021;
+        public static final int mng_users=0x7f060023;
+        /**  Strings for first_menu.xml 
+         */
+        public static final int my_devs=0x7f06001f;
         public static final int nao=0x7f060013;
+        public static final int next=0x7f06001d;
         public static final int novo=0x7f060014;
         public static final int password=0x7f060003;
+        public static final int require_confirm_pass=0x7f06001c;
+        public static final int require_email=0x7f06001a;
+        /**  Strings for register_first.xml 
+         */
+        public static final int require_name=0x7f060019;
+        public static final int require_pass=0x7f06001b;
+        /**  Strings for register_second.xml 
+         */
+        public static final int select_dev=0x7f06001e;
         public static final int sim=0x7f060012;
+        public static final int title_activity_first_menu=0x7f060029;
         public static final int title_activity_main=0x7f06000d;
         public static final int title_section1=0x7f06000e;
         public static final int title_section2=0x7f06000f;
         public static final int title_section3=0x7f060010;
+        public static final int txt_edit_account=0x7f060026;
+        public static final int txt_exit=0x7f060028;
+        public static final int txt_mng_dev=0x7f060022;
+        public static final int txt_mng_users=0x7f060024;
+        public static final int txt_my_devs=0x7f060020;
         public static final int username=0x7f060004;
         public static final int usuarios=0x7f060016;
     }
