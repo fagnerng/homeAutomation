@@ -69,7 +69,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main_activity);
+<<<<<<< HEAD
 		System.out.println(getIntent().getExtras().getString("userJson"));
+=======
+		
+>>>>>>> a061231a8153590a940d51f2bb30ef894d0083ff
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
