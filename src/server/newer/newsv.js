@@ -4,6 +4,7 @@ var hostPort = 9000;
 var dbPath = "./jsonDB/";
 var htmlPath = __dirname +"/public";
 var AM = require('./modules/acManager');
+var debug = true
 app.configure(function(){
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
@@ -47,7 +48,7 @@ function getUserAgent(headers){
 
 
 // verifica password do usuario
-function validatePassword(user, pass, callback){
+function avalidatePassword(user, pass, callback){
 	var usersDB = require(dbPath + 'usersDB.json');
 	if (usersDB[user].pass == pass){
 		callback(null,usersDB[user]);
@@ -62,7 +63,7 @@ function manualLogin(user, pass, callback){
 	if (loginDB[user]== undefined) {
 			callback('user-not-found');
 	}	else{
-		validatePassword(user, pass, callback );
+		avalidatePassword(user, pass, callback );
 			
 	}
 	
@@ -147,6 +148,10 @@ app.post('/alogin',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log("aloginpost: ")
+		console.log(req.body);
+	}
 	{
 		AM.AndroidLogin(req.body['user'],req.body['pass'],function(e, o){
 		if(o != null){
@@ -164,11 +169,16 @@ app.get('/auser',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log("auserget: " +req.body);
+	}
 	{
-		var token = req.param('token');
-		var user = req.param('user');
-		var pass = req.param('pass');
+		var token = req.body['token'];
+		var user = req.body['user'];
+		var pass = req.body['pass'];
+		console.log(token);
 		if (token == undefined){
+			console.log("foi undefined");
 			AM.AndroidLogin(user,pass,function(e, o){
 			if(o != null){
 				token = o.token;
@@ -192,10 +202,12 @@ app.get('/auser',function (req,res){
 });
 
 app.post('/auser',function (req,res){
-		console.log("post");
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log("auserpost: " +req.body);
+	}
 	{
 		var body = req.body;
 		AM.upUser(body,function(e, o){
@@ -216,6 +228,9 @@ app.get('/achild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log(req.body);
+	}
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
 		if(o != null){
@@ -232,6 +247,9 @@ app.post('/achild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log(req.body);
+	}
 	{
 		AM.upMyChild(req.body,function(e, o){
 		if(o != null){
@@ -246,6 +264,10 @@ app.post('/achild',function (req,res){
 });
 
 app.put('/achild',function (req,res){
+	
+	if (debug){
+		console.log(req.body);
+	}
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
@@ -267,6 +289,9 @@ app.delete('/achild',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
+		if (debug){
+		console.log(req.body);
+	}
 	{
 		AM.delChild(req.body, function(e,o){
 
@@ -284,6 +309,7 @@ app.delete('/achild',function (req,res){
 
 
 app.get('/alogout',function (req,res){
+	s
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{

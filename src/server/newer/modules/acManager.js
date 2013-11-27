@@ -62,7 +62,7 @@ exports.upUser = function(body, callback)
 						insertUser(	
 						{   name: o.name,
 							email: o.email,
-							user: o.user,
+							child: o.user,
 							pass: o.pass,
 							house: o.house
 						});	
@@ -226,7 +226,6 @@ exports.delChild = function (newData, callback){
 			callback({err:'missing-parameters: '+ i});
 		}
 	}
-	console.log(newData.user == newData.child, newData.user, newData.child)
 	if (newData.user == newData.child){
 		callback({err:'canot-remove-yourself'});
 	}else if (tokens[newData.user].admin){
@@ -320,7 +319,6 @@ getOneUserByLogin = function(user, callback){
 				devices[i]=allDevs[parseInt(tempDevs[i])]
 			}
 		}
-		console.log(o);
 		callback(null,{
 				user 		: 	o.user,
 				name 		: 	o.name,
@@ -356,7 +354,7 @@ function saveData(jsonData, filePath){
 	}
 }
 var insertUser = function(newData){
-	
+	console.log(newData);
 	var logins = require(dbPath+'login'+'DB.json');
 	logins[newData['child']] = newData['house'];
 	saveData(logins, 'login');
