@@ -170,12 +170,13 @@ app.get('/auser',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		console.log("auserget: " +req.body);
+		console.log("auserget: ");
+		console.log(req.params);
 	}
 	{
-		var token = req.body['token'];
-		var user = req.body['user'];
-		var pass = req.body['pass'];
+		var token = req.param('token');
+		var user = req.param('user');
+		var pass = req.param('pass');
 		console.log(token);
 		if (token == undefined){
 			console.log("foi undefined");
@@ -206,7 +207,8 @@ app.post('/auser',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		console.log("auserpost: " +req.body);
+		console.log("auserpost: ");
+		console.log(req.body);
 	}
 	{
 		var body = req.body;
