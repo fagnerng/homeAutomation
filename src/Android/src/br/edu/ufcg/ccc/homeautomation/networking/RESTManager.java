@@ -32,7 +32,7 @@ public class RESTManager {
 	}
 	
 	public void requestEdit(RequestsCallback appCb){
-		new AsyncRequestEdit(appCb).execute();
+//		new AsyncRequestEdit(appCb).execute();
 	}
 	
 }

@@ -24,6 +24,8 @@ public class User {
 	private String house;
 	private String currentToken;
 	private boolean admin;
+	private double lat;
+	private double lon;
 	
 	private ArrayList<Device> devices;
 	
@@ -37,6 +39,7 @@ public class User {
 	public User(JSONObject json, String token){
 		
 		this.currentToken = token;
+		devices = new ArrayList<Device>();
 		
 		if (json != null){
 			
@@ -50,10 +53,10 @@ public class User {
 				this.house = json.getString("house");
 				this.admin = json.getBoolean("admin");
 				
-				devs =  json.getJSONArray(TAG_DEVICES);
-//				for (int i = 0; i < devs.length(); i++){
-//					devices.add(new Device(devs.getJSONObject(i)));
-//				}
+				devs = json.getJSONArray(TAG_DEVICES);
+				for (int i = 0; i < devs.length(); i++){
+					devices.add(new Device(devs.getJSONObject(i)));
+				}
 				
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -126,5 +129,4 @@ public class User {
 	public void setCurrentToken(String currentToken) {
 		this.currentToken = currentToken;
 	}
-
 }

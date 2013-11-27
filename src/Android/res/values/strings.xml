@@ -18,5 +18,12 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+    <string name="delete">Excluir Usuario?</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="novo">Novo</string>
+    <string name="inicio">Inicio</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="dispositivos">Dispositivos</string>
 
 </resources>

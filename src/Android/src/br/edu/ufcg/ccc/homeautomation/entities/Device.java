@@ -15,8 +15,8 @@ public class Device {
 	private String name;
 	private int id;
 	private boolean status;
+	private String type;
 	
-
 	/**
 	 * @param json
 	 * 	
@@ -31,6 +31,7 @@ public class Device {
 				this.name = json.getString("name");
 				this.id = json.getInt("id");
 				this.status = json.getBoolean("status");
+				this.type = json.getString("type");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -64,6 +65,14 @@ public class Device {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
