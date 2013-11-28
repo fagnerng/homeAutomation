@@ -177,9 +177,7 @@ app.get('/auser',function (req,res){
 		var token = req.param('token');
 		var user = req.param('user');
 		var pass = req.param('pass');
-		console.log(token);
 		if (token == undefined){
-			console.log("foi undefined");
 			AM.AndroidLogin(user,pass,function(e, o){
 			if(o != null){
 				token = o.token;

@@ -1,7 +1,8 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    tools:context=".LoginActivity" >
+    tools:context=".LoginActivity"
+    >
 
     <ScrollView
         android:id="@+id/login_form"
