@@ -1,5 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     tools:context=".LoginActivity" >
 
     <ScrollView
@@ -13,8 +14,23 @@
         style="@style/LoginFormContainer"
         android:layout_width="match_parent"
         android:layout_height="440dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:padding="10dp" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" 
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="fill_parent"
@@ -28,17 +44,15 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="0.01"
             android:background="@drawable/text_fields"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true" 
-            >
+            android:singleLine="true" >
 
             <requestFocus />
         </EditText>
@@ -55,33 +69,31 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="0.01"
             android:background="@drawable/text_fields"
             android:ems="10"
             android:imeActionId="@+id/login"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:singleLine="true">
+            android:singleLine="true" >
         </EditText>
 
         <Button
             android:id="@+id/sign_in_button"
             android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginBottom="136dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="30dp"
-            android:shape="rectangle"
+            android:background="@drawable/comportamento_botao"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            
-            android:background="@drawable/comportamento_botao"
+            android:shape="rectangle"
             android:text="@string/action_sign_in_register" />
     </LinearLayout>
 
