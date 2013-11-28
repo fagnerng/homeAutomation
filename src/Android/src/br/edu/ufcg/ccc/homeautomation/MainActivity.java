@@ -174,9 +174,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.inicio).toUpperCase(l);
+				return getString(R.string.begin).toUpperCase(l);
 			case 1:
-				return getString(R.string.usuarios).toUpperCase(l);
+				return getString(R.string.users).toUpperCase(l);
 			case 2:
 				return getString(R.string.devices).toUpperCase(l);
 			}
@@ -321,7 +321,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				final UserAdapter ad = new UserAdapter(rootView.getContext(), lista);
 				final Dialog excluir = new Dialog(rootView.getContext());
 				excluir.setContentView(R.layout.popup_layout);
-				excluir.setTitle(getResources().getString(R.string.delete));
+				excluir.setTitle(getResources().getString(R.string.action_delete));
 				
 				/*
 				 * Botoes do painel de excluir
@@ -385,7 +385,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int position, long arg3) {
 						posicaAexcluir = position;
-						excluir.setTitle(getResources().getString(R.string.delete) + position);
+						excluir.setTitle(getResources().getString(R.string.action_delete) + position);
 						excluir.show();
 						
 					}
@@ -519,7 +519,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						}
 							
 						posicaAexcluir = position;
-						devicesDialog.setTitle(getResources().getString(R.string.delete) + position);
+						devicesDialog.setTitle(getResources().getString(R.string.action_delete) + position);
 						devicesDialog.show();
 						
 					}

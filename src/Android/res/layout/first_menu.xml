@@ -81,7 +81,7 @@
         android:layout_gravity="left|top"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:text="@string/exit" />
+        android:text="@string/action_exit" />
 
     <TextView
         android:id="@+id/tv5_menu"

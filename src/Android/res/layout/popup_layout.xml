@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="26dp"
-        android:text="@string/sim" />
+        android:text="@string/action_yes" />
 
     <Button
         android:id="@+id/excluirNao"
@@ -21,6 +21,6 @@
         android:layout_alignBottom="@+id/excluirSim"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/excluirSim"
-        android:text="@string/nao" />
+        android:text="@string/action_no" />
 
 </RelativeLayout>

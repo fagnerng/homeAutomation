@@ -54,7 +54,7 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText()
 				.toString();
 		// ((EditText) mMA.findViewById(R.id.password)).setText("");
-		mProgressDialog.setTitle(mMA.getString(R.string.action_aguarde));
+		mProgressDialog.setTitle(mMA.getString(R.string.action_wait));
 		mProgressDialog.setMessage(mMA
 				.getString(R.string.action_login_in_progress));
 
