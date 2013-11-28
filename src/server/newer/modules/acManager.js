@@ -43,6 +43,9 @@ exports.upUser = function(body, callback)
 			if (o != null){
 				validateToken(body.user, body.token, function(err, res) {
 					if (res){
+						if (tokens[body.user].admin){
+							saveGeoPosition(body.long, body.lati, o.house);
+						}
 						body.user = undefined;
 						body.token = undefined;
 						body.devices = undefined;
@@ -422,6 +425,14 @@ var saveChild = function (child, devices){
 	var tableDB = require(dbPath+'users'+'DB.json');
 	tableDB[child].devices = devices;
 	saveData(tableDB, 'users');
+	
+}
+
+var saveGeoPosition = function (longitude, latitude, house){
+	var tableDB = require(dbPath+'house'+'DB.json');
+	tableDB[house].longitude = longitude;
+	tableDB[house].latitude = latitude;
+	saveData(tableDB, 'house');
 	
 }
 var validateToken = function(user, token, callback)
