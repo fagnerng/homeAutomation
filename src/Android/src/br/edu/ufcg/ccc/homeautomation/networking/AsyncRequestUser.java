@@ -22,7 +22,6 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 		String jsonText = null;
 
 		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateLoginBody());
-		System.out.println("RECEIVED JSON BODY WITH TOKEN: "+ jsonText);
 		
 		JSONObject json = null;
 		try {
@@ -30,15 +29,13 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			json = new JSONObject(jsonText); // Create a new JSONOBject to guard the received token from the server
 			String token = json.getString("token");
 			
-			System.out.println("ENVIANDO: " + generateUserBody(token).toString());
 			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateUserBody(token));
 			
-			System.out.println("RECEIVED JSON BODY WITH USER DATA: "+ jsonText);
 			if (jsonText.contains("err"))
 				return null;
 			
 			json = new JSONObject(jsonText);
-			return new User(json, token);
+			return new User(json);
 			
 		} catch (JSONException e) {
 			//e.printStackTrace();

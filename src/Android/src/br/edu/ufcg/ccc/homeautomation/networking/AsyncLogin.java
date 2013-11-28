@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.MainActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
+import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 public class AsyncLogin extends AsyncTask<Void, Void, String> {
 	private Context mContext;
@@ -30,8 +31,7 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 
 		String jsonText = NetworkManager.requestGET(RESTManager.URL_GET_USER
 				+ generateBody());
-		// System.out.println("RECEIVED JSON BODY WITH TOKEN: " + jsonText);
-
+		
 		return jsonText;
 	}
 
@@ -94,11 +94,13 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 			} catch (JSONException e) {
 				Intent intent = new Intent(mContext, MainActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putString("userJson",result);
+				User mUser = new User(jsonToParse);
+				bundle.putSerializable("userJson",mUser);
 				intent.putExtras(bundle);
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			builder.setMessage(mContext.getResources().getString(R.string.server_is_down));
 			alerta = builder.create();
 			alerta.show();

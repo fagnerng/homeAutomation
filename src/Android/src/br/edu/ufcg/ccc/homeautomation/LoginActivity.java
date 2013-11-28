@@ -1,6 +1,8 @@
 package br.edu.ufcg.ccc.homeautomation;
 
 import android.app.Activity;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -61,20 +63,22 @@ public class LoginActivity extends Activity {
 		String mPassword = mPasswordView.getText().toString();
 		boolean cancel = false;
 		View focusView = null;
+		Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
+		 errorIcon.setBounds(new Rect(0, 0, errorIcon.getIntrinsicWidth(), errorIcon.getIntrinsicHeight()));
 
 		if (TextUtils.isEmpty(mPassword)) {
-			mPasswordView.setError(getString(R.string.error_field_required));
+			mPasswordView.setError(getString(R.string.error_field_required),errorIcon);
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
+			mPasswordView.setError(getString(R.string.error_invalid_password),errorIcon);
 			focusView = mPasswordView;
 			cancel = true;
 		}
 
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mEmail)) {
-			mUsernameView.setError(getString(R.string.error_field_required));
+			mUsernameView.setError(getString(R.string.error_field_required),errorIcon);
 			focusView = mUsernameView;
 			cancel = true;
 		}

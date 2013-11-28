@@ -28,7 +28,6 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, User>{
 		String jsonText = null;
 
 		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody(name, email, pass, lat, lon));
-		System.out.println("RECEIVED JSON BODY WITH TOKEN: "+ jsonText);
 		
 		return null;		
 	}

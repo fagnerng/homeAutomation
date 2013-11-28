@@ -15,10 +15,8 @@
         android:theme="@style/AppBaseTheme" >
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.LoginActivity"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.NoTitleBar" 
-            >
-            
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,9 +28,13 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
-          <activity
+        <activity
             android:name="br.edu.ufcg.ccc.homeautomation.FirstMenu"
             android:label="@string/title_activity_first_menu" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.MainActivity"
+            android:label="@string/title_activity_main2" >
         </activity>
     </application>
 

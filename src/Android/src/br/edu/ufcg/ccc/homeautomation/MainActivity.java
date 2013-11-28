@@ -64,14 +64,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	private static List<Device> mSystemDevices = new ArrayList<Device>();
 	private static List<User> mSystemUsers = new ArrayList<User>();
-	
+	private static User mUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main_activity);
-		System.out.println(getIntent().getExtras().getString("userJson"));
+		mUser = (User)getIntent().getExtras().getSerializable("userJson");
+		mSystemUsers.add(mUser);
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -225,10 +226,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				 Spinner devices = (Spinner) rootView.findViewById(R.id.spinnerDevices);
 				 
 				 List<String> nomes = new ArrayList<String>();
-				 
-				 nomes.add("Device0");
-				 nomes.add("Device1");
-				 nomes.add("Device2");
+				 for (Device dev : mUser.getDevices()){
+					 nomes.add(dev.getName());
+					 
+				 }
 				 
 				 ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_dropdown_item_1line,nomes);
 				 
@@ -292,7 +293,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				
 				String js = "{\"name\": \"Joao\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
 				final List<User> lista = new ArrayList<User>();
-				
+				lista.add(mUser);
 				/*
 				 *  Este for não será mais necessario apos a implementação das requisições
 				 *  Esta ai apenas para mostrar que o updateList Funcionalidade
@@ -308,10 +309,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							listaj = new JSONObject(js);
 						} catch (JSONException e) {
 							listaj = new JSONObject();
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 
-					User us = new User(listaj, String.valueOf(i));
+					User us = new User(listaj);
 					lista.add(us);
 					
 					//lista.add(new User()
@@ -414,10 +415,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							listaj = new JSONObject(js);
 						} catch (JSONException e) {
 							listaj = new JSONObject();
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 
-					User us = new User(listaj, String.valueOf(i));
+					User us = new User(listaj);
 
 					listaDev.add(us);
 					
@@ -450,7 +451,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							listaj = new JSONObject(jsD);
 						} catch (JSONException e) {
 							listaj = new JSONObject();
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 						
 						
@@ -574,6 +575,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private static UserAdapter updateUser(View v,List lista){
 		String js;
 		List<User> usList = new ArrayList<User>();
+		usList.add(mUser);
 		for (int i = 0; i < 20; i++) {
 			
 			js  = "{\"name\": \"JoaoNovo"+ i +"\",\"user\": \"admin\",\"pass\": \"21232f297a57a5a743894a0e4a801fc3\",\"admin\": \"true\",\"house\": [],\"email\": \"joaomaravilha@gmail.com\"}";
@@ -585,10 +587,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					listaj = new JSONObject(js);
 				} catch (JSONException e) {
 					listaj = new JSONObject();
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
-			User us = new User(listaj, String.valueOf(i));
+			User us = new User(listaj);
 			usList.add(us);
 			
 			//lista.add(new User()
@@ -615,7 +617,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					listaj = new JSONObject(js);
 				} catch (JSONException e) {
 					listaj = new JSONObject();
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
 			Device us = new Device(listaj);
@@ -658,10 +660,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 	
 	private static void zeraDevices(User user, List<Integer> devices){
-		 user.getDevices().clear();
-		 for (int i : devices) {
-			user.getDevices().add(mSystemDevices.get(i));
-		}
+//		 user.getDevices().clear();
+//		 for (int i : devices) {
+//			user.getDevices().add(mSystemDevices.get(i));
+//		}
 	}
 	
 	
