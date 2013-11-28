@@ -79,7 +79,15 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 			JSONObject jsonToParse = new JSONObject(result);
 			try {
 				String err = jsonToParse.getString("err");
-				builder.setMessage(err);
+				if (err.equals("user-not-found")){
+					builder.setMessage(mContext.getResources().getString(R.string.user_not_found));
+				}else if  (err.equals("invalid-password")){
+					builder.setMessage(mContext.getResources().getString(R.string.invalid_password));	
+				} else if(err.equals("missing-parameters")){
+					builder.setMessage(mContext.getResources().getString(R.string.missing_parameters));
+				}else{
+					builder.setMessage(mContext.getResources().getString(R.string.unkwon_erro));
+				}
 				alerta = builder.create();
 				// Exibe
 				alerta.show();
@@ -91,7 +99,7 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {
-			builder.setMessage("server-is-down");
+			builder.setMessage(mContext.getResources().getString(R.string.server_is_down));
 			alerta = builder.create();
 			alerta.show();
 		}

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 

@@ -129,4 +129,20 @@ public class User {
 	public void setCurrentToken(String currentToken) {
 		this.currentToken = currentToken;
 	}
+
+	public double getLatitude() {
+		return lat;
+	}
+
+	public void setLatitude(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLongitude() {
+		return lon;
+	}
+
+	public void setLongitude(double lon) {
+		this.lon = lon;
+	}
 }
