@@ -25,7 +25,7 @@ public class ActivityLog extends Activity{
         				TextView tvName = (TextView) findViewById(R.id.name);
         				tvName.setText(userResult.getCurrentToken());
         				
-        				TextView tvEmail = (TextView) findViewById(R.id.email);
+        				TextView tvEmail = (TextView) findViewById(R.id.username);
         				tvEmail.setText(userResult.getEmail());
         				
         				TextView tvUser = (TextView) findViewById(R.id.user);

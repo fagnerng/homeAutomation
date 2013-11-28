@@ -2,30 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".LoginActivity" >
 
-    <!-- Login progress -->
-
-    <LinearLayout
-        android:id="@+id/login_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/background"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/login_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-    <!-- Login form -->
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -40,14 +16,6 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/imageLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Username Label -->
-        <!-- android:hint="@string/prompt_email" -->
-
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -58,7 +26,7 @@
             android:textSize="22sp" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/username"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -69,9 +37,11 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            >
 
-        <!-- Password Label -->
+            <requestFocus />
+        </EditText>
 
         <TextView
             android:layout_width="fill_parent"
@@ -93,13 +63,10 @@
             android:background="@drawable/text_fields"
             android:ems="10"
             android:imeActionId="@+id/login"
-            android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:singleLine="true" >
-
-            <requestFocus />
+            android:singleLine="true">
         </EditText>
 
         <Button
@@ -110,15 +77,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/comportamento_botao"
+            android:shape="rectangle"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
+            
+            android:background="@drawable/comportamento_botao"
             android:text="@string/action_sign_in_register" />
-
-        <TextView
-            android:id="@+id/hellomsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </merge>

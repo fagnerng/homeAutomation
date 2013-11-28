@@ -6,10 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
-    <string name="action_sign_in_register"><b>Sign in</b> or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="action_forgot_password">Recover lost password</string>
-    <string name="login_progress_signing_in">Signing in&#8230;</string>
+    <string name="action_sign_in_register">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -26,8 +23,8 @@
     <string name="usuarios">Usuarios</string>
     <string name="action_aguarde">Aguarde</string>
     <string name="action_login_in_progress">Efetuando Login</string>
-    <string name="dispositivos">Dispositivos</string>
-    <string name="confirmar">Confirmar</string>
+    <string name="devices">Dispositivos</string>
+    <string name="confirm">Confirmar</string>
     
      <!-- Strings for register_first.xml -->
     <string name="require_name">Name</string>

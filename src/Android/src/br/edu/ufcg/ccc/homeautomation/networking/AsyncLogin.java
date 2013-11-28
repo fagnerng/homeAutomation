@@ -50,7 +50,7 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 	protected void onPreExecute() {
 		mProgressDialog = ProgressDialog.show(mContext, "", "", false, false);
 		Activity mMA = (Activity) mContext;
-		user = ((EditText) mMA.findViewById(R.id.email)).getText().toString();
+		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText()
 				.toString();
 		// ((EditText) mMA.findViewById(R.id.password)).setText("");
@@ -62,36 +62,38 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+		builder.setTitle("Erro:");
+		AlertDialog alerta;
+		builder.setNeutralButton("OK",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						dialog.cancel();
+
+					}
+				});
 		try {
 			JSONObject jsonToParse = new JSONObject(result);
 			try {
 				String err = jsonToParse.getString("err");
-				AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-				builder.setTitle("Erro:");
 				builder.setMessage(err);
-				builder.setNeutralButton("OK",
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.cancel();
-
-							}
-						});
-				AlertDialog alerta = builder.create();
+				alerta = builder.create();
 				// Exibe
 				alerta.show();
-			} catch (Exception e) {
+			} catch (JSONException e) {
 				Intent intent = new Intent(mContext, MainActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putString("userJson",result);
 				intent.putExtras(bundle);
 				mContext.startActivity(intent);
 			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			builder.setMessage("server-is-down");
+			alerta = builder.create();
+			alerta.show();
 		}
 
 		mProgressDialog.cancel();
