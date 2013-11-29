@@ -309,7 +309,7 @@ app.delete('/achild',function (req,res){
 
 
 app.get('/alogout',function (req,res){
-	s
+	
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");
 	}else{

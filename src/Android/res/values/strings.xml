@@ -52,5 +52,7 @@
     <string name="title_activity_first_menu">Primeiro Menu</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_child">ChildActivity</string>
 
 </resources>

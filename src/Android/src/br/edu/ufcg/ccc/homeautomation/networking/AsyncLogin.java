@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
+import br.edu.ufcg.ccc.homeautomation.AdminActivity;
+import br.edu.ufcg.ccc.homeautomation.ChildActivity;
 import br.edu.ufcg.ccc.homeautomation.MainActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
@@ -92,9 +94,16 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 				// Exibe
 				alerta.show();
 			} catch (JSONException e) {
-				Intent intent = new Intent(mContext, MainActivity.class);
-				Bundle bundle = new Bundle();
 				User mUser = new User(jsonToParse);
+				Intent intent= null;
+				if (mUser.isAdmin()){
+					intent = new Intent(mContext, AdminActivity.class);
+				}else{
+					intent = new Intent(mContext, ChildActivity.class);
+				}
+				
+				
+				Bundle bundle = new Bundle();
 				bundle.putSerializable("userJson",mUser);
 				intent.putExtras(bundle);
 				mContext.startActivity(intent);

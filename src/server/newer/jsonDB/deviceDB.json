@@ -2,13 +2,13 @@
     "house_000": [
         {
             "id": 0,
-            "name": "mesmo0",
+            "name": "Lampada Quarto",
             "status": false,
             "type":"light"
         },
         {
             "id": 1,
-            "name": "mesmo1",
+            "name": "Lampada Sala",
             "status": false,
             "type":"light"
         }
@@ -16,13 +16,13 @@
     "house_001": [
         {
             "id": 0,
-            "name": "mesmo0",
+            "name": "Lampada Quarto",
             "status": false,
             "type":"light"
         },
         {
             "id": 1,
-            "name": "mesmo1",
+            "name": "Lampada Sala",
             "status": false,
             "type":"light"
         }
@@ -30,13 +30,13 @@
     "house_002": [
         {
             "id": 0,
-            "name": "mesmo0",
+            "name": "Lampada Quarto",
             "status": false,
             "type":"light"
         },
         {
             "id": 1,
-            "name": "mesmo1",
+            "name": "Lampada Sala",
             "status": false,
             "type":"light"
         }
