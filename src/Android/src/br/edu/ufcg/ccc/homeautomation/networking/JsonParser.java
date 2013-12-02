@@ -20,11 +20,11 @@ import br.edu.ufcg.ccc.homeautomation.entities.User;
 public class JsonParser {
 	
 	// JSON Node names
-	private static final String TAG_NAME = "Name";
+/*	private static final String TAG_NAME = "Name";
 	private static final String TAG_EMAIL = "Email";
 	private static final String TAG_USER = "User";
 	private static final String TAG_PASS = "Pass";
-	private static final String TAG_HOUSE = "House";
+	private static final String TAG_HOUSE = "House";*/
 	
 	private static final String TAG_DEVICES = "Devices";
 			
@@ -48,18 +48,19 @@ public class JsonParser {
     		
     	    for(int i = 0; i < json.length(); i++) {
  
-    	    	JSONObject c = json.getJSONObject(i);
+    	    	JSONObject userJson = json.getJSONObject(i);
     	    	
-    	        User user = new User(c);
+    	        User user = new User(userJson);
     	        
     	        ArrayList<Device> devices = new ArrayList<Device>();
-    	        JSONArray tagDevices =  c.getJSONArray(TAG_DEVICES);
+    	        JSONArray tagDevices =  userJson.getJSONArray(TAG_DEVICES);
     	        
     	        for (int j=0; j<tagDevices.length(); j++){
     	        	JSONObject dev = tagDevices.getJSONObject(j);
     	        	devices.add(new Device(dev));
     	        }
     	        user.setDevices(devices); //Setting the User Devices
+    	        users.add(user);
     	    }
     	} catch (JSONException e) {
     	    e.printStackTrace();
