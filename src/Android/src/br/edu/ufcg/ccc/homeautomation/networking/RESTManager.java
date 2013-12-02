@@ -33,8 +33,16 @@ public class RESTManager {
 		new AsyncRequestUser(appCb, user, pass).execute();
 	}
 	
-	public void requestEdit(RequestsCallback appCb){
-//		new AsyncRequestEdit(appCb).execute();
+	public void requestEdit(RequestsCallback appCb, String name, String email, String pass, double lat, double lon){
+		new AsyncRequestEdit(appCb, name, email, pass, lat, lon).execute();
+	}
+	
+	public void requestChild(RequestsCallback appCb, String userChild){
+		new AsyncRequestChild(appCb, userChild);
+	}
+	
+	public void requestChildCRUD(RequestsCallback appCb, String child, int[] devices, String name, String email, String pass, String house){
+		
 	}
 	
 }
