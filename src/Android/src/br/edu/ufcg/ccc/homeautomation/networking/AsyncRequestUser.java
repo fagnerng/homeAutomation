@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 public class AsyncRequestUser extends AsyncTask<String, Void, User>{
@@ -35,7 +36,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 				return null;
 			
 			json = new JSONObject(jsonText);
-			return new User(json);
+			return new Root(json);
 			
 		} catch (JSONException e) {
 			//e.printStackTrace();

@@ -12,7 +12,7 @@ import org.json.JSONObject;
  *	Esta Classe ira represnetar o Dispositivo do usuário do homeAutomation
  *
  */
-public class Device implements Serializable{
+public abstract class Device implements Serializable{
 	
 	/**
 	 * 
@@ -20,9 +20,8 @@ public class Device implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private int id;
-	private boolean status;
+	protected boolean status;
 	private String type;
-	
 	/**
 	 * @param json
 	 * 	
@@ -35,13 +34,10 @@ public class Device implements Serializable{
 			
 			try {
 				this.name = json.getString("name");
-				System.out.println(name);
 				this.id = json.getInt("id");
-				System.out.println(id +"");
 				this.status = json.getBoolean("status");
-				System.out.println(status);
 				this.type = json.getString("type");
-				System.out.println(type);
+			
 			} catch (JSONException e) {
 				//e.printStackTrace();
 			}
@@ -75,18 +71,13 @@ public class Device implements Serializable{
 		this.id = id;
 	}
 
-	public boolean getStatus() {
-		return status;
-	}
+	abstract public String getStatus();
 
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
 	
-	public String getType() {
-		return type;
-	}
-
+	abstract int getIconID();
 	public void setType(String type) {
 		this.type = type;
 	}

@@ -9,6 +9,8 @@ import org.w3c.dom.Comment;
 
 import android.app.Application;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
+import br.edu.ufcg.ccc.homeautomation.entities.Light;
+import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 /**
@@ -50,14 +52,14 @@ public class JsonParser {
  
     	    	JSONObject userJson = json.getJSONObject(i);
     	    	
-    	        User user = new User(userJson);
-    	        
+    	        User user = new Root(userJson);
+
     	        ArrayList<Device> devices = new ArrayList<Device>();
     	        JSONArray tagDevices =  userJson.getJSONArray(TAG_DEVICES);
     	        
     	        for (int j=0; j<tagDevices.length(); j++){
     	        	JSONObject dev = tagDevices.getJSONObject(j);
-    	        	devices.add(new Device(dev));
+    	        	devices.add(new Light(dev));
     	        }
     	        user.setDevices(devices); //Setting the User Devices
     	        users.add(user);

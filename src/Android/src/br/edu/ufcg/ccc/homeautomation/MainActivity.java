@@ -40,6 +40,8 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
+import br.edu.ufcg.ccc.homeautomation.entities.Light;
+import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
 
@@ -312,7 +314,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							//e.printStackTrace();
 						}
 
-					User us = new User(listaj);
+					User us = new Root(listaj);
 					lista.add(us);
 					
 					//lista.add(new User()
@@ -418,7 +420,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 							//e.printStackTrace();
 						}
 
-					User us = new User(listaj);
+					User us = new Root(listaj);
 
 					listaDev.add(us);
 					
@@ -456,7 +458,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						
 						
 
-					Device us = new Device(listaj);
+					Device us = new Light(listaj);
 					if(i==1){
 						ArrayList<Device> dev = new ArrayList<Device>();
 						dev.add(us);
@@ -590,7 +592,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					//e.printStackTrace();
 				}
 
-			User us = new User(listaj);
+			User us = new Root(listaj);
 			usList.add(us);
 			
 			//lista.add(new User()
@@ -620,7 +622,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					//e.printStackTrace();
 				}
 
-			Device us = new Device(listaj);
+			Device us = new Light(listaj);
 			usList.add(us);
 			
 			//lista.add(new User()

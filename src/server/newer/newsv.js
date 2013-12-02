@@ -5,6 +5,7 @@ var dbPath = "./jsonDB/";
 var htmlPath = __dirname +"/public";
 var AM = require('./modules/acManager');
 var debug = true
+
 app.configure(function(){
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
@@ -191,7 +192,9 @@ app.get('/auser',function (req,res){
 			if(o != null){
 				o.pass = undefined;
 				o.token = token;
+				console.log(o);
 				res.send(o, 200);	
+				
 			}else{
 				res.send(e, 300);	
 			}
