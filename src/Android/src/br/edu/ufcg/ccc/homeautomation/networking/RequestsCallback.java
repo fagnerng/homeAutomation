@@ -14,13 +14,21 @@ public interface RequestsCallback {
 
 	/**
 	 * This method is a callback from the asyncRequest function that request an user after his login
-	 * @param result
+	 * @param User result
+	 * The user that was requested at the login
 	 */
 	public void onFinishRequestUser(User result);
 	
 	/**
-	 * This method is a callback from the async request function that requests all root user's child from the application
-	 * @param result
+	 * This method is a callback from the async request function that requests the edition of a user
+	 * @param Boolean result
 	 */
-	public void onFinishRequestChilds(ArrayList<User> result);
+	public void onFinishRequestEdit(Boolean result);
+	
+	/**
+	 * This method is a callback from the async request function that requests all root user's child from the application
+	 * @param ArrayList<User> result
+	 * All Root's users child
+	 */
+	public void onFinishRequestChild(ArrayList<User> result);
 }

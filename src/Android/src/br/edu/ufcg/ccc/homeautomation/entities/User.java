@@ -22,12 +22,13 @@ public abstract class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String TAG_DEVICES = "devices";
+	
+	public static String user;
+	public static String currentToken;
 
 	private String name;
 	private String email;
-	private String user;
 	private String house;
-	private String currentToken;
 	private boolean admin;
 	private double lat;
 	private double lon;

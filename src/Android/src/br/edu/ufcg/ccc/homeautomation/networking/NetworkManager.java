@@ -1,11 +1,7 @@
 package br.edu.ufcg.ccc.homeautomation.networking;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.UnknownHostException;
 
 import org.apache.http.HttpEntity;
@@ -20,12 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import br.edu.ufcg.ccc.homeautomation.exceptions.NoConnectionExceptionListener;
-import br.edu.ufcg.ccc.homeautomation.exceptions.RequestUnauthorizedExeption;
 
 /**
  * NetworkManager class is responsible for creating an interface between the
@@ -35,19 +26,15 @@ public class NetworkManager {
 	
 	private static final int SUCCESS_CODE_MIN = 200;
 	private static final int SUCCESS_CODE_MAX = 299;
+	private static final String REQUEST_FAILED = "err";
 	
 	public static Resources getOutsideRes;
 	private static NoConnectionExceptionListener noConnectionListener;
-	private static RequestUnauthorizedExeption requestUnauthorized;
 	
 	public static boolean canDownload = true;
 	
 	public static void setNoConnectionListener(NoConnectionExceptionListener listener) {
 		noConnectionListener = listener;
-	}
-	
-	public static void setUnauthorized(RequestUnauthorizedExeption listener) {
-		requestUnauthorized = listener;
 	}
 	
 	/**
@@ -98,6 +85,11 @@ public class NetworkManager {
 		
 		try{
 			HttpResponse resp = hc.execute(p);
+			
+			if (resp.getStatusLine().getStatusCode() == 300)
+				return REQUEST_FAILED;
+			
+			
 			if (!isValidHttpCode(resp.getStatusLine().getStatusCode()) && noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
 			
@@ -116,6 +108,7 @@ public class NetworkManager {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		
 		return response;
 	}
 	
@@ -157,6 +150,12 @@ public class NetworkManager {
     	return s.hasNext() ? s.next() : "";
     }
     
+    
+	/**
+	 * This method verifies if a statusCode belongs to an interval
+	 * @param statusCode
+	 * @return Boolean
+	 */
     private static boolean isValidHttpCode(int statusCode) {
     	if (statusCode >= SUCCESS_CODE_MIN && statusCode < SUCCESS_CODE_MAX)
     		return true;

@@ -19,7 +19,6 @@ public class UserAdapter extends BaseAdapter{
 		mInflater = LayoutInflater.from(context);
 		mUsers = users;
 	}
-
 	
 	@Override
 	public int getCount() {
