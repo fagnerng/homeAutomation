@@ -54,12 +54,12 @@ public abstract class User implements Serializable {
 			try {
 				this.name = json.getString("name");
 				this.email = json.getString("email");
-				this.user = json.getString("user");
+				User.user = json.getString("user");
 				this.house = json.getString("house");
 				this.lat = json.getDouble("lati");
 				this.lon = json.getDouble("long");
 			
-				this.currentToken = json.getString("token");
+				User.currentToken = json.getString("token");
 				
 				devs = json.getJSONArray(TAG_DEVICES);
 					for (int i = 0; i < devs.length(); i++) {
@@ -107,7 +107,7 @@ public abstract class User implements Serializable {
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		User.user = user;
 	}
 
 	public String getHouse() {
@@ -131,7 +131,7 @@ public abstract class User implements Serializable {
 	}
 
 	public void setCurrentToken(String currentToken) {
-		this.currentToken = currentToken;
+		User.currentToken = currentToken;
 	}
 
 	public double getLatitude() {

@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.edu.ufcg.ccc.homeautomation.MainActivity"
+            android:name="br.edu.ufcg.ccc.homeautomation.MainActivity1"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
@@ -33,12 +33,16 @@
             android:label="@string/title_activity_first_menu" >
         </activity>
         <activity
-            android:name="br.edu.ufcg.ccc.homeautomation.MainActivity"
+            android:name="br.edu.ufcg.ccc.homeautomation.MainActivity2"
             android:label="@string/title_activity_main2" >
         </activity>
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.AdminActivity"
             android:label="@string/title_activity_admin" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.DeviceEdit"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.ChildActivity"

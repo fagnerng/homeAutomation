@@ -349,7 +349,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						// Atualizar lista global (System Users)
 						adp = updateUser(v, lista);
 						list.setAdapter(adp);
-						System.out.println("foooooooooooooi");
 						excluir.dismiss();
 						
 						
