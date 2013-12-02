@@ -16,6 +16,8 @@ import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 import br.edu.ufcg.ccc.homeautomation.ChildActivity;
 import br.edu.ufcg.ccc.homeautomation.MainActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
+import br.edu.ufcg.ccc.homeautomation.entities.Child;
+import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 public class AsyncLogin extends AsyncTask<Void, Void, String> {
@@ -55,7 +57,8 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText()
 				.toString();
-		// ((EditText) mMA.findViewById(R.id.password)).setText("");
+		
+		((EditText) mMA.findViewById(R.id.password)).setText("");
 		mProgressDialog.setTitle(mMA.getString(R.string.action_wait));
 		mProgressDialog.setMessage(mMA
 				.getString(R.string.action_login_in_progress));
@@ -94,11 +97,14 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 				// Exibe
 				alerta.show();
 			} catch (JSONException e) {
-				User mUser = new User(jsonToParse);
+				
+				User mUser ;
 				Intent intent= null;
-				if (mUser.isAdmin()){
+				if (jsonToParse.getBoolean("admin")){
+					mUser = new Root(jsonToParse);
 					intent = new Intent(mContext, AdminActivity.class);
 				}else{
+					mUser = new Child(jsonToParse);
 					intent = new Intent(mContext, ChildActivity.class);
 				}
 				

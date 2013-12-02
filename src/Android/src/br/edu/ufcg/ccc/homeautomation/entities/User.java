@@ -14,7 +14,7 @@ import org.json.JSONObject;
  *         Classe ira represnetar o Usuario da aplicação homeAutomation
  * 
  */
-public class User implements Serializable {
+public abstract class User implements Serializable {
 
 	/**
 	 * 
@@ -34,13 +34,6 @@ public class User implements Serializable {
 
 	private ArrayList<Device> devices;
 
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", email=" + email + ", user=" + user
-				+ ", house=" + house + ", currentToken=" + currentToken
-				+ ", admin=" + admin + ", lat=" + lat + ", lon=" + lon
-				+ ", devices=" + devices + "]";
-	}
 
 	/**
 	 * @param json
@@ -62,18 +55,22 @@ public class User implements Serializable {
 				this.email = json.getString("email");
 				this.user = json.getString("user");
 				this.house = json.getString("house");
-				this.admin = json.getBoolean("admin");
 				this.lat = json.getDouble("lati");
 				this.lon = json.getDouble("long");
 			
 				this.currentToken = json.getString("token");
+				
 				devs = json.getJSONArray(TAG_DEVICES);
-				for (int i = 0; i < devs.length(); i++) {
-					devices.add(new Device(devs.getJSONObject(i)));
+					for (int i = 0; i < devs.length(); i++) {
+					if (devs.getJSONObject(i).getString("type").equals("airCondition")){
+						devices.add(new AirCondition(devs.getJSONObject(i)));
+					}else{
+						devices.add(new Light(devs.getJSONObject(i)));
+					}
 				}
 
 			} catch (JSONException e) {
-				// e.printStackTrace();
+				 e.printStackTrace();
 			}
 		}
 
@@ -150,5 +147,13 @@ public class User implements Serializable {
 
 	public void setLongitude(double lon) {
 		this.lon = lon;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", email=" + email + ", user=" + user
+				+ ", house=" + house + ", currentToken=" + currentToken
+				+ ", admin=" + admin + ", lat=" + lat + ", lon=" + lon
+				+ ", devices=" + devices + "]";
 	}
 }

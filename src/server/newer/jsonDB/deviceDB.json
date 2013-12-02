@@ -3,14 +3,15 @@
         {
             "id": 0,
             "name": "Lampada Quarto",
-            "status": false,
+            "status": true,
             "type":"light"
         },
         {
             "id": 1,
-            "name": "Lampada Sala",
-            "status": false,
-            "type":"light"
+            "name": "Ar Condicionado Sala",
+            "status": true,
+            "type":"airCondition",
+            "temperature":26
         }
     ],
     "house_001": [
