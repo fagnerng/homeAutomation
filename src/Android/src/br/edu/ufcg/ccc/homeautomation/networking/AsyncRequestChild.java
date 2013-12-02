@@ -1,14 +1,15 @@
 package br.edu.ufcg.ccc.homeautomation.networking;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
-public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
+public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>{
 
-	private static final String REQUEST_FAILED = "err";
 	private RequestsCallback cb;
 	private String name;
 	private String email;
@@ -16,7 +17,7 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 	private double lat;
 	private double lon;
 	
-	public AsyncRequestEdit(RequestsCallback cb, String name, String email, String pass, double lat, double lon) {
+	public AsyncRequestChild(RequestsCallback cb, String name, String email, String pass, double lat, double lon) {
 		this.cb = cb;
 		this.name = name;
 		this.email = email;
@@ -25,42 +26,31 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 		this.lon = lon;
 	}
 
-	protected Boolean doInBackground(String... params) {
+	protected ArrayList<User> doInBackground(String... params) {
 		String jsonText = null;
 
 		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody(name, email, pass, lat, lon));
-		if (jsonText.equals(REQUEST_FAILED))
-			return false;
 		
-		return true;		
+		return null;		
 	}
 	
 	@Override
-	protected void onPostExecute(Boolean result) {
+	protected void onPostExecute(ArrayList<User> result) {
 		super.onPostExecute(result);
 		if (result != null)
-			cb.onFinishRequestEdit(result);
+			cb.onFinishRequestChild(result);
 	}
 	
 	/**
 	 * This method generates a JSONObject to be seended as the login request body
 	 * @return String with the user name and the his token
 	 */
-	private String generateBody(String name, String email, String pass, double lat, double lon){
+	private String generateBody( String name, String email, String pass, double lat, double lon){
 		
 		JSONObject jsonToSend = new JSONObject();
-		
 		try {
-			if (name != null)
-				jsonToSend.put("name", this.name);
-			if (email != null)
-				jsonToSend.put("email", this.email);
-			if (pass != null)
-				jsonToSend.put("pass", this.pass);
-			if (lat != -1)
-				jsonToSend.put("pass", lat);
-			if (lon != -1)
-				jsonToSend.put("long", lon);
+			
+			jsonToSend.put("pass", this.pass);
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
