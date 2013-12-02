@@ -3,8 +3,9 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+
+import android.os.AsyncTask;
 
 public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 
@@ -43,7 +44,7 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 	}
 	
 	/**
-	 * This method generates a JSONObject to be seended as the login request body
+	 * This method generates a JSONObject to be passed as the login request body
 	 * @return String with the user name and the his token
 	 */
 	private String generateBody(String name, String email, String pass, double lat, double lon){
@@ -51,14 +52,17 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 		JSONObject jsonToSend = new JSONObject();
 		
 		try {
+			jsonToSend.put("user", User.user);
+			jsonToSend.put("token", User.currentToken);
+			
 			if (name != null)
-				jsonToSend.put("name", this.name);
+				jsonToSend.put("name", name);
 			if (email != null)
-				jsonToSend.put("email", this.email);
+				jsonToSend.put("email", email);
 			if (pass != null)
-				jsonToSend.put("pass", this.pass);
+				jsonToSend.put("pass", pass);
 			if (lat != -1)
-				jsonToSend.put("pass", lat);
+				jsonToSend.put("lati", lat);
 			if (lon != -1)
 				jsonToSend.put("long", lon);
 		} catch (JSONException e1) {

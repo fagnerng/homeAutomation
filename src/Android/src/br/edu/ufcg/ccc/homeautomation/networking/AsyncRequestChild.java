@@ -11,27 +11,22 @@ import br.edu.ufcg.ccc.homeautomation.entities.User;
 public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>{
 
 	private RequestsCallback cb;
-	private String name;
-	private String email;
-	private String pass;
-	private double lat;
-	private double lon;
+	private String userChild;
 	
-	public AsyncRequestChild(RequestsCallback cb, String name, String email, String pass, double lat, double lon) {
+	public AsyncRequestChild(RequestsCallback cb, String userChild) {
 		this.cb = cb;
-		this.name = name;
-		this.email = email;
-		this.pass = pass;
-		this.lat = lat;
-		this.lon = lon;
+		this.userChild = userChild;
 	}
 
 	protected ArrayList<User> doInBackground(String... params) {
 		String jsonText = null;
+//		ArrayList<User> childs = new ArrayList<User>();
 
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody(name, email, pass, lat, lon));
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateBody(userChild));
 		
-		return null;		
+		return JsonParser.parseAllChilds(jsonText);// Create a new JSONOBject to guard the received childs from the server
+			
+//		return childs;		
 	}
 	
 	@Override
@@ -45,12 +40,17 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 	 * This method generates a JSONObject to be seended as the login request body
 	 * @return String with the user name and the his token
 	 */
-	private String generateBody( String name, String email, String pass, double lat, double lon){
+	private String generateBody(String userChild){
 		
 		JSONObject jsonToSend = new JSONObject();
+		
 		try {
+			jsonToSend.put("user", User.user);
+			jsonToSend.put("token", User.currentToken);
 			
-			jsonToSend.put("pass", this.pass);
+			if (userChild != null)
+				jsonToSend.put("child", userChild);
+			
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}

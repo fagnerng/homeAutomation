@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 import br.edu.ufcg.ccc.homeautomation.ChildActivity;
-import br.edu.ufcg.ccc.homeautomation.MainActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 

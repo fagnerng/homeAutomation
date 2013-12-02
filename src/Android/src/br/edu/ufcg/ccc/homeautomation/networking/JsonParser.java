@@ -35,7 +35,7 @@ public class JsonParser {
 	 * 
 	 * @return An ArrayList containing all the users objects
 	 */
-	public static ArrayList<User> parseAllUsers(String jsonText) {
+	public static ArrayList<User> parseAllChilds(String jsonText) {
 		
 		ArrayList<User> users = new ArrayList<User>();
 		
