@@ -39,7 +39,7 @@ public class JsonParser {
 		
 		ArrayList<User> users = new ArrayList<User>();
 		
-		if (jsonText == null)
+		if (jsonText == null || jsonText.equals("err"))
 			return users;
 		
     	try {

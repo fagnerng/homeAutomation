@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
-import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestLogin;
 
 /**
  * Activity which displays a login screen to the user, offering registration as

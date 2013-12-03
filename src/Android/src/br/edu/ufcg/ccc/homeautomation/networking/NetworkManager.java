@@ -8,8 +8,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -112,6 +114,52 @@ public class NetworkManager {
 		return response;
 	}
 	
+	public static String requestPUT(String url, String body) {
+		HttpClient hc = new DefaultHttpClient();
+		HttpPut p = new HttpPut(url);
+		StringEntity se = null;
+		String deviceID = "";
+		
+		try{
+			p.setEntity(new StringEntity(HTTP.UTF_8));
+			se = new StringEntity(body, HTTP.UTF_8);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		p.addHeader("User-Agent-Model", deviceID);
+		p.setHeader("Content-type", "application/json; charset=utf-8");
+		p.setEntity(se);
+		String response = "";
+		
+		try{
+			HttpResponse resp = hc.execute(p);
+			
+			if (resp.getStatusLine().getStatusCode() == 300)
+				return REQUEST_FAILED;
+			
+			
+			if (!isValidHttpCode(resp.getStatusLine().getStatusCode()) && noConnectionListener != null)
+				noConnectionListener.onNoConnectionException();
+			
+			HttpEntity entity = resp.getEntity();
+			if(entity != null) {
+				InputStream is = entity.getContent();
+				response = convertStreamToString(is);	
+			}
+
+		} catch (HttpHostConnectException e) { // No Connection
+			if (noConnectionListener != null)
+				noConnectionListener.onNoConnectionException();
+		} catch (UnknownHostException e) {
+			if (noConnectionListener != null)
+				noConnectionListener.onNoConnectionException();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return response;
+	}
+	
 	/**
 	 * Mades a GET request from a received url 
 	 * @param url - Represents the Link that the request will made for
@@ -161,5 +209,45 @@ public class NetworkManager {
     		return true;
     	return false;
     }
+
+	public static String requestDELETE(String url) {
+			HttpClient hc = new DefaultHttpClient();
+			HttpDelete p = new HttpDelete(url);
+			String deviceID = "";
+			
+			p.addHeader("User-Agent-Model", deviceID);
+			p.setHeader("Content-type", "application/json; charset=utf-8");
+			String response = "";
+			
+			try{
+				HttpResponse resp = hc.execute(p);
+				
+				if (resp.getStatusLine().getStatusCode() == 300)
+					return REQUEST_FAILED;
+				
+				
+				if (!isValidHttpCode(resp.getStatusLine().getStatusCode()) && noConnectionListener != null)
+					noConnectionListener.onNoConnectionException();
+				
+				HttpEntity entity = resp.getEntity();
+				if(entity != null) {
+					InputStream is = entity.getContent();
+					response = convertStreamToString(is);	
+				}
+
+			} catch (HttpHostConnectException e) { // No Connection
+				if (noConnectionListener != null)
+					noConnectionListener.onNoConnectionException();
+			} catch (UnknownHostException e) {
+				if (noConnectionListener != null)
+					noConnectionListener.onNoConnectionException();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			
+			return response;
+	}
+
+
 	
 }

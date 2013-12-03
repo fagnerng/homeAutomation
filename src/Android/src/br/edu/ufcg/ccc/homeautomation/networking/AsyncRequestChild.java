@@ -22,15 +22,14 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 
 	protected ArrayList<User> doInBackground(String... params) {
 		String jsonText = null;
-
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateBody(userChild));
 		
+		jsonText = NetworkManager.requestGET(RESTManager.URL_GET_CHILD + generateBody(userChild));
+		System.out.println("CHILD RESPONSE: "+ jsonText);
 		return JsonParser.parseAllChilds(jsonText);// Create a new JSONOBject to guard the received childs from the server
 	}
 	
 	@Override
-	protected void onPostExecute(ArrayList<User> result) {
-		super.onPostExecute(result);
+	protected void onPostExecute(ArrayList<User> result) {		
 		if (result != null)
 			cb.onFinishRequestChild(result);
 	}
@@ -40,21 +39,12 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 	 * @return String with the user name and the his token
 	 */
 	private String generateBody(String userChild){
+		String URLcomplement = "";
 		
-		JSONObject jsonToSend = new JSONObject();
-		
-		try {
-			jsonToSend.put("user", UserManager.getInstance().getUser());
-			jsonToSend.put("token", UserManager.getInstance().getToken());
+		URLcomplement += "?user=" + UserManager.getInstance().getUser() + "&" +
+		"token=" + UserManager.getInstance().getToken();
 			
-			if (userChild != null)
-				jsonToSend.put("child", userChild);
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		return jsonToSend.toString();
+		return URLcomplement;
 	}
 	
 }

@@ -76,11 +76,11 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 		if (type == HTTPType.POST){
 			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generatePOSTBody(userChild, devices));
 		}else if(type == HTTPType.PUT){
-			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generatePUTBody(userChild, devices, name, email, pass, house));			
+			jsonText = NetworkManager.requestPUT(RESTManager.URL_GET_CHILD, generatePUTBody(userChild, devices, name, email, pass, house));			
 		}else if(type == HTTPType.DELETE){
-			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateDELETEBody(userChild));
+			jsonText = NetworkManager.requestDELETE(RESTManager.URL_GET_CHILD+ generateDELETEBody(userChild));
 		}
-		
+		System.out.println(requestResult);
 		if (! jsonText.contains("err"))
 			requestResult = true;
 		
@@ -89,7 +89,6 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 
 	@Override
 	protected void onPostExecute(Boolean result) {
-		super.onPostExecute(result);
 		if (result != null)
 			cb.onFinishRequestChildCRUD(result);
 	}
@@ -145,17 +144,11 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 	}
 	
 	private String generateDELETEBody(String userChild){
-		JSONObject jsonToSend = new JSONObject();
+		String urlTail = "?user="+UserManager.getInstance().getUser();
+		urlTail += "&token="+UserManager.getInstance().getToken();
+		urlTail += "&child="+userChild;
+		return urlTail;
 		
-		try{
-			jsonToSend.put("user", UserManager.getInstance().getUser());
-			jsonToSend.put("token", UserManager.getInstance().getToken());;
-			jsonToSend.put("child", userChild);
-		} catch (JSONException e){
-			e.printStackTrace();
-		}
-		
-		return jsonToSend.toString();
 	}
 	
 }

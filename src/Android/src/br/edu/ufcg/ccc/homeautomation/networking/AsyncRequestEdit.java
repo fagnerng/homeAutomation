@@ -29,7 +29,9 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 	protected Boolean doInBackground(String... params) {
 		String jsonText = null;
 
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody(name, email, pass, lat, lon));
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateBody(name, email, pass, lat, lon));
+		System.out.println("EDIT RESPONSE: "+ jsonText);
+		
 		if (jsonText.equals(REQUEST_FAILED))
 			return false;
 		
@@ -39,6 +41,9 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
+		
+		System.out.println("result no async eh null?");
+		System.out.println(result);
 		if (result != null)
 			cb.onFinishRequestEdit(result);
 	}

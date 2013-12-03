@@ -52,11 +52,16 @@ public class RESTManager {
 	}
 	
 	public void requestChild(RequestsCallback appCb, String userChild){
-		new AsyncRequestChild(appCb, userChild);
+		new AsyncRequestChild(appCb, userChild).execute();
 	}
 	
-	public void requestChildCRUD(RequestsCallback appCb, String child, ArrayList<Integer> devices, String name, String email, String pass, String house){
-		new AsyncRequestChildCRUD(appCb, child, devices, name, email, pass, house);
+	public void requestChildUpdate(RequestsCallback appCb, String child, ArrayList<Integer> devices){
+		new AsyncRequestChildCRUD(appCb, child, devices).execute();
 	} 
-	
+	public void requestChildCreate(RequestsCallback appCb, String child, ArrayList<Integer> devices, String name, String email, String pass, String house){
+		new AsyncRequestChildCRUD(appCb, child, devices, name, email, pass, house).execute();
+	} 
+	public void requestChildDelete(RequestsCallback appCb, String child){
+		new AsyncRequestChildCRUD(appCb, child).execute();
+	}
 }
