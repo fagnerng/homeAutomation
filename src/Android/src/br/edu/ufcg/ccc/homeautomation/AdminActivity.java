@@ -87,9 +87,9 @@ public class AdminActivity extends Activity {
 		
 		
 		System.out.println("FINAL TESTE REQUEST CHILDDelete");	
-		*/
-System.out.println("INICIO TESTE REQUEST CHILDUpdate");
-
+		
+		
+		System.out.println("INICIO TESTE REQUEST CHILDUpdate");
 		
 		RESTManager.getInstance().requestChildUpdate(new RequestsCallbackAdapter() {
 			
@@ -104,7 +104,8 @@ System.out.println("INICIO TESTE REQUEST CHILDUpdate");
 		}, "andersongfs",new ArrayList<Integer>());
 		
 		
-		System.out.println("FINAL TESTE REQUEST CHILDUpdate");	
+		System.out.println("FINAL TESTE REQUEST CHILDUpdate");
+		*/	
 	}
 
 	@Override
