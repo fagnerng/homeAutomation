@@ -232,7 +232,7 @@ app.get('/achild',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		console.log(req.body);
+		console.log(req);
 	}
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
@@ -252,6 +252,7 @@ app.post('/achild',function (req,res){
 	//~ }else
 		if (debug){
 		console.log(req.body);
+		console.log("postchild");
 	}
 	{
 		AM.upMyChild(req.body,function(e, o){
@@ -293,10 +294,11 @@ app.delete('/achild',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		console.log(req.body);
+		console.log(req.params);
+		console.log({user:req.param('user'),token:req.param('token'), child:req.param('child')});
 	}
 	{
-		AM.delChild(req.body, function(e,o){
+		AM.delChild({user:req.param('user'),token:req.param('token'), child:req.param('child')}, function(e,o){
 
 		if(o != null){
 			res.send(o, 200);	

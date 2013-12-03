@@ -6,4 +6,11 @@
     <color name="bg_gray">#36474F</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent_white">#80FFFFFF</color>
+    
+    <color name="bg_green">#808E59</color>
+     <color name="bg_green_press">#808EFF</color>
+    
+    <color name="black">#000000</color>
+    <color name="bg_blue">#808E59</color>
+    <color name="bg_gray1">#D3D3D3</color>
 </resources>

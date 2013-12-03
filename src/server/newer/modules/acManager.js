@@ -237,7 +237,7 @@ exports.delChild = function (newData, callback){
 			findByTable(newData.child,'users', function(o) {
 				if (o != undefined){
 					if (o.house == tokens[newData.user].house){
-						//delUser(o.user);
+						delUser(o.user);
 						callback(null,"ok");
 					}else{
 						callback({err:'not-a-child'});

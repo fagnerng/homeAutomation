@@ -15,7 +15,7 @@
     },
     "fagnerng": {
         "name": "Fagner Gomes",
-        "email": "fagnerng@gmail.com",
+        "email": "email@gmail.com",
         "user": "fagnerng",
         "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
         "house": "house_000"
@@ -26,8 +26,6 @@
         "user": "andersongfs",
         "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
         "house": "house_000",
-        "devices": [
-            0 , 1
-        ]
+        "devices": [0,1]
     }
 }

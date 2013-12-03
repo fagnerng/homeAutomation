@@ -32,6 +32,16 @@
     <string name="device_name">Nome: </string>
     <string name="device_status">Status: </string>
     
+    <string name="child_tab_devices">Dispositivos: </string>
+    <string name="child_tab_profile">Perfil:</string>
+    <string name="child_activity_name">Nome:</string>
+    <string name="child_activity_email">Email:</string>
+    <string name="child_activity_pass">Senha:</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_cancel">Cancelar</string>
+    
+    
+    
     <!-- Strings for register_first.xml -->
     <string name="require_name">Nome</string>
     <string name="require_email">Email</string>

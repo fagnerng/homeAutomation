@@ -1,9 +1,9 @@
 {
     "house_000": {
         "ip": "ip0",
-        "longitude": -1,
-        "latitude": -1,
-        "admin": "fagnerng"
+        "admin": "fagnerng",
+         "longitude": -1,
+        "latitude": -1
     },
     "house_001": {
         "ip": "ip1",
