@@ -8,7 +8,8 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import br.edu.ufcg.ccc.homeautomation.networking.AsyncLogin;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestLogin;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -85,8 +86,7 @@ public class LoginActivity extends Activity {
 		if (cancel) {
 			focusView.requestFocus();
 		} else {
-			AsyncLogin loginTask = new AsyncLogin(v.getContext());
-			loginTask.execute((Void) null);
+			RESTManager.getInstance().requestLogin(v.getContext());
 		}
 	}
 

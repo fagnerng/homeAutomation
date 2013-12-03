@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 
@@ -27,19 +29,17 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 		JSONObject json = null;
 		try {
 			
-			json = new JSONObject(jsonText); // Create a new JSONOBject to guard the received token from the server
+			json = new JSONObject(jsonText);// Create a new JSONOBject to guard the received token from the server
 			String token = json.getString("token");
-			
 			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateUserBody(token));
 			
-			if (jsonText.contains("err"))
-				return null;
-			
-			json = new JSONObject(jsonText);
-			return new Root(json);
+			if (! jsonText.contains("err")){
+				json = new JSONObject(jsonText);
+				return new Root(json);
+			}
 			
 		} catch (JSONException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 		return null;		
@@ -48,6 +48,10 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	@Override
 	protected void onPostExecute(User result) {
 		super.onPostExecute(result);
+		
+		// Set for All System the userName and his current Token
+		UserManager.getInstance().setToken(result.getToken());
+		
 		if (result != null)
 			cb.onFinishRequestUser(result);
 	}
@@ -62,8 +66,8 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 		try {
 			jsonToSend.put("user", this.user);
 			jsonToSend.put("pass", this.pass);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		
 		return jsonToSend.toString();
@@ -71,7 +75,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	
 	/**
 	 * @param token - Uses the Received token from login
-	 * @return
+	 * @return String with the JSONBODY to request a user from server
 	 */
 	private String generateUserBody(String token){
 		

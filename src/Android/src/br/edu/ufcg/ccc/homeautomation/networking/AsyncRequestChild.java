@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>{
 
@@ -42,14 +44,14 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 		JSONObject jsonToSend = new JSONObject();
 		
 		try {
-			jsonToSend.put("user", User.user);
-			jsonToSend.put("token", User.currentToken);
+			jsonToSend.put("user", UserManager.getInstance().getUser());
+			jsonToSend.put("token", UserManager.getInstance().getToken());
 			
 			if (userChild != null)
 				jsonToSend.put("child", userChild);
 			
-		} catch (JSONException e1) {
-			e1.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		
 		return jsonToSend.toString();

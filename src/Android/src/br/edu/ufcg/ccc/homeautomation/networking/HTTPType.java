@@ -14,5 +14,9 @@ public enum HTTPType {
     public String toString(){
         return this.name;
     }
+    
+    public int toInt() {
+        return ordinal();
+    }
         
 }

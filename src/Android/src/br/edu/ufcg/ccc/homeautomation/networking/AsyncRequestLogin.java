@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 import br.edu.ufcg.ccc.homeautomation.ChildActivity;
@@ -18,14 +17,16 @@ import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.entities.Child;
 import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
-public class AsyncLogin extends AsyncTask<Void, Void, String> {
+public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 	private Context mContext;
 	private String user;
 	private String pass;
 	private ProgressDialog mProgressDialog;
 
-	public AsyncLogin(Context context) {
+	public AsyncRequestLogin(Context context) {
 		mContext = context;
 	}
 
@@ -39,14 +40,13 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 	}
 
 	private String generateBody() {
-		String retorno = "?user=";
+		String str = "?user=";
 
-		retorno += this.user;
-		retorno += "&pass=";
-		retorno += this.pass;
+		str += this.user;
+		str += "&pass=";
+		str += this.pass;
 
-		return retorno;
-
+		return str;
 	}
 
 	@Override
@@ -56,6 +56,8 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText()
 				.toString();
+		
+		UserManager.getInstance().setPass(pass);
 		
 		((EditText) mMA.findViewById(R.id.password)).setText("");
 		mProgressDialog.setTitle(mMA.getString(R.string.action_wait));
@@ -105,12 +107,9 @@ public class AsyncLogin extends AsyncTask<Void, Void, String> {
 				}else{
 					mUser = new Child(jsonToParse);
 					intent = new Intent(mContext, ChildActivity.class);
-				}
+				}				
 				
-				
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("userJson",mUser);
-				intent.putExtras(bundle);
+				UserManager.getInstance().setUserObject(mUser);
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {

@@ -31,4 +31,10 @@ public interface RequestsCallback {
 	 * All Root's users child
 	 */
 	public void onFinishRequestChild(ArrayList<User> result);
+	
+	/**
+	 * This method is a callback from the async request function that requests CRUD Methods over child
+	 * @param Boolean result - if it occurs like plan
+	 */
+	public void onFinishRequestChildCRUD(Boolean result);
 }

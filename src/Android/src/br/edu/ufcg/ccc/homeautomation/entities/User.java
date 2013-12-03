@@ -23,9 +23,8 @@ public abstract class User implements Serializable {
 
 	private static final String TAG_DEVICES = "devices";
 	
-	public static String user;
-	public static String currentToken;
-
+	private String user;
+	private String token;
 	private String name;
 	private String email;
 	private String house;
@@ -54,12 +53,11 @@ public abstract class User implements Serializable {
 			try {
 				this.name = json.getString("name");
 				this.email = json.getString("email");
-				User.user = json.getString("user");
+				this.user = json.getString("user");
 				this.house = json.getString("house");
 				this.lat = json.getDouble("lati");
 				this.lon = json.getDouble("long");
-			
-				User.currentToken = json.getString("token");
+				this.token = json.getString("token");
 				
 				devs = json.getJSONArray(TAG_DEVICES);
 					for (int i = 0; i < devs.length(); i++) {
@@ -107,7 +105,7 @@ public abstract class User implements Serializable {
 	}
 
 	public void setUser(String user) {
-		User.user = user;
+		this.user = user;
 	}
 
 	public String getHouse() {
@@ -126,12 +124,12 @@ public abstract class User implements Serializable {
 		this.devices = devices;
 	}
 
-	public String getCurrentToken() {
-		return currentToken;
+	public String getToken() {
+		return token;
 	}
 
-	public void setCurrentToken(String currentToken) {
-		User.currentToken = currentToken;
+	public void setToken(String currentToken) {
+		this.token = currentToken;
 	}
 
 	public double getLatitude() {
@@ -153,7 +151,7 @@ public abstract class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", email=" + email + ", user=" + user
-				+ ", house=" + house + ", currentToken=" + currentToken
+				+ ", house=" + house + ", currentToken=" + token
 				+ ", admin=" + admin + ", lat=" + lat + ", lon=" + lon
 				+ ", devices=" + devices + "]";
 	}

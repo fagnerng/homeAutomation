@@ -3,9 +3,9 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ufcg.ccc.homeautomation.entities.User;
-
 import android.os.AsyncTask;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 
@@ -52,8 +52,8 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 		JSONObject jsonToSend = new JSONObject();
 		
 		try {
-			jsonToSend.put("user", User.user);
-			jsonToSend.put("token", User.currentToken);
+			jsonToSend.put("user", UserManager.getInstance().getUser());
+			jsonToSend.put("token", UserManager.getInstance().getToken());
 			
 			if (name != null)
 				jsonToSend.put("name", name);

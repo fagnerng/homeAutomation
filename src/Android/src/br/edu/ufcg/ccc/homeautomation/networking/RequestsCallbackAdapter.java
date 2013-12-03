@@ -24,5 +24,9 @@ public abstract class RequestsCallbackAdapter implements
 
 	@Override
 	public void  onFinishRequestChild(ArrayList<User> result){
-	}	
+	}
+	
+	@Override
+	public void onFinishRequestChildCRUD(Boolean result){
+	}
 }

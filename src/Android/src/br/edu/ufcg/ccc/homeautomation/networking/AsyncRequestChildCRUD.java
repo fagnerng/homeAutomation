@@ -2,16 +2,18 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
-public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, ArrayList<User>>{
+public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 	
 	private HTTPType type;
-
 	private RequestsCallback cb;
 	private String userChild;
 	private ArrayList<Integer> devices;
@@ -66,49 +68,94 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, ArrayList<Us
 		this.userChild = userChild;
 	}	
 
-	protected ArrayList<User> doInBackground(String... params) {
-		String jsonText = null;		
+	protected Boolean doInBackground(String... params) {
+		
+		Boolean requestResult = false;
+		String jsonText = null;
 
-		// TROCAR PRA CASE
 		if (type == HTTPType.POST){
-//			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateBody(userChild));
+			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generatePOSTBody(userChild, devices));
 		}else if(type == HTTPType.PUT){
-//			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateBody(userChild));			
+			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generatePUTBody(userChild, devices, name, email, pass, house));			
 		}else if(type == HTTPType.DELETE){
-//			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateBody(userChild));
+			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generateDELETEBody(userChild));
 		}
 		
-		return JsonParser.parseAllChilds(jsonText);// Create a new JSONOBject to guard the received childs from the server
+		if (! jsonText.contains("err"))
+			requestResult = true;
+		
+		return requestResult;
 	}
-	
+
 	@Override
-	protected void onPostExecute(ArrayList<User> result) {
+	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 		if (result != null)
-			cb.onFinishRequestChild(result);
+			cb.onFinishRequestChildCRUD(result);
 	}
 	
-/*	
-	*//**
+	
+	/**
 	 * This method generates a JSONObject to be seended as the login request body
 	 * @return String with the user name and the his token
-	 *//*
-	private String generateBody(String userChild){
+	 */
+	private String generatePOSTBody(String userChild, ArrayList<Integer> devs){
 		
 		JSONObject jsonToSend = new JSONObject();
+		JSONArray array = new JSONArray();
+		
+		for (int i = 0; i < devs.size(); i++) 
+	        array.put(devs.get(i));
 		
 		try {
-			jsonToSend.put("user", User.user);
-			jsonToSend.put("token", User.currentToken);
-			
-			if (userChild != null)
-				jsonToSend.put("child", userChild);
-			
-		} catch (JSONException e1) {
-			e1.printStackTrace();
+			jsonToSend.put("user", UserManager.getInstance().getUser());
+			jsonToSend.put("token", UserManager.getInstance().getToken());
+			jsonToSend.put("child", this.userChild);
+			jsonToSend.put("devices", array);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		
 		return jsonToSend.toString();
-	}*/
+	}
+	
+	private String generatePUTBody(String userChild, ArrayList<Integer> devs,
+						String name, String email, String pass, String house) {
+		
+		JSONObject jsonToSend = new JSONObject();
+		JSONArray array = new JSONArray();
+		
+		for (int i = 0; i < devs.size(); i++) 
+	        array.put(devs.get(i));
+		
+		try {
+			jsonToSend.put("user", UserManager.getInstance().getUser());
+			jsonToSend.put("token", UserManager.getInstance().getToken());
+			jsonToSend.put("child", this.userChild);
+			jsonToSend.put("devices", array);
+			jsonToSend.put("name", name);
+			jsonToSend.put("email", email);
+			jsonToSend.put("pass", pass);
+			jsonToSend.put("house", house);			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonToSend.toString();		
+	}
+	
+	private String generateDELETEBody(String userChild){
+		JSONObject jsonToSend = new JSONObject();
+		
+		try{
+			jsonToSend.put("user", UserManager.getInstance().getUser());
+			jsonToSend.put("token", UserManager.getInstance().getToken());;
+			jsonToSend.put("child", userChild);
+		} catch (JSONException e){
+			e.printStackTrace();
+		}
+		
+		return jsonToSend.toString();
+	}
 	
 }

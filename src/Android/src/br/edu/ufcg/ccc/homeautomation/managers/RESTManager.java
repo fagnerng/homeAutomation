@@ -1,4 +1,14 @@
-package br.edu.ufcg.ccc.homeautomation.networking;
+package br.edu.ufcg.ccc.homeautomation.managers;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestChild;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestChildCRUD;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestEdit;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestLogin;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncRequestToken;
+import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallback;
 
 /**
  * @author Bruno Paiva
@@ -21,7 +31,7 @@ public class RESTManager {
     public static final String URL_DEFAULT = "http://192.168.2.28:9000/";
     public static final String URL_GET_TOKEN = URL_DEFAULT + "alogin";
     public static final String URL_GET_CHILD = URL_DEFAULT + "achild";
-    public static final String URL_GET_USER = URL_DEFAULT +"auser";
+    public static final String URL_GET_USER = URL_DEFAULT + "auser";
 	
 	/**
 	 * This method is responsible for request user data from the server nodeJS
@@ -29,8 +39,12 @@ public class RESTManager {
 	 * @param appCb - Type: RequestsCallback
 	 * @param user - Type: String
 	 */
-	public void requestUser(RequestsCallback appCb, String user, String pass){
-		new AsyncRequestUser(appCb, user, pass).execute();
+	public void requestLogin(Context context){
+		new AsyncRequestLogin(context).execute();
+	}
+	
+	public void requestToken(String pass){
+		new AsyncRequestToken(pass).execute();
 	}
 	
 	public void requestEdit(RequestsCallback appCb, String name, String email, String pass, double lat, double lon){
@@ -41,8 +55,8 @@ public class RESTManager {
 		new AsyncRequestChild(appCb, userChild);
 	}
 	
-	public void requestChildCRUD(RequestsCallback appCb, String child, int[] devices, String name, String email, String pass, String house){
-		
-	}
+	public void requestChildCRUD(RequestsCallback appCb, String child, ArrayList<Integer> devices, String name, String email, String pass, String house){
+		new AsyncRequestChildCRUD(appCb, child, devices, name, email, pass, house);
+	} 
 	
 }

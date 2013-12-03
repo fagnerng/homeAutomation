@@ -68,4 +68,17 @@ public class JsonParser {
 		
 		return users;
 	}
+
+	public static String parseRefreshToken(String result) {
+    	try {
+
+    		JSONObject json = new JSONObject(result);
+    		return json.getString("token");
+    		
+    	}catch(JSONException e){
+//    		e.printStackTrace();
+    	}
+    	
+    	return null;
+	}
 }
