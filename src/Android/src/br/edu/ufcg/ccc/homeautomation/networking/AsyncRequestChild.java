@@ -13,17 +13,15 @@ import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>{
 
 	private RequestsCallback cb;
-	private String userChild;
 	
-	public AsyncRequestChild(RequestsCallback cb, String userChild) {
+	public AsyncRequestChild(RequestsCallback cb) {
 		this.cb = cb;
-		this.userChild = userChild;
 	}
 
 	protected ArrayList<User> doInBackground(String... params) {
 		String jsonText = null;
 		
-		jsonText = NetworkManager.requestGET(RESTManager.URL_GET_CHILD + generateBody(userChild));
+		jsonText = NetworkManager.requestGET(RESTManager.URL_GET_CHILD + generateBody());
 		System.out.println("CHILD RESPONSE: "+ jsonText);
 		return JsonParser.parseAllChilds(jsonText);// Create a new JSONOBject to guard the received childs from the server
 	}
@@ -38,7 +36,7 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 	 * This method generates a JSONObject to be seended as the login request body
 	 * @return String with the user name and the his token
 	 */
-	private String generateBody(String userChild){
+	private String generateBody(){
 		String URLcomplement = "";
 		
 		URLcomplement += "?user=" + UserManager.getInstance().getUser() + "&" +
