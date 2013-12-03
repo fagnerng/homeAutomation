@@ -43,7 +43,9 @@ public class ChildActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create the adapter that will return a fragment for each of the three
+		
+		
+		// Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
@@ -74,7 +76,7 @@ public class ChildActivity extends FragmentActivity {
            
         	super(fm);
            setTitleColor(getResources().getColor(R.color.white)) ;
-          
+         
         }
 
         @Override
