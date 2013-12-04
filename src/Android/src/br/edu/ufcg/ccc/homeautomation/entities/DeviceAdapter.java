@@ -50,8 +50,8 @@ public class DeviceAdapter extends BaseAdapter{
 		String status = dev.getStatus();
 		tv_status.setText(status);
 		
-		ImageView iv_icon = (ImageView) view.findViewById(R.id.iv_icon_device);
-		iv_icon.setImageDrawable(mInflater.getContext().getResources().getDrawable((dev.getIconID())));
+//		ImageView iv_icon = (ImageView) view.findViewById(R.id.iv_icon_device);
+//		iv_icon.setImageDrawable(mInflater.getContext().getResources().getDrawable((dev.getIconID())));
 		return view;
 	}
 

@@ -14,13 +14,18 @@ public class DeviceEdit extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Device mDev = (Device) getIntent().getExtras().getSerializable("editDevice");
-		setContentView(R.layout.activity_device_edit);
-		EditText etEditTaskName = (EditText) findViewById(R.id.et_edit_task);
+		setContentView(R.layout.teste_activity_device_edit);
+		TextView deviceName = (TextView) findViewById(R.id.tv_device_name);
+		deviceName.setText(mDev.getName());
+		
+		
+		
+/*		EditText etEditTaskName = (EditText) findViewById(R.id.et_edit_task);
 		TextView tvStatusDev = (TextView) findViewById(R.id.tv_status_device);
 		etEditTaskName.setText(mDev.getName());
 		System.out.println("usuario eh root?: " + UserManager.getInstance().getUserObject().isAdmin());
 		etEditTaskName.setEnabled(UserManager.getInstance().getUserObject().isAdmin());
-		tvStatusDev.setText(mDev.getStatus());
+		tvStatusDev.setText(mDev.getStatus());*/
 	}
 
 	@Override

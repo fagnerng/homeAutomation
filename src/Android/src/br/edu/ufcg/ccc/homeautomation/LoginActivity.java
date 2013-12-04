@@ -41,6 +41,7 @@ public class LoginActivity extends Activity {
 						attemptLogin(view);
 					}
 				});
+		RESTManager.getInstance().requestLogin(this);
 	}
 
 	@Override
@@ -61,6 +62,7 @@ public class LoginActivity extends Activity {
 
 		String mEmail = mUsernameView.getText().toString();
 		String mPassword = mPasswordView.getText().toString();
+
 		boolean cancel = false;
 		View focusView = null;
 		Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);

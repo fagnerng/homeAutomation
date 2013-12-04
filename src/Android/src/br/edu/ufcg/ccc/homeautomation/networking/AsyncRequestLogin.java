@@ -33,8 +33,13 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 	@Override
 	protected String doInBackground(Void... params) {
 
+		
+		System.out.println(generateBody());
+		
 		String jsonText = NetworkManager.requestGET(RESTManager.URL_GET_USER
 				+ generateBody());
+		
+		System.out.println("fez Requisicao!");
 		
 		return jsonText;
 	}
@@ -54,8 +59,10 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 		mProgressDialog = ProgressDialog.show(mContext, "", "", false, false);
 		Activity mMA = (Activity) mContext;
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
-		pass = ((EditText) mMA.findViewById(R.id.password)).getText()
-				.toString();
+		pass = ((EditText) mMA.findViewById(R.id.password)).getText().toString();
+		
+		user = "fagnerng";
+		pass = "fagnerng";
 		
 		UserManager.getInstance().setPass(pass);
 		

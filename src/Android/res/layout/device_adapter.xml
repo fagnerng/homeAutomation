@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" 
     android:background="@color/background">
-
-    <ImageView
-        android:id="@+id/iv_icon_device"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/default_icon_device"
-        android:contentDescription="@string/hello_world" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical" >
 
         <TextView
@@ -34,5 +26,28 @@
             android:text="@string/hello_world"
             android:textColor="@color/white" />
     </LinearLayout>
+    
+    <ImageButton
+        android:id="@+id/ib_icon_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/switch_icon_on"
+        android:contentDescription="@string/hello_world" />
+    
+    <ImageButton
+        android:id="@+id/ib_icon_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@+id/ib_icon_switch"
+        android:padding="10dp"
+        android:src="@drawable/ic_action_edit"
+        android:contentDescription="@string/hello_world" />    
 
-</LinearLayout>
+   	
+</RelativeLayout>
