@@ -14,4 +14,9 @@ public class Root extends User {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public boolean isAdmin() {
+		return true;
+	}
+
 }

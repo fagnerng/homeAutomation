@@ -102,9 +102,9 @@ public class ChildActivity extends FragmentActivity {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.child_tab_devices).toUpperCase(l);
+                    return getString(R.string.tab_devices).toUpperCase(l);
                 case 1:
-                    return getString(R.string.child_tab_profile).toUpperCase(l);
+                    return getString(R.string.tab_profile).toUpperCase(l);
             }
             return null;
         }

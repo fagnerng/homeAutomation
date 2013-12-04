@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class DeviceEdit extends Activity {
 
@@ -17,7 +18,8 @@ public class DeviceEdit extends Activity {
 		EditText etEditTaskName = (EditText) findViewById(R.id.et_edit_task);
 		TextView tvStatusDev = (TextView) findViewById(R.id.tv_status_device);
 		etEditTaskName.setText(mDev.getName());
-		etEditTaskName.setEnabled(false);
+		System.out.println("usuario eh root?: " + UserManager.getInstance().getUserObject().isAdmin());
+		etEditTaskName.setEnabled(UserManager.getInstance().getUserObject().isAdmin());
 		tvStatusDev.setText(mDev.getStatus());
 	}
 

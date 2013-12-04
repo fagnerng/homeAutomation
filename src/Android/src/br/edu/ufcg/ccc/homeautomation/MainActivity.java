@@ -502,7 +502,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int position, long arg3) {
-						String login = (String)((TextView) arg1.findViewById(R.id.userName)).getText();
+						String login = (String)((TextView) arg1.findViewById(R.id.tv_name_user)).getText();
 						User selectedUser = finUserByLogin(login);
 						if(selectedUser == null){
 							Toast.makeText(arg1.getContext(), "Usuario nao encontrado", Toast.LENGTH_SHORT).show();
@@ -537,7 +537,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					@Override
 					public void onClick(View v) {
 						List<Integer> iDs = new ArrayList<Integer>();
-						String login = (String)((TextView) v.findViewById(R.id.userName)).getText();
+						String login = (String)((TextView) v.findViewById(R.id.tv_name_user)).getText();
 						int i = 0;
 						for (CheckBox check : cbList) {
 							if(check.isChecked()){

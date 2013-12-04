@@ -31,9 +31,11 @@
     
     <string name="device_name">Nome: </string>
     <string name="device_status">Status: </string>
+	<!-- Strings for tabs in the menu -->
+    <string name="tab_devices">Dispositivos</string>
+    <string name="tab_profile">Perfil</string>
+    <string name="tab_manage_users">Usuários</string>
     
-    <string name="child_tab_devices">Dispositivos: </string>
-    <string name="child_tab_profile">Perfil:</string>
     <string name="child_activity_name">Nome:</string>
     <string name="child_activity_email">Email:</string>
     <string name="child_activity_pass">Senha:</string>

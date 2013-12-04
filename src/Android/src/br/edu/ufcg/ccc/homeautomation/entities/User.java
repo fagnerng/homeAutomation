@@ -80,9 +80,7 @@ public abstract class User implements Serializable {
 	 * Getters and Setters
 	 * 
 	 */
-	public boolean isAdmin() {
-		return admin;
-	}
+	abstract public boolean isAdmin();
 
 	public String getName() {
 		return name;

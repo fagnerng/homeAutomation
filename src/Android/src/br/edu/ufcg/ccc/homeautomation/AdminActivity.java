@@ -1,118 +1,170 @@
 package br.edu.ufcg.ccc.homeautomation;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
+import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
-import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
-import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
+import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
+import br.edu.ufcg.ccc.homeautomation.listener.OnClickDeviceList;
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
-public class AdminActivity extends Activity {
+public class AdminActivity extends FragmentActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_admin);
-		
-		/*		
-		System.out.println("INICIO TESTE REQUEST CHILD");
+	/**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
+     * will keep every loaded fragment in memory. If this becomes too memory
+     * intensive, it may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    SectionsPagerAdapter mSectionsPagerAdapter;
+    private static User mUser;
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    ViewPager mViewPager;
 
-		
-		RESTManager.getInstance().requestChild(new RequestsCallbackAdapter() {
-			
-			@Override
-			public void onFinishRequestChild(ArrayList<User> result) {
-				System.out.println("result length: " + result.size());
-				for (int i = 0; i < result.size(); i++){
-					System.out.println(result.get(i));
-				}
-			}
-		}, null);
-		
-		System.out.println("FINAL TESTE REQUEST CHILD");
-		
-		
-		
-		System.out.println("INICIO TESTE REQUEST EDIT");
-		
-		RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {
-			
-			@Override
-			public void onFinishRequestEdit(Boolean result) {
-				if (result) {
-					System.out.println("Editado com sucesso");
-				}else{
-					System.out.println("Nao foi edidato");
-				}
-			}
-		}, null, "email@gmail.com", null, -1, -1);
-		
-		System.out.println("FINAL TESTE REQUEST EDIT");
-		
-		
-		System.out.println("INICIO TESTE REQUEST CHILDCreate");
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 		
-		RESTManager.getInstance().requestChildCreate(new RequestsCallbackAdapter() {
-			
-			@Override
-			public void onFinishRequestChildCRUD (Boolean result) {
-				if (result){
-					System.out.println("deu certo a bagaça");
-				}else{
-					System.out.println("nao deu certo");
-				}
-			}
-		}, "diguego", new ArrayList<Integer>(),"Diego Tavares", "email@mailsdkasj.com", "1234","house_000");
 		
-		System.out.println("FINAL TESTE REQUEST CHILDCreate");		
+		// Create the adapter that will return a fragment for each of the three
+        // primary sections of the app.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager)findViewById(R.id.pager);
+        mViewPager.setBackgroundColor(getResources().getColor(R.color.background));
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        
+      
+    }
 
-		
-		System.out.println("INICIO TESTE REQUEST CHILDDelete");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-		
-		RESTManager.getInstance().requestChildDelete(new RequestsCallbackAdapter() {
-			
-			@Override
-			public void onFinishRequestChildCRUD (Boolean result) {
-				if (result){
-					System.out.println("deu certo a bagaça");
-				}else{
-					System.out.println("nao deu certo");
-				}
-			}
-		}, "diguego");
-		
-		
-		System.out.println("FINAL TESTE REQUEST CHILDDelete");	
-		
-		
-		System.out.println("INICIO TESTE REQUEST CHILDUpdate");
-		
-		RESTManager.getInstance().requestChildUpdate(new RequestsCallbackAdapter() {
-			
-			@Override
-			public void onFinishRequestChildCRUD (Boolean result) {
-				if (result){
-					System.out.println("deu certo a bagaça");
-				}else{
-					System.out.println("nao deu certo");
-				}
-			}
-		}, "andersongfs",new ArrayList<Integer>());
-		
-		
-		System.out.println("FINAL TESTE REQUEST CHILDUpdate");
-		*/	
-	}
+   
+ 
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.admin, menu);
-		return true;
-	}
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        public SectionsPagerAdapter(FragmentManager fm) {
+           
+        	super(fm);
+           setTitleColor(getResources().getColor(R.color.white)) ;
+         
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a DummySectionFragment (defined as a static inner class
+            // below) with the page number as its lone argument.
+            Fragment fragment = new DummySectionFragment();
+            Bundle args = new Bundle();
+            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            Locale l = Locale.getDefault();
+            switch (position) {
+                case 0:
+                    return getString(R.string.tab_devices).toUpperCase(l);
+                case 1:
+                    return getString(R.string.tab_profile).toUpperCase(l);
+                case 2:
+                    return getString(R.string.tab_manage_users).toUpperCase(l);
+            }
+            return null;
+        }
+    }
+
+    /**
+     * A dummy fragment representing a section of the app, but that simply
+     * displays dummy text.
+     */
+    public static class DummySectionFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        public static final String ARG_SECTION_NUMBER = "section_number";
+
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+
+            View rootView = null;
+
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 1:
+                    rootView = inflater.inflate(R.layout.activity_child, container, false);
+                    mUser = UserManager.getInstance().getUserObject();
+                    ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
+                    DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
+                    lv_devices.setOnItemClickListener(new OnClickDeviceList());
+                    lv_devices.setAdapter(devAdapter);
+                    break;
+                case 2:
+                    rootView = inflater.inflate(R.layout.activity_profile_edit, container, false);
+                    EditText name  = (EditText) rootView.findViewById(R.id.child_profile_name);
+                    EditText email  = (EditText) rootView.findViewById(R.id.child_profile_email);
+                    EditText pass  = (EditText) rootView.findViewById(R.id.child_profile_pass);
+                    name.setText(mUser.getName());
+                    email.setText(mUser.getEmail());
+                    pass.setText("*******");
+                     break;
+                case 3:
+                		rootView = inflater.inflate(R.layout.users, container, false);
+                	 ListView lv_User = (ListView)rootView.findViewById(R.id.listUser);
+                	 lv_User.setAdapter(new UserAdapter(rootView.getContext(), new ArrayList<User>()));
+                	 
+                	break;
+                	
+
+                default:
+                    break;
+            }
+
+            return rootView;
+
+        }
+
+
+    }
 }
