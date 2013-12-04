@@ -77,9 +77,12 @@ public abstract class Device implements Serializable{
 		this.status = status;
 	}
 	
-	abstract int getIconID();
+	public abstract int getIconID();
+	
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public abstract JSONObject generateBody(JSONObject json);
 	
 }

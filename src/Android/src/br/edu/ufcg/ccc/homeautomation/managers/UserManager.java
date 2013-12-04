@@ -1,5 +1,7 @@
 package br.edu.ufcg.ccc.homeautomation.managers;
 
+import org.json.JSONObject;
+
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 /**
@@ -47,5 +49,16 @@ public class UserManager {
     
     public void refreshToken(){
     	RESTManager.getInstance().requestToken(this.pass);
+    }
+    
+    public JSONObject generateBody(){
+    	JSONObject json = new JSONObject();
+    	try{
+    		json.put("user", this.getUser());
+    		json.put("token", this.getToken());
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	return json;
     }
 }

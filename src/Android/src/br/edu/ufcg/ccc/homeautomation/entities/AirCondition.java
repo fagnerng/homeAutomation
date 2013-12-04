@@ -49,7 +49,7 @@ public class AirCondition extends Device {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Override
-	int getIconID() {
+	public int getIconID() {
 		if (temperature < 25){
 			return iconCool;
 		}
@@ -60,6 +60,18 @@ public class AirCondition extends Device {
 	public String getStatus() {
 		
 		return temperature + " ºC";
+	}
+
+	@Override
+	public JSONObject generateBody(JSONObject json) {
+		try{
+			json.put("devices", this.getId());
+			json.put("status", this.status);
+			json.put("temperature", this.temperature);
+		}catch(JSONException e){
+			e.printStackTrace();
+		}
+		return json;
 	}
 
 }

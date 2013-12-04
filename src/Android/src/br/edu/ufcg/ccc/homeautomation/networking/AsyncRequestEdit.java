@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
-public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
+public class AsyncRequestEdit extends AsyncTask<String, Void, Boolean>{
 
 	private static final String REQUEST_FAILED = "err";
 	private RequestsCallback cb;
@@ -35,17 +35,12 @@ public class AsyncRequestEdit  extends AsyncTask<String, Void, Boolean>{
 		if (jsonText.equals(REQUEST_FAILED))
 			return false;
 		
-		return true;		
+		return true;
 	}
 	
 	@Override
 	protected void onPostExecute(Boolean result) {
-		super.onPostExecute(result);
-		
-		System.out.println("result no async eh null?");
-		System.out.println(result);
-		if (result != null)
-			cb.onFinishRequestEdit(result);
+		cb.onFinishRequestEdit(result);
 	}
 	
 	/**

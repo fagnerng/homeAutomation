@@ -2,9 +2,6 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 
 import java.util.ArrayList;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.AsyncTask;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;

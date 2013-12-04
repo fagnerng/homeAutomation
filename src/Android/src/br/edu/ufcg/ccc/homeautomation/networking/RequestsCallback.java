@@ -37,4 +37,11 @@ public interface RequestsCallback {
 	 * @param Boolean result - if it occurs like plan
 	 */
 	public void onFinishRequestChildCRUD(Boolean result);
+	
+	/**
+	 * This method is a callback from the async request function that changes the device status
+	 * @param Boolean result - if it occurs like plan
+	 */
+	public void onFinishRequestSwitch(Boolean result);
+	
 }

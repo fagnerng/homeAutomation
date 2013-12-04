@@ -1,5 +1,6 @@
 package br.edu.ufcg.ccc.homeautomation.entities;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.edu.ufcg.ccc.homeautomation.R;
@@ -19,7 +20,7 @@ public class Light extends Device {
 	private int iconOff = R.drawable.light_off;
 	
 	@Override
-	int getIconID() {
+	public int getIconID() {
 		if (super.status){
 			return iconOn;
 		}
@@ -32,6 +33,17 @@ public class Light extends Device {
 			return "Ligado";
 		}
 		return "Desligado";
+	}
+
+	@Override
+	public JSONObject generateBody(JSONObject json) {
+		try{
+			json.put("devices", this.getId());
+			json.put("status", this.status);
+		}catch(JSONException e){
+			e.printStackTrace();
+		}
+		return json;
 	}
 
 }

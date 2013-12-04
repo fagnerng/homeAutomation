@@ -29,4 +29,8 @@ public abstract class RequestsCallbackAdapter implements
 	@Override
 	public void onFinishRequestChildCRUD(Boolean result){
 	}
+	
+	@Override
+	public void onFinishRequestSwitch(Boolean result){
+	}
 }

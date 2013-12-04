@@ -47,8 +47,6 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	
 	@Override
 	protected void onPostExecute(User result) {
-		super.onPostExecute(result);
-		
 		// Set for All System the userName and his current Token
 		UserManager.getInstance().setToken(result.getToken());
 		
