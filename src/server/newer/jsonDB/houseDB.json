@@ -1,18 +1,18 @@
 {
     "house_000": {
-        "ip": "10.0.0.2",
+        "ip": "ip0",
         "admin": "fagnerng",
          "longitude": -1,
         "latitude": -1
     },
     "house_001": {
-        "ip": "10.0.0.2",
+        "ip": "ip1",
         "longitude": -1,
         "latitude": -1,
         "admin": "brunoffp"
     },
     "house_002": {
-        "ip": "10.0.0.2",
+        "ip": "ip2",
         "longitude": -1,
         "latitude": -1,
         "admin": "alexnum"
