@@ -119,14 +119,18 @@ exports.switchDev = function(body, callback)
 		}else{
 			validateToken(body.user, body.token, function(err, res) {
 				if (res){
-					var house = require(dbPath + "houseDB.json")[tokens[user].house];
-					var devices = require(dbPath + "deviceDB.json")[tokens[user].house];
-					var status = body.status ? "on" : "off";
-					if (body.device > devices.lenght){
-						callback({err:'device-not-found'});
+					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
+					var devices = require(dbPath + "deviceDB.json")[tokens[body.user].house];
+					if(typeof( body.status ) != 'boolean'){
+						callback({err:'invalid-status'})
+					}else{
+						var status = body.status ? "on" : "off";
+						if (body.device > devices.lenght){
+							callback({err:'device-not-found'});
+						}
+						switchPower({id:body.device, status:status, host:house.ip, temperature:body.temperature},callback);
+						
 					}
-					switchPower({id:body.device, status:status, host:house.ip});
-					
 				}else{
 					callback(err);
 				}
@@ -134,8 +138,7 @@ exports.switchDev = function(body, callback)
 		}
 	}
 
-	var house = require(dbPath + "houseDB.json")[tokens[user].house];
-	switchPower(id, status, house.ip)
+
 }
 
 exports.getMyChild = function(user, token, child, callback)
@@ -152,7 +155,7 @@ exports.getMyChild = function(user, token, child, callback)
 						for (i in usersHouse ){
 							if ( usersHouse[i] == tokens[user].house && i!= user){
 								
-								retorno[retorno.length] = {user:i, devices:users[i].devices};
+								retorno[retorno.length] = {user:i, devices:users[i].devices, name:users[i].name };
 							}
 							
 						}
@@ -392,7 +395,6 @@ function saveData(jsonData, filePath){
 	}
 }
 var insertUser = function(newData){
-	console.log(newData);
 	var logins = require(dbPath+'login'+'DB.json');
 	logins[newData['child']] = newData['house'];
 	saveData(logins, 'login');
@@ -487,13 +489,15 @@ var validateToken = function(user, token, callback)
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xmlhttp2 = new XMLHttpRequest();
 
-function switchPower(body){
+function switchPower(body,callback){
 	try{
-		console.log(getLinkDefault(body.host))
-		console.log(body);
-		
-		xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status, true);
+		if (body.temperature != undefined){
+			xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status+'&temperature='+body.temperature, true);
+		}else{
+			xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status, true);
+		}
 		xmlhttp2.send();
+		callback(null,"");
 	}catch(e){
 		//~ console.log(e);
 	}

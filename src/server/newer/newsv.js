@@ -314,7 +314,8 @@ app.delete('/achild',function (req,res){
 
 app.post('/adevice',function (req,res){
 		if (debug){
-		console.log("auserget: ");
+		console.log("apostdeve: ");
+		console.log(req.body);
 	}
 	{
 	AM.switchDev(req.body, function(e,o){
