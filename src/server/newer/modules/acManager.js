@@ -102,8 +102,38 @@ exports.getUser = function(user, token, callback)
 			callback({err:'missing-parameters'});
 	}
 }
-exports.switchDev = function(user, token,id,status, callback)
+exports.switchDev = function(body, callback)
+
 {
+	var templateBody = {
+		user:"",
+		token:"",
+		device:"",
+		status:""
+		
+	};
+	
+	for (var i in templateBody){
+		if (body[i] == undefined || body[i]== ""){
+			callback({err:"missing-parameters"});
+		}else{
+			validateToken(body.user, body.token, function(err, res) {
+				if (res){
+					var house = require(dbPath + "houseDB.json")[tokens[user].house];
+					var devices = require(dbPath + "deviceDB.json")[tokens[user].house];
+					var status = body.status ? "on" : "off";
+					if (body.device > devices.lenght){
+						callback({err:'device-not-found'});
+					}
+					switchPower({id:body.device, status:status, host:house.ip});
+					
+				}else{
+					callback(err);
+				}
+			});
+		}
+	}
+
 	var house = require(dbPath + "houseDB.json")[tokens[user].house];
 	switchPower(id, status, house.ip)
 }
@@ -457,12 +487,12 @@ var validateToken = function(user, token, callback)
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xmlhttp2 = new XMLHttpRequest();
 
-function switchPower(id, status, host){
+function switchPower(body){
 	try{
-		console.log(getLinkDefault(host))
-		console.log(id, status, host);
+		console.log(getLinkDefault(body.host))
+		console.log(body);
 		
-		xmlhttp2.open("POST", getLinkDefault(host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status, true);
 		xmlhttp2.send();
 	}catch(e){
 		//~ console.log(e);

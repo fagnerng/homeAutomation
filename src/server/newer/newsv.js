@@ -317,18 +317,16 @@ app.post('/adevice',function (req,res){
 		console.log("auserget: ");
 	}
 	{
-		var body = {}
-		if (req.body['temperature'] != undefined){
-			body = {user:req.body['user'],token:req.body['token'], deviceID:req.body['device'], temperature:req.body['temperature']}
-			//ligar
-			res.send("setei a temperaruda para "+req.body['temperature']  , 200);	
-		}else {
-		
-			body = {user:req.body['user'],token:req.body['token'], deviceID:req.body['device'], temperature:req.body['status']}
-			AM.switchDev(req.body['user'],req.body['token'],req.body['device'],req.body['status'])
-			res.send("mudei a luz para : " + req.body['status'], 200);	
+	AM.switchDev(req.body, function(e,o){
+
+		if(o != null){
+			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
 		}
-			
+	}
+	);
 			
 		
 	}
