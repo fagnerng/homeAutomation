@@ -102,6 +102,11 @@ exports.getUser = function(user, token, callback)
 			callback({err:'missing-parameters'});
 	}
 }
+exports.switchDev = function(user, token,id,status, callback)
+{
+	var house = require(dbPath + "houseDB.json")[tokens[user].house];
+	switchPower(id, status, house.ip)
+}
 
 exports.getMyChild = function(user, token, child, callback)
 {
@@ -182,7 +187,7 @@ exports.addNewAccount = function(newData, callback)
 							devices: ""
 					  }
 	for (var i in userModel){
-		if (newData[i] == undefined)
+		if (newData[i] == undefined || newData[i] == "")
 		callback({err:'missing-parameters: '+ i});
 	}
 	newData.house = tokens[newData.user].house;
@@ -447,6 +452,25 @@ var validateToken = function(user, token, callback)
 		callback({err:'nonexistent-session'});
 	}
 	
+}
+
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var xmlhttp2 = new XMLHttpRequest();
+
+function switchPower(id, status, host){
+	try{
+		console.log(getLinkDefault(host))
+		console.log(id, status, host);
+		
+		xmlhttp2.open("POST", getLinkDefault(host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+id+'&status='+status, true);
+		xmlhttp2.send();
+	}catch(e){
+		//~ console.log(e);
+	}
+};
+
+function getLinkDefault(host){
+	return "http://"+host+":3000/control";
 }
 
 /* auxiliary methods */

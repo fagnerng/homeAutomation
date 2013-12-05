@@ -232,7 +232,7 @@ app.get('/achild',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		console.log(req);
+		//console.log(req.paramss);
 	}
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
@@ -312,8 +312,32 @@ app.delete('/achild',function (req,res){
 	}
 });
 
+app.post('/adevice',function (req,res){
+		if (debug){
+		console.log("auserget: ");
+	}
+	{
+		var body = {}
+		if (req.body['temperature'] != undefined){
+			body = {user:req.body['user'],token:req.body['token'], deviceID:req.body['device'], temperature:req.body['temperature']}
+			//ligar
+			res.send("setei a temperaruda para "+req.body['temperature']  , 200);	
+		}else {
+		
+			body = {user:req.body['user'],token:req.body['token'], deviceID:req.body['device'], temperature:req.body['status']}
+			AM.switchDev(req.body['user'],req.body['token'],req.body['device'],req.body['status'])
+			res.send("mudei a luz para : " + req.body['status'], 200);	
+		}
+			
+			
+		
+	}
+});
+
+
 
 app.get('/alogout',function (req,res){
+	
 	
 	if (getUserAgent(req.headers)=="Desktop"){
 		res.redirect("/");

@@ -154,9 +154,11 @@ void parsedCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail
         server.httpSuccess();
       }
       else if (coder==2) {
+    
         server.httpStatusError();
       }
       else{
+  
         server.httpAuthError();
       }
       newStatus = "";
@@ -165,7 +167,8 @@ void parsedCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail
       id=  -1;
     }
     else{
-      server.httpParansError(); 
+   
+     server.httpParansError(); 
     }
 
     break;

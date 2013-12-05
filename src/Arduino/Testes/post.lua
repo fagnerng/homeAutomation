@@ -4,7 +4,7 @@ local response = nil
 local code = nil
 local http = require("socket.http")
 local ltn12 = require("ltn12")
-post.morpheus = "http://arduino.com.br"
+post.morpheus = "http://10.0.0.2"
 post.port = 3000
 post.endpoint = "/control"
 
