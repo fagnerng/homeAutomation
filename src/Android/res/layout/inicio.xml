@@ -29,7 +29,7 @@
     </ScrollView>
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -41,15 +41,15 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_above="@+id/edNome"
+        android:layout_alignLeft="@+id/edNome"
         android:text="Timer" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignBottom="@+id/edNome"
         android:layout_alignParentLeft="true" />
 
     <Switch

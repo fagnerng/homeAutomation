@@ -289,7 +289,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			case 2:
 				rootView = inflater.inflate(R.layout.users,
 						container, false);
-				final ListView list = (ListView) rootView.findViewById(R.id.listUser);
+				final ListView list = (ListView) rootView.findViewById(R.id.list_user);
 				
 				
 				

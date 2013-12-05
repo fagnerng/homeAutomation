@@ -27,6 +27,7 @@
     <string name="user_not_found">Usuário não foi encontrado</string>
     <string name="missing_parameters">Erro do programador, reporte o app </string>
     <string name="unkwon_erro">Erro desconhecido </string>
+    <string name="manage_devices">Dispositivos do usuario</string>
     <!-- Strings for edit device tab.xml -->
     
     <string name="device_name">Nome: </string>
@@ -49,7 +50,7 @@
     <string name="require_email">Email</string>
     <string name="require_pass">Senha</string>
     <string name="require_confirm_pass">Confirme a Senha</string>
-    <string name="next">Próximo</string>
+    <string name="register">Registrar</string>
 
     <!-- Strings for register_second.xml -->
     <string name="select_dev">Selecione dispositivos para o usuário</string>

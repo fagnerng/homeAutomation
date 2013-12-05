@@ -83,6 +83,20 @@ public abstract class Device implements Serializable{
 		this.type = type;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if(!(o instanceof Device) || o== null){
+			return false;
+		}
+		Device dev = (Device) o;
+		if(dev.getId() == dev.getId()){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
 	public abstract JSONObject generateBody(JSONObject json);
 	
 }

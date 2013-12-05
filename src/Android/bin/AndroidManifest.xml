@@ -44,10 +44,6 @@
             android:name="br.edu.ufcg.ccc.homeautomation.DeviceEdit"
             android:label="@string/app_name" >
         </activity>
-         <activity
-            android:name="br.edu.ufcg.ccc.homeautomation.RegisterActivity"
-            android:label="@string/app_name" >
-        </activity>
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.ChildActivity"
             android:label="@string/title_activity_child"

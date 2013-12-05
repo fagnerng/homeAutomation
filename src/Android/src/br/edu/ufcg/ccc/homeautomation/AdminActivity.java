@@ -3,6 +3,7 @@ package br.edu.ufcg.ccc.homeautomation;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,13 +14,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
 import br.edu.ufcg.ccc.homeautomation.listener.OnClickDeviceList;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
+import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 public class AdminActivity extends FragmentActivity {
 
@@ -33,6 +38,18 @@ public class AdminActivity extends FragmentActivity {
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
     private static User mUser;
+    private static ArrayList<User> childs;
+    private static ArrayList<Device> devices;
+    
+    public static void updateUsers(){
+    	RESTManager.getInstance().requestChild(new RequestsCallbackAdapter() {
+            
+            public void onFinishRequestChild(ArrayList<User> result) {
+                childs = result;
+            }
+        }, null);
+    }
+    
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -134,6 +151,7 @@ public class AdminActivity extends FragmentActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.activity_child, container, false);
+                    updateUsers();
                     mUser = UserManager.getInstance().getUserObject();
                     ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                     DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
@@ -151,8 +169,22 @@ public class AdminActivity extends FragmentActivity {
                      break;
                 case 3:
                 		rootView = inflater.inflate(R.layout.users, container, false);
-                	 ListView lv_User = (ListView)rootView.findViewById(R.id.listUser);
-                	 lv_User.setAdapter(new UserAdapter(rootView.getContext(), new ArrayList<User>()));
+                	 ListView lv_User = (ListView)rootView.findViewById(R.id.list_user);
+                	 
+                	 lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
+                	 
+                	 Button newUser = (Button) rootView.findViewById(R.id.new_user_menu);
+                	 final Intent i = new Intent(rootView.getContext(), RegisterActivity.class);
+                	 
+                	 newUser.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							
+							startActivity(i);
+							
+						}
+					});
                 	 
                 	break;
                 	

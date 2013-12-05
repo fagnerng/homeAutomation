@@ -8,11 +8,11 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/require_name"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:text="@string/require_name" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -21,52 +21,66 @@
         <requestFocus />
     </EditText>
 
-	<TextView
+    <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/require_email" 
-        android:layout_marginTop="10dp" />
-    
+        android:layout_marginTop="10dp"
+        android:text="@string/require_email" />
+
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
-	<TextView
+    <TextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/require_pass" 
-        android:layout_marginTop="10dp" />
-    
+        android:layout_marginTop="10dp"
+        android:text="@string/require_pass" />
+
     <EditText
-        android:id="@+id/editText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-	
-   	<TextView
-        android:id="@+id/tvConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/require_confirm_pass" 
-        android:layout_marginTop="10dp" />
-    	
-    <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/edSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/btnNext"
+    <TextView
+        android:id="@+id/tvConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next" />
+        android:layout_marginTop="10dp"
+        android:text="@string/require_confirm_pass" />
+
+    <EditText
+        android:id="@+id/edCsenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.79" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutRegister"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnNewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register" />
 
 </LinearLayout>
