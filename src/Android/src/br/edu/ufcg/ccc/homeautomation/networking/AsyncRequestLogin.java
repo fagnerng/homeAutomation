@@ -13,6 +13,8 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 import br.edu.ufcg.ccc.homeautomation.ChildActivity;
+import br.edu.ufcg.ccc.homeautomation.GuideActivity;
+import br.edu.ufcg.ccc.homeautomation.GuideActivityRoot;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.entities.Child;
 import br.edu.ufcg.ccc.homeautomation.entities.Root;
@@ -113,6 +115,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 					intent = new Intent(mContext, AdminActivity.class);
 				}else{
 					mUser = new Child(jsonToParse);
+					//intent = new Intent(mContext, GuideActivity.class);
 					intent = new Intent(mContext, ChildActivity.class);
 				}				
 				

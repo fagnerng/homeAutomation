@@ -29,23 +29,25 @@
     <string name="unkwon_erro">Erro desconhecido </string>
     <string name="manage_devices">Dispositivos do usuario</string>
     <!-- Strings for edit device tab.xml -->
-    
+
     <string name="device_name">Nome: </string>
     <string name="device_status">Status: </string>
-	<!-- Strings for tabs in the menu -->
+    <!-- Strings for tabs in the menu -->
     <string name="tab_devices">Dispositivos</string>
     <string name="tab_profile">Perfil</string>
     <string name="tab_manage_users">Usuários</string>
-    
     <string name="child_activity_name">Nome:</string>
     <string name="child_activity_email">Email:</string>
     <string name="child_activity_pass">Senha:</string>
     <string name="button_save">Salvar</string>
     <string name="button_cancel">Cancelar</string>
-    
-    
-    
+
     <!-- Strings for register_first.xml -->
+    <string name="short_name">Nome muito curto</string>
+    <string name="short_pass">Senha muito curta</string>
+    <string name="unmatched_pass">Senhas não conferem</string>
+    <string name="invalid_email">E-mail inválido</string>
+    <string name="no_devices">Selecione ao menos um dispositivo</string>
     <string name="require_name">Nome</string>
     <string name="require_email">Email</string>
     <string name="require_pass">Senha</string>
@@ -72,5 +74,7 @@
     <string name="title_activity_admin">AdminActivity</string>
     <string name="title_activity_child">ChildActivity</string>
     <string name="title_activity_device_edit">DeviceEdit</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_guide_activity_root">GuideActivityRoot</string>
 
 </resources>

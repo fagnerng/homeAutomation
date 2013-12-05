@@ -44,7 +44,7 @@
             android:name="br.edu.ufcg.ccc.homeautomation.DeviceEdit"
             android:label="@string/app_name" >
         </activity>
-         <activity
+        <activity
             android:name="br.edu.ufcg.ccc.homeautomation.RegisterActivity"
             android:label="@string/app_name" >
         </activity>
@@ -52,6 +52,14 @@
             android:name="br.edu.ufcg.ccc.homeautomation.ChildActivity"
             android:label="@string/title_activity_child"
             android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.GuideActivity"
+            android:label="@string/title_activity_guide" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.GuideActivityRoot"
+            android:label="@string/title_activity_guide_activity_root" >
         </activity>
     </application>
 

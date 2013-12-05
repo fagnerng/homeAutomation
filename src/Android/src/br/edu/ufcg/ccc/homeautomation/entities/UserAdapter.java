@@ -32,7 +32,7 @@ public class UserAdapter extends BaseAdapter{
 	public UserAdapter (Context context, List<User> users){
 		mInflater = LayoutInflater.from(context);
 		mUsers = users;
-		mUsers.add(UserManager.getInstance().getUserObject());}
+		}
 
 	
 	@Override

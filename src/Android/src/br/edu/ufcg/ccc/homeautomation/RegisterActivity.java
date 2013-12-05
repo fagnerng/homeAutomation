@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -27,8 +29,11 @@ public class RegisterActivity extends Activity {
 	private String email;
 	private String name;
 	private String password;
+	private String cPassword;
 	private String house;
 	private ArrayList<Integer> deviceIds;
+	private Drawable errorIcon;
+	View focusView;
 	
 	private void setIDs(List<CheckBox> cbList, ArrayList<Integer> idList,ArrayList<Device> devList){
 		for (int i = 0; i < cbList.size(); i++) {
@@ -65,13 +70,15 @@ public class RegisterActivity extends Activity {
 		final EditText tvName = (EditText) findViewById(R.id.edNome);
 		final EditText tveMail = (EditText) findViewById(R.id.edEmail);
 		final EditText tvSenha = (EditText) findViewById(R.id.edSenha);
-		EditText tvConfirmSenha = (EditText) findViewById(R.id.edCsenha);
+		final EditText tvConfirmSenha = (EditText) findViewById(R.id.edCsenha);
 		
 		final LinearLayout layout = (LinearLayout) this.findViewById(R.id.linearLayoutRegister);
 		TableRow row = null;
 		final List<CheckBox> cbList = new ArrayList<CheckBox>();
 		final ArrayList<Device> systemDevices = UserManager.getInstance().getUserObject().getDevices();
 		deviceIds = new ArrayList<Integer>();
+		errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
+		errorIcon.setBounds(new Rect(0, 0, errorIcon.getIntrinsicWidth(), errorIcon.getIntrinsicHeight()));
 		for (int i = 0; i < systemDevices.size(); i++) {
 			row =new TableRow(layout.getContext());
 			row.setId(i);
@@ -111,9 +118,34 @@ public class RegisterActivity extends Activity {
 				name = tvName.getText().toString();
 				email = tveMail.getText().toString();
 				password =tvSenha.getText().toString();
-				createUser(email, password, name, email, house, deviceIds);
-				Intent i =  new Intent(getApplicationContext(),AdminActivity.class);
-				startActivity(i);
+				cPassword = tvConfirmSenha.getText().toString();
+				if(name.length() < 3){
+					tvName.setError(v.getResources().getString(R.string.short_name), errorIcon);
+					focusView = tvName;
+					focusView.requestFocus();
+				}else if (password.length() < 5){
+					tvSenha.setError(v.getResources().getString(R.string.short_pass), errorIcon);
+					focusView = tvSenha;
+					focusView.requestFocus();
+				}else if (!(password.equals(cPassword))){
+					tvSenha.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+					focusView = tvSenha;
+					focusView.requestFocus();
+				}else if (!(email.contains("@"))){
+					tveMail.setError(v.getResources().getString(R.string.invalid_email), errorIcon);
+					focusView = tveMail;
+					focusView.requestFocus();
+				}else if (deviceIds.size() == 0){
+					cbList.get(0).setError(v.getResources().getString(R.string.no_devices));
+					focusView = layout;
+					focusView.requestFocus();
+				}else{
+					createUser(email, password, name, email, house, deviceIds);
+					Intent i =  new Intent(getApplicationContext(),AdminActivity.class);
+					startActivity(i);
+				}
+				//AdminActivity.updateUsers();
+				
 				
 			}
 		});

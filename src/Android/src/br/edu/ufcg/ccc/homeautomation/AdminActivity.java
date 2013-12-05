@@ -42,12 +42,16 @@ public class AdminActivity extends FragmentActivity {
     private static ArrayList<Device> devices;
     
     public static void updateUsers(){
+
     	RESTManager.getInstance().requestChild(new RequestsCallbackAdapter() {
             
             public void onFinishRequestChild(ArrayList<User> result) {
                 childs = result;
+                for (User user : result) {
+					System.out.println("USER:" + user.getName());
+				}
             }
-        }, null);
+        },null);
     }
     
     /**
@@ -60,6 +64,8 @@ public class AdminActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        updateUsers();
 
 		
 		
@@ -71,6 +77,9 @@ public class AdminActivity extends FragmentActivity {
         mViewPager.setBackgroundColor(getResources().getColor(R.color.background));
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
+        Intent intent = getIntent();
+		int tabToOpen = intent.getIntExtra("tab", -1);
+		mViewPager.setCurrentItem(tabToOpen);
       
     }
 
@@ -168,7 +177,8 @@ public class AdminActivity extends FragmentActivity {
                     pass.setText("*******");
                      break;
                 case 3:
-                		rootView = inflater.inflate(R.layout.users, container, false);
+                	rootView = inflater.inflate(R.layout.users, container, false);
+                	
                 	 ListView lv_User = (ListView)rootView.findViewById(R.id.list_user);
                 	 
                 	 lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));

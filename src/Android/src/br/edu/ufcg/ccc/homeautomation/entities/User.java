@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
+
 /**
  * @author Bruno Paiva
  * 
@@ -22,7 +24,7 @@ public abstract class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String TAG_DEVICES = "devices";
-	
+
 	private String user;
 	private String token;
 	private String name;
@@ -33,7 +35,6 @@ public abstract class User implements Serializable {
 	private double lon;
 
 	private ArrayList<Device> devices;
-
 
 	/**
 	 * @param json
@@ -46,11 +47,33 @@ public abstract class User implements Serializable {
 	 */
 	public User(JSONObject json) {
 		devices = new ArrayList<Device>();
-
+System.out.println(json.toString());
 		if (json != null) {
 
 			JSONArray devs = null;
 			try {
+				this.user = json.getString("user");
+
+				devs = json.getJSONArray(TAG_DEVICES);
+				try {
+					for (int i = 0; i < devs.length(); i++) {
+						devices.add(UserManager.getInstance().getUserObject()
+								.getDevices()
+								.get((Integer) devs.get(i)));
+					}
+
+				} catch (Exception e) {
+					for (int i = 0; i < devs.length(); i++) {
+
+						if (devs.getJSONObject(i).getString("type")
+								.equals("airCondition")) {
+							devices.add(new AirCondition(devs.getJSONObject(i)));
+						} else {
+							devices.add(new Light(devs.getJSONObject(i)));
+						}
+					}
+				}
+
 				this.name = json.getString("name");
 				this.email = json.getString("email");
 				this.user = json.getString("user");
@@ -58,18 +81,9 @@ public abstract class User implements Serializable {
 				this.lat = json.getDouble("lati");
 				this.lon = json.getDouble("long");
 				this.token = json.getString("token");
-				
-				devs = json.getJSONArray(TAG_DEVICES);
-					for (int i = 0; i < devs.length(); i++) {
-					if (devs.getJSONObject(i).getString("type").equals("airCondition")){
-						devices.add(new AirCondition(devs.getJSONObject(i)));
-					}else{
-						devices.add(new Light(devs.getJSONObject(i)));
-					}
-				}
 
 			} catch (JSONException e) {
-				 e.printStackTrace();
+				// e.printStackTrace();
 			}
 		}
 
@@ -149,8 +163,8 @@ public abstract class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", email=" + email + ", user=" + user
-				+ ", house=" + house + ", currentToken=" + token
-				+ ", admin=" + admin + ", lat=" + lat + ", lon=" + lon
-				+ ", devices=" + devices + "]";
+				+ ", house=" + house + ", currentToken=" + token + ", admin="
+				+ admin + ", lat=" + lat + ", lon=" + lon + ", devices="
+				+ devices + "]";
 	}
 }
