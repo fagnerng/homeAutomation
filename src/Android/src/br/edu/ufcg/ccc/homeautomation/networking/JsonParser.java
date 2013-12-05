@@ -6,9 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.edu.ufcg.ccc.homeautomation.entities.Child;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.Light;
-import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 /**
@@ -39,8 +39,13 @@ public class JsonParser {
 		
 		ArrayList<User> users = new ArrayList<User>();
 		
-		if (jsonText == null || jsonText.equals("err"))
+		if (jsonText == null || jsonText.equals("err")){
+			System.out.println("NULL!??");
 			return users;
+		}
+			
+			
+			
 		
     	try {
     		//JSONObject json Verificar json que sera recebido
@@ -50,20 +55,14 @@ public class JsonParser {
  
     	    	JSONObject userJson = json.getJSONObject(i);
     	    	
-    	        User user = new Root(userJson);
-
-    	        ArrayList<Device> devices = new ArrayList<Device>();
-    	        JSONArray tagDevices =  userJson.getJSONArray(TAG_DEVICES);
+    	        User user = new Child(userJson);
     	        
-    	        for (int j=0; j<tagDevices.length(); j++){
-    	        	JSONObject dev = tagDevices.getJSONObject(j);
-    	        	devices.add(new Light(dev));
-    	        }
-    	        user.setDevices(devices); //Setting the User Devices
+    	        System.out.println("USER CREATING:" + user.getName());
     	        users.add(user);
     	    }
     	} catch (JSONException e) {
-    	    e.printStackTrace();
+    	    System.out.println("Exceção de json...");
+    		e.printStackTrace();
     	}
 		
 		return users;
