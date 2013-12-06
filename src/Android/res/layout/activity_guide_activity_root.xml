@@ -10,23 +10,12 @@
     tools:context=".GuideActivity" >
 
     <ImageButton
-        android:id="@+id/device_button_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/icon_button_root"
-        android:layout_marginRight="39dp"
-        android:layout_marginTop="54dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/device" />
-
-    <ImageButton
         android:id="@+id/user_button_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/device_button_root"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="40dp"
         android:background="@android:color/transparent"
         android:src="@drawable/users_icon" />
 
@@ -34,11 +23,21 @@
         android:id="@+id/icon_button_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_button_root"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="54dp"
-        android:layout_marginTop="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
         android:background="@android:color/transparent"
         android:src="@drawable/user_icon" />
+
+    <ImageButton
+        android:id="@+id/device_button_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/icon_button_root"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/device" />
 
 </RelativeLayout>

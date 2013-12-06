@@ -30,7 +30,7 @@ public class RESTManager {
     }
     
     // Remember to change the IP ADDRESS to the server IP
-    public static final String URL_DEFAULT = "http://192.168.2.19:9000/";
+    public static final String URL_DEFAULT = "http://192.168.2.30:9000/";
     public static final String URL_GET_TOKEN = URL_DEFAULT + "alogin";
     public static final String URL_GET_CHILD = URL_DEFAULT + "achild";
     public static final String URL_GET_USER = URL_DEFAULT + "auser";
