@@ -112,7 +112,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				Intent intent= null;
 				if (jsonToParse.getBoolean("admin")){
 					mUser = new Root(jsonToParse);
-					intent = new Intent(mContext, AdminActivity.class);
+					intent = new Intent(mContext, GuideActivityRoot.class);
 				}else{
 					mUser = new Child(jsonToParse);
 					//intent = new Intent(mContext, GuideActivity.class);

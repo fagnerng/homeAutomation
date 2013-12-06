@@ -163,11 +163,12 @@ public class AdminActivity extends FragmentActivity {
                 Bundle savedInstanceState) {
 
             View rootView = null;
+            mUser = UserManager.getInstance().getUserObject();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.activity_child, container, false);
-                    mUser = UserManager.getInstance().getUserObject();
+                    
                     ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                     DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
                     lv_devices.setOnItemClickListener(new OnClickDeviceList());

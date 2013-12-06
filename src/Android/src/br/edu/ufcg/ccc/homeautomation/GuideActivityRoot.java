@@ -26,12 +26,33 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-				intent.putExtra("tab", 0);
+				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				intent.putExtra("tab", 1);
 				startActivity(intent);
 				
 			}
 		});
+		
+		rootDevices.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				intent.putExtra("tab", 0);
+				startActivity(intent);
+			}
+		});
+		
+		rootUsers.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				intent.putExtra("tab", 2);
+				startActivity(intent);
+			}
+		});
+		
 		
 		
 		
