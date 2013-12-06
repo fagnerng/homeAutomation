@@ -3,10 +3,8 @@ package br.edu.ufcg.ccc.homeautomation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.TextView;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
-import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class DeviceEdit extends Activity {
 

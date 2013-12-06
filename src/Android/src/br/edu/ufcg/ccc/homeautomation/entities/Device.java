@@ -71,7 +71,11 @@ public abstract class Device implements Serializable{
 		this.id = id;
 	}
 
-	abstract public String getStatus();
+	abstract public String getStringStatus();
+	
+	public boolean getStatus(){
+		return this.status;
+	}
 
 	public void setStatus(boolean status) {
 		this.status = status;

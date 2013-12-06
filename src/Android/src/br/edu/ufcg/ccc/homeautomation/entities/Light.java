@@ -28,7 +28,7 @@ public class Light extends Device {
 	}
 
 	@Override
-	public String getStatus() {
+	public String getStringStatus() {
 		if(super.status){
 			return "Ligado";
 		}

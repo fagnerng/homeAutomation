@@ -3,7 +3,6 @@ package br.edu.ufcg.ccc.homeautomation.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,14 +14,14 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.TableRow.LayoutParams;
+import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
-import br.edu.ufcg.ccc.homeautomation.AdminActivity;
 
 public class UserAdapter extends BaseAdapter{
 	
@@ -36,7 +35,6 @@ public class UserAdapter extends BaseAdapter{
 		mUsers = users;
 		}
 
-	
 	@Override
 	public int getCount() {
 		return mUsers.size();
@@ -94,10 +92,7 @@ public class UserAdapter extends BaseAdapter{
 				excluir.dismiss();
 				
 			}
-		});
-		
-		
-		
+		});	
 	}
 	
 	private void updateDevices(ArrayList<Device> systemDevices,
@@ -122,8 +117,6 @@ public class UserAdapter extends BaseAdapter{
                 }
             }
         }, user.getUser(),iDevices);
-		
-        
 
 		
 		
@@ -137,8 +130,6 @@ public class UserAdapter extends BaseAdapter{
 		final Dialog devicesDialog = new Dialog(v.getContext(),R.style.myCoolDialog);
 		final ArrayList<Device> systemDevices = UserManager.getInstance().getUserObject().getDevices();
 		final ArrayList<Device> userDevices = user.getDevices();
-		
-		
 		
 		devicesDialog.setContentView(R.layout.dialog_devices);
 		final LinearLayout layout = (LinearLayout) devicesDialog.findViewById(R.id.dialogDevicesLayout);
@@ -167,14 +158,11 @@ public class UserAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				updateDevices(systemDevices,userDevices,cbList, user);
 				devicesDialog.dismiss();
-				
 			}
-
 		
 		});
 		
 		devicesDialog.show();
-		
 	}
 
 	@Override
@@ -186,8 +174,6 @@ public class UserAdapter extends BaseAdapter{
 		String nameUser = user.getName();
 		name.setText(nameUser);
 		
-		
-		
 		buttonEdit = (ImageButton) view.findViewById(R.id.button_edit);
 		buttonDelete = (ImageButton) view.findViewById(R.id.button_remove);
 		
@@ -197,7 +183,6 @@ public class UserAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				System.out.println(user.getDevices().toString());
 				callDialogDevices(v, user);
-				
 			}
 		});
 		
@@ -209,9 +194,6 @@ public class UserAdapter extends BaseAdapter{
 				
 			}
 		});
-		
-
-		
 		
 		return view;
 	}

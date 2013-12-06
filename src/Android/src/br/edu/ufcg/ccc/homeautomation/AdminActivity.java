@@ -24,7 +24,6 @@ import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
-import br.edu.ufcg.ccc.homeautomation.listener.OnClickDeviceList;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
@@ -174,7 +173,6 @@ public class AdminActivity extends FragmentActivity {
                     
                     ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                     DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
-                    lv_devices.setOnItemClickListener(new OnClickDeviceList());
                     lv_devices.setAdapter(devAdapter);
                     break;
                 case 2:

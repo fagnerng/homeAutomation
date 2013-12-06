@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
-import br.edu.ufcg.ccc.homeautomation.listener.OnClickDeviceList;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
 public class ChildActivity extends FragmentActivity {
@@ -134,7 +133,7 @@ public class ChildActivity extends FragmentActivity {
                     mUser = UserManager.getInstance().getUserObject();
                     ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                     DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
-                    lv_devices.setOnItemClickListener(new OnClickDeviceList());
+//                    lv_devices.setOnItemClickListener(new OnClickDeviceList());
                     lv_devices.setAdapter(devAdapter);
                     break;
                 case 2:
