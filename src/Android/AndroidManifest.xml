@@ -57,10 +57,13 @@
             android:name="br.edu.ufcg.ccc.homeautomation.GuideActivity"
             android:label="@string/title_activity_guide" >
         </activity>
-
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.GuideActivityRoot"
             android:label="@string/title_activity_guide_activity_root" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.PrefsActivity"
+            android:label="@string/title_activity_prefs" >
         </activity>
     </application>
 

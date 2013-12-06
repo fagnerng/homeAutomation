@@ -1,9 +1,13 @@
 package br.edu.ufcg.ccc.homeautomation;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -62,7 +66,19 @@ public class GuideActivityRoot extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.guide_activity_root, menu);
+		menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				Intent i = new Intent(getApplicationContext(),PrefsActivity.class);
+				startActivity(i);
+				return false;
+			}
+		});
 		return true;
 	}
-
 }
+
+
+
+

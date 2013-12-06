@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
@@ -182,6 +185,33 @@ public class AdminActivity extends FragmentActivity {
                     name.setText(mUser.getName());
                     email.setText(mUser.getEmail());
                     pass.setText("*******");
+                    final TextView tvSave = (TextView) rootView.findViewById(R.id.tv_save);
+                    tvSave.setVisibility( TextView.INVISIBLE);
+                    
+                    TextWatcher twatcher = new TextWatcher() {
+
+                        public void onTextChanged(CharSequence s, int start, int before,
+                                int count) {
+                            if(!s.equals("") ){ 
+                            	 tvSave.setVisibility(TextView.VISIBLE);
+                            }
+
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count,
+                                int after) {
+
+                        }
+
+						@Override
+						public void afterTextChanged(Editable s) {
+							tvSave.setVisibility(TextView.VISIBLE);
+							
+						}
+                    };
+                    name.addTextChangedListener(twatcher);
+                    email.addTextChangedListener(twatcher);
+                    pass.addTextChangedListener(twatcher);
                      break;
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);
