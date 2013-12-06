@@ -40,19 +40,28 @@ public class AdminActivity extends FragmentActivity {
     private static User mUser;
     private static ArrayList<User> childs;
     private static ArrayList<Device> devices;
+    private static ListView lv_User;
     
-    public static void updateUsers(){
+    public static ListView getLv_User() {
+		return lv_User;
+	}
+
+
+	public static void updateUsers(final ListView lv, final View v){
 
     	RESTManager.getInstance().requestChild(new RequestsCallbackAdapter() {
             
             public void onFinishRequestChild(ArrayList<User> result) {
                 childs = result;
+                lv.setAdapter(new UserAdapter(v.getContext(), childs));
                 for (User user : result) {
 					System.out.println("USER:" + user.getName());
 				}
             }
         },null);
     }
+    
+
     
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -64,8 +73,6 @@ public class AdminActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        updateUsers();
 
 		
 		
@@ -160,7 +167,6 @@ public class AdminActivity extends FragmentActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.activity_child, container, false);
-                    updateUsers();
                     mUser = UserManager.getInstance().getUserObject();
                     ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                     DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
@@ -179,9 +185,11 @@ public class AdminActivity extends FragmentActivity {
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);
                 	
-                	 ListView lv_User = (ListView)rootView.findViewById(R.id.list_user);
+                	 lv_User = (ListView)rootView.findViewById(R.id.list_user);
                 	 
-                	 lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
+                	 updateUsers(lv_User, rootView);
+                	 
+                	 //lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
                 	 
                 	 Button newUser = (Button) rootView.findViewById(R.id.new_user_menu);
                 	 final Intent i = new Intent(rootView.getContext(), RegisterActivity.class);

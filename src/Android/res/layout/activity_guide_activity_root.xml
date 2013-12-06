@@ -10,21 +10,13 @@
     tools:context=".GuideActivity" >
 
     <ImageButton
-        android:id="@+id/icon_button_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageButton2"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:background="@android:color/transparent"
-        android:src="@drawable/user_icon" />
-
-    <ImageButton
         android:id="@+id/device_button_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/icon_button_root"
+        android:layout_marginRight="39dp"
+        android:layout_marginTop="54dp"
         android:background="@android:color/transparent"
         android:src="@drawable/device" />
 
@@ -32,10 +24,21 @@
         android:id="@+id/user_button_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButton3"
-        android:layout_marginTop="52dp"
-        android:layout_toLeftOf="@+id/imageButton3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/device_button_root"
+        android:layout_marginLeft="24dp"
         android:background="@android:color/transparent"
         android:src="@drawable/users_icon" />
+
+    <ImageButton
+        android:id="@+id/icon_button_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_button_root"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="72dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/user_icon" />
 
 </RelativeLayout>

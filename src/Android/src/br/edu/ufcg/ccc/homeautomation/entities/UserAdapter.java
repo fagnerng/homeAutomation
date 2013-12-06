@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
@@ -26,8 +28,8 @@ public class UserAdapter extends BaseAdapter{
 	
 	private List<User> mUsers;
 	private LayoutInflater mInflater;
-	private Button buttonEdit;
-	private Button buttonDelete;
+	private ImageButton buttonEdit;
+	private ImageButton buttonDelete;
 	
 	public UserAdapter (Context context, List<User> users){
 		mInflater = LayoutInflater.from(context);
@@ -50,8 +52,22 @@ public class UserAdapter extends BaseAdapter{
 		return index;
 	}
 	
-	private void deleteUser(User user){
-		AdminActivity.updateUsers();
+	private void deleteUser(User user,final View v){
+		 RESTManager.getInstance().requestChildDelete(new RequestsCallbackAdapter() {
+	            
+	            @Override
+	            public void onFinishRequestChildCRUD (Boolean result) {
+	                if (result){
+	                	Toast.makeText(v.getContext(),"Usuario Deletado", Toast.LENGTH_SHORT).show();
+	                	System.out.println("deu certo a bagaça");
+	                }else{
+	                    System.out.println("nao deu certo");
+	                }
+	            }
+	        }, user.getUser());
+
+		
+		AdminActivity.updateUsers(AdminActivity.getLv_User(),v);
 	}
 	
 	private void callDialogDelete(View v, final User u){
@@ -74,7 +90,7 @@ public class UserAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				deleteUser(u);
+				deleteUser(u, v);
 				excluir.dismiss();
 				
 			}
@@ -85,7 +101,7 @@ public class UserAdapter extends BaseAdapter{
 	}
 	
 	private void updateDevices(ArrayList<Device> systemDevices,
-			ArrayList<Device> userDevices, List<CheckBox> cbList, User user) {
+		ArrayList<Device> userDevices, List<CheckBox> cbList, User user) {
 		user.getDevices().clear();
 		ArrayList<Integer> iDevices = new ArrayList<Integer>();
 		for (int i = 0; i < cbList.size(); i++) {
@@ -117,9 +133,9 @@ public class UserAdapter extends BaseAdapter{
 		
 	}
 	
-	private void callDialogDevices(View v,final User user,User rootUser){
+	private void callDialogDevices(View v,final User user){
 		final Dialog devicesDialog = new Dialog(v.getContext(),R.style.myCoolDialog);
-		final ArrayList<Device> systemDevices = rootUser.getDevices();
+		final ArrayList<Device> systemDevices = UserManager.getInstance().getUserObject().getDevices();
 		final ArrayList<Device> userDevices = user.getDevices();
 		
 		
@@ -137,6 +153,7 @@ public class UserAdapter extends BaseAdapter{
 			CheckBox checkBox = new CheckBox(devicesDialog.getContext());
 			checkBox.setId(j);
 			checkBox.setText(systemDevices.get(j).getName());
+			System.out.println("CONTAINS?: " + userDevices.contains(systemDevices.get(j)));
 			checkBox.setChecked(userDevices.contains(systemDevices.get(j)));
 			cbList.add(checkBox);
 			row.addView(checkBox);
@@ -171,14 +188,15 @@ public class UserAdapter extends BaseAdapter{
 		
 		
 		
-		buttonEdit = (Button) view.findViewById(R.id.button_edit);
-		buttonDelete = (Button) view.findViewById(R.id.button_remove);
+		buttonEdit = (ImageButton) view.findViewById(R.id.button_edit);
+		buttonDelete = (ImageButton) view.findViewById(R.id.button_remove);
 		
 		buttonEdit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				callDialogDevices(v, user, UserManager.getInstance().getUserObject());
+				System.out.println(user.getDevices().toString());
+				callDialogDevices(v, user);
 				
 			}
 		});

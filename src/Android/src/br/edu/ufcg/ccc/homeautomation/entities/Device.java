@@ -89,7 +89,7 @@ public abstract class Device implements Serializable{
 			return false;
 		}
 		Device dev = (Device) o;
-		if(dev.getId() == dev.getId()){
+		if(dev.getId() == this.getId()){
 			return true;
 		}else{
 			return false;

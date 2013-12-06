@@ -13,18 +13,21 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name" />
+        android:text="@string/app_name"
+        android:textColor="@color/white" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/section_label"
         android:layout_marginRight="14dp"
-        android:drawableLeft="@drawable/ic_action_discard" />
+        android:drawableLeft="@drawable/ic_action_discard" 
+        android:src="@drawable/ic_action_discard"
+        android:background="@null"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/button_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +35,7 @@
         android:layout_alignBottom="@+id/button_remove"
         android:layout_marginRight="16dp"
         android:layout_toLeftOf="@+id/button_remove"
-        android:background="@drawable/ic_action_edit" />
+        android:src="@drawable/ic_action_edit"
+        android:background="@null"/>
 
 </RelativeLayout>
