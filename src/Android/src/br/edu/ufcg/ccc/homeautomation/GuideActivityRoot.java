@@ -29,6 +29,9 @@ public class GuideActivityRoot extends Activity {
 		rootProfile = (ImageButton) findViewById(R.id.icon_button_root);
 		rootDevices = (ImageButton) findViewById(R.id.device_button_root);
 		rootUsers = (ImageButton) findViewById(R.id.user_button_root);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean status = prefs.getBoolean("distance",true);
+		System.err.println(status);
 		
 		rootProfile.setOnClickListener(new View.OnClickListener() {
 			

@@ -251,4 +251,11 @@ public class AdminActivity extends FragmentActivity {
 
 
     }
+    
+    @Override
+    public void onBackPressed() {
+    	Intent intent = new Intent(getApplicationContext(), GuideActivityRoot.class);
+    	startActivity(intent);
+    	super.onBackPressed();
+    }
 }

@@ -164,5 +164,13 @@ public class RegisterActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+		intent.putExtra("tab", 2);
+		startActivity(intent);
+	super.onBackPressed();
+}
 
 }
