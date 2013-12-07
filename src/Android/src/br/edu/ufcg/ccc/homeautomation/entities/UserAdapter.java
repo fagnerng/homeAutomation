@@ -8,6 +8,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,6 +28,7 @@ import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 public class UserAdapter extends BaseAdapter{
 	
+	private Animation rotate;
 	private List<User> mUsers;
 	private LayoutInflater mInflater;
 	private ImageButton buttonEdit;
@@ -75,6 +79,7 @@ public class UserAdapter extends BaseAdapter{
 		Button excluirSim = (Button) excluir.findViewById(R.id.excluirSim);
 		Button excluirNao = (Button) excluir.findViewById(R.id.excluirNao);
 		excluir.show();
+		rotate.reset();
 		excluirNao.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -151,7 +156,7 @@ public class UserAdapter extends BaseAdapter{
 			layout.addView(row); 
 		}
 		Button confirm = (Button) devicesDialog.findViewById(R.id.confirm);
-		
+		rotate.reset();
 		confirm.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -176,21 +181,71 @@ public class UserAdapter extends BaseAdapter{
 		
 		buttonEdit = (ImageButton) view.findViewById(R.id.button_edit);
 		buttonDelete = (ImageButton) view.findViewById(R.id.button_remove);
-		
-		buttonEdit.setOnClickListener(new View.OnClickListener() {
+		 rotate = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate);
+		 
+		 
+		 final View v1= view.findViewById(R.id.button_edit);
+		 buttonEdit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				System.out.println(user.getDevices().toString());
-				callDialogDevices(v, user);
+				rotate.setAnimationListener(new AnimationListener() {
+					
+					
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void onAnimationEnd(Animation animation) {
+						callDialogDevices(v, user);
+						
+					}
+				});
+				if(v1 != null){
+					v.clearAnimation();
+			        v.startAnimation(rotate);
+				}
+				
 			}
 		});
 		
+		
+		final View v2= view.findViewById(R.id.button_remove);
 		buttonDelete.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				callDialogDelete(v,user);
+			public void onClick(final View v) {
+				rotate.setAnimationListener(new AnimationListener() {
+					
+					
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void onAnimationEnd(Animation animation) {
+						callDialogDelete(v,user);
+						
+					}
+				});
+				
+				if(v2 != null){
+					v.clearAnimation();
+			        v.startAnimation(rotate);
+				}
+				
 				
 			}
 		});

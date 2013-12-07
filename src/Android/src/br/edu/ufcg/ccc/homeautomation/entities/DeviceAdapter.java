@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
@@ -69,10 +71,13 @@ public class DeviceAdapter extends BaseAdapter{
 		
 		final ImageButton ib_switch = (ImageButton) view.findViewById(R.id.ib_icon_switch);
 		
+		final Animation press = AnimationUtils.loadAnimation(view.getContext(),R.anim.reversed_scale);
+		
 		ib_switch.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				v.startAnimation(press);
 				executeSwitchPower(v, dev, ib_switch);
 			}
 		});

@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
 public class GuideActivityRoot extends Activity {
@@ -22,6 +24,8 @@ public class GuideActivityRoot extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide_activity_root);
 		
+		final Animation scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
+		
 		rootProfile = (ImageButton) findViewById(R.id.icon_button_root);
 		rootDevices = (ImageButton) findViewById(R.id.device_button_root);
 		rootUsers = (ImageButton) findViewById(R.id.user_button_root);
@@ -30,6 +34,7 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				v.startAnimation(scale);
 				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
 				intent.putExtra("tab", 1);
 				startActivity(intent);
@@ -41,6 +46,7 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				v.startAnimation(scale);
 				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
 				intent.putExtra("tab", 0);
 				startActivity(intent);
@@ -51,6 +57,7 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				v.startAnimation(scale);
 				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
 				intent.putExtra("tab", 2);
 				startActivity(intent);

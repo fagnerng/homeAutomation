@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -185,13 +187,15 @@ public class AdminActivity extends FragmentActivity {
                     pass.setText("*******");
                     final TextView tvSave = (TextView) rootView.findViewById(R.id.tv_save);
                     tvSave.setVisibility( TextView.INVISIBLE);
+                    final Animation scale = AnimationUtils.loadAnimation(rootView.getContext(),R.anim.scale);
                     
                     TextWatcher twatcher = new TextWatcher() {
 
                         public void onTextChanged(CharSequence s, int start, int before,
                                 int count) {
                             if(!s.equals("") ){ 
-                            	 tvSave.setVisibility(TextView.VISIBLE);
+                            	 tvSave.setAnimation(scale);
+                            	tvSave.setVisibility(TextView.VISIBLE);
                             }
 
                         }
@@ -203,6 +207,7 @@ public class AdminActivity extends FragmentActivity {
 
 						@Override
 						public void afterTextChanged(Editable s) {
+							tvSave.setAnimation(scale);
 							tvSave.setVisibility(TextView.VISIBLE);
 							
 						}
