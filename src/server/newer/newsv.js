@@ -172,7 +172,7 @@ app.get('/auser',function (req,res){
 	//~ }else
 		if (debug){
 		console.log("auserget: ");
-		console.log(req.params);
+		console.log(req.param['user']);
 	}
 	{
 		var token = req.param('token');
@@ -188,11 +188,11 @@ app.get('/auser',function (req,res){
 		});
 		}
 		AM.getUser(user,token,function(e, o){
-
+			console.log(e,o);
 			if(o != null){
 				o.pass = undefined;
 				o.token = token;
-				console.log(o);
+				//~ console.log(o);
 				res.send(o, 200);	
 				
 			}else{
@@ -232,7 +232,7 @@ app.get('/achild',function (req,res){
 		//~ res.redirect("/");
 	//~ }else
 		if (debug){
-		//console.log(req.paramss);
+		console.log(req.params);
 	}
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
@@ -321,15 +321,15 @@ app.post('/adevice',function (req,res){
 	AM.switchDev(req.body, function(e,o){
 
 		if(o != null){
-			res.send(o, 200);	
+			//res.send(o, 200);	
 		}else
 		{
-			res.send(e, 300);	
+			//res.send(e, 300);	
 		}
 	}
 	);
 			
-		
+	res.send("", 200);		
 	}
 });
 

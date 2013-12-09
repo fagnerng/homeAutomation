@@ -26,6 +26,39 @@
         "user": "andersongfs",
         "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
         "house": "house_000",
-        "devices": [0,1]
+        "devices": [
+            0,
+            1
+        ]
+    },
+    "ze@gmail.com": {
+        "name": "jose",
+        "email": "ze@gmail.com",
+        "user": "ze@gmail.com",
+        "pass": "9UIRcYGR8J7dd18a48f1ec9e0c2868438a68ee2f2b",
+        "house": "house_000",
+        "devices": [
+            0
+        ]
+    },
+    "jose@gmail.com": {
+        "name": "zelito",
+        "email": "jose@gmail.com",
+        "user": "jose@gmail.com",
+        "pass": "GDrm0UCvAE24ff9b84683045740835f58820c73ff4",
+        "house": "house_000",
+        "devices": [
+            1
+        ]
+    },
+    "huehue@gmail.com": {
+        "name": "hehehehe",
+        "email": "huehue@gmail.com",
+        "user": "huehue@gmail.com",
+        "pass": "6uvqux3NUB793954a1c647265f2891db4cb017e586",
+        "house": "house_000",
+        "devices": [
+            0
+        ]
     }
 }

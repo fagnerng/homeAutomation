@@ -1,5 +1,7 @@
 var crypto 		= require('crypto');
 var dbPath = "../jsonDB/";
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 var tokens = {};
 tokens.fagnerng = {};
 tokens.fagnerng.token= 'abc';
@@ -108,38 +110,40 @@ exports.switchDev = function(body, callback)
 	var templateBody = {
 		user:"",
 		token:"",
-		device:"",
+		devices:"",
 		status:""
 		
 	};
-	
+	var error = false
 	for (var i in templateBody){
 		if (body[i] == undefined || body[i]== ""){
 			callback({err:"missing-parameters"});
-		}else{
+		}
+	}
 			validateToken(body.user, body.token, function(err, res) {
 				if (res){
 					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
-					var devices = require(dbPath + "deviceDB.json")[tokens[body.user].house];
+					var devices = require(dbPath + "deviceDB.json")
 					if(typeof( body.status ) != 'boolean'){
 						callback({err:'invalid-status'})
 					}else{
 						var status = body.status ? "on" : "off";
-						if (body.device > devices.lenght){
+						if (body.devices > devices[tokens[body.user].house].lenght){
 							callback({err:'device-not-found'});
 						}
-						switchPower({id:body.device, status:status, host:house.ip, temperature:body.temperature},callback);
-						
+						switchPower({id:body.devices, status:status, host:house.ip, temperature:body.temperature},callback);
+						 devices[tokens[body.user].house][body.devices].status = body.status;
+						saveData(devices, 'device');
 					}
 				}else{
 					callback(err);
 				}
 			});
-		}
+		
 	}
 
 
-}
+
 
 exports.getMyChild = function(user, token, child, callback)
 {
@@ -344,6 +348,7 @@ exports.AndroidLogin = function(user, pass, callback){
 
 // find user by login
 getOneUserByLogin = function(user, callback){
+	//~ console.log(user)
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
@@ -351,27 +356,30 @@ getOneUserByLogin = function(user, callback){
 		var admin = h['admin'] == o['user'];
 		var devices = [];		
 		var allDevs = require(dbPath+'deviceDB.json')[o['house']];
-		
-		if (admin){
-			devices = allDevs;
-		}else{	
-			var tempDevs = o['devices'];
-			for (var i = 0; i<tempDevs.length;i++){
-				devices[i]=allDevs[parseInt(tempDevs[i])]
+		getStatusDev({id:o['house'], ip:h['ip']});
+			if (admin){
+				devices = allDevs;
+			}else{	
+				var tempDevs = o['devices'];
+				for (var i = 0; i<tempDevs.length;i++){
+					devices[i]=allDevs[parseInt(tempDevs[i])]
+				}
 			}
+			var userObject = {
+					user 		: 	o.user,
+					name 		: 	o.name,
+					email 		: 	o.email,
+					pass		: 	o.pass,
+					house		: 	o.house,
+					long		:	h.longitude,
+					lati		:	h.latitude ,
+					admin		: 	admin,
+					devices		: 	devices
+				};
+				//~ console.log(callback);
+				callback(null,userObject);
+				
 		}
-		callback(null,{
-				user 		: 	o.user,
-				name 		: 	o.name,
-				email 		: 	o.email,
-				pass		: 	o.pass,
-				house		: 	o.house,
-				long		:	h.longitude,
-				lati		:	h.latitude ,
-				admin		: 	admin,
-				devices		: 	devices
-			});
-	}
 	else {
 		callback({err:'user-not-found'});
 	}
@@ -485,16 +493,50 @@ var validateToken = function(user, token, callback)
 	}
 	
 }
+var getStatusDev= function(hostHouse, callback){
+	//~ console.log(hostHouse);
+	var xmlhttp = new XMLHttpRequest();
+	var devices = require(dbPath + "deviceDB.json");
+	var nameHouse = hostHouse.id
+	xmlhttp.onreadystatechange=function() {
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	if (xmlhttp.status==200 && xmlhttp.readyState == 4){
+		//~ console.log(xmlhttp.responseText);
+		try{
+			response = JSON.parse(xmlhttp.responseText);
+			//~ console.log(response.devices.length)
+			var devicesLen = response.devices.length;
+			for (var i=0; i < devicesLen; i++) {
+				//~ console.log( response.devices[i].status);
+				devices[nameHouse][i].status = response.devices[i].status == "on"? true : false;
+				
+			}
+			saveData(devices, "device");
+			callback();
+		}catch(e){
+			//~ console.log(e);
+		}
+	}
+}
+
+	try{
+		xmlhttp.open("GET", getLinkDefault(hostHouse.ip),true);
+		xmlhttp.send();
+	}catch(e){
+		//~ console.log(e);
+	}
+	
+}
+
+
 var xmlhttp2 = new XMLHttpRequest();
 
 function switchPower(body,callback){
 	try{
 		if (body.temperature != undefined){
-			xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status+'&temperature='+body.temperature, true);
+			xmlhttp2.open("POST", getLinkDefault(body.host)+"?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id="+body.id+'&status='+body.status+'&temperature='+body.temperature, true);
 		}else{
-			xmlhttp2.open("POST", getLinkDefault(body.host)+'?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id='+body.id+'&status='+body.status, true);
+			xmlhttp2.open("POST", getLinkDefault(body.host)+"?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id="+body.id+'&status='+body.status, true);
 		}
 		xmlhttp2.send();
 		callback(null,"");
