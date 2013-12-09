@@ -38,8 +38,8 @@ public class DeviceEdit extends Activity {
 		mDev = (Device) getIntent().getExtras().getSerializable("dev");
 		editDevice = (ImageButton) findViewById(R.id.button_edit_device);
 		buttonStatus = (ImageButton) findViewById(R.id.button_status_config);
-		pickerTimer = (NumberPicker) findViewById(R.id.timer_picker);
-		switchTimer = (Switch) findViewById(R.id.switch_timer);
+		//pickerTimer = (NumberPicker) findViewById(R.id.timer_picker);
+		//switchTimer = (Switch) findViewById(R.id.switch_timer);
 		EditText editName = (EditText) findViewById(R.id.edit_device_name);
 		
 		if(mDev.getStatus()){

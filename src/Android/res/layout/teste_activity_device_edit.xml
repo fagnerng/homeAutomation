@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/tv_device_name"
@@ -19,70 +19,62 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="4dp"
+            android:ems="8"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:ems="8" />
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/button_edit_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"       
+            android:layout_marginTop="4dp"
             android:background="@drawable/ic_action_edit"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/button_status_config"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:background="@drawable/light_on"
-         />
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="horizontal">
-
-        <NumberPicker
-            android:id="@+id/timer_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="72dp"
-            android:layout_marginLeft="20dp" />
+        android:layout_height="wrap_content" >
 
         <Switch
-            android:id="@+id/switch_timer"
+            android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/timer_picker"
-            android:layout_marginBottom="29dp"
-            android:layout_marginLeft="14dp"
-            android:layout_toRightOf="@+id/timer_picker"/>
+            android:layout_alignBottom="@+id/spinner1"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="42dp" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/timer_picker"
-            android:layout_marginBottom="45dp"
-            android:layout_toRightOf="@+id/timer_picker"
-            android:text="@string/tvTimer"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:text="Timer"
+            android:textColor="@color/white" />
 
-        
+        <ImageButton
+            android:id="@+id/button_status_config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/switch1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:background="@null"
+            android:src="@drawable/switch_icon_on_big" />
+
     </RelativeLayout>
-    
-    
-    
-
-    
 
 </LinearLayout>
