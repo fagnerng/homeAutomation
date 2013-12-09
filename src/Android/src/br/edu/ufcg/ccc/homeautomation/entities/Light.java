@@ -39,7 +39,7 @@ public class Light extends Device {
 	public JSONObject generateBody(JSONObject json) {
 		try{
 			json.put("devices", this.getId());
-			json.put("status", this.status);
+			json.put("status", !this.status);
 		}catch(JSONException e){
 			e.printStackTrace();
 		}

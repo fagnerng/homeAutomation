@@ -31,6 +31,10 @@
     <string name="distance_title">Notificações de distancia</string>
     <string name="temperatura">Temperatura padrão</string>
     <string name="timer">Timer default</string>
+    <string name="set_device_name">Renomear dispositivo</string>
+    <string name="tvTimer">Timer</string>
+    <string name="new_device_name">Novo nome</string>
+    
 
     <!-- Strings for edit device tab.xml -->
 

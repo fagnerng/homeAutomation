@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,9 +14,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import br.edu.ufcg.ccc.homeautomation.DeviceEdit;
+import br.edu.ufcg.ccc.homeautomation.GuideActivityRoot;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.R.string;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
@@ -24,6 +29,7 @@ import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 public class DeviceAdapter extends BaseAdapter{
 	private List<Device> mDevices;
 	private LayoutInflater mInflater;
+	
 	
 	public DeviceAdapter (Context context, List<Device> devs){
 		mInflater = LayoutInflater.from(context);
@@ -44,32 +50,47 @@ public class DeviceAdapter extends BaseAdapter{
 	public long getItemId(int index) {
 		return index;
 	}
+	
+
 
 	@Override
 	public View getView(int posicao, View view, ViewGroup viewGroup) {
-		
 		view = mInflater.inflate(R.layout.device_adapter, null);
 		final Device dev = mDevices.get(posicao);
 		
 		TextView tv_name = (TextView) view.findViewById(R.id.tv_name_device);
-		String devName = dev.getName();
+		final String devName = dev.getName();
 		tv_name.setText(devName);
+		
+		final Drawable on = view.getResources().getDrawable(R.drawable.switch_icon_on);
+		final Drawable off = view.getResources().getDrawable(R.drawable.switch_icon_off);
 		
 		TextView tv_status = (TextView) view.findViewById(R.id.tv_status_device);
 		String status = dev.getStringStatus();
 		tv_status.setText(status);
 		
+		final Context c = view.getContext();
+		final Intent i = new Intent(c,DeviceEdit.class);
+		i.putExtra("dev", dev);
+		
 		final ImageButton ib_edit = (ImageButton) view.findViewById(R.id.ib_icon_edit);
 		
-		ib_edit.setOnClickListener(new OnClickListener() {
+		ib_edit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				executeDeviceEdit(v);
+				c.startActivity(i);
+				
 			}
 		});
 		
 		final ImageButton ib_switch = (ImageButton) view.findViewById(R.id.ib_icon_switch);
+		
+		if(dev.status){
+			ib_switch.setImageDrawable(on);
+		}else{
+			ib_switch.setImageDrawable(off);
+		}
 		
 		final Animation press = AnimationUtils.loadAnimation(view.getContext(),R.anim.reversed_scale);
 		
@@ -78,14 +99,15 @@ public class DeviceAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				v.startAnimation(press);
-				executeSwitchPower(v, dev, ib_switch);
+				executeSwitchPower(v, dev, ib_switch,on,off);
+				
 			}
 		});
 		
 		return view;
 	}
 	
-	private void executeSwitchPower(final View v,final Device device, final ImageButton ib_switch){
+	private void executeSwitchPower(final View v,final Device device, final ImageButton ib_switch, final Drawable on, final Drawable off){
 		
 		RESTManager.getInstance().requestSwitch(new RequestsCallbackAdapter() {
 			
@@ -97,12 +119,12 @@ public class DeviceAdapter extends BaseAdapter{
 				
 				if(result){
 					if (device.getStatus()){
-						drawable = v.getResources().getDrawable(R.drawable.switch_icon_off);
-						ib_switch.setImageDrawable(drawable);
+						ib_switch.setImageDrawable(off);
+						
 					}else{
-						drawable = v.getResources().getDrawable(R.drawable.switch_icon_on);
-						ib_switch.setImageDrawable(drawable);
+						ib_switch.setImageDrawable(on);
 					}
+					device.setStatus(!(device.getStatus()));
 				}else{
 					Toast.makeText(v.getContext(), "Impossivel mudar Status do device", Toast.LENGTH_SHORT).show();
 				}
@@ -110,8 +132,11 @@ public class DeviceAdapter extends BaseAdapter{
 		}, device);
 	}
 	
-	private void executeDeviceEdit(final View v){
-		Toast.makeText(v.getContext(), "Abrir Device Edit Screen", Toast.LENGTH_SHORT).show();
+	private void executeDeviceEdit(final View v, final Device d){
+		Intent i = new Intent(v.getContext(),DeviceEdit.class);
+		//i.putExtra("device", d);
+		v.getContext().startActivity(i);
+		//Toast.makeText(v.getContext(), "Abrir Device Edit Screen", Toast.LENGTH_SHORT).show();
 	}
 
 }

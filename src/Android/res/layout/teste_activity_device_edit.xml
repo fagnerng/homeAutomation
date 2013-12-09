@@ -13,31 +13,76 @@
 
         <TextView
             android:id="@+id/tv_device_name"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/app_name"
             android:textColor="@color/white"
+            android:textSize="22sp"
             android:textStyle="bold"
-            
-            android:text="@string/app_name" />
+            android:ems="8" />
 
         <ImageButton
+            android:id="@+id/button_edit_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"       
             android:background="@drawable/ic_action_edit"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
-    
     <ImageButton
-        android:id="@+id/button_status_device"
+        android:id="@+id/button_status_config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:background="@drawable/light_on" />
+        android:background="@drawable/light_on"
+         />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/timer_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="72dp"
+            android:layout_marginLeft="20dp" />
+
+        <Switch
+            android:id="@+id/switch_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/timer_picker"
+            android:layout_marginBottom="29dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/timer_picker"/>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/timer_picker"
+            android:layout_marginBottom="45dp"
+            android:layout_toRightOf="@+id/timer_picker"
+            android:text="@string/tvTimer"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        
+    </RelativeLayout>
+    
+    
+    
+
+    
 
 </LinearLayout>

@@ -66,7 +66,7 @@ public class AirCondition extends Device {
 	public JSONObject generateBody(JSONObject json) {
 		try{
 			json.put("devices", this.getId());
-			json.put("status", this.status);
+			json.put("status", !this.status);
 			json.put("temperature", this.temperature);
 		}catch(JSONException e){
 			e.printStackTrace();
