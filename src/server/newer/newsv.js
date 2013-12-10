@@ -339,7 +339,7 @@ app.get('/adevice',function (req,res){
 		console.log(req.body);
 	}
 	{
-	AM.getStatusDev({user:req.param('user'), token:req.param('token')}, function(e,o){
+	AM.getDev({user:req.param('user'), token:req.param('token')}, function(e,o){
 
 		if(o != null){
 			res.send(o, 200);	
