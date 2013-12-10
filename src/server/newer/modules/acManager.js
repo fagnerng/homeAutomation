@@ -142,7 +142,35 @@ exports.switchDev = function(body, callback)
 		
 	}
 
+exports.getStatusDev = function(body, callback)
 
+{
+	var templateBody = {
+		user:"",
+		token:""
+		
+	};
+	for (var i in templateBody){
+		if (body[i] == undefined || body[i]== ""){
+			callback({err:"missing-parameters"});
+		}
+	}
+			validateToken(body.user, body.token, function(err, res) {
+				
+				if (res || err.err == 'expired-token'){
+				console.log(tokens[body.user]);
+				console.log(tokens[body.user].house);
+				devices = require(dbPath+ "deviceDB.json")[tokens[body.user].house]
+				console.log(devices);
+				callback(null, devices);
+				
+				
+				}
+				else {
+				callback(err);
+				}
+			});
+}
 
 
 exports.getMyChild = function(user, token, child, callback)
