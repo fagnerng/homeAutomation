@@ -1,19 +1,17 @@
 package br.edu.ufcg.ccc.homeautomation.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,12 +21,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.DeviceEdit;
-import br.edu.ufcg.ccc.homeautomation.GuideActivityRoot;
 import br.edu.ufcg.ccc.homeautomation.R;
-import br.edu.ufcg.ccc.homeautomation.R.string;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
-import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallback;
 import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 public class DeviceAdapter extends BaseAdapter{
@@ -36,8 +31,8 @@ public class DeviceAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;
 	private ImageButton editDevice;
 	private ImageButton buttonStatus;
-	private NumberPicker pickerTimer;
-	private Switch switchTimer;
+//	private NumberPicker pickerTimer;
+//	private Switch switchTimer;
 	private Drawable on;
 	private Drawable off;
 	private Device mDev;
@@ -63,8 +58,6 @@ public class DeviceAdapter extends BaseAdapter{
 		return index;
 	}
 	
-
-
 	@Override
 	public View getView(int posicao, View view, ViewGroup viewGroup) {
 		view = mInflater.inflate(R.layout.device_adapter, null);
@@ -91,9 +84,8 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				v.getContext().startActivity(i);
-				//callDialogEditDevie(v, mDev);
-				
+//				v.getContext().startActivity(i);
+				callDialogEditDevie(v, dev);
 			}
 		});
 		
@@ -113,7 +105,6 @@ public class DeviceAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				v.startAnimation(press);
 				executeSwitchPower(v, dev, ib_switch,on,off);
-				
 			}
 		});
 		
@@ -153,14 +144,17 @@ public class DeviceAdapter extends BaseAdapter{
 	}
 	
 	private void callDialogEditDevie(final View v, final Device d){
-		final Dialog dialogEditDevice = new Dialog(v.getContext(),R.style.myCoolDialog);
+		final Dialog dialogEditDevice = new Dialog(v.getContext());//,R.style.myCoolDialog);
 		dialogEditDevice.setContentView(R.layout.teste_activity_device_edit);
+		dialogEditDevice.setTitle("Configurando Device");
+		dialogEditDevice.show();
 		
-		on = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_on_big);
-		off = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_off_big);
+		on = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_on);
+		off = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_off);
 		mDev = d;
 		editDevice = (ImageButton) dialogEditDevice.findViewById(R.id.button_edit_device);
 		buttonStatus = (ImageButton) dialogEditDevice.findViewById(R.id.button_status_config);
+		
 		if(mDev.getStatus()){
 			buttonStatus.setImageDrawable(on);
 		}else{
@@ -178,18 +172,11 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				showEditDevices(v,mDev,deviceName );
-				
-			}
-
-			
+				showEditDevices(v,mDev,deviceName );				
+			}			
 		});
 		
 	}
-	
-	
-	
-	
 	
 	private void showEditDevices(View v, final Device dev, final TextView mView) {
 		final Dialog edit = new Dialog(v.getContext());
@@ -218,11 +205,6 @@ public class DeviceAdapter extends BaseAdapter{
 			}
 		});
 		editName.setText(dev.getName());
-		
-		
-		
-		
-
 		
 	}
 

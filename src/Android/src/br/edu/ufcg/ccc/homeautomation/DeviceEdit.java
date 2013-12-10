@@ -23,6 +23,7 @@ public class DeviceEdit extends Activity {
 
 	private ImageButton editDevice;
 	private ImageButton buttonStatus;
+	
 	private NumberPicker pickerTimer;
 	private Switch switchTimer;
 	private Drawable on;
@@ -61,19 +62,12 @@ public class DeviceEdit extends Activity {
 			@Override
 			public void onClick(View v) {
 				showEditDevices(v,mDev,deviceName );
-				
 			}
 
 			
 		});
 
-		
-
-		
-		
-		deviceName.setText(mDev.getName());
-		
-		
+		deviceName.setText(mDev.getName());		
 		
 /*		EditText etEditTaskName = (EditText) findViewById(R.id.et_edit_task);
 		TextView tvStatusDev = (TextView) findViewById(R.id.tv_status_device);
@@ -98,6 +92,7 @@ public class DeviceEdit extends Activity {
 		Button confirm = (Button) edit.findViewById(R.id.button_confirm_device);
 		final EditText editName = (EditText) edit.findViewById(R.id.edit_device_name);
 		edit.show();
+		
 		confirm.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -108,21 +103,16 @@ public class DeviceEdit extends Activity {
 				edit.dismiss();
 			}
 		});
+		
 		cancel.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				edit.dismiss();
-				
 			}
 		});
-		editName.setText(dev.getName());
 		
-		
-		
-		
-
-		
+		editName.setText(dev.getName());		
 	}
 	
 	public Dialog onCreateDialog(Bundle savedInstanceState) {

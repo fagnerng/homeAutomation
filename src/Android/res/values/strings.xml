@@ -21,7 +21,9 @@
     <string name="action_login_in_progress">Efetuando Login</string>
     <string name="devices">Dispositivos</string>
     <string name="confirm">Confirmar</string>
+    
     <!-- Strings for erro on server.xml -->
+    
     <string name="server_is_down">Não foi possível conectar ao servidor</string>
     <string name="invalid_password">Senha incorreta</string>
     <string name="user_not_found">Usuário não foi encontrado</string>
@@ -49,6 +51,7 @@
     <string name="child_activity_pass">Senha:</string>
     <string name="button_save">Salvar</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="switch_power">Switch Power</string>    
 
     <!-- Strings for register_first.xml -->
     <string name="short_name">Nome muito curto</string>

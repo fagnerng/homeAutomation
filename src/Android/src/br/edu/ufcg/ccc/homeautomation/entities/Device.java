@@ -14,14 +14,13 @@ import org.json.JSONObject;
  */
 public abstract class Device implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	protected boolean status;
 	private String name;
 	private int id;
-	protected boolean status;
 	private String type;
+	protected String timer;
+	
 	/**
 	 * @param json
 	 * 	
@@ -37,6 +36,7 @@ public abstract class Device implements Serializable{
 				this.id = json.getInt("id");
 				this.status = json.getBoolean("status");
 				this.type = json.getString("type");
+				this.timer = json.getInt("timer") + "";
 			
 			} catch (JSONException e) {
 				//e.printStackTrace();
@@ -47,7 +47,7 @@ public abstract class Device implements Serializable{
 	@Override
 	public String toString() {
 		return "Device [name=" + name + ", id=" + id + ", status=" + status
-				+ ", type=" + type + "]";
+				+ ", type=" + type + ", timer=" + timer + "]";
 	}
 
 	/**
@@ -71,8 +71,6 @@ public abstract class Device implements Serializable{
 		this.id = id;
 	}
 
-	abstract public String getStringStatus();
-	
 	public boolean getStatus(){
 		return this.status;
 	}
@@ -81,12 +79,24 @@ public abstract class Device implements Serializable{
 		this.status = status;
 	}
 	
-	public abstract int getIconID();
-	
 	public void setType(String type) {
 		this.type = type;
 	}
 	
+	public String getTimer(){
+		return this.timer;
+	}
+	
+	public void setTimer(String timer){
+		this.timer = timer;
+	}
+	
+	abstract public String getStringStatus();
+	
+	public abstract int getIconID();
+	
+	public abstract JSONObject generateBody(JSONObject json);
+
 	@Override
 	public boolean equals(Object o) {
 		if(!(o instanceof Device) || o== null){
@@ -98,9 +108,6 @@ public abstract class Device implements Serializable{
 		}else{
 			return false;
 		}
-		
 	}
-	
-	public abstract JSONObject generateBody(JSONObject json);
 	
 }

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical" >
+    <!--  android:background="@color/background"  -->
+    
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,52 +30,48 @@
             android:id="@+id/button_edit_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="4dp"
             android:background="@drawable/ic_action_edit"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
 
-    <RelativeLayout
+    <ImageButton
+        android:id="@+id/button_status_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:contentDescription="@string/switch_power"
+        android:src="@drawable/switch_icon_on_big" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/timer"
+        android:textColor="@color/black" />
+
+    <LinearLayout         
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+        
+	    <Spinner
+	        android:id="@+id/spinner1"
+	        android:layout_width="150dp"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="40dp" />
+	
+	    <Switch
+	        android:id="@+id/switch1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="14dp"
+	        android:layout_marginRight="42dp" />        
+    </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/spinner1"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="14dp"
-            android:layout_marginRight="42dp" />
-
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="40dp" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:text="Timer"
-            android:textColor="@color/white" />
-
-        <ImageButton
-            android:id="@+id/button_status_config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/switch1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:background="@null"
-            android:src="@drawable/switch_icon_on_big" />
-
-    </RelativeLayout>
 
 </LinearLayout>
