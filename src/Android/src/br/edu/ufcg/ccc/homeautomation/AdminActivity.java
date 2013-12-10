@@ -182,12 +182,13 @@ public class AdminActivity extends FragmentActivity {
                     EditText name  = (EditText) rootView.findViewById(R.id.child_profile_name);
                     EditText email  = (EditText) rootView.findViewById(R.id.child_profile_email);
                     EditText pass  = (EditText) rootView.findViewById(R.id.child_profile_pass);
+                    EditText cPass  = (EditText) rootView.findViewById(R.id.child_profile_pass_confirm);
                     name.setText(mUser.getName());
                     email.setText(mUser.getEmail());
                     pass.setText("*******");
-                    final TextView tvSave = (TextView) rootView.findViewById(R.id.tv_save);
-                    tvSave.setVisibility( TextView.INVISIBLE);
-                    final Animation scale = AnimationUtils.loadAnimation(rootView.getContext(),R.anim.scale);
+                    final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
+                    tvSave.setVisibility( Button.INVISIBLE);
+                    final Animation scale = AnimationUtils.loadAnimation(rootView.getContext(),R.anim.translate);
                     
                     TextWatcher twatcher = new TextWatcher() {
 
@@ -215,6 +216,7 @@ public class AdminActivity extends FragmentActivity {
                     name.addTextChangedListener(twatcher);
                     email.addTextChangedListener(twatcher);
                     pass.addTextChangedListener(twatcher);
+                    cPass.addTextChangedListener(twatcher);
                      break;
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
@@ -24,7 +25,7 @@ public class GuideActivityRoot extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide_activity_root);
 		
-		final Animation scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
+		final Animation scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.reversed_scale);
 		
 		rootProfile = (ImageButton) findViewById(R.id.icon_button_root);
 		rootDevices = (ImageButton) findViewById(R.id.device_button_root);
@@ -37,10 +38,14 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				final Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				setAnimation(scale, intent, 1);
+				
 				v.startAnimation(scale);
-				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-				intent.putExtra("tab", 1);
-				startActivity(intent);
+				
+				
+				
+
 				
 			}
 		});
@@ -49,21 +54,24 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(scale);
-				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				final Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
 				intent.putExtra("tab", 0);
-				startActivity(intent);
+				setAnimation(scale, intent, 0);
+				
+				v.startAnimation(scale);
 			}
+
+
 		});
 		
 		rootUsers.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(scale);
+				
 				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-				intent.putExtra("tab", 2);
-				startActivity(intent);
+				setAnimation(scale, intent, 2);
+				v.startAnimation(scale);
 			}
 		});
 		
@@ -86,6 +94,36 @@ public class GuideActivityRoot extends Activity {
 			}
 		});
 		return true;
+	}
+	
+	private void setAnimation(final Animation scale, final Intent intent, final int tab) {
+		scale.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+				intent.putExtra("tab", tab);
+				
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				startActivity(intent);
+				
+			}
+		});
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+		startActivity(i);
+		super.onBackPressed();
 	}
 }
 

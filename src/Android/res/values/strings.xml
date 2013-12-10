@@ -53,7 +53,7 @@
     <string name="tab_manage_users">Usuários</string>
     <string name="child_activity_name">Nome:</string>
     <string name="child_activity_email">Email:</string>
-    <string name="child_activity_pass">Senha:</string>
+    <string name="child_activity_pass">Nova Senha:</string>
     <string name="button_save">Salvar</string>
     <string name="button_cancel">Cancelar</string>
     <string name="switch_power">Switch Power</string>    
@@ -67,7 +67,7 @@
     <string name="require_name">Nome</string>
     <string name="require_email">Email</string>
     <string name="require_pass">Senha</string>
-    <string name="require_confirm_pass">Confirme a Senha</string>
+    <string name="require_confirm_pass">Nova Senha</string>
     <string name="register">Registrar</string>
 
     <!-- Strings for register_second.xml -->
