@@ -120,6 +120,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				}				
 				
 				UserManager.getInstance().setUserObject(mUser);
+				System.out.println("MUSER_TO STRING: "+UserManager.getInstance().getUserObject().toString());
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {

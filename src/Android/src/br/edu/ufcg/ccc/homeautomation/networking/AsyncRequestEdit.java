@@ -49,12 +49,9 @@ public class AsyncRequestEdit extends AsyncTask<String, Void, Boolean>{
 	 */
 	private String generateBody(String name, String email, String pass, double lat, double lon){
 		
-		JSONObject jsonToSend = new JSONObject();
+		JSONObject jsonToSend =  UserManager.getInstance().generateBody();
 		
-		try {
-			jsonToSend.put("user", UserManager.getInstance().getUser());
-			jsonToSend.put("token", UserManager.getInstance().getToken());
-			
+		try {			
 			if (name != null)
 				jsonToSend.put("name", name);
 			if (email != null)

@@ -213,6 +213,27 @@ public class AdminActivity extends FragmentActivity {
 							
 						}
                     };
+                    
+                    tvSave.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+					        
+					        RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {
+					            
+					            @Override
+					            public void onFinishRequestEdit(Boolean result) {
+					                if (result) {
+					                    System.out.println("Editado com sucesso");
+					                }else{
+					                    System.out.println("Nao foi edidato");
+					                }
+					            }
+					        }, "AlessandroA", "Alessandroaa@gmail.com", null, -1, -1);
+							
+						}
+					});
+                    
                     name.addTextChangedListener(twatcher);
                     email.addTextChangedListener(twatcher);
                     pass.addTextChangedListener(twatcher);

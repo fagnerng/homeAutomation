@@ -19,13 +19,6 @@ import br.edu.ufcg.ccc.homeautomation.entities.User;
  */
 public class JsonParser {
 	
-	// JSON Node names
-/*	private static final String TAG_NAME = "Name";
-	private static final String TAG_EMAIL = "Email";
-	private static final String TAG_USER = "User";
-	private static final String TAG_PASS = "Pass";
-	private static final String TAG_HOUSE = "House";*/
-	
 	private static final String TAG_DEVICES = "Devices";
 			
 	/**
@@ -43,9 +36,6 @@ public class JsonParser {
 			System.out.println("NULL!??");
 			return users;
 		}
-			
-			
-			
 		
     	try {
     		//JSONObject json Verificar json que sera recebido
