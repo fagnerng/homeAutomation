@@ -114,7 +114,7 @@ exports.switchDev = function(body, callback)
 		status:""
 		
 	};
-	var error = false
+
 	for (var i in templateBody){
 		if (body[i] == undefined || body[i]== ""){
 			callback({err:"missing-parameters"});
@@ -122,6 +122,9 @@ exports.switchDev = function(body, callback)
 	}
 			validateToken(body.user, body.token, function(err, res) {
 				if (res){
+					if (body.name != undefined && body.name != "" && tokens[body.user].admin){
+						saveNameDevice({house:tokens[body.user], id:body:devices, name:body.name});
+					}
 					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
 					var devices = require(dbPath + "deviceDB.json")
 					if(typeof( body.status ) != 'boolean'){
@@ -142,7 +145,7 @@ exports.switchDev = function(body, callback)
 		
 	}
 
-exports.getStatusDev = function(body, callback)
+exports.getDev = function(body, callback)
 
 {
 	var templateBody = {
@@ -158,11 +161,22 @@ exports.getStatusDev = function(body, callback)
 			validateToken(body.user, body.token, function(err, res) {
 				
 				if (res || err.err == 'expired-token'){
-				console.log(tokens[body.user]);
-				console.log(tokens[body.user].house);
-				devices = require(dbPath+ "deviceDB.json")[tokens[body.user].house]
-				console.log(devices);
-				callback(null, devices);
+				console.log("house",tokens[body.user].house);
+				console.log("admin", tokens[body.user].admin);
+				
+				var alldevices = require(dbPath+ "deviceDB.json")[
+				tokens[body.user].house] if (tokens[body.user].admin 
+				!= true){
+					var tempIDDev = require(dbPath + "usersDB.json")[body.user].devices
+					var tempDev = []
+					console.log("ids",tempIDDev)
+					for (var i= 0 ; i< tempIDDev.length;i++){
+						tempDev[tempDev.length] = alldevices[tempIDDev[i]]
+					}
+					alldevices = tempDev;
+				}
+				console.log("retorno",alldevices);
+				callback(null, alldevices);
 				
 				
 				}
@@ -558,7 +572,12 @@ var getStatusDev= function(hostHouse, callback){
 
 
 var xmlhttp2 = new XMLHttpRequest();
-
+function saveNameDevice(body){
+	var alldev = require(dbPath + "deviceDB.json")
+	alldev[body.house][body.id].name = body.name;
+	saveData(alldev, "device");
+	
+}
 function switchPower(body,callback){
 	try{
 		if (body.temperature != undefined){
