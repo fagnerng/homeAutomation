@@ -25,16 +25,16 @@
     </style>
     
     <style name="WindowTitleBackground">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@color/button_background</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:padding">10dp</item>        
     </style>
     
     <style name="myCoolDialog" parent="android:Theme.Dialog"> 
-        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowBackground">@color/bg_green</item>
         <item name="android:colorForeground">#f0f0</item> 
-        <item name="android:windowTitleSize">12dip</item>
-        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        <item name="android:windowTitleSize">12dip</item>        
+        <item name="android:windowTitleBackgroundStyle">@color/bg_green</item>
      </style> 
 
 </resources>
