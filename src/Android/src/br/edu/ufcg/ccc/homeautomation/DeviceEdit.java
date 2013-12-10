@@ -33,7 +33,7 @@ public class DeviceEdit extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.teste_activity_device_edit);
+		setContentView(R.layout.dialog_light_edit);
 		on = getResources().getDrawable(R.drawable.light_on);
 		off = getResources().getDrawable(R.drawable.light_off);
 		mDev = (Device) getIntent().getExtras().getSerializable("dev");

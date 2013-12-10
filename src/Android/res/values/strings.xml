@@ -33,15 +33,20 @@
     <string name="distance_title">Notificações de distancia</string>
     <string name="temperatura">Temperatura padrão</string>
     <string name="timer">Timer default</string>
+    <string name="timer_config">Configurando Timer</string>
+    <string name="temperature_config">Configurando Temperatura</string>
     <string name="set_device_name">Renomear dispositivo</string>
     <string name="tvTimer">Timer</string>
     <string name="new_device_name">Novo nome</string>
     
 
     <!-- Strings for edit device tab.xml -->
-
     <string name="device_name">Nome: </string>
     <string name="device_status">Status: </string>
+    <string name="config_devices">Configurando Dispositivo </string>
+    <string name="rename_device">Renomear Dispositivo </string>
+    
+    
     <!-- Strings for tabs in the menu -->
     <string name="tab_devices">Dispositivos</string>
     <string name="tab_profile">Perfil</string>
@@ -88,5 +93,31 @@
     <string name="title_activity_guide">GuideActivity</string>
     <string name="title_activity_guide_activity_root">GuideActivityRoot</string>
     <string name="title_activity_prefs">PrefsActivity</string>
+    
+    <!--  Values default at Spinner for timer -->
+    <string-array name="default_times_for_timer">
+    <item>1</item>
+	<item>5</item>
+	<item>10</item>
+	<item>15</item>
+	<item>30</item>
+	<item>60</item>
+	<item>90</item>
+	<item>120</item>
+	</string-array>
+	    
+	<!--  Values default at Spinner for temperature -->
+    <string-array name="default_times_for_temperature">
+    <item>17</item>
+	<item>18</item>
+	<item>19</item>
+	<item>20</item>
+	<item>21</item>
+	<item>22</item>
+	<item>23</item>
+	<item>24</item>
+	<item>25</item>
+	</string-array>
+    
 
 </resources>

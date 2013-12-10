@@ -55,7 +55,7 @@ public class RESTManager {
 	}
 	
 	public void requestChild(RequestsCallback appCb, String userChild){
-		new AsyncRequestChild(appCb).execute();
+		new AsyncRequestChild(appCb, userChild).execute();
 	}
 	
 	public void requestChildUpdate(RequestsCallback appCb, String child, ArrayList<Integer> devices){

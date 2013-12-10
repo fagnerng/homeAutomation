@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
-import android.widget.Switch;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.DeviceEdit;
@@ -35,8 +37,7 @@ public class DeviceAdapter extends BaseAdapter{
 //	private Switch switchTimer;
 	private Drawable on;
 	private Drawable off;
-	private Device mDev;
-	
+	private Device mDev;	
 	
 	public DeviceAdapter (Context context, List<Device> devs){
 		mInflater = LayoutInflater.from(context);
@@ -144,16 +145,26 @@ public class DeviceAdapter extends BaseAdapter{
 	}
 	
 	private void callDialogEditDevie(final View v, final Device d){
-		final Dialog dialogEditDevice = new Dialog(v.getContext());//,R.style.myCoolDialog);
-		dialogEditDevice.setContentView(R.layout.teste_activity_device_edit);
-		dialogEditDevice.setTitle("Configurando Device");
-		dialogEditDevice.show();
+		final Dialog dialogEditDevice = new Dialog(v.getContext(), R.style.myCoolDialog);
+		
+		Button bt_Confirm = null;
+		Button bt_Cancel = null;
+		
+		if (d.getType().equals("light")){
+			dialogEditDevice.setContentView(R.layout.dialog_light_edit);
+			bt_Confirm = (Button) dialogEditDevice.findViewById(R.id.light_confirm);
+			bt_Cancel = (Button) dialogEditDevice.findViewById(R.id.light_cancel);
+		}else{
+			dialogEditDevice.setContentView(R.layout.dialog_aircond_edit);
+			bt_Confirm = (Button) dialogEditDevice.findViewById(R.id.air_confirm);
+			bt_Cancel = (Button) dialogEditDevice.findViewById(R.id.air_cancel);
+		}		
 		
 		on = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_on);
 		off = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_off);
-		mDev = d;
 		editDevice = (ImageButton) dialogEditDevice.findViewById(R.id.button_edit_device);
 		buttonStatus = (ImageButton) dialogEditDevice.findViewById(R.id.button_status_config);
+		mDev = d;
 		
 		if(mDev.getStatus()){
 			buttonStatus.setImageDrawable(on);
@@ -167,13 +178,43 @@ public class DeviceAdapter extends BaseAdapter{
 		}
 		
 		final TextView deviceName = (TextView) dialogEditDevice.findViewById(R.id.tv_device_name);
+		deviceName.setText(mDev.getName());
+		
+		dialogEditDevice.setTitle(dialogEditDevice.getContext().getResources().getString(R.string.config_devices));
+		dialogEditDevice.show();
 		
 		editDevice.setOnClickListener	(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				showEditDevices(v,mDev,deviceName );				
+				showEditDevices(v, mDev, deviceName);				
 			}			
+		});
+		
+		buttonStatus.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+//				showEditDevices(v, mDev, deviceName);
+				Toast.makeText(v.getContext(), "Chamar funcionalidade do Switch", Toast.LENGTH_SHORT).show();
+			}			
+		});
+		
+		bt_Confirm.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(v.getContext(), "Requisicao Confirmar", Toast.LENGTH_SHORT).show();
+				dialogEditDevice.dismiss();
+			}
+		});
+		
+		bt_Cancel.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialogEditDevice.dismiss();
+			}
 		});
 		
 	}
@@ -181,7 +222,7 @@ public class DeviceAdapter extends BaseAdapter{
 	private void showEditDevices(View v, final Device dev, final TextView mView) {
 		final Dialog edit = new Dialog(v.getContext());
 		edit.setContentView(R.layout.dialog_edit_device);
-		edit.setTitle("Renomear Dispositivo");
+		edit.setTitle(edit.getContext().getResources().getString(R.string.rename_device));
 		Button cancel = (Button) edit.findViewById(R.id.button_cancel_device);
 		Button confirm = (Button) edit.findViewById(R.id.button_confirm_device);
 		final EditText editName = (EditText) edit.findViewById(R.id.edit_device_name);
@@ -205,7 +246,6 @@ public class DeviceAdapter extends BaseAdapter{
 			}
 		});
 		editName.setText(dev.getName());
-		
 	}
 
 }

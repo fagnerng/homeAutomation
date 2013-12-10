@@ -83,6 +83,10 @@ public abstract class Device implements Serializable{
 		this.type = type;
 	}
 	
+	public String getType(){
+		return this.type;
+	}
+	
 	public String getTimer(){
 		return this.timer;
 	}

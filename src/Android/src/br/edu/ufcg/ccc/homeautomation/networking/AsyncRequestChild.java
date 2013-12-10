@@ -10,9 +10,11 @@ import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>{
 
 	private RequestsCallback cb;
+	private String child;
 	
-	public AsyncRequestChild(RequestsCallback cb) {
+	public AsyncRequestChild(RequestsCallback cb, String userChild) {
 		this.cb = cb;
+		this.child = userChild;
 	}
 
 	protected ArrayList<User> doInBackground(String... params) {
@@ -36,8 +38,13 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 	private String generateBody(){
 		String URLcomplement = "";
 		
-		URLcomplement += "?user=" + UserManager.getInstance().getUser() + "&" +
-		"token=" + UserManager.getInstance().getToken();
+		if ( child != null ){
+			URLcomplement += "?user=" + UserManager.getInstance().getUser() + "&" +
+					"token=" + UserManager.getInstance().getToken() + "child=" + child;
+		}else{
+			URLcomplement += "?user=" + UserManager.getInstance().getUser() + "&" +
+					"token=" + UserManager.getInstance().getToken();
+		}
 			
 		return URLcomplement;
 	}
