@@ -333,6 +333,27 @@ app.post('/adevice',function (req,res){
 	}
 });
 
+app.get('/adevice',function (req,res){
+		if (debug){
+		console.log("apostdeve: ");
+		console.log(req.body);
+	}
+	{
+	AM.getStatusDev({user:req.param('user'), token:req.param('token')}, function(e,o){
+
+		if(o != null){
+			res.send(o, 200);	
+		}else
+		{
+			res.send(e, 300);	
+		}
+	}
+	);
+			
+	
+	}
+});
+
 
 
 app.get('/alogout',function (req,res){
