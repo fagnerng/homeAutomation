@@ -28,7 +28,7 @@ public class UserManager {
     }
     
     public String getToken(){
-    	return userObject.getToken();
+    	return "abc";//userObject.getToken();
     }
     
     public User getUserObject(){

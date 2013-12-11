@@ -2,15 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background" >
+    android:background="@color/background"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="10dp"
-        android:text="@string/require_name" />
+        android:text="@string/require_name"
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/edNome"
@@ -20,15 +22,16 @@
         android:inputType="textPersonName" >
 
         <requestFocus android:layout_width="wrap_content" />
-
     </EditText>
 
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="10dp"
-        android:text="@string/require_email" />
+        android:text="@string/require_email"
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/edEmail"
@@ -41,8 +44,10 @@
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="10dp"
-        android:text="@string/require_pass" />
+        android:text="@string/require_pass"
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/edSenha"
@@ -55,8 +60,10 @@
         android:id="@+id/tvConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="10dp"
-        android:text="@string/require_confirm_pass" />
+        android:text="@string/require_confirm_pass"
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/edCsenha"
@@ -64,11 +71,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
-<View
-    android:layout_width="fill_parent"
-    android:layout_height="1dip"
-    android:paddingTop="5dp"
-    android:background="#000000" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000"
+        android:paddingTop="5dp" />
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -86,8 +94,12 @@
 
     <Button
         android:id="@+id/btnNewUser"
-        android:layout_width="wrap_content"
+        android:layout_width="288dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/comportamento_botao"
+        android:shape="rectangle"
         android:text="@string/register" />
 
 </LinearLayout>

@@ -50,7 +50,6 @@ public class AdminActivity extends FragmentActivity {
 		return lv_User;
 	}
 
-
 	public static void updateUsers(final ListView lv, final View v){
 
     	RESTManager.getInstance().requestChild(new RequestsCallbackAdapter() {
@@ -65,20 +64,15 @@ public class AdminActivity extends FragmentActivity {
         },null);
     }
     
-
-    
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-		
 		
 		// Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -101,9 +95,6 @@ public class AdminActivity extends FragmentActivity {
         return true;
     }
 
-   
- 
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -111,10 +102,8 @@ public class AdminActivity extends FragmentActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
-           
         	super(fm);
-           setTitleColor(getResources().getColor(R.color.white)) ;
-         
+        	setTitleColor(getResources().getColor(R.color.white)) ;
         }
 
         @Override
@@ -160,8 +149,7 @@ public class AdminActivity extends FragmentActivity {
          * fragment.
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
-
-
+        
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -195,7 +183,7 @@ public class AdminActivity extends FragmentActivity {
                         public void onTextChanged(CharSequence s, int start, int before,
                                 int count) {
                             if(!s.equals("") ){ 
-                            	 tvSave.setAnimation(scale);
+                            	tvSave.setAnimation(scale);
                             	tvSave.setVisibility(TextView.VISIBLE);
                             }
 
@@ -229,7 +217,7 @@ public class AdminActivity extends FragmentActivity {
 					                    System.out.println("Nao foi edidato");
 					                }
 					            }
-					        }, "AlessandroA", "Alessandroaa@gmail.com", null, -1, -1);
+					        }, "Aless", "Aless@gmail.com", null, -1, -1);
 							
 						}
 					});
@@ -238,21 +226,18 @@ public class AdminActivity extends FragmentActivity {
                     email.addTextChangedListener(twatcher);
                     pass.addTextChangedListener(twatcher);
                     cPass.addTextChangedListener(twatcher);
-                     break;
+                    break;
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);
-                	
-                	 lv_User = (ListView)rootView.findViewById(R.id.list_user);
+                	lv_User = (ListView)rootView.findViewById(R.id.list_user);
+                	updateUsers(lv_User, rootView);
+//                	lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
                 	 
-                	 updateUsers(lv_User, rootView);
+                	Button newUser = (Button) rootView.findViewById(R.id.new_user_menu);
+                	final Intent i = new Intent(rootView.getContext(), RegisterActivity.class);
                 	 
-                	 //lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
-                	 
-                	 Button newUser = (Button) rootView.findViewById(R.id.new_user_menu);
-                	 final Intent i = new Intent(rootView.getContext(), RegisterActivity.class);
-                	 
-                	 newUser.setOnClickListener(new View.OnClickListener() {
-						
+                	newUser.setOnClickListener(new View.OnClickListener() {
+											
 						@Override
 						public void onClick(View v) {
 							
@@ -262,17 +247,13 @@ public class AdminActivity extends FragmentActivity {
 					});
                 	 
                 	break;
-                	
 
                 default:
                     break;
             }
 
             return rootView;
-
         }
-
-
     }
     
     @Override

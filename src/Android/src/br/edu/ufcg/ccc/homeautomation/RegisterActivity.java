@@ -3,11 +3,15 @@ package br.edu.ufcg.ccc.homeautomation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.gms.internal.ch;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +70,7 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		setTheme(android.R.style.Theme_Black);
 		
 		final EditText tvName = (EditText) findViewById(R.id.edNome);
 		final EditText tveMail = (EditText) findViewById(R.id.edEmail);
@@ -84,6 +89,7 @@ public class RegisterActivity extends Activity {
 			row.setId(i);
 			row.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		    CheckBox checkBox = new CheckBox(layout.getContext());
+		    checkBox.setTextColor(Color.WHITE);
 		    checkBox.setId(i);
 		    checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				
