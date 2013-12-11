@@ -177,7 +177,6 @@ public class AdminActivity extends FragmentActivity {
                     final EditText cPass  = (EditText) rootView.findViewById(R.id.child_profile_pass_confirm);
                     name.setText(mUser.getName());
                     email.setText(mUser.getEmail());
-                    pass.setText("*******");
                     final Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
                     final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
                     tvSave.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +199,10 @@ public class AdminActivity extends FragmentActivity {
 							}else if (!(textPass.equals(textCpass))){
 								pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
 								focusView = pass;
+								focusView.requestFocus();
+							}else if (!(textMail.contains("@") && textMail.contains("."))){
+								pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+								focusView = email;
 								focusView.requestFocus();
 							}else{
 							RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {

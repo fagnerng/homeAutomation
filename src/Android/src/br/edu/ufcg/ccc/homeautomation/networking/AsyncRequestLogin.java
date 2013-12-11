@@ -63,8 +63,8 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText().toString();
 		
-		user = "fagnerng";
-		pass = "fagnerng";
+//		user = "fagnerng";
+//		pass = "fagnerng";
 		
 		UserManager.getInstance().setPass(pass);
 		
@@ -116,7 +116,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				}else{
 					mUser = new Child(jsonToParse);
 					//intent = new Intent(mContext, GuideActivity.class);
-					intent = new Intent(mContext, ChildActivity.class);
+					intent = new Intent(mContext, GuideActivity.class);
 				}				
 				
 				UserManager.getInstance().setUserObject(mUser);

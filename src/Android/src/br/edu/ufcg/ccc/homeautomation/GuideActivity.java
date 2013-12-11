@@ -26,7 +26,7 @@ public class GuideActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ChildActivity.class);
 				intent.putExtra("tab", 0);
 				startActivity(intent);
 				
@@ -37,7 +37,7 @@ public class GuideActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+				Intent intent = new Intent(getApplicationContext(), ChildActivity.class);
 				intent.putExtra("tab", 1);
 				startActivity(intent);
 				

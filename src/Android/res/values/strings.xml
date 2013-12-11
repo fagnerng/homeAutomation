@@ -34,7 +34,7 @@
     <string name="temperatura">Temperatura padrão</string>
     <string name="timer">Timer default</string>
     <string name="timer_config">Configurando Timer</string>
-    <string name="temperature_config">Configurando Temperatura</string>
+    <string name="temperature_config">Temperatura</string>
     <string name="set_device_name">Renomear dispositivo</string>
     <string name="tvTimer">Timer</string>
     <string name="new_device_name">Novo nome</string>
@@ -99,6 +99,7 @@
     
     <!--  Values default at Spinner for timer -->
     <string-array name="default_times_for_timer">
+    <item>0</item>
     <item>1</item>
 	<item>5</item>
 	<item>10</item>

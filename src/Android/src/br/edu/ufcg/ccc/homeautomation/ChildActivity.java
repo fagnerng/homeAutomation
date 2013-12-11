@@ -1,7 +1,10 @@
 package br.edu.ufcg.ccc.homeautomation;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,14 +15,24 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
+import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
+import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 
 public class ChildActivity extends FragmentActivity {
 
+	private static User mUser;
+    private static ArrayList<User> childs;
+    private static ArrayList<Device> devices;
+    private static ListView lv_User;
+    private static View focusView;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -30,7 +43,7 @@ public class ChildActivity extends FragmentActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-    private static User mUser;
+    
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -51,6 +64,10 @@ public class ChildActivity extends FragmentActivity {
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mViewPager.setBackgroundColor(getResources().getColor(R.color.background));
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        
+        Intent intent = getIntent();
+		int tabToOpen = intent.getIntExtra("tab", -1);
+		mViewPager.setCurrentItem(tabToOpen);
         
       
     }
@@ -120,31 +137,82 @@ public class ChildActivity extends FragmentActivity {
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
 
-
+        
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
 
             View rootView = null;
+            mUser = UserManager.getInstance().getUserObject();
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 1:
-                    rootView = inflater.inflate(R.layout.activity_child, container, false);
-                    mUser = UserManager.getInstance().getUserObject();
-                    ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
-                    DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
-//                    lv_devices.setOnItemClickListener(new OnClickDeviceList());
-                    lv_devices.setAdapter(devAdapter);
-                    break;
-                case 2:
-                    rootView = inflater.inflate(R.layout.activity_profile_edit, container, false);
-                    EditText name  = (EditText) rootView.findViewById(R.id.child_profile_name);
-                    EditText email  = (EditText) rootView.findViewById(R.id.child_profile_email);
-                    EditText pass  = (EditText) rootView.findViewById(R.id.child_profile_pass);
-                    name.setText(mUser.getName());
-                    email.setText(mUser.getEmail());
-                    pass.setText("*******");
-                     break;
+            case 1:
+                rootView = inflater.inflate(R.layout.activity_child, container, false);
+                
+                ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
+                DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
+                lv_devices.setAdapter(devAdapter);
+                break;
+            case 2:
+                rootView = inflater.inflate(R.layout.activity_profile_edit, container, false);
+                final EditText name  = (EditText) rootView.findViewById(R.id.child_profile_name);
+                final EditText email  = (EditText) rootView.findViewById(R.id.child_profile_email);
+                final EditText pass  = (EditText) rootView.findViewById(R.id.child_profile_pass);
+                final EditText cPass  = (EditText) rootView.findViewById(R.id.child_profile_pass_confirm);
+                name.setText(mUser.getName());
+                email.setText(mUser.getEmail());
+                final Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
+                final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
+                tvSave.setOnClickListener(new View.OnClickListener() {
+                	
+					@Override
+					public void onClick(final View v) {
+						 String textPass = pass.getText().toString();
+						 final String textName = name.getText().toString();
+						 final String textMail = email.getText().toString();
+						 String textCpass = cPass.getText().toString();
+						 
+						 if(textName.length() < 3 ){
+							 name.setError(v.getResources().getString(R.string.short_name), errorIcon);
+							 focusView = name;
+							 focusView.requestFocus();
+						 }else if (textPass.length() < 4){
+								pass.setError(v.getResources().getString(R.string.short_pass), errorIcon);
+								focusView = pass;
+								focusView.requestFocus();
+						}else if (!(textPass.equals(textCpass))){
+							pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+							focusView = pass;
+							focusView.requestFocus();
+						}else if (!(textMail.contains("@") && textMail.contains("."))){
+							pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+							focusView = email;
+							focusView.requestFocus();
+						}else{
+						RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {
+					            
+					            @Override
+					            public void onFinishRequestEdit(Boolean result) {
+					                if (result) {
+					                	UserManager.getInstance().getUserObject().setName(textName);
+					                	UserManager.getInstance().getUserObject().setEmail(textMail);
+					                	mUser = UserManager.getInstance().getUserObject();
+					                	
+					                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited), Toast.LENGTH_SHORT).show();
+					                }else{
+					                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited_fail), Toast.LENGTH_SHORT).show();
+					                }
+					            }
+					        }, textName, textMail, pass.getText().toString(), -1, -1);
+						}				
+					}
+					
+				});
+                
+                                
+
+                
+                break;
                 default:
                     break;
             }
