@@ -170,9 +170,12 @@ app.get('/auser',function (req,res){
 	//~ if (getUserAgent(req.headers)=="Desktop"){
 		//~ res.redirect("/");
 	//~ }else
-		if (debug){
+	
+	
+	
+	if (debug){
 		console.log("auserget: ");
-		console.log(req.param['user']);
+		console.log(req.param('user'));
 	}
 	{
 		var token = req.param('token');

@@ -58,7 +58,7 @@ exports.upUser = function(body, callback)
 							});									
 						}
 						for (i in body){
-							if (o[i] != undefined && body[i] != undefined){
+							if (o[i] !== undefined && body[i] !== undefined){
 									o[i] = body[i];
 							}
 	
@@ -123,7 +123,7 @@ exports.switchDev = function(body, callback)
 			validateToken(body.user, body.token, function(err, res) {
 				if (res){
 					if (body.name != undefined && body.name != "" && tokens[body.user].admin){
-						saveNameDevice({house:tokens[body.user], id:body:devices, name:body.name});
+						saveNameDevice({house:tokens[body.user], id:body.devices, name:body.name});
 					}
 					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
 					var devices = require(dbPath + "deviceDB.json")
@@ -164,9 +164,8 @@ exports.getDev = function(body, callback)
 				console.log("house",tokens[body.user].house);
 				console.log("admin", tokens[body.user].admin);
 				
-				var alldevices = require(dbPath+ "deviceDB.json")[
-				tokens[body.user].house] if (tokens[body.user].admin 
-				!= true){
+				var alldevices = require(dbPath+ "deviceDB.json")[tokens[body.user].house] 
+				if (tokens[body.user].admin != true){
 					var tempIDDev = require(dbPath + "usersDB.json")[body.user].devices
 					var tempDev = []
 					console.log("ids",tempIDDev)
@@ -390,7 +389,7 @@ exports.AndroidLogin = function(user, pass, callback){
 
 // find user by login
 getOneUserByLogin = function(user, callback){
-	//~ console.log(user)
+	console.log(user)
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
