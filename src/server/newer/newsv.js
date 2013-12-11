@@ -155,6 +155,13 @@ app.post('/alogin',function (req,res){
 	}
 	{
 		AM.AndroidLogin(req.body['user'],req.body['pass'],function(e, o){
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -191,7 +198,14 @@ app.get('/auser',function (req,res){
 		});
 		}
 		AM.getUser(user,token,function(e, o){
-			console.log(e,o);
+		if (debug){
+			console.log("e: " + e);
+			console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
+	
 			if(o != null){
 				o.pass = undefined;
 				o.token = token;
@@ -201,8 +215,7 @@ app.get('/auser',function (req,res){
 			}else{
 				res.send(e, 300);	
 			}
-		});
-				
+		});	
 	}
 });
 
@@ -217,6 +230,13 @@ app.post('/auser',function (req,res){
 	{
 		var body = req.body;
 		AM.upUser(body,function(e, o){
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -224,7 +244,6 @@ app.post('/auser',function (req,res){
 			res.send(e, 300);	
 		}
 	});
-	
 	}
 });
 
@@ -239,6 +258,13 @@ app.get('/achild',function (req,res){
 	}
 	{
 		AM.getMyChild(req.param('user'),req.param('token'), req.param('child'),function(e, o){
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -246,7 +272,6 @@ app.get('/achild',function (req,res){
 			res.send(e, 300);	
 		}
 	});
-	
 	}
 });
 app.post('/achild',function (req,res){
@@ -259,6 +284,13 @@ app.post('/achild',function (req,res){
 	}
 	{
 		AM.upMyChild(req.body,function(e, o){
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -266,7 +298,6 @@ app.post('/achild',function (req,res){
 			res.send(e, 300);	
 		}
 	});
-	
 	}
 });
 
@@ -280,6 +311,11 @@ app.put('/achild',function (req,res){
 	//~ }else
 	{
 		AM.addNewAccount(req.body,function(e, o){
+		console.log("e: " + e);
+				console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -288,7 +324,6 @@ app.put('/achild',function (req,res){
 		}
 	}
 	);
-	
 	}
 });
 
@@ -302,7 +337,13 @@ app.delete('/achild',function (req,res){
 	}
 	{
 		AM.delChild({user:req.param('user'),token:req.param('token'), child:req.param('child')}, function(e,o){
-
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		};
 		if(o != null){
 			res.send(o, 200);	
 		}else
@@ -311,7 +352,6 @@ app.delete('/achild',function (req,res){
 		}
 	}
 	);
-	
 	}
 });
 
@@ -322,7 +362,13 @@ app.post('/adevice',function (req,res){
 	}
 	{
 	AM.switchDev(req.body, function(e,o){
-
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
+		}
 		if(o != null){
 			//res.send(o, 200);	
 		}else
@@ -343,7 +389,14 @@ app.get('/adevice',function (req,res){
 	}
 	{
 	AM.getDev({user:req.param('user'), token:req.param('token')}, function(e,o){
+		if (debug){
+			console.log("e: " + e);
+					console.log("o: " + o);
+			for (var i in o){
+				console.log(i +": " +o[i])
+			}
 
+		}
 		if(o != null){
 			res.send(o, 200);	
 		}else
