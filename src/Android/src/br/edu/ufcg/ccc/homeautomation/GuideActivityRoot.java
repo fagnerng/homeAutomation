@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class GuideActivityRoot extends Activity {
@@ -19,6 +20,7 @@ public class GuideActivityRoot extends Activity {
 	ImageButton rootDevices;
 	ImageButton rootProfile;
 	ImageButton rootUsers;
+	Button findHouse;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,22 @@ public class GuideActivityRoot extends Activity {
 		rootProfile = (ImageButton) findViewById(R.id.icon_button_root);
 		rootDevices = (ImageButton) findViewById(R.id.device_button_root);
 		rootUsers = (ImageButton) findViewById(R.id.user_button_root);
+		findHouse = (Button) findViewById(R.id.find_house);
+		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean status = prefs.getBoolean("distance",true);
 		System.err.println(status);
+		
+		
+		findHouse.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TO DO
+				//Chamar método de fagner aqui!
+			}
+		});
+		
 		
 		rootProfile.setOnClickListener(new View.OnClickListener() {
 			
@@ -55,7 +70,6 @@ public class GuideActivityRoot extends Activity {
 			@Override
 			public void onClick(View v) {
 				final Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-				intent.putExtra("tab", 0);
 				setAnimation(scale, intent, 0);
 				
 				v.startAnimation(scale);

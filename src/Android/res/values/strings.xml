@@ -71,6 +71,8 @@
     <string name="register">Registrar</string>
     <string name="user_edited">Usuario editado com sucesso</string>
     <string name="user_edited_fail">Erro ao editar usuario</string>
+    <string name="find_house">Localizar Residência</string>
+    <string name="empty_name">O nome não deve ser vazio</string>
     
 
     <!-- Strings for register_second.xml -->

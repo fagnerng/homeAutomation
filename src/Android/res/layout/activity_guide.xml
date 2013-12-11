@@ -29,4 +29,22 @@
         android:background="@android:color/transparent"
         android:src="@drawable/device_big" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tab_profile"
+        android:textColor="@color/button_background" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tab_devices"
+        android:textColor="@color/button_background" />
+
 </RelativeLayout>

@@ -173,7 +173,7 @@ public class DeviceAdapter extends BaseAdapter{
 		timer = (Spinner) dialogEditDevice.findViewById(R.id.spinner_default_times);
 		Integer times[] = {1,5,10,15,30,60,90,20};
 		Integer temperaturas[] = {17,18,19,20,21,22,23,24,25};
-		Integer timerDefault =Integer.valueOf(prefs.getString("timer_default", "2"));
+		Integer timerDefault = Integer.valueOf(prefs.getString("timer_default", "2"));
 
 		
 		
@@ -257,10 +257,14 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				dev.setName(editName.getText().toString());
-				mView.setText(dev.getName());
+				if(!editName.getText().toString().trim().equals("")){
+					dev.setName(editName.getText().toString());
+					mView.setText(dev.getName());
+					edit.dismiss();
+				}else{
+					Toast.makeText(v.getContext(), v.getResources().getString(R.string.empty_name), Toast.LENGTH_SHORT).show();
+				}
 				
-				edit.dismiss();
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
