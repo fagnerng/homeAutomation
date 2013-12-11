@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/confirm"
-            tools:ignore="ButtonStyle" />
+/>
 
         <Button
             android:id="@+id/light_cancel"
@@ -91,7 +92,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_cancel"
             android:layout_marginLeft="10dp"
-            tools:ignore="ButtonStyle" />
+          />
 
     </LinearLayout>
 

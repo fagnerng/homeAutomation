@@ -66,9 +66,12 @@
     <string name="no_devices">Selecione ao menos um dispositivo</string>
     <string name="require_name">Nome</string>
     <string name="require_email">Email</string>
-    <string name="require_pass">Senha</string>
-    <string name="require_confirm_pass">Nova Senha</string>
+    <string name="require_pass">Nova Senha</string>
+    <string name="require_confirm_pass">Confirme a Senha</string>
     <string name="register">Registrar</string>
+    <string name="user_edited">Usuario editado com sucesso</string>
+    <string name="user_edited_fail">Erro ao editar usuario</string>
+    
 
     <!-- Strings for register_second.xml -->
     <string name="select_dev">Selecione dispositivos para o usuário</string>

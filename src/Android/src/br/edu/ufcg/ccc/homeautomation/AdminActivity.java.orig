@@ -48,7 +48,6 @@ public class AdminActivity extends FragmentActivity {
     private static ArrayList<Device> devices;
     private static ListView lv_User;
     private static View focusView;
-    private AdminActivity adm = this;
     
     public static ListView getLv_User() {
 		return lv_User;
@@ -180,17 +179,40 @@ public class AdminActivity extends FragmentActivity {
                     pass.setText("*******");
                     final Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
                     final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
+<<<<<<< Updated upstream
+                    tvSave.setVisibility( Button.INVISIBLE);
+                    final Animation scale = AnimationUtils.loadAnimation(rootView.getContext(),R.anim.translate);
+                    
+                    TextWatcher twatcher = new TextWatcher() {
+
+                        public void onTextChanged(CharSequence s, int start, int before,
+                                int count) {
+                            if(!s.equals("") ){ 
+                            	tvSave.setAnimation(scale);
+                            	tvSave.setVisibility(TextView.VISIBLE);
+                            }
+
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count,
+                                int after) {
+
+                        }
+
+=======
                     tvSave.setOnClickListener(new View.OnClickListener() {
                     	
+>>>>>>> Stashed changes
 						@Override
 						public void onClick(final View v) {
+							System.out.println("CLICOU!");
 							 String textPass = pass.getText().toString();
-							 final String textName = name.getText().toString();
-							 final String textMail = email.getText().toString();
+							 String textName = name.getText().toString();
+							 String textMail = email.getText().toString();
 							 String textCpass = cPass.getText().toString();
 							 
 							 if(textName.length() < 3 ){
-								 name.setError(v.getResources().getString(R.string.short_name), errorIcon);
+								 name.setError(v.getResources().getString(R.string.short_pass), errorIcon);
 								 focusView = name;
 								 focusView.requestFocus();
 							 }else if (textPass.length() < 4){
@@ -207,25 +229,48 @@ public class AdminActivity extends FragmentActivity {
 						            @Override
 						            public void onFinishRequestEdit(Boolean result) {
 						                if (result) {
-						                	UserManager.getInstance().getUserObject().setName(textName);
-						                	UserManager.getInstance().getUserObject().setEmail(textMail);
-						                	mUser = UserManager.getInstance().getUserObject();
-						                	
 						                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited), Toast.LENGTH_SHORT).show();
 						                }else{
 						                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited_fail), Toast.LENGTH_SHORT).show();
 						                }
 						            }
-						        }, textName, textMail, pass.getText().toString(), -1, -1);
+						        }, mUser.getName(), mUser.getEmail(), pass.getText().toString(), -1, -1);
 							}				
 						}
-						
 					});
                     
                                     
 
                     
+                    tvSave.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+					        
+					        RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {
+					            
+					            @Override
+					            public void onFinishRequestEdit(Boolean result) {
+					                if (result) {
+					                    System.out.println("Editado com sucesso");
+					                }else{
+					                    System.out.println("Nao foi edidato");
+					                }
+					            }
+					        }, "Aless", "Aless@gmail.com", null, -1, -1);
+							
+						}
+					});
+                    
+<<<<<<< Updated upstream
+                    name.addTextChangedListener(twatcher);
+                    email.addTextChangedListener(twatcher);
+                    pass.addTextChangedListener(twatcher);
+                    cPass.addTextChangedListener(twatcher);
                     break;
+=======
+                     break;
+>>>>>>> Stashed changes
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);
                 	lv_User = (ListView)rootView.findViewById(R.id.list_user);

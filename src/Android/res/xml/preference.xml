@@ -5,22 +5,24 @@
         android:title="@string/distance_title"
         android:defaultValue="true"
         />
-    <EditTextPreference 
-        android:key="temperature"
-        android:title="@string/temperatura"
-        android:numeric="integer"
-        android:maxLength="2"
-        android:defaultValue="20"
-        
-        />
-    <EditTextPreference 
-        android:key="temperature"
+
+    
+    <ListPreference 
+        android:key="timer_default"
         android:title="@string/timer"
-        android:numeric="integer"
-        android:maxLength="3"
-        android:defaultValue="20"
-        
+        android:defaultValue="15"
+        android:entries="@array/default_times_for_timer"
+        android:entryValues="@array/default_times_for_timer"
         />
+        <ListPreference 
+        android:key="temperatureDefault"
+        android:title="@string/temperature_config"
+        android:defaultValue="20"
+        android:entries="@array/default_times_for_temperature"
+        android:numeric="integer"
+        android:entryValues="@array/default_times_for_temperature"
+        />
+    
 <!--     <ListPreference
         android:dependency="pref_sync"
         android:key="pref_syncConnectionType"

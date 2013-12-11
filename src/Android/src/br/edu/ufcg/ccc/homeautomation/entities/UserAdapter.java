@@ -208,10 +208,9 @@ public class UserAdapter extends BaseAdapter{
 						
 					}
 				});
-				if(v1 != null){
-					v.clearAnimation();
+
 			        v.startAnimation(rotate);
-				}
+
 				
 			}
 		});
@@ -240,11 +239,9 @@ public class UserAdapter extends BaseAdapter{
 						
 					}
 				});
-				
-				if(v2 != null){
-					v.clearAnimation();
+
 			        v.startAnimation(rotate);
-				}
+
 				
 				
 			}

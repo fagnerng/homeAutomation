@@ -2,14 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     tools:context=".LoginActivity"
+    android:background="@color/background"
     >
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background" >
-    </ScrollView>
 
     <LinearLayout
         style="@style/LoginFormContainer"

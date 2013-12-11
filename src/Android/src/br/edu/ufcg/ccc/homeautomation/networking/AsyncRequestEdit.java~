@@ -53,6 +53,7 @@ public class AsyncRequestEdit extends AsyncTask<String, Void, Boolean>{
 		
 		try {			
 
+
 			if (name != null)
 				jsonToSend.put("name", name);
 			if (email != null)

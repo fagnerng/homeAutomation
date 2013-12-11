@@ -48,11 +48,11 @@ public class AdminActivity extends FragmentActivity {
     private static ArrayList<Device> devices;
     private static ListView lv_User;
     private static View focusView;
-    private AdminActivity adm = this;
     
     public static ListView getLv_User() {
 		return lv_User;
 	}
+
 
 	public static void updateUsers(final ListView lv, final View v){
 
@@ -68,16 +68,19 @@ public class AdminActivity extends FragmentActivity {
         },null);
     }
     
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 		
+
 		// Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -99,6 +102,7 @@ public class AdminActivity extends FragmentActivity {
         return true;
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -106,8 +110,10 @@ public class AdminActivity extends FragmentActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
+
         	super(fm);
         	setTitleColor(getResources().getColor(R.color.white)) ;
+
         }
 
         @Override
@@ -154,6 +160,7 @@ public class AdminActivity extends FragmentActivity {
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
         
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -181,16 +188,18 @@ public class AdminActivity extends FragmentActivity {
                     final Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
                     final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
                     tvSave.setOnClickListener(new View.OnClickListener() {
+
                     	
 						@Override
 						public void onClick(final View v) {
+							System.out.println("CLICOU!");
 							 String textPass = pass.getText().toString();
-							 final String textName = name.getText().toString();
-							 final String textMail = email.getText().toString();
+							 String textName = name.getText().toString();
+							 String textMail = email.getText().toString();
 							 String textCpass = cPass.getText().toString();
 							 
 							 if(textName.length() < 3 ){
-								 name.setError(v.getResources().getString(R.string.short_name), errorIcon);
+								 name.setError(v.getResources().getString(R.string.short_pass), errorIcon);
 								 focusView = name;
 								 focusView.requestFocus();
 							 }else if (textPass.length() < 4){
@@ -207,29 +216,51 @@ public class AdminActivity extends FragmentActivity {
 						            @Override
 						            public void onFinishRequestEdit(Boolean result) {
 						                if (result) {
-						                	UserManager.getInstance().getUserObject().setName(textName);
-						                	UserManager.getInstance().getUserObject().setEmail(textMail);
-						                	mUser = UserManager.getInstance().getUserObject();
-						                	
 						                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited), Toast.LENGTH_SHORT).show();
 						                }else{
 						                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_edited_fail), Toast.LENGTH_SHORT).show();
 						                }
 						            }
-						        }, textName, textMail, pass.getText().toString(), -1, -1);
+						        }, mUser.getName(), mUser.getEmail(), pass.getText().toString(), -1, -1);
 							}				
+
 						}
-						
 					});
                     
                                     
 
+
+
                     
+                    tvSave.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+					        
+					        RESTManager.getInstance().requestEdit(new RequestsCallbackAdapter() {
+					            
+					            @Override
+					            public void onFinishRequestEdit(Boolean result) {
+					                if (result) {
+					                    System.out.println("Editado com sucesso");
+					                }else{
+					                    System.out.println("Nao foi edidato");
+					                }
+					            }
+					        }, "Aless", "Aless@gmail.com", null, -1, -1);
+							
+						}
+					});
+                    
+
                     break;
                 case 3:
                 	rootView = inflater.inflate(R.layout.users, container, false);
+
                 	lv_User = (ListView)rootView.findViewById(R.id.list_user);
+
                 	updateUsers(lv_User, rootView);
+
 //                	lv_User.setAdapter(new UserAdapter(rootView.getContext(), childs));
                 	 
                 	Button newUser = (Button) rootView.findViewById(R.id.new_user_menu);
@@ -247,12 +278,15 @@ public class AdminActivity extends FragmentActivity {
                 	 
                 	break;
 
+
                 default:
                     break;
             }
 
             return rootView;
+
         }
+
     }
     
     @Override
@@ -262,3 +296,4 @@ public class AdminActivity extends FragmentActivity {
     	super.onBackPressed();
     }
 }
+
