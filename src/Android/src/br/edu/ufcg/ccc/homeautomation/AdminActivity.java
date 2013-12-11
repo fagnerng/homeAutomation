@@ -11,18 +11,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
@@ -45,10 +40,8 @@ public class AdminActivity extends FragmentActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
     private static User mUser;
     private static ArrayList<User> childs;
-    private static ArrayList<Device> devices;
     private static ListView lv_User;
     private static View focusView;
-    private AdminActivity adm = this;
     
     public static ListView getLv_User() {
 		return lv_User;
@@ -89,7 +82,7 @@ public class AdminActivity extends FragmentActivity {
         Intent intent = getIntent();
 		int tabToOpen = intent.getIntExtra("tab", -1);
 		mViewPager.setCurrentItem(tabToOpen);
-      
+		
     }
 
     @Override

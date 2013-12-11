@@ -3,7 +3,7 @@
         {
             "id": 0,
             "name": "Lampada Quarto",
-            "status": false,
+            "status": true,
             "type": "light"
         },
         {

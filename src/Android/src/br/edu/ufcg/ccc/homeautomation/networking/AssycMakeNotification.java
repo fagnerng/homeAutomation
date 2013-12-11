@@ -37,7 +37,7 @@ public class AssycMakeNotification extends AsyncTask<Void, Void, Void>{
 		Notification.Builder builder = new Notification.Builder(mContext);
 
 		builder.setContentIntent(contentIntent)
-		            .setSmallIcon(R.drawable.ic_launcher)
+		            .setSmallIcon(R.drawable.ic_launcher)	
 		            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.ic_launcher))
 		            .setTicker(res.getString(R.string.app_name))
 		            .setWhen(System.currentTimeMillis())

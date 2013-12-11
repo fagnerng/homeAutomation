@@ -1,6 +1,7 @@
 package br.edu.ufcg.ccc.homeautomation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,8 +28,8 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_login);
+		startService(new Intent(LoginActivity.this, br.edu.ufcg.ccc.homeautomation.service.NotificationService.class));
 
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);
@@ -42,6 +43,7 @@ public class LoginActivity extends Activity {
 					}
 				});
 		RESTManager.getInstance().requestLogin(this);
+		
 	}
 
 	@Override

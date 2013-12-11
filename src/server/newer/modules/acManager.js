@@ -48,7 +48,6 @@ exports.upUser = function(body, callback)
 						if (tokens[body.user].admin){
 							saveGeoPosition(body.long, body.lati, o.house);
 						}
-						body.user = undefined;
 						body.token = undefined;
 						body.devices = undefined;
 						body.house = undefined;
@@ -63,14 +62,31 @@ exports.upUser = function(body, callback)
 							}
 	
 						}
-						
-						insertUser(	
-						{   name: o.name,
-							email: o.email,
-							child: o.user,
-							pass: o.pass,
-							house: o.house
-						});	
+						if (tokens[body.user].admin){
+							insertUser(	
+							{   name: o.name,
+								email: o.email,
+								child: o.user,
+								pass: o.pass,
+								house: o.house
+							});	
+						}else{
+							var backDev = []
+							for (var a = 0;a < o.devices.length;a++){
+								backDev[backDev.length] = o.devices[a].id
+							}
+							
+							
+								insertUser(	
+								{   name: o.name,
+									email: o.email,
+									child: o.user,
+									pass: o.pass,
+									house: o.house,
+									devices: backDev
+								});	
+						}
+					
 						callback(null,o);
 						
 					}else{
@@ -161,20 +177,17 @@ exports.getDev = function(body, callback)
 			validateToken(body.user, body.token, function(err, res) {
 				
 				if (res || err.err == 'expired-token'){
-				console.log("house",tokens[body.user].house);
-				console.log("admin", tokens[body.user].admin);
+		
 				
 				var alldevices = require(dbPath+ "deviceDB.json")[tokens[body.user].house] 
 				if (tokens[body.user].admin != true){
 					var tempIDDev = require(dbPath + "usersDB.json")[body.user].devices
 					var tempDev = []
-					console.log("ids",tempIDDev)
 					for (var i= 0 ; i< tempIDDev.length;i++){
 						tempDev[tempDev.length] = alldevices[tempIDDev[i]]
 					}
 					alldevices = tempDev;
 				}
-				console.log("retorno",alldevices);
 				callback(null, alldevices);
 				
 				
@@ -389,7 +402,6 @@ exports.AndroidLogin = function(user, pass, callback){
 
 // find user by login
 getOneUserByLogin = function(user, callback){
-	console.log(user)
 	var loginDB = require(dbPath + 'loginDB.json');
 	if( loginDB[user] != undefined){
 		var o = require(dbPath+'usersDB.json')[user];
@@ -417,7 +429,6 @@ getOneUserByLogin = function(user, callback){
 					admin		: 	admin,
 					devices		: 	devices
 				};
-				//~ console.log(callback);
 				callback(null,userObject);
 				
 		}
@@ -515,10 +526,16 @@ var saveChild = function (child, devices){
 }
 
 var saveGeoPosition = function (longitude, latitude, house){
-	var tableDB = require(dbPath+'house'+'DB.json');
-	tableDB[house].longitude = longitude;
-	tableDB[house].latitude = latitude;
-	saveData(tableDB, 'house');
+
+	if (longitude != undefined && latitude != undefined){
+		var tableDB = require(dbPath+'house'+'DB.json');
+		tableDB[house].longitude = longitude;
+		tableDB[house].latitude = latitude;
+		saveData(tableDB, 'house');
+	}
+	
+	
+	
 	
 }
 var validateToken = function(user, token, callback)
@@ -535,27 +552,22 @@ var validateToken = function(user, token, callback)
 	
 }
 var getStatusDev= function(hostHouse, callback){
-	//~ console.log(hostHouse);
 	var xmlhttp = new XMLHttpRequest();
 	var devices = require(dbPath + "deviceDB.json");
 	var nameHouse = hostHouse.id
 	xmlhttp.onreadystatechange=function() {
 
 	if (xmlhttp.status==200 && xmlhttp.readyState == 4){
-		//~ console.log(xmlhttp.responseText);
 		try{
 			response = JSON.parse(xmlhttp.responseText);
-			//~ console.log(response.devices.length)
 			var devicesLen = response.devices.length;
 			for (var i=0; i < devicesLen; i++) {
-				//~ console.log( response.devices[i].status);
 				devices[nameHouse][i].status = response.devices[i].status == "on"? true : false;
 				
 			}
 			saveData(devices, "device");
 			callback();
 		}catch(e){
-			//~ console.log(e);
 		}
 	}
 }
@@ -564,7 +576,6 @@ var getStatusDev= function(hostHouse, callback){
 		xmlhttp.open("GET", getLinkDefault(hostHouse.ip),true);
 		xmlhttp.send();
 	}catch(e){
-		//~ console.log(e);
 	}
 	
 }
@@ -587,7 +598,6 @@ function switchPower(body,callback){
 		xmlhttp2.send();
 		callback(null,"");
 	}catch(e){
-		//~ console.log(e);
 	}
 };
 
