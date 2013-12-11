@@ -48,6 +48,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	@Override
 	protected void onPostExecute(User result) {
 		// Set for All System the userName and his current Token
+		System.out.println("ALOW: "+result.getToken());
 		UserManager.getInstance().setToken(result.getToken());
 		
 		if (result != null)

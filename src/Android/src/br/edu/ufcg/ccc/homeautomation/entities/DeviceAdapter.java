@@ -183,7 +183,7 @@ public class DeviceAdapter extends BaseAdapter{
 		dialogEditDevice.setTitle(dialogEditDevice.getContext().getResources().getString(R.string.config_devices));
 		dialogEditDevice.show();
 		
-		editDevice.setOnClickListener	(new View.OnClickListener() {
+		editDevice.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -191,12 +191,15 @@ public class DeviceAdapter extends BaseAdapter{
 			}			
 		});
 		
+		final Animation animationPress = AnimationUtils.loadAnimation(v.getContext(),R.anim.reversed_scale);
+		
 		buttonStatus.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-//				showEditDevices(v, mDev, deviceName);
-				Toast.makeText(v.getContext(), "Chamar funcionalidade do Switch", Toast.LENGTH_SHORT).show();
+				v.startAnimation(animationPress);
+				executeSwitchPower(v, mDev, buttonStatus, on,off);
+//				Toast.makeText(v.getContext(), "Chamar funcionalidade do Switch", Toast.LENGTH_SHORT).show();
 			}			
 		});
 		
@@ -204,6 +207,7 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
+				notifyDataSetChanged();
 				Toast.makeText(v.getContext(), "Requisicao Confirmar", Toast.LENGTH_SHORT).show();
 				dialogEditDevice.dismiss();
 			}
@@ -213,6 +217,7 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
+				notifyDataSetChanged();
 				dialogEditDevice.dismiss();
 			}
 		});
@@ -227,6 +232,7 @@ public class DeviceAdapter extends BaseAdapter{
 		Button confirm = (Button) edit.findViewById(R.id.button_confirm_device);
 		final EditText editName = (EditText) edit.findViewById(R.id.edit_device_name);
 		edit.show();
+		
 		confirm.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
