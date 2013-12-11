@@ -337,8 +337,8 @@ app.post('/adevice',function (req,res){
 });
 
 app.get('/adevice',function (req,res){
-		if (debug){
-		console.log("apostdeve: ");
+	if (debug){
+		console.log("agetdeve: ");
 		console.log(req.body);
 	}
 	{

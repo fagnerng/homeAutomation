@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 public class LBSManager {
@@ -81,17 +80,9 @@ public class LBSManager {
 		getLocationClient().requestLocationUpdates(getLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY, 30000,10000),getListener() );
 		
 	}
-	public  void setLocationClient(LocationListener listener) {
-		getLocationClient().requestLocationUpdates(getLocationRequest(),listener );
-		
-	}
 
 	public  void rmLocationClient() {
 		getLocationClient().removeLocationUpdates(getListener());
-		
-	}
-	public  void rmLocationClient(LocationListener listener) {
-		getLocationClient().removeLocationUpdates(listener);
 		
 	}
 	

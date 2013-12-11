@@ -15,11 +15,14 @@ public class MyLocationListener implements LocationListener {
 		
 		/// TODO aqui deve ser feito o deve ser feito
 		//verificar se esta longe de casa e notificar o usuario
-		Toast.makeText(mContext,  String.format("%.2f", MathLab.distancia(arg0))+" m", Toast.LENGTH_SHORT).show();
+		Toast.makeText(mContext,  String.format("%.2f", MathLab.distancia(arg0))+" m "+MathLab.lastLocation.toString(), Toast.LENGTH_SHORT).show();
+//		((EditText)((Activity)mContext).findViewById(R.id.editTextLatitude)).setText(MathLab.lastLocation.getLatitude()+"");
+//		((EditText)((Activity)mContext).findViewById(R.id.editTextLongitude)).setText(MathLab.lastLocation.getLongitude()+"");
+//		((EditText)((Activity)mContext).findViewById(R.id.editTextProvider)).setText(arg0.getProvider());
 	}
 	
 	public static class MathLab {
-		static Location lastLocation;
+		public static Location lastLocation;
 		
 		public static void setHomeLocation(Location location){
 			lastLocation = location;

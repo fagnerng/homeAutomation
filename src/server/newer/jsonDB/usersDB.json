@@ -14,10 +14,10 @@
         "house": "house_001"
     },
     "fagnerng": {
-        "name": "AlessandroA",
-        "email": "Alessandroaa@gmail.com",
+        "name": "AxiusGame",
+        "email": "Axius2@gmail.com",
         "user": "fagnerng",
-        "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
+        "pass": "VJpX6QbYvr8c416821d02da791c7e4c513f8dd3c6b",
         "house": "house_000"
     },
     "andersongfs": {
@@ -47,6 +47,7 @@
         "pass": "GDrm0UCvAE24ff9b84683045740835f58820c73ff4",
         "house": "house_000",
         "devices": [
+            0,
             1
         ]
     },
