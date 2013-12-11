@@ -4,28 +4,26 @@
     android:layout_height="wrap_content"
     android:background="@color/background" >
 
-<ScrollView 
-   
-    android:layout_width="fill_parent"
-    android:layout_height="400dp">
-<LinearLayout 
-    android:id="@+id/dialogDevicesLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
->
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="400dp" >
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/dialogDevicesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
-
-
-<Button
+    <Button
     android:id="@+id/confirm"
-    android:layout_width="wrap_content"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
+    android:layout_marginBottom="136dp"
+    android:background="@drawable/comportamento_botao"
+    android:shape="rectangle"
     android:text="@string/confirm" />
-
 </RelativeLayout>
