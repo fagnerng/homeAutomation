@@ -27,9 +27,7 @@
         android:layout_below="@+id/icon_button_root"
         android:layout_centerHorizontal="true"
         android:text="@string/tab_profile"
-        android:textColor="@color/button_background"
-        
-        />
+        android:textColor="@color/button_background" />
 
     <TextView
         android:id="@+id/textView2"
@@ -39,7 +37,7 @@
         android:layout_below="@+id/user_button_root"
         android:layout_marginLeft="16dp"
         android:text="@string/tab_manage_users"
-         android:textColor="@color/button_background" />
+        android:textColor="@color/button_background" />
 
     <TextView
         android:id="@+id/textView3"
@@ -48,36 +46,36 @@
         android:layout_below="@+id/device_button_root"
         android:layout_toRightOf="@+id/textView1"
         android:text="@string/tab_devices"
-         android:textColor="@color/button_background" />
+        android:textColor="@color/button_background" />
 
-         <Button
-             android:id="@+id/find_house"
-             android:layout_width="280dp"
-             android:layout_height="wrap_content"
-             android:layout_alignParentBottom="true"
-             android:layout_centerHorizontal="true"
-             android:layout_marginBottom="31dp"
-             android:background="@drawable/comportamento_botao"
-             android:shape="rectangle"
-             android:text="@string/find_house" />
+    <Button
+        android:id="@+id/find_house"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp"
+        android:background="@drawable/comportamento_botao"
+        android:shape="rectangle"
+        android:text="@string/find_house" />
 
-         <ImageButton
-             android:id="@+id/icon_button_root"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentTop="true"
-             android:layout_centerHorizontal="true"
-             android:layout_marginTop="50dp"
-             android:background="@android:color/transparent"
-             android:src="@drawable/user_icon" />
+    <ImageButton
+        android:id="@+id/icon_button_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/user_icon" />
 
-         <ImageButton
-             android:id="@+id/user_button_root"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_above="@+id/textView3"
-             android:layout_toLeftOf="@+id/textView1"
-             android:background="@android:color/transparent"
-             android:src="@drawable/users_icon" />
+    <ImageButton
+        android:id="@+id/user_button_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_toLeftOf="@+id/textView1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/users_icon" />
 
 </RelativeLayout>

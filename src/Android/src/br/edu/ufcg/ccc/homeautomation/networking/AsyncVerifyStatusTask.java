@@ -14,11 +14,11 @@ import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class AssyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
+public class AsyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
 	
 	String mResult;
 	Context mContext;
-	public AssyncVerifyStatusTask(Context context, String arg0){
+	public AsyncVerifyStatusTask(Context context, String arg0){
 		this.mResult = arg0;
 		this.mContext = context;
 	}
@@ -46,7 +46,7 @@ public class AssyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
 				}
 				mDev.add(tempDev);
 				if (tempDev.getStatus()) {
-					new AssycMakeNotification(mContext,i,tempDev.getName()).execute();
+					new AsycMakeNotification(mContext,i,tempDev.getName()).execute();
 				
 				}
 			} catch (JSONException e) {

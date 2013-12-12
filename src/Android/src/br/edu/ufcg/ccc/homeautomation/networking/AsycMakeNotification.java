@@ -13,11 +13,11 @@ import br.edu.ufcg.ccc.homeautomation.LoginActivity;
 
 import br.edu.ufcg.ccc.homeautomation.R;
 
-public class AssycMakeNotification extends AsyncTask<Void, Void, Void>{
+public class AsycMakeNotification extends AsyncTask<Void, Void, Void>{
 	int idTask;
 	Context mContext;
 	String mText;
-	public AssycMakeNotification(Context context, int id, String msgText){
+	public AsycMakeNotification(Context context, int id, String msgText){
 		this.mContext = context;
 		this.idTask = id;
 		this.mText= msgText; 

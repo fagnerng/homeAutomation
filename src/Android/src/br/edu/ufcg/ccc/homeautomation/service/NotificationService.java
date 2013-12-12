@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import br.edu.ufcg.ccc.homeautomation.core.lbs.LBSManager;
-import br.edu.ufcg.ccc.homeautomation.networking.AssyncResquestStatusDevs;
-import br.edu.ufcg.ccc.homeautomation.networking.AssyncVerifyStatusTask;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncResquestStatusDevs;
+import br.edu.ufcg.ccc.homeautomation.networking.AsyncVerifyStatusTask;
 
 
 public class NotificationService extends Service {
-	static AssyncResquestStatusDevs mTask;
+	static AsyncResquestStatusDevs mTask;
 	static Boolean enable;
 	public static Context context;
 
@@ -30,16 +30,16 @@ public class NotificationService extends Service {
 	public void onStart(Intent intent, int startId) {
 		// For time consuming an long tasks you can launch a new thread here...
 		LBSManager.getInstance(this).onStart();
-		mTask = new AssyncResquestStatusDevs();
+		mTask = new AsyncResquestStatusDevs();
 		mTask.execute();
 
 	}
 
 	public static void onEndResquest(String result) {
 		
-		new AssyncVerifyStatusTask(context, result).execute();
+		new AsyncVerifyStatusTask(context, result).execute();
 		if (enable) {
-			mTask = new AssyncResquestStatusDevs();
+			mTask = new AsyncResquestStatusDevs();
 			mTask.execute();
 		}
 	}

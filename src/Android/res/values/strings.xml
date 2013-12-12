@@ -21,9 +21,9 @@
     <string name="action_login_in_progress">Efetuando Login</string>
     <string name="devices">Dispositivos</string>
     <string name="confirm">Confirmar</string>
-    
+
     <!-- Strings for erro on server.xml -->
-    
+
     <string name="server_is_down">Não foi possível conectar ao servidor</string>
     <string name="invalid_password">Senha incorreta</string>
     <string name="user_not_found">Usuário não foi encontrado</string>
@@ -38,15 +38,13 @@
     <string name="set_device_name">Renomear dispositivo</string>
     <string name="tvTimer">Timer</string>
     <string name="new_device_name">Novo nome</string>
-    
 
     <!-- Strings for edit device tab.xml -->
     <string name="device_name">Nome: </string>
     <string name="device_status">Status: </string>
     <string name="config_devices">Configurando Dispositivo </string>
     <string name="rename_device">Renomear Dispositivo </string>
-    
-    
+
     <!-- Strings for tabs in the menu -->
     <string name="tab_devices">Dispositivos</string>
     <string name="tab_profile">Perfil</string>
@@ -56,7 +54,7 @@
     <string name="child_activity_pass">Nova Senha:</string>
     <string name="button_save">Salvar</string>
     <string name="button_cancel">Cancelar</string>
-    <string name="switch_power">Switch Power</string>    
+    <string name="switch_power">Switch Power</string>
 
     <!-- Strings for register_first.xml -->
     <string name="short_name">Nome muito curto</string>
@@ -73,7 +71,6 @@
     <string name="user_edited_fail">Erro ao editar usuario</string>
     <string name="find_house">Localizar Residência</string>
     <string name="empty_name">O nome não deve ser vazio</string>
-    
 
     <!-- Strings for register_second.xml -->
     <string name="select_dev">Selecione dispositivos para o usuário</string>
@@ -98,32 +95,35 @@
     <string name="title_activity_guide">GuideActivity</string>
     <string name="title_activity_guide_activity_root">GuideActivityRoot</string>
     <string name="title_activity_prefs">PrefsActivity</string>
-    
-    <!--  Values default at Spinner for timer -->
+
+    <!-- Values default at Spinner for timer -->
     <string-array name="default_times_for_timer">
-    <item>0</item>
-    <item>1</item>
-	<item>5</item>
-	<item>10</item>
-	<item>15</item>
-	<item>30</item>
-	<item>60</item>
-	<item>90</item>
-	<item>120</item>
-	</string-array>
-	    
-	<!--  Values default at Spinner for temperature -->
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
+
+    <!-- Values default at Spinner for temperature -->
     <string-array name="default_times_for_temperature">
-    <item>17</item>
-	<item>18</item>
-	<item>19</item>
-	<item>20</item>
-	<item>21</item>
-	<item>22</item>
-	<item>23</item>
-	<item>24</item>
-	<item>25</item>
-	</string-array>
-    
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+    </string-array>
+
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="longitude">Longitude</string>
+     <string name="latitude">Latitude</string>
 
 </resources>

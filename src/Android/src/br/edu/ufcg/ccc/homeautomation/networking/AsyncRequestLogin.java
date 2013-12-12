@@ -11,8 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.EditText;
-import br.edu.ufcg.ccc.homeautomation.AdminActivity;
-import br.edu.ufcg.ccc.homeautomation.ChildActivity;
 import br.edu.ufcg.ccc.homeautomation.GuideActivity;
 import br.edu.ufcg.ccc.homeautomation.GuideActivityRoot;
 import br.edu.ufcg.ccc.homeautomation.R;
@@ -63,8 +61,8 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText().toString();
 		
-//		user = "fagnerng";
-//		pass = "fagnerng";
+		user = "fagnerng";
+		pass = "fagnerng";
 		
 		UserManager.getInstance().setPass(pass);
 		

@@ -7,16 +7,16 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppBaseTheme" >
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.LoginActivity"
             android:label="@string/app_name"
@@ -68,6 +68,10 @@
         <activity
             android:name="br.edu.ufcg.ccc.homeautomation.PrefsActivity"
             android:label="@string/title_activity_prefs" >
+        </activity>
+        <activity
+            android:name="br.edu.ufcg.ccc.homeautomation.LocationActivity"
+            android:label="@string/title_activity_location" >
         </activity>
     </application>
 

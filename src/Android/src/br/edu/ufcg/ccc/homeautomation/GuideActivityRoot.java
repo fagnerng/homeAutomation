@@ -43,8 +43,7 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				//TO DO
-				//Chamar método de fagner aqui!
+				startActivity(new Intent(GuideActivityRoot.this, LocationActivity.class));
 			}
 		});
 		

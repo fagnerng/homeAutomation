@@ -13,7 +13,7 @@ import br.edu.ufcg.ccc.homeautomation.service.NotificationService;
 
 import android.os.AsyncTask;
 
-public class AssyncResquestStatusDevs extends AsyncTask<Void, Void, String>{
+public class AsyncResquestStatusDevs extends AsyncTask<Void, Void, String>{
 		int timeToSleep;
 
 	@Override

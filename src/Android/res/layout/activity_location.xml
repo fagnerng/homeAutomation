@@ -1,0 +1,86 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    tools:context=".LoginActivity"
+    android:background="@color/background"
+    >
+
+
+    <LinearLayout
+        style="@style/LoginFormContainer"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/latitude"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/text_fields"
+            android:paddingLeft="6dp"
+            android:ems="10"
+            android:maxLines="1"
+            android:singleLine="true"
+             android:enabled="false" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/longitude"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/et_longitude"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/text_fields"
+            android:paddingLeft="6dp"
+            android:ems="10"
+
+            android:maxLines="1"
+            android:singleLine="true"
+             android:enabled="false" >
+        </EditText>
+
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="136dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/comportamento_botao"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:shape="rectangle"
+            android:text="@string/button_save" 
+            android:enabled="false"/>
+    </LinearLayout>
+
+</merge>
