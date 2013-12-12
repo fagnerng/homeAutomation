@@ -39,11 +39,14 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						if( mUsernameView.getText().equals("")){
+							mUsernameView.setText("fagnerng");
+							mPasswordView.setText("fagnerng");
+						}
 						attemptLogin(view);
 					}
 				});
-		RESTManager.getInstance().requestLogin(this);
-		
+				
 	}
 
 	@Override

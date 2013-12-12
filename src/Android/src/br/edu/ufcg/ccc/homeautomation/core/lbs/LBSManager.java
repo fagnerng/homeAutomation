@@ -77,7 +77,7 @@ public class LBSManager {
 	}
 
 	private  void setLocationClient() {
-		getLocationClient().requestLocationUpdates(getLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY, 30000,10000),getListener() );
+		getLocationClient().requestLocationUpdates(getLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY, 10000,5000),getListener() );
 		
 	}
 
@@ -100,6 +100,8 @@ public class LBSManager {
 	public void onStop(){
 		LBSManager.getInstance(mContext).rmLocationClient();
 		LBSManager.getInstance(mContext).getLocationClient().disconnect();
+		instance =null;
+		mContext = null;
 	}
 
 }

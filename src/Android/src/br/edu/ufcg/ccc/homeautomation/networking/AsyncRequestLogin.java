@@ -60,9 +60,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 		Activity mMA = (Activity) mContext;
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText().toString();
-		
-		user = "fagnerng";
-		pass = "fagnerng";
+
 		
 		UserManager.getInstance().setPass(pass);
 		

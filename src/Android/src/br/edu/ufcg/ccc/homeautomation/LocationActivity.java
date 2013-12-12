@@ -1,5 +1,6 @@
 package br.edu.ufcg.ccc.homeautomation;
 
+import br.edu.ufcg.ccc.homeautomation.core.lbs.LBSManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,6 +11,7 @@ public class LocationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
+		LBSManager.getInstance(this).onStart();
 	}
 
 	@Override
@@ -18,5 +20,10 @@ public class LocationActivity extends Activity {
 		getMenuInflater().inflate(R.menu.location, menu);
 		return true;
 	}
-
+@Override
+protected void onStop() {
+	LBSManager.getInstance(this).onStop();
+	super.onStop();
+	
+}
 }
