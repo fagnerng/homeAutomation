@@ -2,8 +2,6 @@ package br.edu.ufcg.ccc.homeautomation.networking;
 
 import java.util.ArrayList;
 
-import android.app.Application;
-import android.graphics.drawable.Drawable;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 /**

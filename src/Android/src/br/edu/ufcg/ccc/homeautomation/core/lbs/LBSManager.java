@@ -4,43 +4,63 @@ import android.content.Context;
 import android.location.Location;
 
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 public class LBSManager {
-	private static LocationClient mLocationClient;
-	private static Location mCurrentLocation;
-	private static LocationRequest mLocationRequest;
-	private static MyLocationListener mListener;
-	private static Context mContext;
+	private LocationClient mLocationClient;
+	private Location mCurrentLocation;
+	private LocationRequest mLocationRequest;
+	private LocationListener mListener;
+	private int interval;
+	private int fastinterval;
 
-	public  LocationClient getLocationClient() {
+	public void setListener(LocationListener locationListener) {
+		this.mListener = locationListener;
+	}
+
+	private  Context mContext;
+
+	public LBSManager(Context context) {
+		this.mContext = context;
+		this.interval = 50000;
+		this.fastinterval = 10000;
+	}
+
+	public LBSManager(Context context, int interval, int fastInterval) {
+		this.mContext = context;
+		this.interval = interval;
+		this.fastinterval = fastInterval;
+	}
+
+	public LocationClient getLocationClient() {
 		if (mLocationClient == null) {
 			mLocationClient = new LocationClient(
-					mContext.getApplicationContext(),
-					new MyConnectionCallbacks(mContext),
+					mContext,
+					new MyConnectionCallbacks(mContext, this),
 					new MyOnConnectionFailedListener());
 
 		}
 		return mLocationClient;
 	}
 
-	public  Location getCurrentLocation() {
+	public Location getCurrentLocation() {
 		return mCurrentLocation;
 	}
 
-	public  LocationRequest getLocationRequest() {
+	public LocationRequest getLocationRequest() {
 		if (mLocationRequest == null) {
 			mLocationRequest = LocationRequest.create();
 
 		}
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		mLocationRequest.setInterval(5000);
-		mLocationRequest.setFastestInterval(1000);
+		mLocationRequest.setInterval(interval);
+		mLocationRequest.setFastestInterval(fastinterval);
 		return mLocationRequest;
 	}
 
-	public  LocationRequest getLocationRequest(int priority,
-			int interval, int fastInterval) {
+	public LocationRequest getLocationRequest(int priority, int interval,
+			int fastInterval) {
 		if (mLocationRequest == null) {
 			mLocationRequest = LocationRequest.create();
 
@@ -51,56 +71,55 @@ public class LBSManager {
 		return mLocationRequest;
 	}
 
-	public  MyLocationListener getListener() {
-		if (mListener == null){
+	public LocationListener getListener() {
+		if (mListener == null) {
 			mListener = new MyLocationListener(mContext);
 		}
 		return mListener;
 	}
 
-	private static LBSManager instance = new LBSManager();;
+	/*
+	 * public static synchronized LBSManager getInstance(Context context) { if
+	 * (instance == null) { instance = new LBSManager();
+	 * 
+	 * } mContext = context; return instance; }
+	 */
 
+	private void setCurrentLocation() {
+		mCurrentLocation = getLocationClient().getLastLocation();
 
-
-	public static synchronized LBSManager getInstance(Context context) {
-		if (instance == null) {
-			instance = new LBSManager();
-			
-		}
-		mContext = context;
-		return instance;
 	}
 
-	private  void setCurrentLocation() {
-		mCurrentLocation =  getLocationClient().getLastLocation();
-		
+	private void setLocationClient() {
+		getLocationClient().requestLocationUpdates(
+				getLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY,
+						interval, fastinterval), getListener());
+
 	}
 
-	private  void setLocationClient() {
-		getLocationClient().requestLocationUpdates(getLocationRequest(LocationRequest.PRIORITY_HIGH_ACCURACY, 10000,5000),getListener() );
-		
-	}
-
-	public  void rmLocationClient() {
+	public void rmLocationClient() {
 		getLocationClient().removeLocationUpdates(getListener());
-		
+
 	}
-	
+
 	/**
 	 * 
 	 */
-	public void onConnected(){
+	public void onConnected() {
 		setCurrentLocation();
 		setLocationClient();
 	}
-	public void onStart(){
-		LBSManager.getInstance(mContext).getLocationClient().connect();
+
+	public void onStart() {
+		this.getLocationClient().connect();
 	}
-	
-	public void onStop(){
-		LBSManager.getInstance(mContext).rmLocationClient();
-		LBSManager.getInstance(mContext).getLocationClient().disconnect();
-		instance =null;
+
+	public void onStop() {
+		this.rmLocationClient();
+		this.getLocationClient().disconnect();
+		mLocationClient = null;
+		mCurrentLocation = null;
+		mLocationRequest = null;
 		mContext = null;
 	}
 

@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
@@ -45,7 +45,7 @@
             android:label="@string/title_activity_admin" >
         </activity>
         <activity
-            android:name="br.edu.ufcg.ccc.homeautomation.DeviceEdit"
+            android:name="br.edu.ufcg.ccc.homeautomation.DeviceEditActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -62,7 +62,7 @@
             android:label="@string/title_activity_guide" >
         </activity>
         <activity
-            android:name="br.edu.ufcg.ccc.homeautomation.GuideActivityRoot"
+            android:name="br.edu.ufcg.ccc.homeautomation.GuideRootActivity"
             android:label="@string/title_activity_guide_activity_root" >
         </activity>
         <activity
@@ -73,8 +73,9 @@
             android:name="br.edu.ufcg.ccc.homeautomation.LocationActivity"
             android:label="@string/title_activity_location" >
         </activity>
-    </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+        <service android:name="br.edu.ufcg.ccc.homeautomation.service.NotificationService" >
+        </service>
+    </application>
 
 </manifest>

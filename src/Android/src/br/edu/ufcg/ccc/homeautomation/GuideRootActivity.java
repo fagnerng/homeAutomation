@@ -15,7 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class GuideActivityRoot extends Activity {
+public class GuideRootActivity extends Activity {
 
 	ImageButton rootDevices;
 	ImageButton rootProfile;
@@ -43,7 +43,7 @@ public class GuideActivityRoot extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(GuideActivityRoot.this, LocationActivity.class));
+				startActivity(new Intent(GuideRootActivity.this, LocationActivity.class));
 			}
 		});
 		

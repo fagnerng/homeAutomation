@@ -8,24 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 
-public class DeviceEdit extends Activity {
+public class DeviceEditActivity extends Activity {
 
 	private ImageButton editDevice;
 	private ImageButton buttonStatus;
 	
-	private NumberPicker pickerTimer;
-	private Switch switchTimer;
+//	private NumberPicker pickerTimer;
+	//sprivate Switch switchTimer;
 	private Drawable on;
 	private Drawable off;
 	private Device mDev;
@@ -41,7 +37,7 @@ public class DeviceEdit extends Activity {
 		buttonStatus = (ImageButton) findViewById(R.id.button_status_config);
 		//pickerTimer = (NumberPicker) findViewById(R.id.timer_picker);
 		//switchTimer = (Switch) findViewById(R.id.switch_timer);
-		EditText editName = (EditText) findViewById(R.id.edit_device_name);
+		//EditText editName = (EditText) findViewById(R.id.edit_device_name);
 		
 		if(mDev.getStatus()){
 			buttonStatus.setImageDrawable(on);

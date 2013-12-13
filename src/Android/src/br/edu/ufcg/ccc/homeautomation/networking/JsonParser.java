@@ -7,8 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.edu.ufcg.ccc.homeautomation.entities.Child;
-import br.edu.ufcg.ccc.homeautomation.entities.Device;
-import br.edu.ufcg.ccc.homeautomation.entities.Light;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 
 /**
@@ -18,9 +16,6 @@ import br.edu.ufcg.ccc.homeautomation.entities.User;
  *
  */
 public class JsonParser {
-	
-	private static final String TAG_DEVICES = "Devices";
-			
 	/**
 	 * This method parses all users received by the Server at JSON format to User Objects
 	 * 

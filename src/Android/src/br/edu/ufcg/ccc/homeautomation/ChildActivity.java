@@ -1,6 +1,5 @@
 package br.edu.ufcg.ccc.homeautomation;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
@@ -29,9 +27,9 @@ import br.edu.ufcg.ccc.homeautomation.networking.RequestsCallbackAdapter;
 public class ChildActivity extends FragmentActivity {
 
 	private static User mUser;
-    private static ArrayList<User> childs;
-    private static ArrayList<Device> devices;
-    private static ListView lv_User;
+   // private static ArrayList<User> childs;
+  //  private static ArrayList<Device> devices;
+   // private static ListView lv_User;
     private static View focusView;
 
     /**

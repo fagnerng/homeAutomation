@@ -9,7 +9,7 @@
         {
             "id": 1,
             "name": "Ar Condicionado Sala",
-            "status": true,
+            "status": false,
             "type": "airCondition",
             "temperature": 26
         }

@@ -1,10 +1,9 @@
 {
     "house_000": {
         "ip": "10.0.0.2",
-         "longitude": -1,
-        "latitude": -1,
+        "longitude": "-35.9084104",
+        "latitude": "-7.2122544",
         "admin": "fagnerng"
-        
     },
     "house_001": {
         "ip": "10.0.0.2",

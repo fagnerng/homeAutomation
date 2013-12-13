@@ -18,7 +18,8 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="50dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/device" />
+        android:src="@drawable/device" 
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/textView1"
@@ -67,7 +68,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/user_icon" />
+        android:src="@drawable/user_icon"
+        android:contentDescription="@string/app_name" />
 
     <ImageButton
         android:id="@+id/user_button_root"
@@ -76,6 +78,7 @@
         android:layout_above="@+id/textView3"
         android:layout_toLeftOf="@+id/textView1"
         android:background="@android:color/transparent"
-        android:src="@drawable/users_icon" />
+        android:src="@drawable/users_icon"
+        android:contentDescription="@string/app_name" />
 
 </RelativeLayout>

@@ -12,13 +12,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.GuideActivity;
-import br.edu.ufcg.ccc.homeautomation.GuideActivityRoot;
+import br.edu.ufcg.ccc.homeautomation.GuideRootActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.entities.Child;
 import br.edu.ufcg.ccc.homeautomation.entities.Root;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
+import br.edu.ufcg.ccc.homeautomation.service.NotificationService;
 
 public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 	private Context mContext;
@@ -108,7 +109,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				Intent intent= null;
 				if (jsonToParse.getBoolean("admin")){
 					mUser = new Root(jsonToParse);
-					intent = new Intent(mContext, GuideActivityRoot.class);
+					intent = new Intent(mContext, GuideRootActivity.class);
 				}else{
 					mUser = new Child(jsonToParse);
 					//intent = new Intent(mContext, GuideActivity.class);
@@ -116,6 +117,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				}				
 				
 				UserManager.getInstance().setUserObject(mUser);
+				mContext.startService(new Intent(mContext, NotificationService.class));
 				System.out.println("MUSER_TO STRING: "+UserManager.getInstance().getUserObject().toString());
 				mContext.startActivity(intent);
 			}

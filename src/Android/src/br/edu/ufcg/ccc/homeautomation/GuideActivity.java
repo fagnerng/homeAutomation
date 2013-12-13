@@ -1,15 +1,14 @@
 package br.edu.ufcg.ccc.homeautomation;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageButton;
-import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 
 public class GuideActivity extends Activity {
 
@@ -69,7 +68,6 @@ public class GuideActivity extends Activity {
 			
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
 				
 			}
 			

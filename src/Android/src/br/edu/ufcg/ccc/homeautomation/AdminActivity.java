@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.edu.ufcg.ccc.homeautomation.entities.Device;
 import br.edu.ufcg.ccc.homeautomation.entities.DeviceAdapter;
 import br.edu.ufcg.ccc.homeautomation.entities.User;
 import br.edu.ufcg.ccc.homeautomation.entities.UserAdapter;
@@ -253,7 +252,7 @@ public class AdminActivity extends FragmentActivity {
     
     @Override
     public void onBackPressed() {
-    	Intent intent = new Intent(getApplicationContext(), GuideActivityRoot.class);
+    	Intent intent = new Intent(getApplicationContext(), GuideRootActivity.class);
     	startActivity(intent);
     	super.onBackPressed();
     }

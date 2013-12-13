@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -15,8 +14,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.edu.ufcg.ccc.homeautomation.DeviceEdit;
+import br.edu.ufcg.ccc.homeautomation.DeviceEditActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
@@ -81,7 +78,7 @@ public class DeviceAdapter extends BaseAdapter{
 		tv_status.setText(status);
 		
 		final Context c = view.getContext();
-		final Intent i = new Intent(c,DeviceEdit.class);
+		final Intent i = new Intent(c,DeviceEditActivity.class);
 		i.putExtra("dev", dev);
 		
 		final ImageButton ib_edit = (ImageButton) view.findViewById(R.id.ib_icon_edit);
@@ -125,7 +122,7 @@ public class DeviceAdapter extends BaseAdapter{
 			public void onFinishRequestSwitch(Boolean result) {
 				System.out.println("RESULT: " + result);
 				
-				Drawable drawable = null;
+			//	Drawable drawable = null;
 				
 				if(result){
 					if (device.getStatus()){
@@ -142,12 +139,12 @@ public class DeviceAdapter extends BaseAdapter{
 		}, device);
 	}
 	
-	private void executeDeviceEdit(final View v, final Device d){
-		Intent i = new Intent(v.getContext(),DeviceEdit.class);
-		//i.putExtra("device", d);
-		v.getContext().startActivity(i);
-		//Toast.makeText(v.getContext(), "Abrir Device Edit Screen", Toast.LENGTH_SHORT).show();
-	}
+//	private void executeDeviceEdit(final View v, final Device d){
+//		Intent i = new Intent(v.getContext(),DeviceEdit.class);
+//		//i.putExtra("device", d);
+//		v.getContext().startActivity(i);
+//		//Toast.makeText(v.getContext(), "Abrir Device Edit Screen", Toast.LENGTH_SHORT).show();
+//	}
 	
 	private void callDialogEditDevie(final View v, final Device d){
 		final Dialog dialogEditDevice = new Dialog(v.getContext(), R.style.myCoolDialog);
@@ -172,7 +169,7 @@ public class DeviceAdapter extends BaseAdapter{
 		mDev = d;
 		timer = (Spinner) dialogEditDevice.findViewById(R.id.spinner_default_times);
 		Integer times[] = {1,5,10,15,30,60,90,20};
-		Integer temperaturas[] = {17,18,19,20,21,22,23,24,25};
+	//	Integer temperaturas[] = {17,18,19,20,21,22,23,24,25};
 		Integer timerDefault = Integer.valueOf(prefs.getString("timer_default", "2"));
 
 		

@@ -3,15 +3,12 @@ package br.edu.ufcg.ccc.homeautomation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.android.gms.internal.ch;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -49,16 +46,16 @@ public class RegisterActivity extends Activity {
 	
 	private void createUser(String login, String password, String name, String email, String house,ArrayList<Integer> iDs){
     RESTManager.getInstance().requestChildCreate(new RequestsCallbackAdapter() {
-    		boolean status;
+    	//	boolean status;
     	
     	
             public void onFinishRequestChildCRUD (Boolean result) {
                 if (result){
                     //tratamento
-                	status = true;
+         //       	status = true;
                 	Toast.makeText(getApplicationContext(),"Usuario Cadastrado", Toast.LENGTH_SHORT).show();
                 }else{
-                   status = false;
+       //            status = false;
                 }
             }
         }, login, iDs,name, email, password,house);
@@ -66,6 +63,7 @@ public class RegisterActivity extends Activity {
 
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,7 +93,7 @@ public class RegisterActivity extends Activity {
 				
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					// TODO Auto-generated method stub
+					
 					
 				}
 			});

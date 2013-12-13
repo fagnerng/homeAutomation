@@ -18,9 +18,11 @@ public class AsyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
 	
 	String mResult;
 	Context mContext;
-	public AsyncVerifyStatusTask(Context context, String arg0){
+	boolean away;
+	public AsyncVerifyStatusTask(Context context, String arg0, boolean away){
 		this.mResult = arg0;
 		this.mContext = context;
+		this.away =away;
 	}
 	
 	
@@ -45,7 +47,7 @@ public class AsyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
 					tempDev = new AirCondition(retorno.getJSONObject(i));
 				}
 				mDev.add(tempDev);
-				if (tempDev.getStatus()) {
+				if (tempDev.getStatus() && away) {
 					new AsycMakeNotification(mContext,i,tempDev.getName()).execute();
 				
 				}

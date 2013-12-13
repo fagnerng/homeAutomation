@@ -131,6 +131,7 @@ public class UserAdapter extends BaseAdapter{
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void callDialogDevices(View v,final User user){
 		final Dialog devicesDialog = new Dialog(v.getContext(),R.style.myCoolDialog);
 		final ArrayList<Device> systemDevices = UserManager.getInstance().getUserObject().getDevices();
@@ -184,7 +185,7 @@ public class UserAdapter extends BaseAdapter{
 		 rotate = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate);
 		 
 		 
-		 final View v1= view.findViewById(R.id.button_edit);
+		 //final View v1= view.findViewById(R.id.button_edit);
 		 buttonEdit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -194,12 +195,10 @@ public class UserAdapter extends BaseAdapter{
 					
 					
 					public void onAnimationStart(Animation animation) {
-						// TODO Auto-generated method stub
 						
 					}
 					
 					public void onAnimationRepeat(Animation animation) {
-						// TODO Auto-generated method stub
 						
 					}
 					
@@ -216,7 +215,7 @@ public class UserAdapter extends BaseAdapter{
 		});
 		
 		
-		final View v2= view.findViewById(R.id.button_remove);
+		//final View v2= view.findViewById(R.id.button_remove);
 		buttonDelete.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -225,14 +224,10 @@ public class UserAdapter extends BaseAdapter{
 					
 					
 					public void onAnimationStart(Animation animation) {
-						// TODO Auto-generated method stub
-						
-					}
+						}
 					
 					public void onAnimationRepeat(Animation animation) {
-						// TODO Auto-generated method stub
-						
-					}
+						}
 					
 					public void onAnimationEnd(Animation animation) {
 						callDialogDelete(v,user);

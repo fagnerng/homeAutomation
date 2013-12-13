@@ -9,13 +9,16 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 public class MyConnectionCallbacks implements GooglePlayServicesClient.ConnectionCallbacks{
 
 	Context mContext;
-	public MyConnectionCallbacks(Context context){
+	LBSManager lbs;
+	public MyConnectionCallbacks(Context context, LBSManager lbs){
 		mContext = context;
+		this.lbs = lbs;
 	}
 	@Override
 	public void onConnected(Bundle arg0) {
 		Toast.makeText(mContext, "Connected", Toast.LENGTH_SHORT).show();
-		LBSManager.getInstance(mContext).onConnected();
+		
+		lbs.onConnected();
 		
 	}
 

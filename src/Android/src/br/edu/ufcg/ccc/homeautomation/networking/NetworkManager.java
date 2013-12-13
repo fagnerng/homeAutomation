@@ -68,7 +68,8 @@ public class NetworkManager {
 	}
 	
 	public static String requestPOST(String url, String body){
-		
+		System.out.println(url);
+		System.out.println(body);
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost p = new HttpPost(url);
 		StringEntity se = null;
@@ -104,9 +105,11 @@ public class NetworkManager {
 		} catch (HttpHostConnectException e) { // No Connection
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
+			e.printStackTrace();
 		} catch (UnknownHostException e) {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
+			e.printStackTrace();
 		} catch (Exception e){
 			e.printStackTrace();
 		}

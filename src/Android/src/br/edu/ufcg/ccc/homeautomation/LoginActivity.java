@@ -1,7 +1,6 @@
 package br.edu.ufcg.ccc.homeautomation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		startService(new Intent(LoginActivity.this, br.edu.ufcg.ccc.homeautomation.service.NotificationService.class));
+		
 
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);
@@ -39,10 +38,10 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						if( mUsernameView.getText().equals("")){
+					
 							mUsernameView.setText("fagnerng");
 							mPasswordView.setText("fagnerng");
-						}
+						
 						attemptLogin(view);
 					}
 				});
@@ -92,6 +91,7 @@ public class LoginActivity extends Activity {
 		if (cancel) {
 			focusView.requestFocus();
 		} else {
+			
 			RESTManager.getInstance().requestLogin(v.getContext());
 		}
 	}
