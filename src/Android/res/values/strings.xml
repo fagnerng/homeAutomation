@@ -2,91 +2,94 @@
 <resources>
 
     <string name="app_name">HomeAutomation</string>
-    <string name="action_settings">Configurações</string>
-    <string name="password">Senha</string>
-    <string name="username">Usuário</string>
-    <string name="action_sign_in_register">Logar</string>
-    <string name="error_invalid_email">Esse Email não é válido</string>
-    <string name="error_invalid_password">Esta senha é muito curta</string>
-    <string name="error_incorrect_password">A senha está incorreta</string>
-    <string name="error_field_required">Esse Campo é obrigatório</string>
+    <string name="action_settings">Settings</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="action_sign_in_register">Login</string>
+    <string name="error_invalid_email">This Email is not valid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password"> Password is incorrect</string>
+    <string name="error_field_required">This Field is required</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="action_delete">Excluir Usuario?</string>
-    <string name="action_yes">Sim</string>
-    <string name="action_no">Não</string>
-    <string name="new_user">Novo</string>
-    <string name="begin">Inicio</string>
-    <string name="users">Usuários</string>
-    <string name="action_wait">Aguarde</string>
-    <string name="action_login_in_progress">Efetuando Login</string>
-    <string name="devices">Dispositivos</string>
-    <string name="confirm">Confirmar</string>
+    <string name="action_delete"> Delete User ?</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="new_user">New</string>
+    <string name="begin">Home</string>
+    <string name="users">Users</string>
+    <string name="action_wait">Wait</string>
+    <string name="action_login_in_progress">Logging</string>
+    <string name="devices">Devices</string>
+    <string name="confirm">Confirm</string>
+    <string name="user_create">User Created</string>
+    <string name="user_delete"> Deleted User</string>
+    <string name="cannot_change_status">change device status failure</string>
 
     <!-- Strings for erro on server.xml -->
 
-    <string name="server_is_down">Não foi possível conectar ao servidor</string>
-    <string name="invalid_password">Senha incorreta</string>
-    <string name="user_not_found">Usuário não foi encontrado</string>
-    <string name="missing_parameters">Erro do programador, reporte o app </string>
-    <string name="unkwon_erro">Erro desconhecido </string>
-    <string name="manage_devices">Dispositivos do usuario</string>
-    <string name="distance_title">Notificações de distancia</string>
-    <string name="temperatura">Temperatura padrão</string>
+    <string name="server_is_down">Unable to connect to server</string>
+    <string name="invalid_password"> Incorrect password </string>
+    <string name="user_not_found">User not found</string>
+    <string name="missing_parameters">programmer error , reporting the app  </string>
+    <string name="unkwon_erro">Unknown Error </string>
+    <string name="manage_devices"> Devices User</string>
+    <string name="distance_title">Notifications distance</string>
+    <string name="temperatura"> Temperature default</string>
     <string name="timer">Timer default</string>
-    <string name="timer_config">Configurando Timer</string>
-    <string name="temperature_config">Temperatura</string>
-    <string name="set_device_name">Renomear dispositivo</string>
+    <string name="timer_config">Setting Timer</string>
+    <string name="temperature_config">Temperature</string>
+    <string name="set_device_name"> Rename device</string>
     <string name="tvTimer">Timer</string>
-    <string name="new_device_name">Novo nome</string>
+    <string name="new_device_name">New Name</string>
 
     <!-- Strings for edit device tab.xml -->
-    <string name="device_name">Nome: </string>
+    <string name="device_name">Name: </string>
     <string name="device_status">Status: </string>
-    <string name="config_devices">Configurando Dispositivo </string>
-    <string name="rename_device">Renomear Dispositivo </string>
+    <string name="config_devices">Configuring Device </string>
+    <string name="rename_device">Rename Device </string>
 
     <!-- Strings for tabs in the menu -->
-    <string name="tab_devices">Dispositivos</string>
-    <string name="tab_profile">Perfil</string>
-    <string name="tab_manage_users">Usuários</string>
-    <string name="child_activity_name">Nome:</string>
+    <string name="tab_devices">Devices</string>
+    <string name="tab_profile">Profile</string>
+    <string name="tab_manage_users">User</string>
+    <string name="child_activity_name">Name:</string>
     <string name="child_activity_email">Email:</string>
-    <string name="child_activity_pass">Nova Senha:</string>
-    <string name="button_save">Salvar</string>
-    <string name="button_cancel">Cancelar</string>
+    <string name="child_activity_pass">New Password:</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
     <string name="switch_power">Switch Power</string>
 
     <!-- Strings for register_first.xml -->
-    <string name="short_name">Nome muito curto</string>
-    <string name="short_pass">Senha muito curta</string>
-    <string name="unmatched_pass">Senhas não conferem</string>
-    <string name="invalid_email">E-mail inválido</string>
-    <string name="no_devices">Selecione ao menos um dispositivo</string>
-    <string name="require_name">Nome</string>
+    <string name="short_name">Short Name</string>
+    <string name="short_pass">Short Password</string>
+    <string name="unmatched_pass"> Passwords do not match</string>
+    <string name="invalid_email"> Invalid E - mail</string>
+    <string name="no_devices">Select at least one device</string>
+    <string name="require_name">Name</string>
     <string name="require_email">Email</string>
-    <string name="require_pass">Nova Senha</string>
-    <string name="require_confirm_pass">Confirme a Senha</string>
-    <string name="register">Registrar</string>
-    <string name="user_edited">Usuario editado com sucesso</string>
-    <string name="user_edited_fail">Erro ao editar usuario</string>
-    <string name="find_house">Localizar Residência</string>
-    <string name="empty_name">O nome não deve ser vazio</string>
+    <string name="require_pass">New Password</string>
+    <string name="require_confirm_pass">Match password</string>
+    <string name="register">Register</string>
+    <string name="user_edited">User edited successfully </string>
+    <string name="user_edited_fail"> Error editing User</string>
+    <string name="find_house"> Find House </string>
+    <string name="empty_name">The name must not be empty</string>
 
     <!-- Strings for register_second.xml -->
-    <string name="select_dev">Selecione dispositivos para o usuário</string>
+    <string name="select_dev">Select devices to the user </string>
 
     <!-- Strings for first_menu.xml -->
-    <string name="my_devs">Meus dispositivos</string>
-    <string name="txt_my_devs">Ligar/Desligar ou configurar tempo para dispositivos.</string>
-    <string name="mng_dev">Gerenciar Dispositivos</string>
-    <string name="txt_mng_dev">Gerenciar permissões de usuários/dispositivos.</string>
-    <string name="mng_users">Gerenciar Usuários</string>
-    <string name="txt_mng_users">Criar um novo usuário ou remover um existente</string>
-    <string name="edit_account">Editar Perfil</string>
-    <string name="txt_edit_account">Editar informações referente ao seu perfil.</string>
-    <string name="action_exit">Sair</string>
-    <string name="txt_exit">Deslogar do sistema</string>
-    <string name="title_activity_first_menu">Primeiro Menu</string>
+    <string name="my_devs"> My Devices</string>
+    <string name="txt_my_devs">On / Off or time to configure devices.</string>
+    <string name="mng_dev"> Manage Devices </string>
+    <string name="txt_mng_dev"> Manage permissions of users/devices.</string>
+    <string name="mng_users"> Manage Users</string>
+    <string name="txt_mng_users"> Create a new user or remove an existing</string>
+    <string name="edit_account"> Edit Profile</string>
+    <string name="txt_edit_account"> Edit information regarding your profile.</string>
+    <string name="action_exit">Exit</string>
+    <string name="txt_exit">Log out of the system</string>
+    <string name="title_activity_first_menu">First Menu</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_admin">AdminActivity</string>
@@ -124,6 +127,6 @@
 
     <string name="title_activity_location">LocationActivity</string>
     <string name="longitude">Longitude</string>
-     <string name="latitude">Latitude</string>
+    <string name="latitude">Latitude</string>
 
 </resources>

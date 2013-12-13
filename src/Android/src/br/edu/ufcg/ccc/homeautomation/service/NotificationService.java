@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.IBinder;
-import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.core.lbs.LBSManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 import br.edu.ufcg.ccc.homeautomation.networking.AsyncResquestStatusDevs;
@@ -19,6 +18,7 @@ public class NotificationService extends Service {
 	static int MINUTE = 60 * SECOND;
 	static int HOUR = 60 * MINUTE;
 	static int DAY = 24 * HOUR;
+	static int RADIOS= 20;//radios of 20 m
 	static AsyncResquestStatusDevs mTask;
 	static Boolean enable;
 	public static Context context;
@@ -43,16 +43,13 @@ public class NotificationService extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 		// For time consuming an long tasks you can launch a new thread here...
-		Toast.makeText(context, "start", Toast.LENGTH_SHORT).show();
 		mLBS = new LBSManager(context, HOUR, 30 * MINUTE);
 
 		mLBS.setListener(new LocationListener() {
 
 			@Override
 			public void onLocationChanged(Location arg0) {
-				Toast.makeText(context, MathLab.distancia(arg0) + "m",
-						Toast.LENGTH_SHORT).show();
-				away = MathLab.distancia(arg0)>20;
+				away = MathLab.distancia(arg0)>RADIOS;
 				mTask = new AsyncResquestStatusDevs();
 				mTask.execute();
 

@@ -132,7 +132,7 @@ public class DeviceAdapter extends BaseAdapter{
 					}
 					device.setStatus(!(device.getStatus()));
 				}else{
-					Toast.makeText(v.getContext(), "Impossivel mudar Status do device", Toast.LENGTH_SHORT).show();
+					Toast.makeText(v.getContext(), v.getResources().getString(R.string.cannot_change_status), Toast.LENGTH_SHORT).show();
 				}
 			}
 		}, device);
@@ -224,7 +224,6 @@ public class DeviceAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				notifyDataSetChanged();
-				Toast.makeText(v.getContext(), "Requisicao Confirmar", Toast.LENGTH_SHORT).show();
 				dialogEditDevice.dismiss();
 			}
 		});

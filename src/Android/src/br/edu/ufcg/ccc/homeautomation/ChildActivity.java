@@ -3,7 +3,6 @@ package br.edu.ufcg.ccc.homeautomation;
 import java.util.Locale;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

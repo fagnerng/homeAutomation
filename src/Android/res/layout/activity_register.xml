@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="5dp" >
 
     <TextView
         android:id="@+id/tvName"
@@ -16,12 +17,14 @@
 
     <EditText
         android:id="@+id/edNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/text_fields"
         android:ems="10"
         android:inputType="textPersonName" >
-
-        <requestFocus android:layout_width="wrap_content" />
     </EditText>
 
     <TextView
@@ -35,8 +38,12 @@
 
     <EditText
         android:id="@+id/edEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/text_fields"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -51,8 +58,12 @@
 
     <EditText
         android:id="@+id/edSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/text_fields"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -67,8 +78,12 @@
 
     <EditText
         android:id="@+id/edCsenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/text_fields"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -95,7 +110,7 @@
     <Button
         android:id="@+id/btnNewUser"
         android:layout_width="288dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="25dp"
         android:background="@drawable/comportamento_botao"

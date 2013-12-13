@@ -118,7 +118,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {
-		
+		e.printStackTrace();
 			builder.setMessage(mContext.getResources().getString(R.string.server_is_down));
 			alerta = builder.create();
 			alerta.show();

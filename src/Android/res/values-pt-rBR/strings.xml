@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HomeAutomation</string>
+    <string name="action_settings">Configurações</string>
+    <string name="password">Senha</string>
+    <string name="username">Usuário</string>
+    <string name="action_sign_in_register">Logar</string>
+    <string name="error_invalid_email">Esse Email não é válido</string>
+    <string name="error_invalid_password">Esta senha é muito curta</string>
+    <string name="error_incorrect_password">A senha está incorreta</string>
+    <string name="error_field_required">Esse Campo é obrigatório</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_delete">Excluir Usuario?</string>
+    <string name="action_yes">Sim</string>
+    <string name="action_no">Não</string>
+    <string name="new_user">Novo</string>
+    <string name="begin">Inicio</string>
+    <string name="users">Usuários</string>
+    <string name="action_wait">Aguarde</string>
+    <string name="action_login_in_progress">Efetuando Login</string>
+    <string name="devices">Dispositivos</string>
+    <string name="confirm">Confirmar</string>
+    <string name="user_create">Usuario Cadastrado</string>
+    <string name="user_delete">Usuario Deletado</string>
+    <string name="cannot_change_status">Impossivel mudar Status do device</string>
+
+    <!-- Strings for erro on server.xml -->
+
+    <string name="server_is_down">Não foi possível conectar ao servidor</string>
+    <string name="invalid_password">Senha incorreta</string>
+    <string name="user_not_found">Usuário não foi encontrado</string>
+    <string name="missing_parameters">Erro do programador, reporte o app </string>
+    <string name="unkwon_erro">Erro desconhecido </string>
+    <string name="manage_devices">Dispositivos do usuario</string>
+    <string name="distance_title">Notificações de distancia</string>
+    <string name="temperatura">Temperatura padrão</string>
+    <string name="timer">Timer default</string>
+    <string name="timer_config">Configurando Timer</string>
+    <string name="temperature_config">Temperatura</string>
+    <string name="set_device_name">Renomear dispositivo</string>
+    <string name="tvTimer">Timer</string>
+    <string name="new_device_name">Novo nome</string>
+
+    <!-- Strings for edit device tab.xml -->
+    <string name="device_name">Nome: </string>
+    <string name="device_status">Status: </string>
+    <string name="config_devices">Configurando Dispositivo </string>
+    <string name="rename_device">Renomear Dispositivo </string>
+
+    <!-- Strings for tabs in the menu -->
+    <string name="tab_devices">Dispositivos</string>
+    <string name="tab_profile">Perfil</string>
+    <string name="tab_manage_users">Usuários</string>
+    <string name="child_activity_name">Nome:</string>
+    <string name="child_activity_email">Email:</string>
+    <string name="child_activity_pass">Nova Senha:</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="switch_power">Switch Power</string>
+
+    <!-- Strings for register_first.xml -->
+    <string name="short_name">Nome muito curto</string>
+    <string name="short_pass">Senha muito curta</string>
+    <string name="unmatched_pass">Senhas não conferem</string>
+    <string name="invalid_email">E-mail inválido</string>
+    <string name="no_devices">Selecione ao menos um dispositivo</string>
+    <string name="require_name">Nome</string>
+    <string name="require_email">Email</string>
+    <string name="require_pass">Nova Senha</string>
+    <string name="require_confirm_pass">Confirme a Senha</string>
+    <string name="register">Registrar</string>
+    <string name="user_edited">Usuario editado com sucesso</string>
+    <string name="user_edited_fail">Erro ao editar usuario</string>
+    <string name="find_house">Localizar Residência</string>
+    <string name="empty_name">O nome não deve ser vazio</string>
+
+    <!-- Strings for register_second.xml -->
+    <string name="select_dev">Selecione dispositivos para o usuário</string>
+
+    <!-- Strings for first_menu.xml -->
+    <string name="my_devs">Meus dispositivos</string>
+    <string name="txt_my_devs">Ligar/Desligar ou configurar tempo para dispositivos.</string>
+    <string name="mng_dev">Gerenciar Dispositivos</string>
+    <string name="txt_mng_dev">Gerenciar permissões de usuários/dispositivos.</string>
+    <string name="mng_users">Gerenciar Usuários</string>
+    <string name="txt_mng_users">Criar um novo usuário ou remover um existente</string>
+    <string name="edit_account">Editar Perfil</string>
+    <string name="txt_edit_account">Editar informações referente ao seu perfil.</string>
+    <string name="action_exit">Sair</string>
+    <string name="txt_exit">Deslogar do sistema</string>
+    <string name="title_activity_first_menu">Primeiro Menu</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_child">ChildActivity</string>
+    <string name="title_activity_device_edit">DeviceEdit</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_guide_activity_root">GuideActivityRoot</string>
+    <string name="title_activity_prefs">PrefsActivity</string>
+
+    <!-- Values default at Spinner for timer -->
+    <string-array name="default_times_for_timer">
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+    </string-array>
+
+    <!-- Values default at Spinner for temperature -->
+    <string-array name="default_times_for_temperature">
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+    </string-array>
+
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+
+</resources>

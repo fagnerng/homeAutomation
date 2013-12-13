@@ -60,7 +60,7 @@ public class UserAdapter extends BaseAdapter{
 	            @Override
 	            public void onFinishRequestChildCRUD (Boolean result) {
 	                if (result){
-	                	Toast.makeText(v.getContext(),"Usuario Deletado", Toast.LENGTH_SHORT).show();
+	                	Toast.makeText(v.getContext(),v.getResources().getString(R.string.user_delete), Toast.LENGTH_SHORT).show();
 	                }else{
 	                }
 	            }
