@@ -20,32 +20,33 @@
         "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
         "house": "house_000"
     },
-    "andersongfs": {
-        "name": "Anderson do gás",
-        "email": "andersongfs@mail.com",
-        "user": "andersongfs",
-        "pass": "wpaZM1OSkS1bf46ffb54b78a62a61774205a01b4f2",
+    "anderson@gmail.com": {
+        "name": "Anderson",
+        "email": "anderson@gmail.com",
+        "user": "anderson@gmail.com",
+        "pass": "6SxrovE9Py945316224bf3aed5ebbaf6e6c1ded6e3",
         "house": "house_000",
         "devices": [
             0,
             1
         ]
     },
-    "ze@gmail.com": {
-        "name": "jose",
-        "email": "ze@gmail.com",
-        "user": "ze@gmail.com",
-        "pass": "9UIRcYGR8J7dd18a48f1ec9e0c2868438a68ee2f2b",
+    "bruno@gmail.com": {
+        "name": "Bruno",
+        "email": "bruno@gmail.com",
+        "user": "bruno@gmail.com",
+        "pass": "iE86xqGeeUf0ed41e0b00c4585e60772ff6d16e4fc",
         "house": "house_000",
         "devices": [
+            0,
             1
         ]
     },
-    "jose@gmail.com": {
-        "name": "zelito",
-        "email": "jose@gmail.com",
-        "user": "jose@gmail.com",
-        "pass": "GDrm0UCvAE24ff9b84683045740835f58820c73ff4",
+    "alex@gmail.com": {
+        "name": "Alessandro",
+        "email": "alex@gmail.com",
+        "user": "alex@gmail.com",
+        "pass": "f40sMubzqcb6faee39cdaf0e578eb06e07d6582896",
         "house": "house_000",
         "devices": [
             0,

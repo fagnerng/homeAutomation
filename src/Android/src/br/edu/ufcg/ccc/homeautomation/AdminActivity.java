@@ -232,7 +232,7 @@ public class AdminActivity extends FragmentActivity {
 						public void onClick(View v) {
 							
 							startActivity(i);
-							
+							getActivity().finish();
 						}
 					});
                 	 
@@ -246,10 +246,5 @@ public class AdminActivity extends FragmentActivity {
         }
     }
     
-    @Override
-    public void onBackPressed() {
-    	Intent intent = new Intent(getApplicationContext(), GuideRootActivity.class);
-    	startActivity(intent);
-    	super.onBackPressed();
-    }
+
 }

@@ -132,12 +132,7 @@ public class GuideRootActivity extends Activity {
 		});
 	}
 	
-	@Override
-	public void onBackPressed() {
-		Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-		startActivity(i);
-		super.onBackPressed();
-	}
+
 }
 
 

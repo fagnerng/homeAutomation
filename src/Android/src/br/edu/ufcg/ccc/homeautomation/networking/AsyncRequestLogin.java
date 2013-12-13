@@ -116,6 +116,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				UserManager.getInstance().setUserObject(mUser);
 				mContext.startService(new Intent(mContext, NotificationService.class));
 				mContext.startActivity(intent);
+				((Activity)mContext).finish();
 			}
 		} catch (Exception e) {
 		e.printStackTrace();

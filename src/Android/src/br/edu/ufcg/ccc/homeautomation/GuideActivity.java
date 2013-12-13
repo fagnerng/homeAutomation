@@ -74,16 +74,12 @@ public class GuideActivity extends Activity {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				startActivity(intent);
+				finish();
 				
 			}
 		});
 	}
 	
-	@Override
-	public void onBackPressed() {
-		Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-		startActivity(i);
-		super.onBackPressed();
-	}
+
 
 }

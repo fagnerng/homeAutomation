@@ -154,7 +154,6 @@ public class RegisterActivity extends Activity {
 		
 		
 		
-		
 	}
 	
 	
@@ -166,12 +165,6 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 	
-	@Override
-	public void onBackPressed() {
-		Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-		intent.putExtra("tab", 2);
-		startActivity(intent);
-	super.onBackPressed();
-}
+
 
 }
