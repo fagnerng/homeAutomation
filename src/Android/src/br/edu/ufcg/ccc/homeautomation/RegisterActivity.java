@@ -80,8 +80,6 @@ public class RegisterActivity extends Activity {
 		final List<CheckBox> cbList = new ArrayList<CheckBox>();
 		final ArrayList<Device> systemDevices = UserManager.getInstance().getUserObject().getDevices();
 		deviceIds = new ArrayList<Integer>();
-		errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
-		errorIcon.setBounds(new Rect(0, 0, errorIcon.getIntrinsicWidth(), errorIcon.getIntrinsicHeight()));
 		for (int i = 0; i < systemDevices.size(); i++) {
 			row =new TableRow(layout.getContext());
 			row.setId(i);

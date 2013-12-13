@@ -120,7 +120,6 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onFinishRequestSwitch(Boolean result) {
-				System.out.println("RESULT: " + result);
 				
 			//	Drawable drawable = null;
 				

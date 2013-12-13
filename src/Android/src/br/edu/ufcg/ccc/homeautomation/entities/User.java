@@ -46,7 +46,6 @@ public abstract class User implements Serializable {
 	 * 
 	 */
 	public User(JSONObject json) {
-		System.out.println("json received: "+json.toString());
 		devices = new ArrayList<Device>();
 		if (json != null) {
 
@@ -83,7 +82,7 @@ public abstract class User implements Serializable {
 				this.token = json.getString("token");
 
 			} catch (JSONException e) {
-				 e.printStackTrace();
+				
 			}
 		}
 	}
@@ -141,7 +140,6 @@ public abstract class User implements Serializable {
 
 	public void setToken(String currentToken) {
 		this.token = currentToken;
-//		System.out.println("Passou, " + currentToken);
 	}
 
 	public double getLatitude() {

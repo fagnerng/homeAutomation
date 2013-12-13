@@ -7,7 +7,7 @@ public class MyOnConnectionFailedListener implements GooglePlayServicesClient.On
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		System.out.println("not implemented");
+		
 		
 	}
 

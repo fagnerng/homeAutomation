@@ -6,7 +6,7 @@ public class Child extends User {
 
 	public Child(JSONObject json) {
 		super(json);
-		// TODO Auto-generated constructor stub
+		//  Auto-generated constructor stub
 	}
 
 	/**

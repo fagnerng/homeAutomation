@@ -53,9 +53,7 @@ public class AdminActivity extends FragmentActivity {
             public void onFinishRequestChild(ArrayList<User> result) {
                 childs = result;
                 lv.setAdapter(new UserAdapter(v.getContext(), childs));
-                for (User user : result) {
-					System.out.println("USER:" + user.getName());
-				}
+       
             }
         },null);
     }
@@ -169,8 +167,7 @@ public class AdminActivity extends FragmentActivity {
                     final EditText cPass  = (EditText) rootView.findViewById(R.id.child_profile_pass_confirm);
                     name.setText(mUser.getName());
                     email.setText(mUser.getEmail());
-                    final Drawable errorIcon = getResources().getDrawable(R.drawable.ic_launcher);
-                    final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
+                     final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
                     tvSave.setOnClickListener(new View.OnClickListener() {
                     	
 						@Override
@@ -181,19 +178,19 @@ public class AdminActivity extends FragmentActivity {
 							 String textCpass = cPass.getText().toString();
 							 
 							 if(textName.length() < 3 ){
-								 name.setError(v.getResources().getString(R.string.short_name), errorIcon);
+								 name.setError(v.getResources().getString(R.string.short_name));
 								 focusView = name;
 								 focusView.requestFocus();
 							 }else if (textPass.length() < 4){
-									pass.setError(v.getResources().getString(R.string.short_pass), errorIcon);
+									pass.setError(v.getResources().getString(R.string.short_pass));
 									focusView = pass;
 									focusView.requestFocus();
 							}else if (!(textPass.equals(textCpass))){
-								pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+								pass.setError(v.getResources().getString(R.string.unmatched_pass));
 								focusView = pass;
 								focusView.requestFocus();
 							}else if (!(textMail.contains("@") && textMail.contains("."))){
-								pass.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
+								pass.setError(v.getResources().getString(R.string.unmatched_pass));
 								focusView = email;
 								focusView.requestFocus();
 							}else{

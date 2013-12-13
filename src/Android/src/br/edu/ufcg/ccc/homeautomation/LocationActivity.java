@@ -42,8 +42,8 @@ public class LocationActivity extends Activity {
 					json.put("lati", et_lati.getText());
 					json.put("long", et_long.getText());
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//  Auto-generated catch block
+					
 				}
 				new AsyncTask<String, Void, Void>() {
 

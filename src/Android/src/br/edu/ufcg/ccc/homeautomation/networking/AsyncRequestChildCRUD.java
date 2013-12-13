@@ -79,7 +79,6 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 		}else if(type == HTTPType.DELETE){
 			jsonText = NetworkManager.requestDELETE(RESTManager.URL_GET_CHILD+ generateDELETEBody(userChild));
 		}
-		System.out.println(requestResult);
 		if (! jsonText.contains("err"))
 			requestResult = true;
 		
@@ -111,7 +110,7 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 			jsonToSend.put("child", this.userChild);
 			jsonToSend.put("devices", array);
 		} catch (JSONException e) {
-			e.printStackTrace();
+		
 		}
 		
 		return jsonToSend.toString();
@@ -136,7 +135,7 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 			jsonToSend.put("pass", pass);
 			jsonToSend.put("house", house);			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			
 		}
 		
 		return jsonToSend.toString();		

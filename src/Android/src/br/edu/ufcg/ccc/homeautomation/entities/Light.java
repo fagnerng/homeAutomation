@@ -38,7 +38,7 @@ public class Light extends Device {
 			json.put("status", !this.status);
 			json.put("timer", this.timer);
 		}catch(JSONException e){
-			e.printStackTrace();
+		
 		}
 		
 		return json;

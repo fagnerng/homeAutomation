@@ -52,8 +52,8 @@ public class AsyncVerifyStatusTask extends AsyncTask<Void, Void, Void>{
 				
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//  Auto-generated catch block
+			
 			}
 		
 		}

@@ -61,9 +61,7 @@ public class UserAdapter extends BaseAdapter{
 	            public void onFinishRequestChildCRUD (Boolean result) {
 	                if (result){
 	                	Toast.makeText(v.getContext(),"Usuario Deletado", Toast.LENGTH_SHORT).show();
-	                	System.out.println("deu certo a bagaça");
 	                }else{
-	                    System.out.println("nao deu certo");
 	                }
 	            }
 	        }, user.getUser());
@@ -116,9 +114,7 @@ public class UserAdapter extends BaseAdapter{
             @Override
             public void onFinishRequestChildCRUD (Boolean result) {
                 if (result){
-                    System.out.println("deu certo a bagaça");
                 }else{
-                    System.out.println("nao deu certo");
                 }
             }
         }, user.getUser(),iDevices);
@@ -150,7 +146,6 @@ public class UserAdapter extends BaseAdapter{
 			CheckBox checkBox = new CheckBox(devicesDialog.getContext());
 			checkBox.setId(j);
 			checkBox.setText(systemDevices.get(j).getName());
-			System.out.println("CONTAINS?: " + userDevices.contains(systemDevices.get(j)));
 			checkBox.setChecked(userDevices.contains(systemDevices.get(j)));
 			cbList.add(checkBox);
 			row.addView(checkBox);
@@ -190,7 +185,6 @@ public class UserAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(final View v) {
-				System.out.println(user.getDevices().toString());
 				rotate.setAnimationListener(new AnimationListener() {
 					
 					

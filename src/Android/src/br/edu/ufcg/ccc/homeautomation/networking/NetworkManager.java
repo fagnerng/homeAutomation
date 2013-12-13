@@ -62,14 +62,12 @@ public class NetworkManager {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
 		} catch (IOException e) {
-			e.printStackTrace();
+		
 		}
 		return result;
 	}
 	
 	public static String requestPOST(String url, String body){
-		System.out.println(url);
-		System.out.println(body);
 		HttpClient hc = new DefaultHttpClient();
 		HttpPost p = new HttpPost(url);
 		StringEntity se = null;
@@ -79,7 +77,7 @@ public class NetworkManager {
 			p.setEntity(new StringEntity(HTTP.UTF_8));
 			se = new StringEntity(body, HTTP.UTF_8);
 		}catch(Exception e){
-			e.printStackTrace();
+		
 		}
 		p.addHeader("User-Agent-Model", deviceID);
 		p.setHeader("Content-type", "application/json; charset=utf-8");
@@ -105,13 +103,13 @@ public class NetworkManager {
 		} catch (HttpHostConnectException e) { // No Connection
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
-			e.printStackTrace();
+			
 		} catch (UnknownHostException e) {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
-			e.printStackTrace();
+		
 		} catch (Exception e){
-			e.printStackTrace();
+		
 		}
 		
 		return response;
@@ -127,7 +125,7 @@ public class NetworkManager {
 			p.setEntity(new StringEntity(HTTP.UTF_8));
 			se = new StringEntity(body, HTTP.UTF_8);
 		}catch(Exception e){
-			e.printStackTrace();
+		
 		}
 		p.addHeader("User-Agent-Model", deviceID);
 		p.setHeader("Content-type", "application/json; charset=utf-8");
@@ -157,7 +155,7 @@ public class NetworkManager {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
 		} catch (Exception e){
-			e.printStackTrace();
+			
 		}
 		
 		return response;
@@ -186,7 +184,7 @@ public class NetworkManager {
 			if (noConnectionListener != null)
 				noConnectionListener.onNoConnectionException();
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 		return result;
 	}
@@ -245,7 +243,7 @@ public class NetworkManager {
 				if (noConnectionListener != null)
 					noConnectionListener.onNoConnectionException();
 			} catch (Exception e){
-				e.printStackTrace();
+				
 			}
 			
 			return response;

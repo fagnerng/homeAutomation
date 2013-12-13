@@ -23,7 +23,6 @@ public class AsyncRequestSwitch extends AsyncTask<String, Void, Boolean>{
 		jsonText = NetworkManager.requestPOST(RESTManager.URL_POST_DEVICE,
 			mDevice.generateBody(UserManager.getInstance().generateBody()).toString());
 		
-		System.out.println("SWITCH RESPONSE: "+ jsonText);
 		
 		if (jsonText.equals(REQUEST_FAILED))
 			return false;

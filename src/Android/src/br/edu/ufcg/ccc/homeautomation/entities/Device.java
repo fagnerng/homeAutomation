@@ -39,7 +39,7 @@ public abstract class Device implements Serializable{
 				this.timer = json.getInt("timer") + "";
 			
 			} catch (JSONException e) {
-				//e.printStackTrace();
+				
 			}
 		}
 	}

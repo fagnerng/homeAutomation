@@ -68,7 +68,6 @@ public class DeviceEditActivity extends Activity {
 /*		EditText etEditTaskName = (EditText) findViewById(R.id.et_edit_task);
 		TextView tvStatusDev = (TextView) findViewById(R.id.tv_status_device);
 		etEditTaskName.setText(mDev.getName());
-		System.out.println("usuario eh root?: " + UserManager.getInstance().getUserObject().isAdmin());
 		etEditTaskName.setEnabled(UserManager.getInstance().getUserObject().isAdmin());
 		tvStatusDev.setText(mDev.getStatus());*/
 	}

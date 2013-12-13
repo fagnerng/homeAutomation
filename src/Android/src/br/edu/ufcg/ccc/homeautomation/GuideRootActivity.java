@@ -120,7 +120,7 @@ public class GuideRootActivity extends Activity {
 			
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
+				//  Auto-generated method stub
 				
 			}
 			

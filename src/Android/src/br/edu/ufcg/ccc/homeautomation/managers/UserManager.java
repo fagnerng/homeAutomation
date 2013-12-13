@@ -56,10 +56,8 @@ public class UserManager {
     	try{
     		json.put("user", this.getUser());
     		json.put("token", this.getToken());
-    		System.out.println("TOKEEEEN: "+this.getToken());
-    		System.out.println("USER: "+this.getUser());    		
     	}catch(Exception e){
-    		e.printStackTrace();
+    	
     	}
     	return json;
     }

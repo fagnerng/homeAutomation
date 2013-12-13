@@ -28,7 +28,6 @@ public class JsonParser {
 		ArrayList<User> users = new ArrayList<User>();
 		
 		if (jsonText == null || jsonText.equals("err")){
-			System.out.println("NULL!??");
 			return users;
 		}
 		
@@ -42,12 +41,10 @@ public class JsonParser {
     	    	
     	        User user = new Child(userJson);
     	        
-    	        System.out.println("USER CREATING:" + user.getName());
     	        users.add(user);
     	    }
     	} catch (JSONException e) {
-    	    System.out.println("Exceção de json...");
-    		e.printStackTrace();
+    		
     	}
 		
 		return users;
@@ -60,7 +57,7 @@ public class JsonParser {
     		return json.getString("token");
     		
     	}catch(JSONException e){
-//    		e.printStackTrace();
+
     	}
     	
     	return null;

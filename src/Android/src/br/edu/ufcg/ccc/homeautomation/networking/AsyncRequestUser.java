@@ -39,7 +39,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			}
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+		
 		}
 		
 		return null;		
@@ -48,7 +48,6 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	@Override
 	protected void onPostExecute(User result) {
 		// Set for All System the userName and his current Token
-		System.out.println("ALOW: "+result.getToken());
 		UserManager.getInstance().setToken(result.getToken());
 		
 		if (result != null)
@@ -66,7 +65,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			jsonToSend.put("user", this.user);
 			jsonToSend.put("pass", this.pass);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			
 		}
 		
 		return jsonToSend.toString();
@@ -83,7 +82,7 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 			jsonToGetUser.put("user", this.user);
 			jsonToGetUser.put("token", token);
 		}catch (JSONException e){
-			e.printStackTrace();
+			
 		}
 		return jsonToGetUser.toString();
 	}

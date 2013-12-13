@@ -35,12 +35,9 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... params) {
 
 		
-		System.out.println(generateBody());
-		
 		String jsonText = NetworkManager.requestGET(RESTManager.URL_GET_USER
 				+ generateBody());
 		
-		System.out.println("fez Requisicao!");
 		
 		return jsonText;
 	}
@@ -118,11 +115,10 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				
 				UserManager.getInstance().setUserObject(mUser);
 				mContext.startService(new Intent(mContext, NotificationService.class));
-				System.out.println("MUSER_TO STRING: "+UserManager.getInstance().getUserObject().toString());
 				mContext.startActivity(intent);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+		
 			builder.setMessage(mContext.getResources().getString(R.string.server_is_down));
 			alerta = builder.create();
 			alerta.show();
