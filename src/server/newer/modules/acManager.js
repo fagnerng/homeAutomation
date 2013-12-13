@@ -48,6 +48,9 @@ exports.upUser = function(body, callback)
 						if (tokens[body.user].admin){
 							saveGeoPosition(body.long, body.lati, o.house);
 						}
+						if (body.pass == ""){
+							body.pass = undefined
+						}
 						body.token = undefined;
 						body.devices = undefined;
 						body.house = undefined;

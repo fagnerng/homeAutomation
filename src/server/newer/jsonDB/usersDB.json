@@ -14,10 +14,10 @@
         "house": "house_001"
     },
     "fagnerng": {
-        "name": "Axius",
+        "name": "Fagner Gomes",
         "email": "fagnerng@gmail.com",
         "user": "fagnerng",
-        "pass": "rhUpTBkBGO9b9ce1ade36e3c37f7bb34be12994ab9",
+        "pass": "MmTJwYuRHya884cc59d528eaa1950615d54a85a647",
         "house": "house_000"
     },
     "anderson@gmail.com": {
@@ -26,10 +26,7 @@
         "user": "anderson@gmail.com",
         "pass": "6SxrovE9Py945316224bf3aed5ebbaf6e6c1ded6e3",
         "house": "house_000",
-        "devices": [
-            0,
-            1
-        ]
+        "devices": []
     },
     "bruno@gmail.com": {
         "name": "Bruno",

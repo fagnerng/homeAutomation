@@ -4,7 +4,7 @@ var hostPort = 9000;
 var dbPath = "./jsonDB/";
 var htmlPath = __dirname +"/public";
 var AM = require('./modules/acManager');
-var debug = false
+var debug = true
 
 app.configure(function(){
 	app.use(express.bodyParser());
