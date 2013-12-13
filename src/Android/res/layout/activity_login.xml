@@ -2,17 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     tools:context=".LoginActivity"
-    android:background="@color/background"
-    >
-
+    android:background="@color/background">
 
     <LinearLayout
         style="@style/LoginFormContainer"
-        android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_marginTop="30dp"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="10dp" 
+        android:background="@color/background">
 
         <RelativeLayout
             android:layout_width="fill_parent"

@@ -2,18 +2,19 @@ package br.edu.ufcg.ccc.homeautomation.entities;
 
 import java.util.List;
 
+import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,13 +33,14 @@ public class DeviceAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;
 	private ImageButton editDevice;
 	private ImageButton buttonStatus;
-//	private NumberPicker pickerTimer;
-//	private Switch switchTimer;
+	private Spinner spinTimes;
 	private Drawable on;
 	private Drawable off;
-	private Device mDev;	
-	private Spinner timer;
-	private SharedPreferences prefs;
+	private Device mDev;
+	
+	private Animation rotate;
+	
+	private int settedTime;	
 	
 	public DeviceAdapter (Context context, List<Device> devs){
 		mInflater = LayoutInflater.from(context);
@@ -64,7 +66,9 @@ public class DeviceAdapter extends BaseAdapter{
 	public View getView(int posicao, View view, ViewGroup viewGroup) {
 		view = mInflater.inflate(R.layout.device_adapter, null);
 		final Device dev = mDevices.get(posicao);
-		prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+		
+		rotate = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate);
+//		prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
 		
 		TextView tv_name = (TextView) view.findViewById(R.id.tv_name_device);
 		final String devName = dev.getName();
@@ -77,19 +81,31 @@ public class DeviceAdapter extends BaseAdapter{
 		String status = dev.getStringStatus();
 		tv_status.setText(status);
 		
-		final Context c = view.getContext();
-		final Intent i = new Intent(c,DeviceEditActivity.class);
-		i.putExtra("dev", dev);
-		
 		final ImageButton ib_edit = (ImageButton) view.findViewById(R.id.ib_icon_edit);
 		
 		ib_edit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-//				v.getContext().startActivity(i);
-				callDialogEditDevie(v, dev);
-			}
+			public void onClick(final View v) {
+				
+				
+				rotate.setAnimationListener(new AnimationListener() {
+					
+					
+					public void onAnimationStart(Animation animation) {
+						
+					}
+					
+					public void onAnimationRepeat(Animation animation) {
+						
+					}
+					
+					public void onAnimationEnd(Animation animation) {
+						callDialogEditDevie(v, dev);
+					}
+				});				
+			    v.startAnimation(rotate);
+			}	
 		});
 		
 		final ImageButton ib_switch = (ImageButton) view.findViewById(R.id.ib_icon_switch);
@@ -107,14 +123,17 @@ public class DeviceAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				v.startAnimation(press);
-				executeSwitchPower(v, dev, ib_switch,on,off);
+				executeSwitchPower(v, dev, ib_switch,on,off, !dev.getStatus());
 			}
 		});
 		
 		return view;
 	}
 	
-	private void executeSwitchPower(final View v,final Device device, final ImageButton ib_switch, final Drawable on, final Drawable off){
+	private void executeSwitchPower(final View v,final Device device, final ImageButton ib_switch,
+			final Drawable on, final Drawable off, boolean status){
+		
+		final boolean newStatus = status;
 		
 		RESTManager.getInstance().requestSwitch(new RequestsCallbackAdapter() {
 			
@@ -130,21 +149,14 @@ public class DeviceAdapter extends BaseAdapter{
 					}else{
 						ib_switch.setImageDrawable(on);
 					}
-					device.setStatus(!(device.getStatus()));
+					device.setStatus(newStatus);
 				}else{
 					Toast.makeText(v.getContext(), v.getResources().getString(R.string.cannot_change_status), Toast.LENGTH_SHORT).show();
 				}
 			}
 		}, device);
 	}
-	
-//	private void executeDeviceEdit(final View v, final Device d){
-//		Intent i = new Intent(v.getContext(),DeviceEdit.class);
-//		//i.putExtra("device", d);
-//		v.getContext().startActivity(i);
-//		//Toast.makeText(v.getContext(), "Abrir Device Edit Screen", Toast.LENGTH_SHORT).show();
-//	}
-	
+
 	private void callDialogEditDevie(final View v, final Device d){
 		final Dialog dialogEditDevice = new Dialog(v.getContext(), R.style.myCoolDialog);
 		
@@ -159,28 +171,33 @@ public class DeviceAdapter extends BaseAdapter{
 			dialogEditDevice.setContentView(R.layout.dialog_aircond_edit);
 			bt_Confirm = (Button) dialogEditDevice.findViewById(R.id.air_confirm);
 			bt_Cancel = (Button) dialogEditDevice.findViewById(R.id.air_cancel);
-		}		
+		}
 		
 		on = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_on);
 		off = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_off);
 		editDevice = (ImageButton) dialogEditDevice.findViewById(R.id.button_edit_device);
 		buttonStatus = (ImageButton) dialogEditDevice.findViewById(R.id.button_status_config);
+		spinTimes = (Spinner) dialogEditDevice.findViewById(R.id.spinner_default_times);
 		mDev = d;
-		timer = (Spinner) dialogEditDevice.findViewById(R.id.spinner_default_times);
-		Integer times[] = {1,5,10,15,30,60,90,20};
-	//	Integer temperaturas[] = {17,18,19,20,21,22,23,24,25};
-		Integer timerDefault = Integer.valueOf(prefs.getString("timer_default", "2"));
+		
+//		Integer times[] = {0,1,5,10,15,30,60,90,120};
+//		Integer temperatures[] = {17,18,19,20,21,22,23,24,25};
+		
+		spinTimes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-		
-		
-//		if(!mDev.getTimer().equals("333")){
-//			int indice = findItem(times, mDev.getTimer());
-//			if(indice != -1){
-//				timer.setSelection(indice);
-//			}
-//		}else{
-			timer.setSelection(findItem(times, String.valueOf(timerDefault)));
-		//}
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+				settedTime = Integer.parseInt((String) spinTimes.getSelectedItem());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		if(mDev.getStatus()){
 			buttonStatus.setImageDrawable(on);
@@ -202,8 +219,25 @@ public class DeviceAdapter extends BaseAdapter{
 		editDevice.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				showEditDevices(v, mDev, deviceName);				
+			public void onClick(final View v) {
+				
+				
+				rotate.setAnimationListener(new AnimationListener() {
+					
+					
+					public void onAnimationStart(Animation animation) {
+						
+					}
+					
+					public void onAnimationRepeat(Animation animation) {
+						
+					}
+					
+					public void onAnimationEnd(Animation animation) {
+						showEditDevices(v, mDev, deviceName);
+					}
+				});				
+			    v.startAnimation(rotate);
 			}			
 		});
 		
@@ -214,7 +248,7 @@ public class DeviceAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				v.startAnimation(animationPress);
-				executeSwitchPower(v, mDev, buttonStatus, on,off);
+				executeSwitchPower(v, mDev, buttonStatus, on, off, !mDev.getStatus());
 //				Toast.makeText(v.getContext(), "Chamar funcionalidade do Switch", Toast.LENGTH_SHORT).show();
 			}			
 		});
@@ -224,6 +258,11 @@ public class DeviceAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				notifyDataSetChanged();
+				
+				if (settedTime != 0){
+					mDev.setTimer(settedTime);
+					executeSwitchPower(v, mDev, buttonStatus, on, off, true);
+				}
 				dialogEditDevice.dismiss();
 			}
 		});
@@ -246,6 +285,7 @@ public class DeviceAdapter extends BaseAdapter{
 		Button cancel = (Button) edit.findViewById(R.id.button_cancel_device);
 		Button confirm = (Button) edit.findViewById(R.id.button_confirm_device);
 		final EditText editName = (EditText) edit.findViewById(R.id.edit_device_name);
+		
 		edit.show();
 		
 		confirm.setOnClickListener(new View.OnClickListener() {
@@ -271,17 +311,6 @@ public class DeviceAdapter extends BaseAdapter{
 			}
 		});
 		editName.setText(dev.getName());
-	}
-	
-	private int findItem(Integer[] array, String term){
-		for (int i = 0; i < array.length; i++) {
-			if(String.valueOf(array[i]).equals(term)){
-				return i;
-			}
-		}
-		
-		return -1;
-		
 	}
 
 }

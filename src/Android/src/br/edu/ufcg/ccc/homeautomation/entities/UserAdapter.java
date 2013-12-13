@@ -177,11 +177,11 @@ public class UserAdapter extends BaseAdapter{
 		
 		buttonEdit = (ImageButton) view.findViewById(R.id.button_edit);
 		buttonDelete = (ImageButton) view.findViewById(R.id.button_remove);
-		 rotate = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate);
+		rotate = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate);
 		 
 		 
-		 //final View v1= view.findViewById(R.id.button_edit);
-		 buttonEdit.setOnClickListener(new View.OnClickListener() {
+		//final View v1= view.findViewById(R.id.button_edit);
+		buttonEdit.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(final View v) {
@@ -230,9 +230,6 @@ public class UserAdapter extends BaseAdapter{
 				});
 
 			        v.startAnimation(rotate);
-
-				
-				
 			}
 		});
 		

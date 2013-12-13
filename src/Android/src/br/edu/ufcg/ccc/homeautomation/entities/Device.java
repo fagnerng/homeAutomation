@@ -19,7 +19,7 @@ public abstract class Device implements Serializable{
 	private String name;
 	private int id;
 	private String type;
-	protected String timer;
+	protected int timer;
 	
 	/**
 	 * @param json
@@ -36,7 +36,7 @@ public abstract class Device implements Serializable{
 				this.id = json.getInt("id");
 				this.status = json.getBoolean("status");
 				this.type = json.getString("type");
-				this.timer = json.getInt("timer") + "";
+				this.timer = json.getInt("timer");
 			
 			} catch (JSONException e) {
 				
@@ -87,11 +87,11 @@ public abstract class Device implements Serializable{
 		return this.type;
 	}
 	
-	public String getTimer(){
+	public int getTimer(){
 		return this.timer;
 	}
 	
-	public void setTimer(String timer){
+	public void setTimer(int timer){
 		this.timer = timer;
 	}
 	

@@ -19,10 +19,13 @@ public class AsyncRequestSwitch extends AsyncTask<String, Void, Boolean>{
 	@Override
 	protected Boolean doInBackground(String... params) {
 		String jsonText = null;
-
+		
+		System.out.println("JSON ENVIADO "+mDevice.generateBody(UserManager.getInstance().generateBody()).toString());
+		
 		jsonText = NetworkManager.requestPOST(RESTManager.URL_POST_DEVICE,
 			mDevice.generateBody(UserManager.getInstance().generateBody()).toString());
 		
+		mDevice.setTimer(0);
 		
 		if (jsonText.equals(REQUEST_FAILED))
 			return false;

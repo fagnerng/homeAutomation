@@ -8,6 +8,6 @@
        android:pivotY="50%"
        android:duration="500"
        android:startOffset="0"
-       android:repeatCount="1"
+       android:repeatCount="0"
        android:repeatMode="reverse" />
 </set>
