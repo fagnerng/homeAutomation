@@ -4,7 +4,7 @@ var hostPort = 9000;
 var dbPath = "./jsonDB/";
 var htmlPath = __dirname +"/public";
 var AM = require('./modules/acManager');
-var debug = true
+var debug = false
 
 app.configure(function(){
 	app.use(express.bodyParser());
@@ -366,19 +366,19 @@ app.post('/adevice',function (req,res){
 			console.log("e: " + e);
 					console.log("o: " + o);
 			for (var i in o){
-				console.log(i +": " +o[i])
+				console.log(i +": " +o[i]);
 			}
 		}
 		if(o != null){
-			//res.send(o, 200);	
+			res.send(o, 200);	
 		}else
 		{
-			//res.send(e, 300);	
+			res.send(e, 300);	
 		}
 	}
 	);
 			
-	res.send("", 200);		
+	
 	}
 });
 
@@ -393,7 +393,7 @@ app.get('/adevice',function (req,res){
 			console.log("e: " + e);
 					console.log("o: " + o);
 			for (var i in o){
-				console.log(i +": " +o[i])
+				console.log(i +": " +o[i]);
 			}
 
 		}
