@@ -59,6 +59,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 		user = ((EditText) mMA.findViewById(R.id.username)).getText().toString();
 		pass = ((EditText) mMA.findViewById(R.id.password)).getText().toString();
 
+		((EditText) mMA.findViewById(R.id.password)).setText("");
 		
 		UserManager.getInstance().setPass(pass);
 		
@@ -116,7 +117,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				UserManager.getInstance().setUserObject(mUser);
 				mContext.startService(new Intent(mContext, NotificationService.class));
 				mContext.startActivity(intent);
-				((Activity)mContext).finish();
+				
 			}
 		} catch (Exception e) {
 		e.printStackTrace();

@@ -132,8 +132,8 @@ exports.switchDev = function(body, callback)
 	};
 
 	for (var i in templateBody){
-		if (body[i] == undefined || body[i]== ""){
-			callback({err:"missing-parameters"});
+		if (body[i] == undefined || body[i]=== ""){
+			callback({err:"missing-parameters"+i});
 		}
 	}
 			validateToken(body.user, body.token, function(err, res) {
@@ -142,18 +142,30 @@ exports.switchDev = function(body, callback)
 						saveNameDevice({house:tokens[body.user], id:body.devices, name:body.name});
 					}
 					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
-					var devices = require(dbPath + "deviceDB.json")
+					var devices = require(dbPath + "deviceDB.json");
 					if(typeof( body.status ) != 'boolean'){
-						callback({err:'invalid-status'})
+						callback({err:'invalid-status'});
 					}else{
 						var status = body.status ? "on" : "off";
-						if (body.devices > devices[tokens[body.user].house].lenght){
+						
+						if (body.devices > (devices[tokens[body.user].house].length -1)){
 							callback({err:'device-not-found'});
 						}
-						switchPower({id:body.devices, status:status, host:house.ip, temperature:body.temperature},callback);
-						 devices[tokens[body.user].house][body.devices].status = body.status;
-						saveData(devices, 'device');
+						
+						else {
+							if (body.timer != undefined && body.timer>0){
+							setTimeout(function(){
+								switchPower({id:body.devices, status:"off", host:house.ip, temperature:body.temperature},function(){});
+								},body.timer *1000);
+							
+						}
+							switchPower({id:body.devices, status:status, host:house.ip, temperature:body.temperature},function(){});
+							devices[tokens[body.user].house][body.devices].status = body.status;
+							saveData(devices, 'device');
+							callback(null,"");
+						}
 					}
+					
 				}else{
 					callback(err);
 				}
@@ -588,7 +600,7 @@ function saveNameDevice(body){
 	saveData(alldev, "device");
 	
 }
-function switchPower(body,callback){
+function switchPower(body){
 	try{
 		if (body.temperature != undefined){
 			xmlhttp2.open("POST", getLinkDefault(body.host)+"?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id="+body.id+'&status='+body.status+'&temperature='+body.temperature, true);
@@ -596,7 +608,6 @@ function switchPower(body,callback){
 			xmlhttp2.open("POST", getLinkDefault(body.host)+"?username=root&password=ZqGUJQen4KuvQJgbyrRGhYrbuMbXyKPV26zHLJmH&id="+body.id+'&status='+body.status, true);
 		}
 		xmlhttp2.send();
-		callback(null,"");
 	}catch(e){
 	}
 };
