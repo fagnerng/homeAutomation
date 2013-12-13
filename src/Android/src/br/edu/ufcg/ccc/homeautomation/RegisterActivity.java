@@ -124,7 +124,7 @@ public class RegisterActivity extends Activity {
 					tvName.setError(v.getResources().getString(R.string.short_name), errorIcon);
 					focusView = tvName;
 					focusView.requestFocus();
-				}else if (password.length() < 5){
+				}else if (password.length() < 5 && password.length() != 0){
 					tvSenha.setError(v.getResources().getString(R.string.short_pass), errorIcon);
 					focusView = tvSenha;
 					focusView.requestFocus();

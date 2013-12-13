@@ -176,11 +176,11 @@ public class AdminActivity extends FragmentActivity {
 							 final String textMail = email.getText().toString();
 							 String textCpass = cPass.getText().toString();
 							 
-							 if(textName.length() < 3 ){
+							 if(textName.length() < 3){
 								 name.setError(v.getResources().getString(R.string.short_name));
 								 focusView = name;
 								 focusView.requestFocus();
-							 }else if (textPass.length() < 4){
+							 }else if (textPass.length() < 4 && textPass.length() != 4){
 									pass.setError(v.getResources().getString(R.string.short_pass));
 									focusView = pass;
 									focusView.requestFocus();

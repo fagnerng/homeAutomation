@@ -149,6 +149,9 @@ public class ChildActivity extends FragmentActivity {
                 ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                 DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
                 lv_devices.setAdapter(devAdapter);
+                if(mUser.getDevices().isEmpty()){
+                	Toast.makeText(rootView.getContext(),rootView.getResources().getString(R.string.empty_devices_title), Toast.LENGTH_LONG).show();
+                }
                 break;
             case 2:
                 rootView = inflater.inflate(R.layout.activity_profile_edit, container, false);

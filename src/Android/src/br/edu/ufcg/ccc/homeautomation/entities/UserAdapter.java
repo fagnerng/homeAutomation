@@ -71,8 +71,9 @@ public class UserAdapter extends BaseAdapter{
 	}
 	
 	private void callDialogDelete(View v, final User u){
-		final Dialog excluir = new Dialog(v.getContext());
+		final Dialog excluir = new Dialog(v.getContext(),R.style.myCoolDialog);
 		excluir.setContentView(R.layout.popup_layout);
+		
 		excluir.setTitle(v.getResources().getString(R.string.action_delete));
 		Button excluirSim = (Button) excluir.findViewById(R.id.excluirSim);
 		Button excluirNao = (Button) excluir.findViewById(R.id.excluirNao);
@@ -82,7 +83,9 @@ public class UserAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
+				deleteUser(u, v);
 				excluir.dismiss();
+				
 				
 			}
 		});
@@ -91,7 +94,6 @@ public class UserAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				deleteUser(u, v);
 				excluir.dismiss();
 				
 			}

@@ -24,6 +24,7 @@
     <string name="user_create">User Created</string>
     <string name="user_delete"> Deleted User</string>
     <string name="cannot_change_status">change device status failure</string>
+    <string name="empty_devices_title">You have no allocated devices!</string>
 
     <!-- Strings for erro on server.xml -->
 
