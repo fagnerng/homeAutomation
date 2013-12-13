@@ -27,7 +27,8 @@
         "pass": "wpaZM1OSkS1bf46ffb54b78a62a61774205a01b4f2",
         "house": "house_000",
         "devices": [
-            0
+            0,
+            1
         ]
     },
     "ze@gmail.com": {
@@ -37,7 +38,7 @@
         "pass": "9UIRcYGR8J7dd18a48f1ec9e0c2868438a68ee2f2b",
         "house": "house_000",
         "devices": [
-            0
+            1
         ]
     },
     "jose@gmail.com": {
@@ -49,16 +50,6 @@
         "devices": [
             0,
             1
-        ]
-    },
-    "huehue@gmail.com": {
-        "name": "hehehehe",
-        "email": "huehue@gmail.com",
-        "user": "huehue@gmail.com",
-        "pass": "6uvqux3NUB793954a1c647265f2891db4cb017e586",
-        "house": "house_000",
-        "devices": [
-            0
         ]
     }
 }
