@@ -1,13 +1,10 @@
 package br.edu.ufcg.ccc.homeautomation.service;
 
-import java.util.concurrent.ExecutionException;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.IBinder;
-import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.core.lbs.LBSManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
 import br.edu.ufcg.ccc.homeautomation.networking.AsyncResquestStatusDevs;
@@ -56,8 +53,7 @@ public class NotificationService extends Service {
 
 			@Override
 			public void onLocationChanged(Location arg0) {
-				Toast.makeText(mContext, MathLab.distancia(arg0) + " m",
-						Toast.LENGTH_SHORT).show();
+
 				away = MathLab.distancia(arg0) > RADIOS;
 				mTask = new AsyncResquestStatusDevs();
 				mTask.execute();
@@ -65,7 +61,6 @@ public class NotificationService extends Service {
 			}
 		});
 		mLBS.onStart();
-
 	}
 
 	public static void onEndResquest(String result) {
