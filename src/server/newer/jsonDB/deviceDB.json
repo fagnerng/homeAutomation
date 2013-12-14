@@ -2,13 +2,13 @@
     "house_000": [
         {
             "id": 0,
-            "name": "Lampada Quarto",
-            "status": true,
+            "name": "Lampada Batata",
+            "status": false,
             "type": "light"
         },
         {
             "id": 1,
-            "name": "Ar Condicionado Sala",
+            "name": "Outra Lampada",
             "status": true,
             "type": "airCondition",
             "temperature": 26
@@ -18,13 +18,13 @@
         {
             "id": 0,
             "name": "Lampada Quarto",
-            "status": false,
+            "status": true,
             "type": "light"
         },
         {
             "id": 1,
             "name": "Lampada Sala",
-            "status": false,
+            "status": true,
             "type": "light"
         }
     ],

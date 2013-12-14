@@ -20,34 +20,12 @@
         "pass": "MmTJwYuRHya884cc59d528eaa1950615d54a85a647",
         "house": "house_000"
     },
-    "anderson@gmail.com": {
-        "name": "Anderson",
-        "email": "anderson@gmail.com",
-        "user": "anderson@gmail.com",
-        "pass": "6SxrovE9Py945316224bf3aed5ebbaf6e6c1ded6e3",
-        "house": "house_000",
-        "devices": []
-    },
     "bruno@gmail.com": {
-        "name": "Bruno",
+        "name": "brunopaiva",
         "email": "bruno@gmail.com",
         "user": "bruno@gmail.com",
-        "pass": "iE86xqGeeUf0ed41e0b00c4585e60772ff6d16e4fc",
+        "pass": "XTWzZsSo1bd0781123aadd4e406cf7001a5115fdcf",
         "house": "house_000",
-        "devices": [
-            0,
-            1
-        ]
-    },
-    "alex@gmail.com": {
-        "name": "Alessandro",
-        "email": "alex@gmail.com",
-        "user": "alex@gmail.com",
-        "pass": "f40sMubzqcb6faee39cdaf0e578eb06e07d6582896",
-        "house": "house_000",
-        "devices": [
-            0,
-            1
-        ]
+        "devices": []
     }
 }

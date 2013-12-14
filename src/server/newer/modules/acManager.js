@@ -142,7 +142,7 @@ exports.switchDev = function(body, callback)
 			validateToken(body.user, body.token, function(err, res) {
 				if (res){
 					if (body.name != undefined && body.name != "" && tokens[body.user].admin){
-						saveNameDevice({house:tokens[body.user], id:body.devices, name:body.name});
+						saveNameDevice({house:tokens[body.user].house, id:body.devices, name:body.name});
 					}
 					var house = require(dbPath + "houseDB.json")[tokens[body.user].house];
 					var devices = require(dbPath + "deviceDB.json");
@@ -158,6 +158,8 @@ exports.switchDev = function(body, callback)
 						else {
 							if (body.timer != undefined && body.timer>0){
 							setTimeout(function(){
+								devices[tokens[body.user].house][body.devices].status = false;
+								saveData(devices, 'device');
 								switchPower({id:body.devices, status:"off", host:house.ip, temperature:body.temperature},function(){});
 								},body.timer *1000);
 							
