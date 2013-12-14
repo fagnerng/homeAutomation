@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 import br.edu.ufcg.ccc.homeautomation.service.NotificationService;
 
 public class PrefsActivity extends PreferenceActivity{
@@ -21,7 +20,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		super.onStop();
 		boolean enabled = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("distance", true);
 		Intent i = new Intent(this.getApplicationContext(), NotificationService.class);
-		Toast.makeText(this,"enable"+enabled, Toast.LENGTH_SHORT).show();
 		try{
 			if (enabled){
 				startService(i);

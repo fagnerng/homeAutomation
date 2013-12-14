@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -30,6 +31,7 @@ public class ChildActivity extends FragmentActivity {
   //  private static ArrayList<Device> devices;
    // private static ListView lv_User;
     private static View focusView;
+    static int tabToOpen;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -63,8 +65,38 @@ public class ChildActivity extends FragmentActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
         Intent intent = getIntent();
-		int tabToOpen = intent.getIntExtra("tab", -1);
+		tabToOpen = intent.getIntExtra("tab", -1);
 		mViewPager.setCurrentItem(tabToOpen);
+		
+		
+		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int pagePosition) {
+				if(pagePosition == 0){
+					if(mUser.getDevices().isEmpty()){
+						Toast.makeText(mViewPager.getContext(),mViewPager.getResources().getString(R.string.empty_devices_title), Toast.LENGTH_LONG).show();
+					}
+				}
+								
+			}
+			
+			@Override
+			public void onPageScrolled(int pagePosition, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		mViewPager.getOnFocusChangeListener();
+		
+		
         
       
     }
@@ -149,9 +181,12 @@ public class ChildActivity extends FragmentActivity {
                 ListView lv_devices = (ListView)rootView.findViewById(R.id.lv_devices_child);
                 DeviceAdapter devAdapter = new DeviceAdapter(rootView.getContext(),mUser.getDevices() );
                 lv_devices.setAdapter(devAdapter);
-                if(mUser.getDevices().isEmpty()){
-                	Toast.makeText(rootView.getContext(),rootView.getResources().getString(R.string.empty_devices_title), Toast.LENGTH_LONG).show();
-                }
+                
+                if(tabToOpen == 0){
+        			if(mUser.getDevices().isEmpty()){
+        				Toast.makeText(rootView.getContext(),rootView.getResources().getString(R.string.empty_devices_title), Toast.LENGTH_LONG).show();
+        			}
+        		}
                 break;
             case 2:
                 rootView = inflater.inflate(R.layout.activity_profile_edit, container, false);
