@@ -49,7 +49,7 @@ public class LocationActivity extends Activity {
 
 					@Override
 					protected Void doInBackground(String... params) {
-						NetworkManager.requestPOST(RESTManager.URL_GET_USER,
+						NetworkManager.requestPOST(RESTManager.URL_USER,
 								params[0].toString());
 						return null;
 					}

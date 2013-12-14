@@ -41,6 +41,7 @@ public class Light extends Device {
 			}else{
 				json.put("status", !this.status);
 			}
+			json.put("name", getName());
 		}catch(JSONException e){
 		
 		}

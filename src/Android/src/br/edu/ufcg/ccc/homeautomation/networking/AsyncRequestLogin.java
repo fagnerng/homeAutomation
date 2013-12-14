@@ -37,7 +37,7 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... params) {
 
 		
-		String jsonText = NetworkManager.requestGET(RESTManager.URL_GET_USER
+		String jsonText = NetworkManager.requestGET(RESTManager.URL_USER
 				+ generateBody());
 		
 		

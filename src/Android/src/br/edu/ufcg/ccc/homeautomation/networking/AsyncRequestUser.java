@@ -24,14 +24,14 @@ public class AsyncRequestUser extends AsyncTask<String, Void, User>{
 	protected User doInBackground(String... params) {
 		String jsonText = null;
 
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateLoginBody());
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_TOKEN, generateLoginBody());
 		
 		JSONObject json = null;
 		try {
 			
 			json = new JSONObject(jsonText);// Create a new JSONOBject to guard the received token from the server
 			String token = json.getString("token");
-			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateUserBody(token));
+			jsonText = NetworkManager.requestPOST(RESTManager.URL_USER, generateUserBody(token));
 			
 			if (! jsonText.contains("err")){
 				json = new JSONObject(jsonText);

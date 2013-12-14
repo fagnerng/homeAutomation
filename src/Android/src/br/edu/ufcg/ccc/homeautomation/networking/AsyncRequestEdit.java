@@ -29,7 +29,7 @@ public class AsyncRequestEdit extends AsyncTask<String, Void, Boolean>{
 	protected Boolean doInBackground(String... params) {
 		String jsonText = null;
 
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_USER, generateBody(name, email, pass, lat, lon));
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_USER, generateBody(name, email, pass, lat, lon));
 			
 		if (jsonText.equals(REQUEST_FAILED))
 			return false;

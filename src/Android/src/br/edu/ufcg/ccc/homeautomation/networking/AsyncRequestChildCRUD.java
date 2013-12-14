@@ -73,11 +73,11 @@ public class AsyncRequestChildCRUD  extends AsyncTask<String, Void, Boolean>{
 		String jsonText = null;
 
 		if (type == HTTPType.POST){
-			jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_CHILD, generatePOSTBody(userChild, devices));
+			jsonText = NetworkManager.requestPOST(RESTManager.URL_CHILD, generatePOSTBody(userChild, devices));
 		}else if(type == HTTPType.PUT){
-			jsonText = NetworkManager.requestPUT(RESTManager.URL_GET_CHILD, generatePUTBody(userChild, devices, name, email, pass, house));			
+			jsonText = NetworkManager.requestPUT(RESTManager.URL_CHILD, generatePUTBody(userChild, devices, name, email, pass, house));			
 		}else if(type == HTTPType.DELETE){
-			jsonText = NetworkManager.requestDELETE(RESTManager.URL_GET_CHILD+ generateDELETEBody(userChild));
+			jsonText = NetworkManager.requestDELETE(RESTManager.URL_CHILD+ generateDELETEBody(userChild));
 		}
 		if (! jsonText.contains("err"))
 			requestResult = true;

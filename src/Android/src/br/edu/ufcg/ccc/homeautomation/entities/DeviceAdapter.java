@@ -2,18 +2,17 @@ package br.edu.ufcg.ccc.homeautomation.entities;
 
 import java.util.List;
 
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -22,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.edu.ufcg.ccc.homeautomation.DeviceEditActivity;
 import br.edu.ufcg.ccc.homeautomation.R;
 import br.edu.ufcg.ccc.homeautomation.managers.RESTManager;
 import br.edu.ufcg.ccc.homeautomation.managers.UserManager;
@@ -134,7 +132,6 @@ public class DeviceAdapter extends BaseAdapter{
 			final Drawable on, final Drawable off, boolean status){
 		
 		final boolean newStatus = status;
-		
 		RESTManager.getInstance().requestSwitch(new RequestsCallbackAdapter() {
 			
 			@Override
@@ -153,6 +150,7 @@ public class DeviceAdapter extends BaseAdapter{
 				}else{
 					Toast.makeText(v.getContext(), v.getResources().getString(R.string.cannot_change_status), Toast.LENGTH_SHORT).show();
 				}
+				notifyDataSetChanged();
 			}
 		}, device);
 	}
@@ -249,7 +247,6 @@ public class DeviceAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				v.startAnimation(animationPress);
 				executeSwitchPower(v, mDev, buttonStatus, on, off, !mDev.getStatus());
-//				Toast.makeText(v.getContext(), "Chamar funcionalidade do Switch", Toast.LENGTH_SHORT).show();
 			}			
 		});
 		
@@ -257,11 +254,22 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				notifyDataSetChanged();
+				
 				
 				if (settedTime != 0){
 					mDev.setTimer(settedTime);
 					executeSwitchPower(v, mDev, buttonStatus, on, off, true);
+					new Handler().postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							mDev.setStatus(false);
+							notifyDataSetChanged();
+						}
+					}, settedTime*1000);
+				}else{
+					mDev.setStatus(!mDev.getStatus());
+					executeSwitchPower(v, mDev, buttonStatus, on, off, !mDev.getStatus());
 				}
 				dialogEditDevice.dismiss();
 			}

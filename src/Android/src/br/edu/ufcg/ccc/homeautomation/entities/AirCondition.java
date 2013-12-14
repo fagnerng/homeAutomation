@@ -72,6 +72,7 @@ public class AirCondition extends Device {
 			}else{
 				json.put("status", !this.status);
 			}
+			json.put("name", getName());
 			json.put("temperature", this.temperature);
 		}catch(JSONException e){
 		

@@ -20,7 +20,7 @@ public class AsyncRequestChild  extends AsyncTask<String, Void, ArrayList<User>>
 	protected ArrayList<User> doInBackground(String... params) {
 		String jsonText = null;
 		
-		jsonText = NetworkManager.requestGET(RESTManager.URL_GET_CHILD + generateBody());
+		jsonText = NetworkManager.requestGET(RESTManager.URL_CHILD + generateBody());
 		return JsonParser.parseAllChilds(jsonText);// Create a new JSONOBject to guard the received childs from the server
 	}
 	

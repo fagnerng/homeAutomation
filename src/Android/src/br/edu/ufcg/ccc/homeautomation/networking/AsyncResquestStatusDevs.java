@@ -13,7 +13,7 @@ public class AsyncResquestStatusDevs extends AsyncTask<Void, Void, String>{
 		
 			
 			try {
-				return NetworkManager.requestGET(RESTManager.URL_POST_DEVICE+generateBody());
+				return NetworkManager.requestGET(RESTManager.URL_DEVICE+generateBody());
 			} catch (Exception e) {
 				return  null;
 			}

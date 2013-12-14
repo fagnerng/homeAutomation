@@ -22,7 +22,7 @@ public class AsyncRequestSwitch extends AsyncTask<String, Void, Boolean>{
 		
 		System.out.println("JSON ENVIADO "+mDevice.generateBody(UserManager.getInstance().generateBody()).toString());
 		
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_POST_DEVICE,
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_DEVICE,
 			mDevice.generateBody(UserManager.getInstance().generateBody()).toString());
 		
 		mDevice.setTimer(0);

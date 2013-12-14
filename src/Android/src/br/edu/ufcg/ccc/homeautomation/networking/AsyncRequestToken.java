@@ -21,7 +21,7 @@ public class AsyncRequestToken extends AsyncTask<String, Void, String>{
 
 	protected String doInBackground(String... params) {
 		String jsonText = null;
-		jsonText = NetworkManager.requestPOST(RESTManager.URL_GET_TOKEN, generateBody());
+		jsonText = NetworkManager.requestPOST(RESTManager.URL_TOKEN, generateBody());
 		
 		return jsonText;
 	}

@@ -31,10 +31,10 @@ public class RESTManager {
     
     // Remember to change the IP ADDRESS to the server IP
     public static final String URL_DEFAULT = "http://192.168.2.28:9000/";
-    public static final String URL_GET_TOKEN = URL_DEFAULT + "alogin";
-    public static final String URL_GET_CHILD = URL_DEFAULT + "achild";
-    public static final String URL_GET_USER = URL_DEFAULT + "auser";
-    public static final String URL_POST_DEVICE = URL_DEFAULT + "adevice";
+    public static final String URL_TOKEN = URL_DEFAULT + "alogin";
+    public static final String URL_CHILD = URL_DEFAULT + "achild";
+    public static final String URL_USER = URL_DEFAULT + "auser";
+    public static final String URL_DEVICE = URL_DEFAULT + "adevice";
 	
 	/**
 	 * This method is responsible for request user data from the server nodeJS
