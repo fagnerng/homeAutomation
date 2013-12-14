@@ -9,7 +9,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.widget.EditText;
 import br.edu.ufcg.ccc.homeautomation.GuideActivity;
 import br.edu.ufcg.ccc.homeautomation.GuideRootActivity;
@@ -115,7 +117,21 @@ public class AsyncRequestLogin extends AsyncTask<Void, Void, String> {
 				}				
 				
 				UserManager.getInstance().setUserObject(mUser);
-				mContext.startService(new Intent(mContext, NotificationService.class));
+				
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+				boolean enabled = prefs.getBoolean("distance", true);
+				
+				Intent i = new Intent(mContext.getApplicationContext(), NotificationService.class);
+				
+				try{
+					if (enabled){
+						mContext.startService(i);
+					}else{
+						mContext.stopService(i);
+					}
+				}catch (Exception e1){
+				}
+				
 				mContext.startActivity(intent);
 				
 			}
