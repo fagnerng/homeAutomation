@@ -8,23 +8,23 @@
         },
         {
             "id": 1,
-            "name": "Ar condicionado",
-            "status": false,
+            "name": "Ar condicionado1",
+            "status": true,
             "type": "airCondition",
-            "temperature": 17
+            "temperature": 20
         }
     ],
     "house_001": [
         {
             "id": 0,
             "name": "Lampada Quarto",
-            "status": true,
+            "status": false,
             "type": "light"
         },
         {
             "id": 1,
             "name": "Lampada Sala",
-            "status": true,
+            "status": false,
             "type": "light"
         }
     ],

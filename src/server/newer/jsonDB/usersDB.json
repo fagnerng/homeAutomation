@@ -19,5 +19,55 @@
         "user": "fagnerng",
         "pass": "MmTJwYuRHya884cc59d528eaa1950615d54a85a647",
         "house": "house_000"
+    },
+    "axius@gmail.com": {
+        "name": "Axius",
+        "email": "axius@gmail.com",
+        "user": "axius@gmail.com",
+        "pass": "llTWJBt4Cdcd5d97329fc557317805f1e46f26dcb8",
+        "house": "house_001",
+        "devices": []
+    },
+    "gameleira@gmail.com": {
+        "name": "respicio",
+        "email": "gameleira@gmail.com",
+        "user": "gameleira@gmail.com",
+        "pass": "YsPvCdAqeq3964d5a554277ea6fcf437b2f1622dd6",
+        "house": "house_001",
+        "devices": [
+            0
+        ]
+    },
+    "alexnum@gmail.com": {
+        "name": "Alessandro Herculano",
+        "email": "alexnum@gmail.com",
+        "user": "alexnum@gmail.com",
+        "pass": "KD7QC5XtfW1d907ce7fcbd566b525e46b8a1745200",
+        "house": "house_000",
+        "devices": [
+            0
+        ]
+    },
+    "andersongfs@gmail.com": {
+        "name": "Anderson Gustafson",
+        "email": "andersongfs@gmail.com",
+        "user": "andersongfs@gmail.com",
+        "pass": "2ULhKHRGD0e232edef96943a1d41c7c07375ae217f",
+        "house": "house_000",
+        "devices": [
+            0,
+            1
+        ]
+    },
+    "brunoffp@gmail.com": {
+        "name": "Bruno Paiva",
+        "email": "brunoffp@gmail.com",
+        "user": "brunoffp@gmail.com",
+        "pass": "8mHLBqvF4ydf67639a97bbc5a41187628feb2b5722",
+        "house": "house_000",
+        "devices": [
+            0,
+            1
+        ]
     }
 }
