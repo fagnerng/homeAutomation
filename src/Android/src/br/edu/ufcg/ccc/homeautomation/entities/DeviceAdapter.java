@@ -207,22 +207,23 @@ public class DeviceAdapter extends BaseAdapter{
 				
 			}
 		});
-		
-		spinTemp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				
-				settedTemp = Integer.parseInt((String) spinTemp.getSelectedItem());
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		if (spinTemp != null){
+			spinTemp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					
+					settedTemp = Integer.parseInt((String) spinTemp.getSelectedItem());
+				}
+	
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
 		
 		if(mDev.getStatus()){
 			buttonStatus.setImageDrawable(on);

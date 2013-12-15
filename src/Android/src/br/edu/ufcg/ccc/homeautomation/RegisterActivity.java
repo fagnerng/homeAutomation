@@ -123,32 +123,26 @@ public class RegisterActivity extends Activity {
 				if(name.length() < 3){
 					tvName.setError(v.getResources().getString(R.string.short_name), errorIcon);
 					focusView = tvName;
-					focusView.requestFocus();
 				}else if (password.length() < 5 && password.length() != 0){
 					tvSenha.setError(v.getResources().getString(R.string.short_pass), errorIcon);
 					focusView = tvSenha;
-					focusView.requestFocus();
 				}else if (!(password.equals(cPassword))){
 					tvSenha.setError(v.getResources().getString(R.string.unmatched_pass), errorIcon);
 					focusView = tvSenha;
-					focusView.requestFocus();
 				}else if (!(email.contains("@"))){
 					tveMail.setError(v.getResources().getString(R.string.invalid_email), errorIcon);
 					focusView = tveMail;
-					focusView.requestFocus();
 				}else if (deviceIds.size() == 0){
 					cbList.get(0).setError(v.getResources().getString(R.string.no_devices));
 					focusView = layout;
-					focusView.requestFocus();
 				}else{
 					createUser(email, password, name, email, house, deviceIds);
 					Intent i =  new Intent(getApplicationContext(),AdminActivity.class);
+					i.putExtra("tab", 2);
 					startActivity(i);
 					finish();
 				}
-				//AdminActivity.updateUsers();
-				
-				
+				focusView.requestFocus();
 			}
 		});
 		

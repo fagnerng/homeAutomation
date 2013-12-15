@@ -7,7 +7,7 @@
     <ListView
         android:id="@+id/list_user"
         android:layout_width="fill_parent"
-        android:layout_height="362dp"
+        android:layout_height="410dp"
         android:paddingTop="20dp" >
     </ListView>
 
@@ -17,8 +17,8 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginBottom="57dp"
-        android:shape="rectangle"
         android:background="@drawable/comportamento_botao"
+        android:shape="rectangle"
         android:text="@string/new_user" />
 
 </LinearLayout>

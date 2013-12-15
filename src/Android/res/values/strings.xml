@@ -34,7 +34,7 @@
     <string name="missing_parameters">programmer error , reporting the app  </string>
     <string name="unkwon_erro">Unknown Error </string>
     <string name="manage_devices"> Devices User</string>
-    <string name="distance_title">Notifications distance</string>
+    <string name="distance_title">Notifications</string>
     <string name="temperatura"> Temperature default</string>
     <string name="timer">Timer default</string>
     <string name="timer_config">Setting Timer</string>
