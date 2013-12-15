@@ -22,7 +22,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
-        android:maxLength="35"
+        android:paddingLeft="6dp"
+        android:maxLength="50"
         android:background="@drawable/text_fields"
         android:inputType="textPersonName" >
     </EditText>
@@ -43,8 +44,9 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
+        android:paddingLeft="6dp"
         android:background="@drawable/text_fields"
-        android:maxLength="35"
+        android:maxLength="50"
         android:inputType="textEmailAddress" />
 
     <TextView
@@ -63,6 +65,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
+        android:paddingLeft="6dp"
         android:maxLength="35"
         android:background="@drawable/text_fields"
         android:inputType="textPassword" />
@@ -83,6 +86,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
+        android:paddingLeft="6dp"
         android:background="@drawable/text_fields"
         android:maxLength="35"
         android:inputType="textPassword" />

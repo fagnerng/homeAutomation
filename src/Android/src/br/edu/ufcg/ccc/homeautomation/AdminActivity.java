@@ -166,7 +166,7 @@ public class AdminActivity extends FragmentActivity {
                     final EditText cPass  = (EditText) rootView.findViewById(R.id.child_profile_pass_confirm);
                     name.setText(mUser.getName());
                     email.setText(mUser.getEmail());
-                     final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
+                    final Button tvSave = (Button) rootView.findViewById(R.id.tv_save);
                     tvSave.setOnClickListener(new View.OnClickListener() {
                     	
 						@Override
@@ -180,7 +180,7 @@ public class AdminActivity extends FragmentActivity {
 								 name.setError(v.getResources().getString(R.string.short_name));
 								 focusView = name;
 								 focusView.requestFocus();
-							 }else if (textPass.length() < 4 && textPass.length() != 4){
+							 }else if (textPass.length() >1 && textPass.length() <= 4){
 									pass.setError(v.getResources().getString(R.string.short_pass));
 									focusView = pass;
 									focusView.requestFocus();
