@@ -166,6 +166,7 @@ exports.switchDev = function(body, callback)
 						}
 							switchPower({id:body.devices, status:status, host:house.ip, temperature:body.temperature},function(){});
 							devices[tokens[body.user].house][body.devices].status = body.status;
+							devices[tokens[body.user].house][body.devices].temperature = body.temperature;
 							saveData(devices, 'device');
 							callback(null,"");
 						}

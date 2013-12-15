@@ -43,7 +43,7 @@ public class AsycMakeNotification extends AsyncTask<Void, Void, Void>{
 		            .setWhen(System.currentTimeMillis())
 		            .setAutoCancel(true)
 		            .setContentTitle(res.getString(R.string.app_name))
-		            .setContentText(mText + ": esta ligado");
+		            .setContentText(mText + ": "+mContext.getString(R.string.is_power_on));
 		builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 		builder.setVibrate(new long[] {100,200,100,200});
 		Notification n = builder.build();

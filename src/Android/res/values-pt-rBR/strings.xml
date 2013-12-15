@@ -128,5 +128,9 @@
     <string name="title_activity_location">LocationActivity</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
+    
+    <string name="power_on">Ligado</string>
+    <string name="power_off">Desligado</string>
+    <string name="is_power_on">Está ligado</string>
 
 </resources>

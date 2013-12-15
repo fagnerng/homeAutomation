@@ -95,7 +95,7 @@ public abstract class Device implements Serializable{
 		this.timer = timer;
 	}
 	
-	abstract public String getStringStatus();
+	abstract public String getStatusStringID();
 	
 	public abstract int getIconID();
 	

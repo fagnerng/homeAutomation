@@ -57,7 +57,7 @@ public class AirCondition extends Device {
 	}
 
 	@Override
-	public String getStringStatus() {
+	public String getStatusStringID() {
 		
 		return temperature + " ºC";
 	}

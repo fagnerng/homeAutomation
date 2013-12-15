@@ -32,6 +32,7 @@ public class DeviceAdapter extends BaseAdapter{
 	private ImageButton editDevice;
 	private ImageButton buttonStatus;
 	private Spinner spinTimes;
+	private Spinner spinTemp;
 	private Drawable on;
 	private Drawable off;
 	private Device mDev;
@@ -39,6 +40,7 @@ public class DeviceAdapter extends BaseAdapter{
 	private Animation rotate;
 	
 	private int settedTime;	
+	private int settedTemp = -1;
 	
 	public DeviceAdapter (Context context, List<Device> devs){
 		mInflater = LayoutInflater.from(context);
@@ -76,7 +78,15 @@ public class DeviceAdapter extends BaseAdapter{
 		final Drawable off = view.getResources().getDrawable(R.drawable.switch_icon_off);
 		
 		TextView tv_status = (TextView) view.findViewById(R.id.tv_status_device);
-		String status = dev.getStringStatus();
+		String status= "";
+		try{
+			int id = Integer.parseInt(dev.getStatusStringID());
+			status = view.getResources().getString(id);
+		}catch(Exception e) {
+			status = dev.getStatusStringID();
+		}
+		
+		
 		tv_status.setText(status);
 		
 		final ImageButton ib_edit = (ImageButton) view.findViewById(R.id.ib_icon_edit);
@@ -169,6 +179,7 @@ public class DeviceAdapter extends BaseAdapter{
 			dialogEditDevice.setContentView(R.layout.dialog_aircond_edit);
 			bt_Confirm = (Button) dialogEditDevice.findViewById(R.id.air_confirm);
 			bt_Cancel = (Button) dialogEditDevice.findViewById(R.id.air_cancel);
+			spinTemp = (Spinner) dialogEditDevice.findViewById(R.id.spinner_default_temperatures);
 		}
 		
 		on = dialogEditDevice.getContext().getResources().getDrawable(R.drawable.switch_icon_on);
@@ -188,6 +199,22 @@ public class DeviceAdapter extends BaseAdapter{
 					int arg2, long arg3) {
 				
 				settedTime = Integer.parseInt((String) spinTimes.getSelectedItem());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		spinTemp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+				settedTemp = Integer.parseInt((String) spinTemp.getSelectedItem());
 			}
 
 			@Override
@@ -254,7 +281,13 @@ public class DeviceAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				
+				if (settedTemp != -1){
+					try{
+						((AirCondition)mDev).setTemperature(settedTemp);
+					}catch(Exception e){
+						
+					}
+				}
 				
 				if (settedTime != 0){
 					mDev.setTimer(settedTime);

@@ -24,11 +24,11 @@ public class Light extends Device {
 	}
 
 	@Override
-	public String getStringStatus() {
+	public String getStatusStringID() {
 		if(super.status){
-			return "Ligado";
+			return R.string.power_on+"";
 		}
-		return "Desligado";
+		return R.string.power_off+"";
 	}
 
 	@Override
