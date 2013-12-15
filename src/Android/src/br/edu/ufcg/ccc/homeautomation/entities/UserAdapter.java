@@ -79,7 +79,7 @@ public class UserAdapter extends BaseAdapter{
 		Button excluirNao = (Button) excluir.findViewById(R.id.excluirNao);
 		excluir.show();
 		rotate.reset();
-		excluirNao.setOnClickListener(new View.OnClickListener() {
+		excluirSim.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -90,7 +90,7 @@ public class UserAdapter extends BaseAdapter{
 			}
 		});
 		
-		excluirSim.setOnClickListener(new View.OnClickListener() {
+		excluirNao.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

@@ -5,7 +5,7 @@
     <string name="action_settings">Configurações</string>
     <string name="password">Senha</string>
     <string name="username">Usuário</string>
-    <string name="action_sign_in_register">Logar</string>
+    <string name="action_sign_in_register">Entrar</string>
     <string name="error_invalid_email">Esse Email não é válido</string>
     <string name="error_invalid_password">Esta senha é muito curta</string>
     <string name="error_incorrect_password">A senha está incorreta</string>

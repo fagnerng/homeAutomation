@@ -144,6 +144,7 @@ public class RegisterActivity extends Activity {
 					createUser(email, password, name, email, house, deviceIds);
 					Intent i =  new Intent(getApplicationContext(),AdminActivity.class);
 					startActivity(i);
+					finish();
 				}
 				//AdminActivity.updateUsers();
 				
@@ -163,6 +164,11 @@ public class RegisterActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 	
 
