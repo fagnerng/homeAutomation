@@ -210,7 +210,7 @@ public class ChildActivity extends FragmentActivity {
 							 name.setError(v.getResources().getString(R.string.short_name));
 							 focusView = name;
 							 focusView.requestFocus();
-						 }else if (textPass.length() < 4){
+						 }else if (textPass.length() < 4 && textPass.length() > 0){
 								pass.setError(v.getResources().getString(R.string.short_pass));
 								focusView = pass;
 								focusView.requestFocus();

@@ -28,9 +28,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
+                android:singleLine="true"
                 android:background="@drawable/text_fields"
                 android:hint="@string/child_activity_name"
-                android:maxLength="35"
+                android:maxLength="50"
                 android:paddingLeft="5dp"
                 android:textColor="@color/white" >
             </EditText>
@@ -52,7 +53,7 @@
                 android:background="@drawable/text_fields"
                 android:hint="@string/child_activity_email"
                 android:inputType="textEmailAddress"
-                android:maxLength="20"
+                android:maxLength="50"
                 android:paddingLeft="5dp"
                 android:textColor="@color/white" />
 
@@ -73,7 +74,7 @@
                 android:background="@drawable/text_fields"
                 android:hint="@string/child_activity_pass"
                 android:inputType="textPassword"
-                android:maxLength="20"
+                android:maxLength="50"
                 android:paddingLeft="5dp"
                 android:textColor="@color/white" />
 
